@@ -1,0 +1,53 @@
+<md-dialog aria-label="Edit Meter" flex>
+  <md-content>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to deallocate meter <strong>{{selectedMeter.meterNo}}</strong> from connection <strong>{{selectedMeter.accountId}}</strong></md-subheader>
+    <div layout="column" flex>
+      <md-content class="md-padding">
+        <form name="myForm.object">
+          <div class="pull-left">
+            <p>
+              Meter Number: <strong>{{selectedMeter.meterNo}}</strong>
+            </p>
+            <p>
+              Initial Meter Reading: <strong>{{selectedMeter.initialReading}}</strong>
+            </p>
+          </div>
+          <div class="pull-right">
+            <p>
+              Meter Owner: <strong>{{selectedMeter.meterOwner.name}}</strong>
+            </p>
+            <p>
+              MeterSize: <strong>{{selectedMeter.meterSize.size}}</strong>
+            </p>
+          </div>
+          <div class="clearfix"></div>
+
+
+          <md-input-container>
+            <label>Notes</label>
+                  <textarea required name="notes" ng-model="form.notes">
+                  </textarea rows="4" cols="50">
+            <div ng-messages="myForm.object.notes.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+
+
+          <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div  layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel();">
+              Close
+            </md-button>
+            <md-button  class="md-primary" ng-click="deallocate(form);">
+              Deallocate
+            </md-button>
+          </div>
+        </form>
+      </md-content>
+    </div>
+  </md-content>
+</md-dialog>

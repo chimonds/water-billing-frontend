@@ -1,0 +1,66 @@
+<md-dialog aria-label="Edit connection" flex>
+  <md-content>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to transfer account to another consumer</md-subheader>
+    <div layout="column" flex>
+      <md-content class="md-padding">
+        <form name="myForm.object">
+          <md-input-container>
+            <label>Account Number</label>
+            <input maxlength="9" disabled="disabled" required type="number" name="accNo" ng-model="form.accNo">
+            <div ng-messages="myForm.object.accNo.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="maxlength">The account number has to be less than 9 characters long.</div>
+            </div>
+          </md-input-container>
+
+
+          <md-input-container>
+            <label>Consumer#</label>
+            <input minlength="" maxlength="6" type="number" name="consumerId" ng-model="form.consumerId" ng-change="searchConsumer()">
+
+            <div ng-messages="myForm.object.consumerId.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="maxlength">The name has to be less than 6 characters long.</div>
+            </div>
+          </md-input-container>
+
+          <div ng-show="!errorOccured">
+            <md-card>
+              <md-card-content>
+                <md-content>
+                  <p>
+                    Name: <strong>{{consumer.firstName | uppercase}} {{consumer.middleName | uppercase}} {{consumer.lastName | uppercase}}</strong>
+                  </p>
+                  <p>
+                    Identity No: <strong>{{consumer.identityNo}}</strong>
+                  </p>
+                  <p>
+                    Phone Number: <strong>{{consumer.phoneNumber}}</strong>
+                  </p>
+                </md-content>
+              </md-card-content>
+            </md-card>
+          </div>
+          <br />
+          <div ng-show="errorOccured" ng-class="errorClass" role="alert">{{errorMsg}}
+          </div>
+
+          <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}
+          </div>
+
+
+          <div  layout="row">
+            <br>
+            <span flex></span>
+            <md-button ng-click="cancel();">
+              Close
+            </md-button>
+            <md-button ng-disabled="!consumerFound" class="md-primary" ng-click="transfer(form);">
+              Transfer
+            </md-button>
+          </div>
+        </form>
+      </md-content>
+    </div>
+  </md-content>
+</md-dialog>

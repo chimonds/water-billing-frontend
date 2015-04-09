@@ -1,0 +1,62 @@
+<md-dialog aria-label="Add Meter" flex>
+  <md-content>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to add meter</md-subheader>
+    <div layout="column" flex>
+      <md-content class="md-padding">
+        <form name="myForm.object">
+          <md-input-container>
+            <label>Meter Number</label>
+            <input md-maxlength="15" required name="meterNo" ng-model="form.meterNo">
+            <div ng-messages="myForm.object.meterNo.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 15 characters long.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Initial Meter Reading</label>
+            <input type="number"  required name="initialReading" ng-model="form.initialReading">
+            <div ng-messages="myForm.object.initialReading.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+          <!--Meter Sizes-->
+          <md-select required name="meterSizes" ng-model="form.meterSize" placeholder="Assign a meter size">
+            <md-option ng-repeat="meterSize in meterSizes" value="{{$index}}">
+              {{meterSize.size}} - KES {{meterSize.rentAmount}}
+            </md-option>
+          </md-select>
+          <div ng-messages="myForm.object.meterSizes.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+
+          <!--Meter Owners-->
+          <md-select required name="meterOwners" ng-model="form.meterOwner" placeholder="Assign a meter owner">
+            <md-option ng-repeat="meterOwner in meterOwners" value="{{$index}}">
+              {{meterOwner.name}}
+            </md-option>
+          </md-select>
+          <div ng-messages="myForm.object.meterOwners.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+
+
+          <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div  layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel();">
+              Close
+            </md-button>
+            <md-button class="md-primary" ng-click="save(form);">
+              Save
+            </md-button>
+          </div>
+        </form>
+      </md-content>
+    </div>
+  </md-content>
+</md-dialog>

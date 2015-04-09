@@ -1,0 +1,54 @@
+<md-card>
+  <md-card-content>
+<md-content>
+  <md-subheader class="md-primary">Use this panel to manage consumers</md-subheader>
+  <md-button class="md-primary pull-right" ng-click="addConsumerDialog();">
+    <span class="icon-plus action-button" aria-hidden="true"></span>
+  </md-button>
+  <div class="clearfix"></div>
+  <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+    {{errorMsg}}
+  </div>
+  <md-input-container flex class="md-default-theme">
+    <label for="input_041">Search</label>
+    <input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+  </md-input-container>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>NAME</th>
+      <th>IDENTITY NO</th>
+      <th>MOBILE NUMBER</th>
+      <th>EMAIL ADDRESS</th>
+      <th>CREATED</th>
+      <th>
+        <span class="pull-right total-records">{{totalConsumers | number}} Records</span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr dir-paginate="consumer in consumers | itemsPerPage: 10" total-items="totalConsumers" pagination-id="pagePagination">
+      <td>{{consumer.consumerId}}</td>
+      <td>{{ consumer.firstName | uppercase}} {{consumer.lastName | uppercase}} {{consumer.middleName | uppercase}}</td>
+      <td>{{consumer.identityNo}}</td>
+      <td>{{consumer.phoneNumber}}</td>
+      <td>{{consumer.emailAddress | lowercase}}</td>
+      <td>
+        <span am-time-ago="consumer.createdOn"> </span>
+      </td>
+      <td align="right">
+        <md-button class="md-primary" ng-click="editConsumerDialog($index)">Edit</md-button>
+        <md-button class="md-primary" ng-click="viewConsumerProfile($index)">View</md-button>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="7" align="center">
+        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</md-content>
+    </md-card-content>
+  </md-card>

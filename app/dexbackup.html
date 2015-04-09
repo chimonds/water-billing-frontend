@@ -1,0 +1,99 @@
+<div layout="column" layout-fill ng-controller="YourController" flex>
+   <md-toolbar  ng-show="showMainToolbar" scroll-shrink layout="row" class="sticky-nav">
+      <div class="md-toolbar-tools">
+         <h2 flex="70">
+            <md-button ng-click="toggleMenu()" aria-label="Toggle menu">
+               <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+            </md-button>
+            <span>EquiChai</span>
+         </h2>
+         <h2 flex="30" class="pull-right">
+               <md-button ng-href="#logout" class="pull-right" aria-label="Logout">
+                  <span aria-hidden="true" class="icon-power"></span>
+               </md-button>
+
+                <md-button class="pull-right">
+           {{currentUser.name}} 
+         </md-button>
+           
+         </h2>
+      </div>
+   </md-toolbar>
+   <md-content layout="vertical" flex style="min-height: 200px;height:auto;">
+      <!-- LEFT SIDEBAR -->
+
+      <md-sidenav   class="md-sidenav-left sticky-navsidebar" md-component-id="left">
+         <!-- <md-toolbar > -->
+
+
+         <md-toolbar >
+            <h1 class="md-toolbar-tools">Menu</h1>
+         </md-toolbar>
+         <md-content ng-controller="LeftCtrl" class="md-padding" flex layout="column" layout-align="start">
+
+
+           <md-button ui-sref="dashboard" class="md-primary" >
+               <span aria-hidden="true" class="icon-grid"></span>
+               Dashboard
+            </md-button>
+
+            <md-button ui-sref="consumers" class="md-primary" >
+               <span aria-hidden="true" class="icon-users"></span>
+               Consumers
+            </md-button>
+
+            <md-button ui-sref="accounts" class="md-primary" >
+               <span aria-hidden="true" class="icon-share"></span>
+               Connections
+            </md-button>
+
+            <md-button ui-sref="payments" class="md-primary" >
+               <span aria-hidden="true" class="icon-wallet"></span>
+               Payments
+            </md-button>
+
+
+            <h4 class="menu-header">Billing Setup</h4>
+            <md-button ui-sref="billing_months" class="md-primary" >
+               <span aria-hidden="true" class="icon-calendar"></span>
+               Billing Months
+            </md-button>
+
+            <md-button ui-sref="locations" class="md-primary" >
+               <span aria-hidden="true" class="icon-pointer"></span>
+               Locations
+            </md-button>
+
+
+            <md-button ui-sref="zones" class="md-primary" >
+               <span aria-hidden="true" class="icon-cursor-move"></span>
+               Zones
+            </md-button>
+
+
+
+
+
+            <h4 class="menu-header">Administration</h4>
+
+            <md-button ui-sref="users" class="md-primary" >
+               <span aria-hidden="true" class="icon-user"></span>
+               Users
+            </md-button>
+            <md-button ui-sref="roles" class="md-primary" >
+               <span aria-hidden="true" class="icon-lock-open"></span>
+               Roles
+            </md-button>
+            <md-button ui-sref="settings" class="md-primary" >
+               <span aria-hidden="true" class="icon-settings"></span>
+               Settings
+            </md-button>
+            <md-divider></md-divider>
+         </md-content>
+      </md-sidenav>
+      <md-content id="main" layout="horizontal" flex layout-align="center" style="margin-top:80px">
+         <md-content ui-view flex="90">
+         </md-content>
+      </md-content>
+   </md-content>
+</div>

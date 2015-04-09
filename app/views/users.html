@@ -1,0 +1,51 @@
+<md-card>
+<md-card-content>
+<md-content>
+   <md-subheader class="md-primary">Use this panel to manage users</md-subheader>
+   <md-content>
+      <md-button class="md-primary pull-right" ng-click="addUserDialog();">
+         <span class="icon-plus action-button" aria-hidden="true"></span>
+      </md-button>
+      <div class="clearfix"></div>
+      <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+         {{errorMsg}}
+      </div>
+      <md-input-container flex class="md-default-theme">
+         <label for="input_041">Search</label>
+         <input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seachUsers()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+      </md-input-container>
+      <table class="table table-hover">
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Email</th>
+               <th>Created</th>
+               <th>Active</th>
+               <th>Role</th>
+               <th></th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr dir-paginate="user in users | itemsPerPage: 10" total-items="totalUsers" pagination-id="usersPagination">
+               <td>{{ user.firstName }} {{user.lastName }}</td>
+               <td>{{user.emailAddress}}</td>
+               <td>
+                  <span am-time-ago="user.createdOn"> </span>
+               </td>
+               <td>{{user.active}}</td>
+               <td>{{user.userRole.name}}</td>
+               <td align="right">
+                  <md-button class="md-primary" ng-click="editUserDialog($index)">Edit</md-button>
+               </td>
+            </tr>
+            <tr>
+               <td colspan="6" align="center">
+                  <dir-pagination-controls on-page-change="pageChangedUsers(newPageNumber)" pagination-id="usersPagination"></dir-pagination-controls>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </md-content>
+</md-content>
+</md-card-content>
+</md-card>

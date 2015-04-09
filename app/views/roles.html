@@ -1,0 +1,134 @@
+<md-card>
+<md-card-content>
+   <md-content>
+   <md-subheader class="md-primary">Use this panel to manage user roles</md-subheader>
+   <md-content ng-show="showRoles">
+      <md-button class="md-primary pull-right" ng-click="addRoleDialog();" aria-label="Add Role">
+         <span class="icon-plus action-button" aria-hidden="true"></span>
+      </md-button>
+      <div class="clearfix"></div>
+      <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+         {{errorMsg}}
+      </div>
+      <md-input-container flex class="md-default-theme">
+         <label for="input_041">Search</label>
+         <input ng-init="contactsGroupFilter = {}" ng-model="roleFilter.text" ng-change="seachRole()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+      </md-input-container>
+      <table class="table table-hover">
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Description</th>
+               <th>Created</th>
+               <th></th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr dir-paginate="role in roles | itemsPerPage: 10" total-items="totalRoles" pagination-id="rolesPagination">
+               <td>{{ role.name }}</td>
+               <td>
+                  <span class="md-padding">
+                     {{ role.description }}
+                  </span>
+               </td>
+               <td>
+                  <span am-time-ago="role.createdOn"> </span>
+               </td>
+               <td align="right">
+                  <md-button class="md-primary" ng-click="editRoleDialog($index)" aria-label="Edit Role">Edit</md-button>
+                  <md-button class="md-primary" ng-click="viewRoleProfile($index)" aria-label="View Role Profile">View</md-button>
+               </td>
+            </tr>
+            <tr>
+               <td colspan="4" align="center">
+                  <dir-pagination-controls on-page-change="pageChangedRoles(newPageNumber)" pagination-id="rolesPagination"></dir-pagination-controls>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </md-content>
+   <md-content ng-show="showRoleProfile">
+      <md-button class="md-primary pull-right " ng-click="viewRoles();" aria-label="View Role Profile">
+         <span class="icon-arrow-up action-button" aria-hidden="true"></span>
+      </md-button>
+      <div style="margin-left:10px;">
+         <h3>
+            {{selectedRole.name}} Role
+         </h3>
+         <p>
+            {{selectedRole.description}}
+         </p>
+      </div>
+      <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+         {{errorMsg}}
+      </div>
+      <!-- <md-content  flex> -->
+      <md-content layout="row" flex  layout-fill>
+         <md-card flex>
+            <md-card-content>
+               <md-subheader class="md-primary">Assigned Permissions</md-subheader>
+               <md-input-container flex class="md-default-theme">
+                  <label for="input_041">Search</label>
+                  <input ng-model="searchAssignedRoles"  class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+               </md-input-container>
+               <p>
+                  <md-list style="height:auto;">
+                     <md-item  dir-paginate="assigned in assignedPermissions | itemsPerPage: 10 | filter:searchAssignedRoles"  pagination-id="assignedPermissionsPagination">
+                        <span >
+                           <md-button aria-label="Remove Permissions" class="md-primary pull-right " ng-click="removePermission($index);">
+                              <span class="icon-close action-permission" aria-hidden="true"></span>
+                           </md-button>
+                           <strong>
+                           {{assigned.name}}
+                           </strong>
+                           <br />
+                           <span>
+                           {{assigned.description}}
+                           </span>
+                           <md-divider ng-if="!$last"></md-divider>
+                        </span>
+                        <span class="clearfix"></span>
+                     </md-item>
+                     <dir-pagination-controls  pagination-id="assignedPermissionsPagination"></dir-pagination-controls>
+                  </md-list>
+               </p>
+            </md-card-content>
+         </md-card>
+         <md-card flex>
+            <md-card-content>
+               <md-subheader class="md-primary">Available Permissions</md-subheader>
+               <md-input-container flex class="md-default-theme">
+                  <label for="input_041">Search</label>
+                  <input ng-model="searchaAvailableRoles"  class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+               </md-input-container>
+               <p>
+                  <md-list style="height:auto;">
+                     <md-item  dir-paginate="available in availablePermissions | itemsPerPage: 10 | filter:searchaAvailableRoles" pagination-id="availablePermissionsPagination">
+                        <span>
+                           <md-button class="md-primary pull-right " ng-click="addPermission($index);" aria-label="Add Permissions">
+                              <span class="icon-plus action-permission" aria-hidden="true"></span>
+                           </md-button>
+                           <strong>
+                           {{available.name}}
+                           </strong>
+                           <br />
+                           <span>
+                           {{available.description}}
+                           </span>
+                           <md-divider ng-if="!$last"></md-divider>
+                        </span>
+                        <span class="clearfix"></span>
+                     </md-item>
+                     <md-item>
+                        <dir-pagination-controls  pagination-id="availablePermissionsPagination"></dir-pagination-controls>
+                     </md-item>
+                  </md-list>
+               </p>
+            </md-card-content>
+         </md-card>
+      </md-content>
+      <!--   </md-content> -->
+   </md-content>
+</md-content>
+</md-card-content>
+</md-card>

@@ -1,0 +1,39 @@
+<md-dialog aria-label="brown" flex>
+   <md-content>
+      <md-subheader class="md-sticky-no-effect md-primary">Use this panel to add user role</md-subheader>
+      <div layout="column" flex>
+         <md-content class="md-padding">
+            <form name="myForm">
+               <md-input-container>
+                  <label>Name</label>
+                  <input md-maxlength="30" required name="roleName" ng-model="project.name" ng-pattern="/^[a-zA-Z_ ]*$/">
+                  <div ng-messages="myForm.roleName.$error">
+                     <div ng-message="required">This is required.</div>
+                     <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                     <div ng-message="pattern">Special characters not allowed :)</div>
+                  </div>
+               </md-input-container>
+               <md-input-container>
+                  <label>Description</label>
+                  <textarea required name="roleDescription" ng-model="project.description" ng-pattern="/^[a-zA-Z_ ]*$/">
+                  </textarea rows="4" cols="50">
+                  <div ng-messages="myForm.roleDescription.$error">
+                     <div ng-message="required">This is required.</div>
+                     <div ng-message="pattern">Special characters not allowed</div>
+                  </div>
+               </md-input-container>
+               <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}</div>
+               <div class="md-actions" layout="row">
+                  <span flex></span>
+                  <md-button  ng-click="cancel();">
+                     Close
+                  </md-button>
+                  <md-button class="md-raised md-primary" ng-click="save(project);">
+                     Save
+                  </md-button>
+               </div>
+            </form>
+         </md-content>
+      </div>
+   </md-content>
+</md-dialog>

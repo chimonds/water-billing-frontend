@@ -1,0 +1,68 @@
+<md-dialog aria-label="Edit User Role" flex>
+  <md-content>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to add a consumer</md-subheader>
+    <div layout="column" flex>
+      <md-content class="md-padding">
+        <form name="myForm.object">
+          <md-input-container>
+            <label>First Name</label>
+            <input md-maxlength="100" required name="firstName" ng-model="form.firstName" ng-pattern="/^[a-zA-Z_ ]*$/">
+            <div ng-messages="myForm.object.firstName.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 100 characters long.</div>
+              <div ng-message="pattern">Special characters not allowed</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Middle Name</label>
+            <input md-maxlength="100"  name="middleName" ng-model="form.middleName">
+          </md-input-container>
+
+          <md-input-container>
+            <label>Last Name</label>
+            <input md-maxlength="100"  name="lastName" ng-model="form.lastName">
+          </md-input-container>
+
+          <md-input-container>
+            <label>Identity No/ KRA PIN</label>
+            <input md-maxlength="15" required name="identityNo" ng-model="form.identityNo">
+            <div ng-messages="myForm.object.identityNo.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 15 characters long.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Mobile Number</label>
+            <input md-maxlength="15"  name="phoneNumber" ng-model="form.phoneNumber">
+          </md-input-container>
+
+          <md-input-container>
+            <label>Email Address</label>
+            <input md-maxlength="80" type="email"  name="emailAddress" ng-model="form.emailAddress">
+            <div ng-messages="myForm.object.emailAddress.$error">
+              <div ng-message="md-maxlength">The name has to be less than 80 characters long.</div>
+            </div>
+          </md-input-container>
+
+
+          <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div  layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel();">
+              Close
+            </md-button>
+            <md-button class="md-primary" ng-click="save(form);">
+              Save
+            </md-button>
+          </div>
+        </form>
+      </md-content>
+    </div>
+  </md-content>
+</md-dialog>

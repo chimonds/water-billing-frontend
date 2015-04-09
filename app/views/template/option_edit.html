@@ -1,0 +1,42 @@
+<md-dialog aria-label="brown" flex>
+   <md-content>
+      <md-subheader class="md-sticky-no-effect md-primary">Use this panel to a system option</md-subheader>
+      <div layout="column" flex>
+         <md-content class="md-padding">
+            <form name="myForm.object">
+               <md-input-container>
+                  <label>Name</label>
+                  <input  disabled="disabled" md-maxlength="150" required name="optionName" ng-model="form.name">
+               </md-input-container>
+               <md-input-container>
+                  <label>Description</label>
+                  <input disabled="disabled" md-maxlength="250" required name="optionDescription" ng-model="form.description">
+                  <div ng-messages="myForm.object.optionDescription.$error">
+                     <div ng-message="required">This is required.</div>
+                     <div ng-message="md-maxlength">The name has to be less than 250 characters long.</div>
+                  </div>
+               </md-input-container>
+               <md-input-container>
+                  <label>Value</label>
+                  <input md-maxlength="100" required name="optionValue" ng-model="form.value">
+                  <div ng-messages="myForm.object.optionValue.$error">
+                     <div ng-message="required">This is required.</div>
+                     <div ng-message="md-maxlength">The name has to be less than 100 characters long.</div>
+                  </div>
+               </md-input-container>
+
+               <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}</div>
+               <div class="md-actions" layout="row">
+                  <span flex></span>
+                  <md-button  ng-click="cancel();">
+                     Close
+                  </md-button>
+                  <md-button class="md-raised md-primary" ng-click="update(form);">
+                     Update
+                  </md-button>
+               </div>
+            </form>
+         </md-content>
+      </div>
+   </md-content>
+</md-dialog>

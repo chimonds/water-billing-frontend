@@ -1,0 +1,29 @@
+<md-card  layout="row" layout-align="center center">
+   <md-toolbar>
+      <h2 class="md-toolbar-tools">
+         <span aria-hidden="true" class="icon-info pull-right"></span> &nbsp;
+         <span class="pull-right">Something happened...</span>
+      </h2>
+   </md-toolbar>
+   <md-card-content>
+      <md-content>
+         <div layout="column" layout-align="center center">
+            <div>
+               <p>
+                  Since it looked like you took a break from this application, we logged you out to help protect your account. 
+               </p>
+               <p>
+                  Any unsaved information you entered or incomplemte transaction you started was removed.
+               </p>
+               <p>
+                  <a href="#login"> Click here</a> to login again 
+               </p>
+               {{message}} 
+            </div>
+            <div>
+               <!-- <md-button class="md-raised md-primary" ng-href="#login">Login</md-button> -->
+            </div>
+         </div>
+      </md-content>
+   </md-card-content>
+</md-card>

@@ -1,0 +1,54 @@
+<div  layout-align="center center" layout="column" flex >
+   <md-content>
+      <md-content style="width:550px;">
+         <md-card flex layout="row" layout-align="center center">
+            <md-toolbar flex="40">
+               <div class="md-toolbar-tools">
+                  <span flex>
+                  <span class="pull-left">
+                     Bulk SMS Portal
+                  <!-- Ballin POS -->
+                  <!-- Teal POS -->
+                  </span>
+                  <span class="pull-right">
+                  <span aria-hidden="true" class="icon-tag"></span>
+                  </span>
+                  </span>
+               </div>
+            </md-toolbar>
+            <md-card-content flex="60">
+               <md-content>
+                  <md-content class="md-padding md-accent">
+                     <form name="myForm.object">
+                        <md-input-container>
+                           <label>Email Address</label>
+                           <input type="email" required name="emailAddress" ng-model="myForm.username"/>
+                           <div ng-messages="myForm._email.$error">
+                              <div ng-message="required">This is required.</div>
+                           </div>
+                        </md-input-container>
+                        <md-input-container>
+                           <label>Password</label>
+                           <input type="password" required name="_password" ng-model="myForm.password"/>
+                           <div ng-messages="myForm._password.$error">
+                              <div ng-message="required">This is required.</div>
+                           </div>
+                        </md-input-container>
+                        <div ng-show="myForm.showErrorInfo" ng-class="myForm.errorClass" role="alert">{{myForm.errorInfo}}</div>
+                        <div flex>
+                           <md-button class="md-primary pull-right" ng-click="submit(myForm)">
+                              Login
+                           </md-button>
+                        </div>
+                     </form>
+                     <div class="clearfix" style="padding-top:10px;"></div>
+                     <div class="pull-right">
+                     </div>
+                  </md-content>
+               </md-content>
+            </md-card-content>
+         </md-card>
+         <md-card>
+      </md-content>
+   </md-content>
+</div>

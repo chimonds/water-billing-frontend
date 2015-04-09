@@ -1,0 +1,41 @@
+<md-card>
+<md-card-content>
+<md-content>
+   <md-subheader class="md-primary">Use this panel to manage system options</md-subheader>
+   <md-content>
+      <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+         {{errorMsg}}
+      </div>
+      <md-input-container flex class="md-default-theme">
+         <label for="input_041">Search</label>
+         <input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seachUsers()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+      </md-input-container>
+      <table class="table table-hover">
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Description</th>
+               <th>Value</th>
+               <th></th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr dir-paginate="option in options | itemsPerPage: 10" total-items="totalOptions" pagination-id="optionsPagination">
+               <td>{{option.name}}</td>
+               <td>{{option.description}}</td>
+               <td>{{option.value}}</td>
+               <td align="right">
+                  <md-button class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>
+               </td>
+            </tr>
+            <tr>
+               <td colspan="4" align="center">
+                  <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="optionsPagination"></dir-pagination-controls>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </md-content>
+</md-content>
+</md-card-content>
+</md-card>

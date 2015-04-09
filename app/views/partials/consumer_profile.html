@@ -1,0 +1,138 @@
+
+<md-content flex layout-fill>
+  <md-button class="md-primary pull-right" ng-click="viewConsumers();">
+    <span class="icon-arrow-up action-button" aria-hidden="true"></span>
+  </md-button>
+  <div class="clearfix"></div>
+
+
+
+
+  <md-content>
+    <md-card>
+      <md-card-content>
+        <h1 style="font-weight: 200;">
+
+            {{ selectedConsumer.firstName | uppercase}}
+            {{selectedConsumer.middleName | uppercase}}
+            {{selectedConsumer.lastName | uppercase}}
+
+          <span class="pull-right money-color">KES {{totalBalance | number}}</span>
+
+        </h1>
+        <p>
+          <md-divider></md-divider>
+        </p>
+        <div flex layout="row">
+          <div flex="50">
+            <p>
+              Created:
+              <strong>{{selectedConsumer.createdOn | date}}</strong>
+            </p>
+            <p>
+              Identity Number :
+              <strong>{{selectedConsumer.identityNo}}</strong>
+            </p>
+            <p>
+              Created By :
+              <strong>{{selectedConsumer.identityNo}}</strong>
+            </p>
+
+          </div>
+          <div flex="50">
+          <span class="pull-right">
+
+            <p>
+              Postal Address:
+              <strong>
+                  {{selectedConsumer.postalAddress}}
+              </strong>
+            </p>
+
+            <p>
+              Email Address:
+              <strong>
+                {{selectedConsumer.emailAddress}}
+              </strong>
+            </p>
+
+          <p>
+            Mobile Number:
+            <strong>{{selectedConsumer.phoneNumber}} </strong>
+          </p>
+          </span>
+
+          </div>
+
+
+        </div>
+
+
+        <md-subheader class="md-primary" flex layout-fill style="padding-left: 0;">
+          Account List
+
+          <md-button class="md-primary pull-right" ng-click="addAccountDialog();">
+            <span class="icon-plus action-button" aria-hidden="true"></span>
+          </md-button>
+        </md-subheader>
+
+        <div class="clearfix"></div>
+        <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+          {{errorMsg}}
+        </div>
+
+
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>ACCOUNT#</th>
+            <th>CREATED</th>
+            <th>LOCATION</th>
+            <th>ZONE</th>
+            <th>TARIFF</th>
+            <th>AVERAGE</th>
+            <th>METERED</th>
+            <th>ACTIVE</th>
+            <th><span class="pull-right">BALANCE B/F</span></th>
+            <th><span class="pull-right">BALANCE</span></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr dir-paginate="account in accounts | itemsPerPage: 10" total-items="totalAccounts">
+            <td>{{ account.accNo }}</td>
+            <td>{{ account.createdOn | date }}</td>
+            <td>{{account.location.name}}</td>
+            <td>{{account.zone.name}}</td>
+            <td>{{account.tariff.name}}</td>
+            <td>{{account.averageConsumption}}</td>
+            <td>{{account.metered}}</td>
+            <td>{{account.active}}</td>
+
+
+            <td align="right">
+              <span class="money-color">
+                KES {{account.balanceBroughtForward | number}}
+              </span>
+            </td>
+            <td align="right">
+              <span class="money-color">
+                KES {{account.outstandingBalance | number}}
+              </span>
+            </td>
+            <td align="right">
+              <md-button class="md-primary" ng-click="editAccountDialog($index)">Edit</md-button>
+              <md-button class="md-primary" ng-click="transferAccountDialog($index)">Transfer</md-button>
+              <md-button class="md-primary" ng-click="editLocationDialog($index)">View</md-button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </md-card-content>
+
+    </md-card>
+
+  </md-content>
+
+</md-content>
+
