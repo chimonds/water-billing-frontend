@@ -20,8 +20,6 @@ var app = angular
         'siTable',
         'ngMessages',
         'chart.js',
-        //'ui.bootstrap',
-        // 'angularFileUpload',
         'ui.bootstrap.datetimepicker',
         'ui.router',
         'angularUtils.directives.dirPagination',
@@ -31,8 +29,8 @@ var app = angular
     .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider, paginationTemplateProvider) {
 
         // Allow Cross Domain
-        //$httpProvider.defaults.useXDomain = true;
-        //delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
         paginationTemplateProvider.setPath('bower_components/angular-utils-pagination/dirPagination.tpl.html');
 
@@ -45,9 +43,8 @@ var app = angular
             .state('login', {
                 url: '/login',
                 templateUrl: 'views/login.html',
-                controller: 'LoginCtrl',
+                controller: 'LoginCtrl'
             })
-
             .state('dashboard', {
                 url: '/dashboard',
                 templateUrl: 'views/dashboard.html',
@@ -145,6 +142,15 @@ var app = angular
                     requireLogin: true
                 }
             })
+            .state('account', {
+              url: '/accounts/{accountId}',
+              templateUrl: 'views/accounts.detail.html',
+              controller: 'AccountsDetailCtrl',
+              data: {
+                requireLogin: true
+              }
+            })
+
             .state('payments', {
                 url: '/payments',
                 templateUrl: 'views/payments.html',
@@ -223,7 +229,7 @@ var app = angular
 
 
         $mdThemingProvider.theme('default')
-            .primaryColor('amazingPaletteName');
+            .primaryColor('blue');
 
         //teal
         // $mdThemingProvider.theme('default')

@@ -30,6 +30,8 @@ app.service('appService', function($http, $cookieStore) {
     var METER_SIZES ='meterSizes';
     var METER_OWNERS ='meterOwners';
     var TARIFFS ='tariffs';
+    var PAYMENTS = 'payments';
+    var BILLS = 'bills';
 
     //__________________________
     var POST_REQUEST = 'POST';
@@ -322,10 +324,21 @@ app.service('appService', function($http, $cookieStore) {
         });
     };
 
-  this.getAccounts = function(request, consumerId) {
+  this.getAccountsByConsumer = function(request, consumerId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS+"/"+consumerId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getAccounts = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + ACCOUNTS,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -343,6 +356,19 @@ app.service('appService', function($http, $cookieStore) {
       data: angular.toJson(getPayload(request))
     });
   };
+
+  this.getAccountById = function(request, accountId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + ACCOUNTS+"/one/"+accountId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
 
 
 
@@ -474,9 +500,28 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getPaymentsByAccount = function(request, account_id) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + PAYMENTS+'/'+account_id,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
 
+  this.getBillsByAccount = function(request, account_id) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLS+'/'+account_id,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
 
-//
     this.getCofig = function() {
         var configs = {
             cssAlertInfo: 'alert alert-info',

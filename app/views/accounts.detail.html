@@ -1,0 +1,193 @@
+
+    <md-card>
+      <md-card-content>
+        <md-content>
+          <h1 style="font-weight: 200;">
+            {{account.accName | uppercase}}
+            <span class="pull-right money-color">KES {{account.outstandingBalance | number}}</span>
+
+          </h1>
+
+          <p>
+            <md-divider></md-divider>
+          </p>
+          <div flex layout="row">
+            <div flex="50">
+              <p>
+                Account#:
+                <strong>{{account.accNo}}</strong>
+              </p>
+
+              <p>
+                Location:
+                <strong>{{account.location.name}}</strong>
+              </p>
+
+              <p>
+                Zone:
+                <strong>{{account.zone.name}}</strong>
+              </p>
+
+              <p>
+                Tariff:
+                <strong>{{account.tariff.name}}</strong>
+              </p>
+
+            </div>
+            <div flex="50">
+            <span class="pull-right">
+
+              <p>
+                Balance Brought Forward:
+                <strong>
+                  {{account.balanceBroughtForward | number}}
+                </strong>
+              </p>
+
+              <p>
+                Average Consumption:
+                <strong>
+                  {{account.averageConsumption}}
+                </strong>
+              </p>
+
+              <p>
+                Meter:
+                <strong>{{account.meter.meterNo}} </strong>
+              </p>
+            <p>
+              Active:
+              <strong>{{account.active}} </strong>
+            </p>
+            </span>
+
+            </div>
+
+
+          </div>
+
+
+          <!--<md-subheader class="md-primary" flex layout-fill style="padding-left: 0;">-->
+            <!--Account List-->
+
+            <!--<md-button class="md-primary pull-right" ng-click="addAccountDialog();">-->
+              <!--<span class="icon-plus action-button" aria-hidden="true"></span>-->
+            <!--</md-button>-->
+          <!--</md-subheader>-->
+
+          <md-button class="md-primary pull-right" ng-click="addAccountDialog();">
+            <span class="icon-plus action-button" aria-hidden="true"></span>
+          </md-button>
+          <md-button class="md-primary pull-right" ng-click="addAccountDialog();">
+            <span class="icon-plus action-button" aria-hidden="true"></span>
+          </md-button>
+
+
+          <div class="clearfix"></div>
+          <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+            {{errorMsg}}
+          </div>
+
+          <md-tabs md-border-bottom md-selected="data.selectedIndex">
+
+            <md-tab id="tab1">
+              <md-tab-label>Bills</md-tab-label>
+              <md-tab-template>
+                  <p>
+                    <table class="table table-hover">
+                      <thead>
+                      <tr>
+                        <th>CREATED</th>
+                        <th>BILL DATE</th>
+                        <th>CR</th>
+                        <th>PR</th>
+                        <th>CONSUMPTION</th>
+                        <th>METER RENT</th>
+                        <th>AMOUNT</th>
+                        <th></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr dir-paginate="bill in bills | itemsPerPage: 10" total-items="totalBills" pagination-id="billsPagination">
+                        <td>{{bill.createdOn | date}}</td>
+                        <td>{{bill.billingMonth.billingMonth | date}}</td>
+                        <td>{{bill.previousReading}}</td>
+                        <td>{{bill.currentReading}}</td>
+                        <td>{{bill.consumptionType}}</td>
+                        <td align="right">{{bill.meterRent | number}}</td>
+                        <td align="right">{{bill.amount | number}}</td>
+
+                        <td align="right">
+                          <md-button class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="8" align="center">
+                          <dir-pagination-controls on-page-change="getBills(newPageNumber)" pagination-id="billsPagination"></dir-pagination-controls>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </p>
+              </md-tab-template>
+            </md-tab>
+
+            <md-tab id="tab2">
+              <md-tab-label>Payments</md-tab-label>
+              <md-tab-template>
+                <p>
+                <table class="table table-hover">
+                  <thead>
+                  <tr>
+                    <th>CREATED</th>
+                    <th>BILL DATE</th>
+                    <th>SOURCE</th>
+                    <th>TYPE</th>
+                    <th>RECEIPT#</th>
+                    <th>COMMENTS</th>
+                    <th>
+                      <span class="pull-right">
+                        AMOUNT
+                      </span>
+
+                    </th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr dir-paginate="payment in payments | itemsPerPage: 10" total-items="totalPayments" pagination-id="paymentsPagination">
+                    <td>{{payment.createdOn | date}}</td>
+                    <td>{{payment.billingMonth.billingMonth | date}}</td>
+                    <td>{{payment.paymentSource.name | uppercase}}</td>
+                    <td>{{payment.paymentType.name | uppercase}}</td>
+                    <td>{{payment.receiptNo}}</td>
+                    <td>{{payment.comments}}</td>
+                    <td align="right">
+                      <span class="money-color">
+                        {{payment.amount | number}}
+                      </span>
+                    </td>
+                    <td align="right">
+                      <md-button class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="8" align="center">
+                      <dir-pagination-controls on-page-change="getPayments(newPageNumber)" pagination-id="paymentsPagination"></dir-pagination-controls>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                </p>
+              </md-tab-template>
+            </md-tab>
+          </md-tabs>
+
+
+        </md-content>
+
+      </md-card-content>
+
+    </md-card>
+
+

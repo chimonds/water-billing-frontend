@@ -1,7 +1,65 @@
 <md-card>
   <md-card-content>
     <md-content>
-      Accounts
+      <md-subheader class="md-primary">Use this panel to manage connections</md-subheader>
+      <md-content>
+        <div class="clearfix"></div>
+        <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+          {{errorMsg}}
+        </div>
+        <md-input-container flex class="md-default-theme">
+          <label for="input_041">Search</label>
+          <input type="number" maxlength="11" ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+        </md-input-container>
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>ACCOUNT#</th>
+            <th>NAME</th>
+            <th>AVERAGE</th>
+            <th>IS ACTIVE</th>
+            <th>LOCATION</th>
+            <th>ZONE</th>
+            <th>METER</th>
+            <th>CREATED</th>
+            <th>
+              <span class="pull-right">
+                BALANCE
+              </span>
+
+            </th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr dir-paginate="account in accounts | itemsPerPage: 10" total-items="totalAccounts" pagination-id="pagePagination">
+            <td>{{account.accNo }}</td>
+            <td>{{account.accName}}</td>
+            <td>{{account.averageConsumption}}</td>
+            <td>{{account.active}}</td>
+            <td>{{account.location.name}}</td>
+            <td>{{account.zone.name}}</td>
+            <td>{{account.meter.meterNo}}</td>
+            <td>
+              <span am-time-ago="account.createdOn"> </span>
+            </td>
+            <td align="right">
+              <span class="money-color">
+                {{account.outstandingBalance | number}}
+              </span>
+            </td>
+            <td align="right">
+              <md-button class="md-primary"  ui-sref="account({ accountId: account.accountId})">View</md-button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="10" align="center">
+              <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </md-content>
     </md-content>
   </md-card-content>
 </md-card>
