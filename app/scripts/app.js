@@ -229,7 +229,7 @@ var app = angular
 
 
         $mdThemingProvider.theme('default')
-            .primaryColor('blue');
+            .primaryColor('amazingPaletteName');
 
         //teal
         // $mdThemingProvider.theme('default')

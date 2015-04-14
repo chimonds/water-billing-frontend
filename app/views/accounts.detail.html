@@ -74,10 +74,12 @@
               <!--<span class="icon-plus action-button" aria-hidden="true"></span>-->
             <!--</md-button>-->
           <!--</md-subheader>-->
+          
 
           <md-button class="md-primary pull-right" ng-click="addAccountDialog();">
-            <span class="icon-plus action-button" aria-hidden="true"></span>
+            <span class="icon-layers action-button" aria-hidden="true"></span>
           </md-button>
+
           <md-button class="md-primary pull-right" ng-click="addAccountDialog();">
             <span class="icon-plus action-button" aria-hidden="true"></span>
           </md-button>
@@ -89,46 +91,104 @@
           </div>
 
           <md-tabs md-border-bottom md-selected="data.selectedIndex">
-
+            <md-divider></md-divider>
             <md-tab id="tab1">
               <md-tab-label>Bills</md-tab-label>
               <md-tab-template>
                   <p>
-                    <table class="table table-hover">
-                      <thead>
-                      <tr>
-                        <th>CREATED</th>
-                        <th>BILL DATE</th>
-                        <th>CR</th>
-                        <th>PR</th>
-                        <th>CONSUMPTION</th>
-                        <th>METER RENT</th>
-                        <th>AMOUNT</th>
-                        <th></th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <tr dir-paginate="bill in bills | itemsPerPage: 10" total-items="totalBills" pagination-id="billsPagination">
-                        <td>{{bill.createdOn | date}}</td>
-                        <td>{{bill.billingMonth.billingMonth | date}}</td>
-                        <td>{{bill.previousReading}}</td>
-                        <td>{{bill.currentReading}}</td>
-                        <td>{{bill.consumptionType}}</td>
-                        <td align="right">{{bill.meterRent | number}}</td>
-                        <td align="right">{{bill.amount | number}}</td>
+                <table class="table table-hover">
+                  <thead>
+                  <tr>
 
-                        <td align="right">
-                          <md-button class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="8" align="center">
-                          <dir-pagination-controls on-page-change="getBills(newPageNumber)" pagination-id="billsPagination"></dir-pagination-controls>
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </p>
+                    <th>BILL DATE</th>
+                    <th>CREATED</th>
+                    <th>CONSUMPTION</th>
+                    <th><span class="pull-right">CURRENT</span></th>
+                    <th><span class="pull-right">PREVIOUS</span></th>
+
+                    <th><span class="pull-right">UNITS</span></th>
+
+                    <th>
+                      <span class="pull-right">
+                        BILL AMOUNT
+                      </span>
+                    </th>
+                    <th><span class="pull-right">METER RENT</span></th>
+                    <th>
+                      <span class="pull-right">
+                        CHARGES
+                      </span>
+                    </th>
+
+                    <th>
+                      <span class="pull-right">
+                        TOTAL
+                      </span>
+
+                    </th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr  dir-paginate="bill in bills | itemsPerPage: 10" total-items="totalBills" pagination-id="billsPagination">
+                    <td>{{bill.billingMonth.billingMonth | date}}</td>
+                    <td>{{bill.createdOn | date}}</td>
+                    <td>{{bill.consumptionType}}</td>
+                    <td align="right">{{bill.currentReading | number}}</td>
+                    <td align="right">{{bill.previousReading | number}}</td>
+
+                    <td align="right">{{bill.unitsBilled | number}}</td>
+
+
+                    <td align="right">
+                      <span class="money-color">
+                        {{bill.amount | number}}
+                      </span>
+                    </td>
+                    <td align="right">
+                      <span class="money-color">
+                      {{bill.meterRent | number}}
+                        </span>
+                    </td>
+                    <td>
+                    <span ng-repeat="billItem in bill.billItems">
+                       <span class="pull-right">
+                         {{billItem.billItemType.name}}:
+                         {{billItem.amount | number}}
+                       </span>
+                      <br/>
+                    </span>
+                    </td>
+
+                    <td align="right">
+                      <span class="money-color">
+                        {{bill.totalBilled | number}}
+                      </span>
+                    </td>
+
+
+                    <td align="right">
+                      <md-button class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="11" align="center">
+                      <dir-pagination-controls on-page-change="getBills(newPageNumber)" pagination-id="billsPagination"></dir-pagination-controls>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+
+
+
+
+
+
+
+
+
+
+                </p>
               </md-tab-template>
             </md-tab>
 
@@ -182,6 +242,7 @@
               </md-tab-template>
             </md-tab>
           </md-tabs>
+
 
 
         </md-content>

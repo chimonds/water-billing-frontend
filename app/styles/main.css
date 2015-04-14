@@ -99,8 +99,11 @@ body {
 }
 
 .label {
-  border-radius: .0px;
+  border-radius: 0px;
   font-weight: 400;
+  font-size: 14px !important;
+  /*padding-top: 8px !important;*/
+  /*padding-bottom: 8px !important;*/
 }
 
 .label-default {
@@ -301,4 +304,9 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  border-top: 1px solid #eeeeee;
+
 }
