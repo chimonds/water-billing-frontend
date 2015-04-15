@@ -86,7 +86,7 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
     //send request
     appService.getAccountsByConsumer(request,consumerId).success(function (response) {
       $scope.errorOccured = false;
-      $scope.accounts = response.payload.content;
+      $scope.accounts = response.payload;
       $scope.totalAccounts = response.payload.totalElements; //to change this
       $state.go('consumers');
 
