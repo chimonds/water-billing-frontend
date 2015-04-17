@@ -14,12 +14,12 @@ app.service('appService', function($http, $cookieStore) {
     //TEST -  comment this
     var BASE_URL = 'http://localhost:9090/api/v1/';
 
-
     var ROLES = 'roles';
     var PERMISSIONS = 'permissions';
     var USERS = 'users';
     var OPTIONS = 'options';
     var AUTH ='auth';
+
     //other resources
     var BILLING_MONTHS ='billing_months';
     var LOCATIONS ='locations';
@@ -32,6 +32,7 @@ app.service('appService', function($http, $cookieStore) {
     var TARIFFS ='tariffs';
     var PAYMENTS = 'payments';
     var BILLS = 'bills';
+    var PAYMENT_TYPES ='paymentTypes';
 
     //__________________________
     var POST_REQUEST = 'POST';
@@ -198,6 +199,17 @@ app.service('appService', function($http, $cookieStore) {
             data: angular.toJson(getPayload(request))
         });
     };
+
+  this.getActiveBillingMonths = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLING_MONTHS+'/active',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
 
     this.updateBillingMonth = function(request, objectId) {
         return $http({
@@ -368,10 +380,6 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
-
-
-
-
   this.updateAccount= function(request, objectId) {
     return $http({
       method: PUT_REQUEST,
@@ -450,8 +458,6 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
-
-
   this.createMeter = function(request) {
     var payload = angular.toJson(getPayload(request));
     console.log(payload);
@@ -500,10 +506,32 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getPaymentTypes = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + PAYMENT_TYPES,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.getPaymentsByAccount = function(request, account_id) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + PAYMENTS+'/'+account_id,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.createPayment = function(request, accountId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + PAYMENTS+'/create/'+accountId,
       headers: {
         'Content-Type': 'application/json'
       },

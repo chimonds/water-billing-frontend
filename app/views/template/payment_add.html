@@ -1,0 +1,68 @@
+<md-dialog aria-label="brown" flex>
+  <md-content>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to add payments to account# <strong>{{data.accNo}}</strong></md-subheader>
+    <div layout="column" flex>
+      <md-content>
+        <form name="myForm.object">
+          <h2 class="md-headline pull-left">Billing Date: <strong>{{data.billingMonth | date}}</strong></h2>
+          <h2 class="md-display-1 pull-right">Balance: <span class="money-color">KES {{data.outstandingBalance | number}}</span></h2>
+          <div class="clearfix"></div>
+          <!--Connection tariff-->
+          <md-select required name="tariff" ng-model="form.paymentType" placeholder="Please select payment type">
+            <md-option ng-repeat="paymentType in paymentTypes" value="{{$index}}">
+              {{paymentType.name}}
+            </md-option>
+          </md-select>
+          <div ng-messages="myForm.object.tariff.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+          <div flex layout="row" layout-align="space-between center">
+            <div flex="40">
+              <md-input-container>
+                <label>Receipt#</label>
+                <input md-maxlength="50" required name="receiptNo" ng-model="form.receiptNo">
+                <div ng-messages="myForm.object.receiptNo.$error">
+                  <div ng-message="required">This is required.</div>
+                  <div ng-message="md-maxlength">The name has to be less than 50 characters long.</div>
+                </div>
+              </md-input-container>
+              <md-input-container>
+                <label>Amount</label>
+                <input maxlength="6" type="number" required name="amountPaid" ng-model="form.amount">
+                <div ng-messages="myForm.object.amountPaid.$error">
+                  <div ng-message="required">This is required.</div>
+                  <div ng-message="maxlength">The name has to be less than 6 characters long.</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div flex="40">
+              <md-input-container>
+                <label>Transaction Date</label>
+                <input  type="date" required name="transactionDate" ng-model="form.transactionDate">
+                <div ng-messages="myForm.object.transactionDate.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container>
+                <label>Notes</label>
+                <textarea required name="notes" ng-model="form.notes"></textarea>
+              </md-input-container>
+
+            </div>
+          </div>
+
+          <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}</div>
+          <div layout="row">
+            <span flex></span>
+            <md-button  ng-click="cancel();">
+              Close
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="save(form);">
+              Save
+            </md-button>
+          </div>
+        </form>
+      </md-content>
+    </div>
+  </md-content>
+</md-dialog>

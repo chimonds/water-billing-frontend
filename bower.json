@@ -16,7 +16,7 @@
     "si-table": "~0.0.1-beta.6",
     "angular-chart.js": "~0.3.19",
     "angular-bootstrap-datetimepicker": "latest",
-    "moment": "~2.9.0",
+    "moment": "~2.10.2",
     "angular-material": "~0.8.1",
     "material-design-icons": "~1.0",
     "simple-line-icons": "~1.0.0",
