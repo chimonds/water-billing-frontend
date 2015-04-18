@@ -150,6 +150,14 @@ var app = angular
                 requireLogin: true
               }
             })
+          .state('billing', {
+            url: '/billing',
+            templateUrl: 'views/billing.html',
+            controller: 'BillingCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
 
             .state('payments', {
                 url: '/payments',
@@ -158,26 +166,7 @@ var app = angular
                 data: {
                     requireLogin: true
                 }
-            })
-
-
-
-
-            .state('resume', {
-                url: '/index2',
-                templateUrl: 'index2.html',
-                //controller: 'LoginCtrl',
-            })
-
-
-
-        .state('state2.list', {
-            url: '/list',
-            templateUrl: 'partials/state2.list.html',
-            controller: function($scope) {
-                $scope.things = ['A', 'Set', 'Of', 'Things'];
-            }
-        });
+            });
 
 
         // $mdThemingProvider.definePalette('amazingPaletteName', {
