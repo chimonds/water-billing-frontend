@@ -218,7 +218,7 @@ var app = angular
 
 
         $mdThemingProvider.theme('default')
-            .primaryColor('teal');
+            .primaryColor('blue');
 
         //teal
         // $mdThemingProvider.theme('default')
