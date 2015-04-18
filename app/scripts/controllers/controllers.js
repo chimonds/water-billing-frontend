@@ -1,59 +1,40 @@
-// (function() {
-//     'use strict';
-//     // Include app dependency on ngMaterial
-//     //var app = angular.module('equismsApp', ['ngMaterial']);
 
-//     //Config theme
-//     // app.config(function($mdThemingProvider) {
-//     //     $mdThemingProvider.theme('blue')
-//     //         .primaryPalette('blue')
-//     //         .accentPalette('red');
-//     // });
-
-//     // Main Controller
-//     app.controller('YourController', ['$scope',  '$mdSidenav', function($scope, $mdSidenav) {
-
-//         // $scope.openDialog = function($event) {
-//         //     $mdDialog.show({
-//         //         targetEvent: $event,
-//         //         template: '<md-dialog>' +
-//         //             '  <md-content>Hello {{ userName }}!</md-content>' +
-//         //             '  <div class="md-actions">' +
-//         //             '    <md-button ng-click="closeDialog()">' +
-//         //             '      Close' +
-//         //             '    </md-button>' +
-//         //             '  </div>' +
-//         //             '</md-dialog>',
-//         //         controller: 'DialogController',
-//         //         onComplete: afterShowAnimation,
-//         //         locals: {
-//         //             name: 'Bobby'
-//         //         }
-//         //     });
-//         //     // When the 'enter' animation finishes...
-//         //     function afterShowAnimation(scope, element, options) {
-//         //         // post-show code here: DOM element focus, etc.
-//         //     }
-//         // };
-
-//         $scope.toggleMenu = function() {
-//             $mdSidenav('left').toggle();
-//         };
-
-  
-// })();
-
-      // Left Sidebar Controller
+   // Left Sidebar Controller
     app.controller('YourController', function($scope, $timeout, $mdSidenav) {
-      //$mdSidenav('left').open();
-      //$mdSidenav('left').open();
        $scope.toggleMenu = function() {
             $mdSidenav('left').toggle();
         };
     });
-    
-  // Left Sidebar Controller
-    app.controller('LeftCtrl', function($scope, $timeout, $mdSidenav) {
+
+    // Left Sidebar Controller
+    app.controller('SidebarCtrl', function($scope, $timeout, $mdSidenav) {
+      $scope.menus =[
+        {
+          'category': 'Main',
+          'items': [
+            {'title': 'Dashboard', 'state': 'dashboard', 'icon': 'icon-grid'},
+            {'title': 'Consumers', 'state': 'consumers', 'icon': 'icon-users'},
+            {'title': 'Accounts', 'state': 'accounts', 'icon': 'icon-share'},
+            {'title': 'Payments', 'state': 'payments', 'icon': 'icon-wallet'},
+            {'title': 'Billing', 'state': 'billing', 'icon': 'icon-wallet'},
+            {'title': 'Meters', 'state': 'meters', 'icon': 'icon-compass'}]
+        },
+        {
+          'category': 'Billing Setups',
+          'items': [
+            {'title': 'Billing Months', 'state': 'billing_months', 'icon': 'icon-calendar'},
+            {'title': 'Locations', 'state': 'locations', 'icon': 'icon-pointer'},
+            {'title': 'Zones', 'state': 'zones', 'icon': 'icon-cursor-move'}]
+        },
+        {
+          'category':'Administration',
+          'items':[
+            {'title':'Users', 'state':'users','icon':'icon-user'},
+            {'title':'Roles', 'state':'roles','icon':'icon-lock-open'},
+            {'title':'Settings', 'state':'settings','icon':'icon-settings'}]
+        }
+      ];
+
         $scope.close = function() {
             $mdSidenav('left').close();
         };
