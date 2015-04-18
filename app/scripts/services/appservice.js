@@ -550,6 +550,19 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getPayments = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + PAYMENTS,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
+
     this.getCofig = function() {
         var configs = {
             cssAlertInfo: 'alert alert-info',

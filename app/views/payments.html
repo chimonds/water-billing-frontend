@@ -1,7 +1,64 @@
 <md-card>
   <md-card-content>
     <md-content>
-      Payments
+      <md-subheader class="md-primary">Use this panel to manage payments</md-subheader>
+      <md-content>
+        <!--<md-button class="md-primary pull-right" ng-click="addZoneDialog();">-->
+          <!--<span class="icon-plus action-button" aria-hidden="true"></span>-->
+        <!--</md-button>-->
+        <div class="clearfix"></div>
+        <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+          {{errorMsg}}
+        </div>
+        <md-input-container flex class="md-default-theme">
+          <label for="input_041">Search</label>
+          <input ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+        </md-input-container>
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>ACCOUNT#</th>
+            <th>CREATED</th>
+            <th>TRANS DATE</th>
+            <th>RECEIPT NO</th>
+            <th>TYPE</th>
+            <th>SOURCE</th>
+            <th>
+              <span class="pull-right">
+                AMOUNT (KES)
+              </span>
+            </th>
+            <th>
+              <span class="pull-right total-records">{{totalPayments | number}} Records</span>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr dir-paginate="payment in payments | itemsPerPage: 10" total-items="totalPayments" pagination-id="pagePagination">
+            <td>{{payment.receiptNo }}</td>
+            <td><span am-time-ago="payment.createdOn"> </span></td>
+            <td>{{ payment.transactionDate | date}}</td>
+            <td>{{ payment.receiptNo}}</td>
+            <td>{{ payment.paymentType.name | uppercase}}</td>
+            <td>{{ payment.paymentSource.name | uppercase}}</td>
+            <td align="right">
+              <span class="money-color">
+                {{ payment.amount | number}}
+              </span>
+            </td>
+
+            <td align="right">
+              <md-button class="md-primary" ng-click="editZoneDialog($index)">Edit</md-button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="8" align="center">
+              <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </md-content>
     </md-content>
   </md-card-content>
 </md-card>
