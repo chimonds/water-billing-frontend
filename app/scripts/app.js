@@ -24,7 +24,8 @@ var app = angular
         'ui.router',
         'angularUtils.directives.dirPagination',
         'angular-loading-bar',
-        'angularMoment'
+        'angularMoment',
+        'highcharts-ng'
     ])
     .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider, paginationTemplateProvider) {
 
@@ -218,7 +219,7 @@ var app = angular
 
 
         $mdThemingProvider.theme('default')
-            .primaryColor('blue');
+            .primaryColor('light-blue');
 
         //teal
         // $mdThemingProvider.theme('default')
