@@ -1,23 +1,18 @@
 <!--<md-card>-->
 <!--<md-card-content>-->
 <md-content>
-  <!--<md-subheader class="md-primary">-->
-  <!--Use this panel to bill accounts-->
-  <!--<span class="pull-right">-->
-  <!--Billing Month: <strong>{{activeBillingMonth.billingMonth | date}}</strong>-->
-  <!--</span>-->
-  <!--</md-subheader>-->
-
+  <md-card>
+    <md-card-content>
 
   <form name="myForm.object">
-    <md-content layout="row" flex layout-fill>
-      <md-card flex="45">
+    <md-content layout="row" layout="row" layout-align="space-between start">
+      <md-content flex="40">
         <md-card-content flex>
 
           <md-subheader class="md-primary">
             Use this panel to bill accounts
         <span class="pull-right">
-          Billing Month: <strong>{{activeBillingMonth.billingMonth | date}}</strong>
+          Billing Month: <strong>{{activeBillingMonth.month | date}}</strong>
         </span>
           </md-subheader>
 
@@ -34,7 +29,7 @@
 
           <md-input-container>
             <label>Last Billing Date</label>
-            <input ng-model="data.lastBillingDate" readonly>
+            <input ng-model="lastBill.billingMonth.month | date" readonly>
           </md-input-container>
 
 
@@ -45,7 +40,7 @@
 
           <md-input-container>
             <label>Previous Reading</label>
-            <input ng-model="data.lastBillingDate" readonly>
+            <input ng-model="lastBill.currentReading">
           </md-input-container>
 
           <md-input-container>
@@ -63,26 +58,26 @@
             <input ng-model="data.metered" readonly>
           </md-input-container>
 
-          <md-input-container>
-            <label>Meter Rent</label>
-            <input ng-model="data.meter.meterSize.rentAmount" readonly>
-          </md-input-container>
+          <!--<md-input-container>-->
+            <!--<label>Meter Rent</label>-->
+            <!--<input ng-model="data.meter.meterSize.rentAmount" readonly>-->
+          <!--</md-input-container>-->
 
-          <md-input-container>
-            <label>Balance</label>
-            <input ng-model="data.outstandingBalance" readonly>
-          </md-input-container>
+          <!--<md-input-container>-->
+            <!--<label>Balance</label>-->
+            <!--<input ng-model="data.outstandingBalance" readonly>-->
+          <!--</md-input-container>-->
 
-          <md-input-container>
-            <label>Billed</label>
-            <input ng-model="data.lastBillingDate" readonly>
-          </md-input-container>
+          <!--<md-input-container>-->
+            <!--<label>Billed</label>-->
+            <!--<input ng-model="lastBill.billed" readonly>-->
+          <!--</md-input-container>-->
 
 
         </md-card-content>
-      </md-card>
+      </md-content>
 
-      <md-card flex="45">
+      <md-content flex="40">
         <md-card-content>
           <md-input-container flex class="md-default-theme">
             <label for="input_041">Search account</label>
@@ -98,39 +93,85 @@
 
 
           <md-content ng-show="accountFound">
-            <md-input-container>
-              <label>Meter Reading</label>
-              <input maxlength="6" required type="number" name="accNo" ng-model="form.accNo">
+            <div ng-show="billed" class="alert alert-danger" role="alert">
+              Sorry account has already been billed.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            </div>
 
-              <div ng-messages="myForm.object.accNo.$error">
-                <div ng-message="required">This is required.</div>
-                <div ng-message="maxlength">The account number has to be less than 9 characters long.</div>
-              </div>
-            </md-input-container>
+            <md-content ng-show="!billed">
+              <p>
+                Balance <span class="money-color">KES {{data.outstandingBalance | number}}</span>
+              </p>
+              <p>
+                Meter Rent <span class="money-color">KES {{data.meter.meterSize.rentAmount | number}}</span>
+              </p>
 
-            <md-input-container>
-              <label>Units Consumed</label>
-              <input readonly ng-model="form.accNo">
-            </md-input-container>
+              <md-input-container>
+                <label>Meter Reading</label>
+                <input maxlength="6" required type="number" name="accNo" ng-model="form.accNo">
 
-            <md-input-container>
-              <label>Consumption Type</label>
-              <input readonly ng-model="form.accNo">
-            </md-input-container>
-            <h2 class="pull-right">
-              Total: <span class="money-color">KES 3,000</span>
-            </h2>
+                <div ng-messages="myForm.object.accNo.$error">
+                  <div ng-message="required">This is required.</div>
+                  <div ng-message="maxlength">The account number has to be less than 9 characters long.</div>
+                </div>
+              </md-input-container>
+
+              <md-input-container>
+                <label>Units Consumed</label>
+                <input readonly ng-model="form.accNo">
+              </md-input-container>
+
+              <md-input-container>
+                <label>Consumption Type</label>
+                <input readonly ng-model="form.accNo">
+              </md-input-container>
 
 
+              <md-content layout-padding class="autocomplete" layout="column">
+                <p>Charges</p>
+                <md-chips ng-model="ctrl.selectedVegetables" md-autocomplete-snap md-require-match>
+                  <md-autocomplete
+                    md-selected-item="ctrl.selectedItem"
+                    md-search-text="ctrl.searchText"
+                    md-items="item in ctrl.querySearch(ctrl.searchText)"
+                    md-item-text="item.name"
+                    placeholder="Search for a vegetable">
+                    <span md-highlight-text="ctrl.searchText">{{item.name}} :: {{item.type}}</span>
+                  </md-autocomplete>
+                  <md-chip-template>
+                  <span>
+                    <strong>{{$chip.name}}</strong>
+                    <em>({{$chip.type}})</em>
+                  </span>
+                  </md-chip-template>
+
+                </md-chips>
+
+                <br />
+                <md-list>
+                  <md-subheader class="md-no-sticky">Charges</md-subheader>
+                  <md-item class="md-2-line veggie-option" ng-repeat="veg in ctrl.vegetables">
+                    <div class="md-item-text md-whiteframe-z1">
+                      <h3>{{veg.name}}</h3>
+                      <p>{{veg.type}}</p>
+                    </div>
+                  </md-item>
+                </md-list>
+              </md-content>
+
+
+            </md-content>
           </md-content>
 
 
         </md-card-content>
-      </md-card>
+      </md-content>
 
     </md-content>
   </form>
-
+    </md-card-content>
+  </md-card>
 </md-content>
 
 

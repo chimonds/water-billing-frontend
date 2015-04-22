@@ -18,7 +18,7 @@
          </thead>
          <tbody>
             <tr dir-paginate="month in months | itemsPerPage: 10" total-items="totalMonths" pagination-id="monthPagination">
-               <td>{{ month.billingMonth | date}}</td>
+               <td>{{ month.month | date}}</td>
                <td>{{month.active}}</td>
                <td>
                   <span am-time-ago="month.createdOn"> </span>

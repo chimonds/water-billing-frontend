@@ -120,7 +120,7 @@
                   </thead>
                   <tbody>
                   <tr  dir-paginate="bill in bills | itemsPerPage: 10" total-items="totalBills" pagination-id="billsPagination">
-                    <td>{{bill.billingMonth.billingMonth | date}}</td>
+                    <td>{{bill.billingMonth.month | date}}</td>
                     <td>{{bill.createdOn | date}}</td>
                     <td>{{bill.consumptionType}}</td>
                     <td align="right">{{bill.currentReading | number}}</td>
@@ -206,7 +206,7 @@
                   <tbody>
                   <tr dir-paginate="payment in payments | itemsPerPage: 10" total-items="totalPayments" pagination-id="paymentsPagination">
                     <td>{{payment.createdOn | date}}</td>
-                    <td>{{payment.billingMonth.billingMonth | date}}</td>
+                    <td>{{payment.billingMonth.month | date}}</td>
                     <td>{{payment.paymentSource.name | uppercase}}</td>
                     <td>{{payment.paymentType.name | uppercase}}</td>
                     <td>{{payment.receiptNo}}</td>

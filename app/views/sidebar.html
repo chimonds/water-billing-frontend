@@ -1,4 +1,4 @@
-<div layout="column" layout-fill ng-controller="YourController" flex>
+<div layout="column" layout-fill ng-controller="SidebarCtrl" flex>
    <md-toolbar  ng-show="showMainToolbar" scroll-shrink layout="row" class="sticky-nav">
       <div class="md-toolbar-tools">
          <h2 flex="70">
@@ -25,18 +25,17 @@
       <md-sidenav   class="md-sidenav-left sticky-navsidebar" md-component-id="left">
          <!-- <md-toolbar > -->
 
-
          <md-toolbar >
             <h1 class="md-toolbar-tools">Menu</h1>
          </md-toolbar>
-         <md-content ng-controller="SidebarCtrl" class="md-padding" flex layout="column" layout-align="start">
+         <md-content  class="md-padding" flex layout="column" layout-align="start">
 
            <md-content flex layout="column" ng-repeat="menu in menus">
              <h4 class="menu-header" flex>
                {{menu.category}}
              </h4>
              <!--<md-divider></md-divider>-->
-             <md-button flex ng-repeat="item in menu.items" ui-sref="{{item.state}}" class="md-primary">
+             <md-button ng-click="toggleMenu()" flex ng-repeat="item in menu.items" ui-sref="{{item.state}}" class="md-primary">
                <span aria-hidden="true" class="{{item.icon}}"></span>
                {{item.title}}
              </md-button>

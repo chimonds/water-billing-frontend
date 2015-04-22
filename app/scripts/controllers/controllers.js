@@ -1,13 +1,10 @@
 
-   // Left Sidebar Controller
-    app.controller('YourController', function($scope, $timeout, $mdSidenav) {
-       $scope.toggleMenu = function() {
-            $mdSidenav('left').toggle();
-        };
-    });
-
     // Left Sidebar Controller
     app.controller('SidebarCtrl', function($scope, $timeout, $mdSidenav) {
+      $scope.toggleMenu = function() {
+        $mdSidenav('left').toggle();
+      };
+
       $scope.menus =[
         {
           'category': 'Main',

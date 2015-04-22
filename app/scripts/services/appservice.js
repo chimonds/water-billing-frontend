@@ -550,6 +550,17 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getLastBillByAccount = function(request, accountId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLS+'/last/'+accountId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.getPayments = function(request) {
     return $http({
       method: POST_REQUEST,

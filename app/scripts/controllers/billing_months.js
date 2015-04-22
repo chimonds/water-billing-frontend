@@ -82,7 +82,7 @@ app.controller('BillingMonthsCtrl', function($scope, $http, appService, $cookieS
         $scope.billingMonth = billingMonth;
 
         $scope.form={};
-        $scope.form.billingDate = billingMonth.billingMonth;
+        $scope.form.billingDate = billingMonth.month;
         $scope.form.isActive = billingMonth.active;
 
 

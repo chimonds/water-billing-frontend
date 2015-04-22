@@ -17,9 +17,10 @@ app.controller('DashboardCtrl', function ($scope, $cookieStore, $location, $wind
     $scope.paymentsBillsChart.series = [
       {
         name: 'Payments', color: "#03A9F4", data: [10, 15, 12, 8, 7, 80]
-
       },
-      {name: 'Bills', color: "#01579B", data: [4, 20, 12, 3, 40, 30]},
+      {
+        name: 'Bills', color: "#01579B", data: [4, 20, 12, 3, 40, 30]
+      },
 
     ];
 
@@ -36,6 +37,22 @@ app.controller('DashboardCtrl', function ($scope, $cookieStore, $location, $wind
 
   $scope.loadPaymentBillsPie = function () {
     $scope.paymentsBillsPie = {};
+    $scope.paymentsBillsPie.plotOptions= {
+      pie: {
+        dataLabels: {
+          enabled: true,
+            distance: -50,
+            style: {
+            fontWeight: 'bold',
+              color: 'white',
+              textShadow: '0px 1px 2px black'
+          }
+        },
+        startAngle: -90,
+          endAngle: 90,
+          center: ['50%', '75%']
+      }
+    };
     $scope.paymentsBillsPie.options =
       {
         chart: {
@@ -54,9 +71,9 @@ app.controller('DashboardCtrl', function ($scope, $cookieStore, $location, $wind
         //name: 'Browser share',
         innerSize: '50%',
         data: [
-                ['Payments',   9000000,],
-                ['Bills',       1200000],
-    ]
+                ['Payments',   4,],
+                ['Bills',       10],
+              ]
         //color: "#03A9F4", data: [8000]
 
       }

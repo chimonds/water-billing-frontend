@@ -38,8 +38,20 @@
 
         $scope.data= $scope.account;
 
+        $scope.billed = true;
 
-        var account_id = $scope.account.accountId;
+
+        var accountId = $scope.account.accountId;
+        var request={};
+        appService.getLastBillByAccount(request, accountId).success(function (response) {
+          console.log(response);
+          $scope.lastBill = response.payload;
+          $scope.billed =$scope.lastBill.billed;
+        });
+
+
+
+
 
 
       }).error(function (data, status) {
