@@ -25,7 +25,8 @@ var app = angular
         'angularUtils.directives.dirPagination',
         'angular-loading-bar',
         'angularMoment',
-        'highcharts-ng'
+        'highcharts-ng',
+        'ngTagsInput'
     ])
     .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider, paginationTemplateProvider) {
 

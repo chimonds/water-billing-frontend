@@ -48,12 +48,6 @@
           $scope.lastBill = response.payload;
           $scope.billed =$scope.lastBill.billed;
         });
-
-
-
-
-
-
       }).error(function (data, status) {
         $scope.data={};
         if (status === 401) {
@@ -65,6 +59,60 @@
           $scope.message = data.message;
         }
       });
+    };
+
+    $scope.charges = [
+      { name: 'Reconnection Fee', amount: 500 },
+      { name: 'At Owners Request Fee', amount: 6000 },
+      { name: 'Change Of Account Name', amount: 5000 }
+    ];
+
+    $scope.charged = [
+      { name: 'Reconnection Fee', amount: 500 },
+      { name: 'At Owners Request Fee', amount: 6000 },
+      { name: 'Change Of Account Name', amount: 5000 }
+    ];
+
+    $scope.removeCharge= function(index){
+      var charge = $scope.charged[index];
+      //remove from assigned
+      $scope.charged.splice(index, 1);
+
+      //add to available
+      $scope.charges.push(charge);
+    };
+    $scope.addCharge= function(index){
+
+      var charge = $scope.charges[index];
+
+      //remove from charges
+      $scope.charges.splice(index, 1);
+
+      //add to charged
+      $scope.charged.push(charge);
+    }
+
+    $scope.calcUnits = function(){
+      var lastReading =$scope.lastBill.currentReading;
+      var currentReading = $scope.form.meterReading;
+      var units = currentReading-lastReading;
+      if(units>0){
+        $scope.form.consumptionType ='Actual';
+      }else{
+        units= $scope.data.averageConsumption;
+        $scope.form.consumptionType ='Average';
+      }
+      $scope.form.unitsConsumed = units;
+
+      $scope.calcBilled();
+    };
+
+    $scope.totalBilled=0;
+
+    $scope.calcBilled = function(){
+      var units = $scope.form.unitsConsumed;
+      var amountBilled = units* 45;
+      $scope.totalBilled =amountBilled;
     };
 
   });

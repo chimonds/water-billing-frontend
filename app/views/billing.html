@@ -4,172 +4,160 @@
   <md-card>
     <md-card-content>
 
-  <form name="myForm.object">
-    <md-content layout="row" layout="row" layout-align="space-between start">
-      <md-content flex="40">
-        <md-card-content flex>
+      <form name="myForm.object">
+        <md-content layout="row" layout="row" layout-align="space-between start">
+          <md-content flex="45">
+            <md-card-content flex>
 
-          <md-subheader class="md-primary">
-            Use this panel to bill accounts
+              <md-subheader class="md-primary">
+                Use this panel to bill accounts
         <span class="pull-right">
           Billing Month: <strong>{{activeBillingMonth.month | date}}</strong>
         </span>
-          </md-subheader>
+              </md-subheader>
 
+              <md-input-container flex="50">
+                <label>Name</label>
+                <input ng-model="data.accName" readonly>
+              </md-input-container>
 
-          <md-input-container>
-            <label>Name</label>
-            <input ng-model="data.accName" readonly>
-          </md-input-container>
-
-          <md-input-container flex="50">
-            <label>Account#</label>
-            <input ng-model="data.accNo" readonly>
-          </md-input-container>
-
-          <md-input-container>
-            <label>Last Billing Date</label>
-            <input ng-model="lastBill.billingMonth.month | date" readonly>
-          </md-input-container>
-
-
-          <md-input-container>
-            <label>Tariff</label>
-            <input ng-model="data.tariff.name" readonly>
-          </md-input-container>
-
-          <md-input-container>
-            <label>Previous Reading</label>
-            <input ng-model="lastBill.currentReading">
-          </md-input-container>
-
-          <md-input-container>
-            <label>Average Consumption</label>
-            <input ng-model="data.averageConsumption" readonly>
-          </md-input-container>
-
-          <md-input-container>
-            <label>Active</label>
-            <input ng-model="data.active" readonly>
-          </md-input-container>
-
-          <md-input-container>
-            <label>Metered</label>
-            <input ng-model="data.metered" readonly>
-          </md-input-container>
-
-          <!--<md-input-container>-->
-            <!--<label>Meter Rent</label>-->
-            <!--<input ng-model="data.meter.meterSize.rentAmount" readonly>-->
-          <!--</md-input-container>-->
-
-          <!--<md-input-container>-->
-            <!--<label>Balance</label>-->
-            <!--<input ng-model="data.outstandingBalance" readonly>-->
-          <!--</md-input-container>-->
-
-          <!--<md-input-container>-->
-            <!--<label>Billed</label>-->
-            <!--<input ng-model="lastBill.billed" readonly>-->
-          <!--</md-input-container>-->
-
-
-        </md-card-content>
-      </md-content>
-
-      <md-content flex="40">
-        <md-card-content>
-          <md-input-container flex class="md-default-theme">
-            <label for="input_041">Search account</label>
-            <input ng-change="searchAccount()" ng-model="accNo" maxlength="9"
-                   class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041"
-                   aria-invalid="false">
-          </md-input-container>
-
-          <div ng-show="error" class="alert alert-danger" role="alert">{{message}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-              aria-hidden="true">&times;</span></button>
-          </div>
-
-
-          <md-content ng-show="accountFound">
-            <div ng-show="billed" class="alert alert-danger" role="alert">
-              Sorry account has already been billed.
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
-            </div>
-
-            <md-content ng-show="!billed">
-              <p>
-                Balance <span class="money-color">KES {{data.outstandingBalance | number}}</span>
-              </p>
-              <p>
-                Meter Rent <span class="money-color">KES {{data.meter.meterSize.rentAmount | number}}</span>
-              </p>
+              <md-input-container flex="50">
+                <label>Account#</label>
+                <input ng-model="data.accNo" readonly>
+              </md-input-container>
 
               <md-input-container>
-                <label>Meter Reading</label>
-                <input maxlength="6" required type="number" name="accNo" ng-model="form.accNo">
+                <label>Last Billing Date</label>
+                <input ng-model="lastBill.billingMonth.month" readonly>
+              </md-input-container>
 
-                <div ng-messages="myForm.object.accNo.$error">
-                  <div ng-message="required">This is required.</div>
-                  <div ng-message="maxlength">The account number has to be less than 9 characters long.</div>
+
+              <md-input-container>
+                <label>Tariff</label>
+                <input ng-model="data.tariff.name" readonly>
+              </md-input-container>
+
+              <md-input-container>
+                <label>Previous Reading</label>
+                <input ng-model="lastBill.currentReading">
+              </md-input-container>
+
+              <md-input-container>
+                <label>Average Consumption</label>
+                <input ng-model="data.averageConsumption" readonly>
+              </md-input-container>
+
+              <md-input-container>
+                <label>Active</label>
+                <input ng-model="data.active" readonly>
+              </md-input-container>
+
+              <md-input-container>
+                <label>Metered</label>
+                <input ng-model="data.metered" readonly>
+              </md-input-container>
+
+              <md-input-container>
+              <label>Meter Rent</label>
+              <input ng-model="data.meter.meterSize.rentAmount" readonly>
+              </md-input-container>
+
+              <md-input-container>
+              <label>Balance</label>
+              <input ng-model="data.outstandingBalance" readonly>
+              </md-input-container>
+
+              <md-input-container>
+              <label>Billed</label>
+              <input ng-model="lastBill.billed" readonly>
+              </md-input-container>
+
+
+            </md-card-content>
+          </md-content>
+
+          <md-content flex="40">
+            <md-card-content>
+              <md-input-container flex class="md-default-theme">
+                <label for="input_041">Search account</label>
+                <input ng-change="searchAccount()" ng-model="accNo" maxlength="9"
+                       class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041"
+                       aria-invalid="false">
+              </md-input-container>
+
+              <div ng-show="error" class="alert alert-danger" role="alert">{{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
+              </div>
+
+
+              <md-content ng-show="accountFound">
+                <div ng-show="billed" class="alert alert-danger" role="alert">
+                  Sorry account has already been billed.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
                 </div>
-              </md-input-container>
 
-              <md-input-container>
-                <label>Units Consumed</label>
-                <input readonly ng-model="form.accNo">
-              </md-input-container>
+                <md-content ng-show="!billed">
+                  <md-content flex layout="row" layout-align="space-between center">
+                    <h1 style="font-weight: 200;" class="money-color">KES {{totalBilled | number}}</h1>
+                    <md-button>Save</md-button>
+                  </md-content>
 
-              <md-input-container>
-                <label>Consumption Type</label>
-                <input readonly ng-model="form.accNo">
-              </md-input-container>
+                  <md-input-container>
+                    <label>Meter Reading</label>
+                    <input maxlength="6" required type="number" ng-change="calcUnits()" name="meterReading" ng-model="form.meterReading">
 
-
-              <md-content layout-padding class="autocomplete" layout="column">
-                <p>Charges</p>
-                <md-chips ng-model="ctrl.selectedVegetables" md-autocomplete-snap md-require-match>
-                  <md-autocomplete
-                    md-selected-item="ctrl.selectedItem"
-                    md-search-text="ctrl.searchText"
-                    md-items="item in ctrl.querySearch(ctrl.searchText)"
-                    md-item-text="item.name"
-                    placeholder="Search for a vegetable">
-                    <span md-highlight-text="ctrl.searchText">{{item.name}} :: {{item.type}}</span>
-                  </md-autocomplete>
-                  <md-chip-template>
-                  <span>
-                    <strong>{{$chip.name}}</strong>
-                    <em>({{$chip.type}})</em>
-                  </span>
-                  </md-chip-template>
-
-                </md-chips>
-
-                <br />
-                <md-list>
-                  <md-subheader class="md-no-sticky">Charges</md-subheader>
-                  <md-item class="md-2-line veggie-option" ng-repeat="veg in ctrl.vegetables">
-                    <div class="md-item-text md-whiteframe-z1">
-                      <h3>{{veg.name}}</h3>
-                      <p>{{veg.type}}</p>
+                    <div ng-messages="myForm.object.meterReading.$error">
+                      <div ng-message="required">This is required.</div>
+                      <div ng-message="maxlength">The account number has to be less than 9 characters long.</div>
                     </div>
-                  </md-item>
-                </md-list>
+                  </md-input-container>
+
+                  <md-content flex layout="row" layout-align="space-between center">
+
+
+                  <md-input-container>
+                    <label>Units Consumed</label>
+                    <input readonly ng-model="form.unitsConsumed" ng-change="calcBilled()">
+                  </md-input-container>
+
+                  <md-input-container>
+                    <label>Consumption Type</label>
+                    <input readonly ng-model="form.consumptionType">
+                  </md-input-container>
+
+                  </md-content>
+
+                  <md-subheader class="md-primary">Charged</md-subheader>
+                  <md-content>
+                <span class="label label-success pull-left" ng-repeat="charge in charged"
+                      ng-click="removeCharge($index)">
+                  {{charge.name | uppercase}} KES {{charge.amount | number}}
+                </span>
+                  </md-content>
+                  <br/>
+                  <md-divider></md-divider>
+
+                  <md-subheader class="md-primary">Available Charges</md-subheader>
+                  <md-content>
+                <span class="label label-danger pull-left" ng-repeat="charge in charges" ng-click="addCharge($index)">
+                {{charge.name | uppercase}} KES {{charge.amount | number}}
+              </span>
+
+
+                  </md-content>
+
+
+                </md-content>
               </md-content>
 
 
-            </md-content>
+            </md-card-content>
           </md-content>
 
-
-        </md-card-content>
-      </md-content>
-
-    </md-content>
-  </form>
+        </md-content>
+      </form>
     </md-card-content>
   </md-card>
 </md-content>
