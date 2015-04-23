@@ -13,7 +13,7 @@
             {'title': 'Consumers', 'state': 'consumers', 'icon': 'icon-users'},
             {'title': 'Accounts', 'state': 'accounts', 'icon': 'icon-share'},
             {'title': 'Payments', 'state': 'payments', 'icon': 'icon-wallet'},
-            {'title': 'Billing', 'state': 'billing', 'icon': 'icon-wallet'},
+            {'title': 'Billing', 'state': 'billing', 'icon': 'icon-calculator'},
             {'title': 'Meters', 'state': 'meters', 'icon': 'icon-compass'}]
         },
         {

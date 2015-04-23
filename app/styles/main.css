@@ -49,10 +49,10 @@ body {
 
 }
 .md-button {
-  text-transform: none;
+  text-transform:none;
   text-align: left;
-  font-weight: 200;
-  font-size: 18px;
+  font-weight: 300;
+  font-size: 20px;
 }
 .total-records{
   color:#8BC34A;font-size: 22px;font-weight: 200;
