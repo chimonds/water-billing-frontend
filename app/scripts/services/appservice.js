@@ -33,6 +33,7 @@ app.service('appService', function($http, $cookieStore) {
     var PAYMENTS = 'payments';
     var BILLS = 'bills';
     var PAYMENT_TYPES ='paymentTypes';
+    var BILL_ITEM_TYPES ='bill_item_types';
 
     //__________________________
     var POST_REQUEST = 'POST';
@@ -565,6 +566,17 @@ app.service('appService', function($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + PAYMENTS,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getBillItemTypes = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILL_ITEM_TYPES,
       headers: {
         'Content-Type': 'application/json'
       },

@@ -100,7 +100,7 @@
 
                 <md-content ng-show="!billed">
                   <md-content flex layout="row" layout-align="space-between center">
-                    <h1 style="font-weight: 200;" class="money-color">KES {{totalBilled | number}}</h1>
+                    <h1 style="font-weight: 200;" class="money-color">KES {{totalBilled+totalCharges | number}}</h1>
                     <md-button>Save</md-button>
                   </md-content>
 
