@@ -8,6 +8,8 @@
  * Controller of the equismsApp
  */
 app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
+  var config = appService.getCofig();
+
   $scope.accountFound = false;
   var request = {};
   request.page = 0;
@@ -61,7 +63,6 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
       var accountId = $scope.account.accountId;
       var request = {};
       appService.getLastBillByAccount(request, accountId).success(function (response) {
-        console.log(response);
         $scope.lastBill = response.payload;
         $scope.billed = $scope.lastBill.billed;
       });
@@ -108,6 +109,7 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
     //recalculate
     $scope.calcBilled();
   }
+
   $scope.calcUnits = function () {
     var lastReading = $scope.lastBill.currentReading;
     var currentReading = $scope.form.meterReading;
@@ -122,16 +124,52 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
 
     $scope.calcBilled();
   };
+
   $scope.calcBilled = function () {
     var units = $scope.form.unitsConsumed;
-    var amountBilled = units * 45;
+    var accountId = $scope.account.accountId;
+    var request = {};
+    request.units = units;
+    appService.calculateAmountBilled(request, accountId).success(function (response) {
+      console.log(response);
+      $scope.totalBilled = response.payload.amount;
+    });
 
     //calculate other charges
     $scope.totalCharges = 0;
     angular.forEach($scope.charged, function (item) {
       $scope.totalCharges += item.amount;
     });
-    $scope.totalBilled = amountBilled;
   };
 
+  $scope.submit = function(){
+    var accountId = $scope.account.accountId;
+    var request = {};
+    request.billItemTypes = $scope.charged;
+    request.currentReading = $scope.form.meterReading;
+    request.previousReading = $scope.lastBill.currentReading;
+
+    //Send payload to server
+    $scope.error = false;
+    $scope.alert_css = config.cssAlertSucess;
+    $scope.message = config.msgSendingData;
+
+
+    appService.billAccount(request, accountId).success(function (response) {
+      $scope.error = false;
+      $scope.alert_css = config.cssAlertSucess;
+      $scope.message = response.message;
+
+    }).error(function (data, status) {
+      $scope.alert_css = config.cssAlertDanger;
+      if (status === 401) {
+        $state.go('session');
+        $scope.message = data.message;
+      } else {
+        $scope.error = true;
+        $scope.message = data.message;
+      }
+  });
+
+  }
 });

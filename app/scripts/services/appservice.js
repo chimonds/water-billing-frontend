@@ -507,6 +507,17 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.calculateAmountBilled = function(request, accountId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + TARIFFS+'/calculate/'+accountId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.getPaymentTypes = function(request) {
     return $http({
       method: POST_REQUEST,
@@ -555,6 +566,17 @@ app.service('appService', function($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLS+'/last/'+accountId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.billAccount = function(request, accountId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLS+'/bill/'+accountId,
       headers: {
         'Content-Type': 'application/json'
       },
