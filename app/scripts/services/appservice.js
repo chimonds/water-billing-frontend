@@ -606,6 +606,19 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getAccountsReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + ACCOUNTS+'/report',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
+
 
 
     this.getCofig = function() {

@@ -1,0 +1,45 @@
+<div class="report">
+  <h1>{{accounts.company}}</h1>
+  <h2>
+    {{accounts.title}}
+    <span class="pull-right">{{accounts.date | date}}</span>
+  </h2>
+  <hr/>
+  <table width="100%">
+    <thead>
+    <tr>
+      <th>ACCOUNT#</th>
+      <th>NAME</th>
+      <th>ZONE</th>
+      <th>ACTIVE</th>
+      <th>
+      <span class="pull-right">
+              BALANCE (KES)
+      </span>
+
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="account in accounts.content">
+      <td>{{account.accNo}}</td>
+      <td>{{account.accName}}</td>
+      <td>{{account.zone}}</td>
+      <td>{{account.active}}</td>
+      <td align="right">{{account.balance | number}}</td>
+    </tr>
+    <tr>
+      <td colspan="5">
+        <hr/>
+       <h1>
+         Total
+        <span class="pull-right">
+          KES {{accounts.amount | number}}
+        </span>
+       </h1>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

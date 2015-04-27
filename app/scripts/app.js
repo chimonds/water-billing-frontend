@@ -160,7 +160,23 @@ var app = angular
               requireLogin: true
             }
           })
+          .state('balances', {
+            url: '/balances',
+            templateUrl: 'views/reports/balances.html',
+            controller: 'BalancesCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
 
+          .state('bills', {
+            url: '/monthly_bill_report',
+            templateUrl: 'views/reports/monthly_bill_report.html',
+            controller: 'MonthlyBillReportCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
             .state('payments', {
                 url: '/payments',
                 templateUrl: 'views/payments.html',
@@ -220,8 +236,8 @@ var app = angular
 
 
         $mdThemingProvider.theme('default')
-            .primaryColor('amazingPaletteName');
-    //.primaryColor('blue');
+            //.primaryColor('amazingPaletteName');
+    .primaryColor('blue');
 
         //teal
         // $mdThemingProvider.theme('default')

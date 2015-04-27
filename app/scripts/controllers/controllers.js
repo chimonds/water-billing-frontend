@@ -24,6 +24,13 @@
             {'title': 'Zones', 'state': 'zones', 'icon': 'icon-cursor-move'}]
         },
         {
+          'category': 'Reports',
+          'items': [
+            {'title': 'Balances', 'state': 'balances', 'icon': 'icon-calendar'},
+            {'title': 'Bills', 'state': 'bills', 'icon': 'icon-pointer'},
+            {'title': 'Zones', 'state': 'zones', 'icon': 'icon-cursor-move'}]
+        },
+        {
           'category':'Administration',
           'items':[
             {'title':'Users', 'state':'users','icon':'icon-user'},

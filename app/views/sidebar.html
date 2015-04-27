@@ -1,11 +1,11 @@
 <div layout="column" layout-fill ng-controller="SidebarCtrl" flex>
-   <md-toolbar  ng-show="showMainToolbar" scroll-shrink layout="row" class="sticky-nav">
+   <md-toolbar  ng-show="showMainToolbar" scroll-shrink layout="row" class="sticky-nav no-print">
       <div class="md-toolbar-tools">
          <h2 flex="70">
             <md-button ng-click="toggleMenu()" aria-label="Toggle menu">
                <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
             </md-button>
-            <span>Bulk SMS</span>
+            <span>AQUA Pro</span>
          </h2>
          <h2 flex="30" class="pull-right">
                <md-button ng-href="#logout" class="pull-right" aria-label="Logout">
@@ -22,7 +22,7 @@
    <md-content layout="vertical" flex style="min-height: 200px;height:auto;">
       <!-- LEFT SIDEBAR -->
 
-      <md-sidenav   class="md-sidenav-left sticky-navsidebar" md-component-id="left">
+      <md-sidenav   class="md-sidenav-left sticky-navsidebar no-print" md-component-id="left" >
          <!-- <md-toolbar > -->
 
          <md-toolbar >

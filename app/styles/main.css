@@ -5,7 +5,32 @@ body {
   padding-bottom: 20px;
   color: #999999;
   font-family: 'Roboto', sans-serif;
+  font-weight: 200;
 }
+h1,
+h2,
+h3,
+h4,
+h5{
+  font-weight: 400 !important;
+}
+
+.report{
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.boxbox{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
+.highlight{
+  font-weight: 400;
+}
+
 /* mouse over link */
 /*a:hover {
     color: #F6BB8F;
