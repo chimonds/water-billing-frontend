@@ -236,8 +236,8 @@ var app = angular
 
 
         $mdThemingProvider.theme('default')
-            //.primaryColor('amazingPaletteName');
-    .primaryColor('blue');
+            .primaryColor('amazingPaletteName');
+    //.primaryColor('blue');
 
         //teal
         // $mdThemingProvider.theme('default')
