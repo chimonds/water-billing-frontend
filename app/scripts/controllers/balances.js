@@ -42,6 +42,7 @@ app.controller('BalancesCtrl', function ($scope, $http, appService, $cookieStore
 
   $scope.generate = function (form) {
     $scope.progress = true;
+    $scope.report = false;
     //Get active billing month
     var request = {};
 
@@ -49,6 +50,9 @@ app.controller('BalancesCtrl', function ($scope, $http, appService, $cookieStore
 
     //set transaction date
     var transactionDate = moment(form.transactionDate).unix();
+    if(typeof transactionDate ==='undefined' || typeof transactionDate ==='NaN'){
+      transactionDate = moment().unix();
+    }
     request.transactionDate = transactionDate;
 
     //select zone
@@ -67,11 +71,10 @@ app.controller('BalancesCtrl', function ($scope, $http, appService, $cookieStore
       request.creditBalances = $scope.credit[accountStatus].name;
     }
 
+    var params= {};
+    params.fields = request;
 
-    console.log(request);
-
-
-    appService.getAccountsReport(request).success(function (response) {
+    appService.getAccountsReceivables(params).success(function (response) {
       $scope.progress = false;
       $scope.error = false;
       $scope.accounts = response.payload;

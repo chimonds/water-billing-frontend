@@ -606,7 +606,7 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
-  this.getAccountsReport = function(request) {
+  this.getAccountsReceivables = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS+'/report',
