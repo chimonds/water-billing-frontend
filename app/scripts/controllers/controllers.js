@@ -27,7 +27,7 @@
           'category': 'Reports',
           'items': [
             {'title': 'Accounts Receivable', 'state': 'balances', 'icon': 'icon-calendar'},
-            {'title': 'Bills', 'state': 'bills', 'icon': 'icon-pointer'},
+            {'title': 'Credit Balances', 'state': 'credit_balances', 'icon': 'icon-calendar'},
             {'title': 'Zones', 'state': 'zones', 'icon': 'icon-cursor-move'}]
         },
         {

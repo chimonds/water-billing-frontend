@@ -609,7 +609,18 @@ app.service('appService', function($http, $cookieStore) {
   this.getAccountsReceivables = function(request) {
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + ACCOUNTS+'/report',
+      url: BASE_URL + ACCOUNTS+'/accountsReceivables',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getCreditBalances = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + ACCOUNTS+'/creditBalances',
       headers: {
         'Content-Type': 'application/json'
       },

@@ -177,6 +177,16 @@ var app = angular
               requireLogin: true
             }
           })
+
+          .state('credit_balances', {
+            url: '/credit_balances',
+            templateUrl: 'views/reports/credit_balances.html',
+            controller: 'ReportCreditBalancesCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
+
             .state('payments', {
                 url: '/payments',
                 templateUrl: 'views/payments.html',
