@@ -195,6 +195,22 @@ var app = angular
               requireLogin: true
             }
           })
+          .state('meter_stops', {
+            url: '/meter_stops',
+            templateUrl: 'views/reports/meter_stops.html',
+            controller: 'ReportMeterStopsCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
+          .state('negative_readings', {
+            url: '/negative_readings',
+            templateUrl: 'views/reports/negative_readings.html',
+            controller: 'ReportNegativeReadingsCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
 
             .state('payments', {
                 url: '/payments',

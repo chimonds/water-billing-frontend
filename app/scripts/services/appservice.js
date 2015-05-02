@@ -639,6 +639,29 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getMeterStops = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLS+'/meterStops',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getNegativeReadings = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLS+'/negativeReadings',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
   this.getAllBillingMonths = function(request) {
     return $http({
       method: POST_REQUEST,
