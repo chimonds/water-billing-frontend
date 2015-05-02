@@ -187,6 +187,15 @@ var app = angular
             }
           })
 
+          .state('meter_readings', {
+            url: '/meter_readings',
+            templateUrl: 'views/reports/meter_readings.html',
+            controller: 'ReportMeterReadingsCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
+
             .state('payments', {
                 url: '/payments',
                 templateUrl: 'views/payments.html',

@@ -28,6 +28,12 @@
           'items': [
             {'title': 'Accounts Receivable', 'state': 'balances', 'icon': 'icon-calendar'},
             {'title': 'Credit Balances', 'state': 'credit_balances', 'icon': 'icon-calendar'},
+            {'title': 'Meter Readings', 'state': 'meter_readings', 'icon': 'icon-calendar'},
+            {'title': 'Meter Stops', 'state': 'meter_stops', 'icon': 'icon-calendar'},
+            {'title': 'Negative Readings', 'state': 'negative_readings', 'icon': 'icon-calendar'},
+            {'title': 'Billed Amount', 'state': 'billed_amount', 'icon': 'icon-calendar'},
+            {'title': 'Billing Checklist', 'state': 'billing_checklist', 'icon': 'icon-calendar'},
+            {'title': 'Field Card', 'state': 'field_card', 'icon': 'icon-calendar'},
             {'title': 'Zones', 'state': 'zones', 'icon': 'icon-cursor-move'}]
         },
         {

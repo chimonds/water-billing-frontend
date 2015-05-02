@@ -628,6 +628,28 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getMeterReadings = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLS+'/meterReadings',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getAllBillingMonths = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLING_MONTHS+'/all',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
 
 
 
