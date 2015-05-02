@@ -1,0 +1,91 @@
+<md-card class="no-print">
+  <md-card-content>
+    <p>
+      <md-subheader class="md-primary">Field Card Report</md-subheader>
+    <form name="myForm.object">
+      <md-content layout-sm="column" layout="row" layout-align="space-between center">
+        <!--Zones-->
+        <md-select ng-model="form.accZone" placeholder="Select Zone">
+          <md-optgroup label="Zones">
+            <md-option ng-repeat="zone in zones" value="{{$index}}">
+              {{zone.name}}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+
+        <!--Account status-->
+        <md-select ng-model="form.status" placeholder="Account Status">
+          <md-optgroup label="Account Status">
+            <md-option ng-repeat="s in status" value="{{$index}}">
+              {{s.name}}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+
+        <!--Billing month-->
+        <!--<md-select ng-model="form.billingMonth" placeholder="Billing Month">-->
+        <!--<md-optgroup label="Billing Month">-->
+        <!--<md-option ng-repeat="m in billingMonths" value="{{$index}}">-->
+        <!--{{m.month | date}}-->
+        <!--</md-option>-->
+        <!--</md-optgroup>-->
+        <!--</md-select>-->
+
+        <md-button ng-click="generate(form)">Submit</md-button>
+
+      </md-content>
+    </form>
+    </p>
+
+    <p ng-show="progress">
+      Crunching data, please wait...
+      <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+    </p>
+    <p>
+
+    <div ng-show="error" class="alert alert-danger" role="alert">{{message}}</div>
+    </p>
+  </md-card-content>
+</md-card>
+<div class="report" ng-show="report">
+  <h1>{{data.company}}</h1>
+
+  <h2>
+    {{data.title}}
+    <span class="pull-right">{{data.date | date:'medium'}}</span>
+  </h2>
+
+  <p>
+    {{data.content.length | number}} Records
+  </p>
+  <hr/>
+  <table width="100%">
+    <thead>
+    <tr>
+      <th>ACCOUNT#</th>
+      <th>NAME</th>
+      <th>ZONE</th>
+      <th>LOCATION</th>
+      <th>ACTIVE</th>
+      <th>METER NO</th>
+      <th>METER OWNER</th>
+      <th>READING</th>
+      <th>COMMENTS</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="reading in data.content | orderBy:'-accNo'">
+      <td>{{reading.accNo}}</td>
+      <td>{{reading.accName}}</td>
+      <td>{{reading.zone}}</td>
+      <td>{{reading.location}}</td>
+      <td>{{reading.active}}</td>
+      <td>{{reading.meterNo}}</td>
+      <td>{{reading.meterOwner}}</td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

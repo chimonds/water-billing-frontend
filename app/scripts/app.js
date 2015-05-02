@@ -227,6 +227,16 @@ var app = angular
               requireLogin: true
             }
           })
+          .state('field_card', {
+            url: '/field_card',
+            templateUrl: 'views/reports/field_card.html',
+            controller: 'ReportFieldCardCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
+
+
 
             .state('payments', {
                 url: '/payments',

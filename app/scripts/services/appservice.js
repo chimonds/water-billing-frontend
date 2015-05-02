@@ -672,6 +672,17 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getFieldCardReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + ACCOUNTS+'/fieldCard',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.getBillingChecklistReport = function(request) {
     return $http({
       method: POST_REQUEST,
