@@ -211,6 +211,22 @@ var app = angular
               requireLogin: true
             }
           })
+          .state('billed_amount', {
+            url: '/billed_amount',
+            templateUrl: 'views/reports/billed_amount.html',
+            controller: 'ReportBilledAmountCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
+          .state('billing_checklist', {
+            url: '/billing_checklist',
+            templateUrl: 'views/reports/billing_checklist.html',
+            controller: 'ReportBillingChecklistCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
 
             .state('payments', {
                 url: '/payments',

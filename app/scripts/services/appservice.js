@@ -661,6 +661,27 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getBilledAmountReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLS+'/billedAmount',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getBillingChecklistReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLS+'/checklist',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
 
   this.getAllBillingMonths = function(request) {
     return $http({
