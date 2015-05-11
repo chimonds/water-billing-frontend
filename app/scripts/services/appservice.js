@@ -34,6 +34,7 @@ app.service('appService', function($http, $cookieStore) {
     var BILLS = 'bills';
     var PAYMENT_TYPES ='paymentTypes';
     var BILL_ITEM_TYPES ='bill_item_types';
+    var REPORTS ='reports';
 
     //__________________________
     var POST_REQUEST = 'POST';
@@ -694,6 +695,17 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getPaymentsReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORTS+'/payments',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.getAllBillingMonths = function(request) {
     return $http({
       method: POST_REQUEST,
@@ -704,7 +716,6 @@ app.service('appService', function($http, $cookieStore) {
       data: angular.toJson(getPayload(request))
     });
   };
-
 
 
 
