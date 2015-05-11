@@ -275,7 +275,15 @@ var app = angular
               requireLogin: true
             }
           })
-            .state('payments', {
+          .state('waris', {
+            url: '/waris',
+            templateUrl: 'views/reports/waris.html',
+            controller: 'WarisCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
+          .state('payments', {
                 url: '/payments',
                 templateUrl: 'views/payments.html',
                 controller: 'PaymentsCtrl',
