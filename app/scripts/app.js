@@ -259,6 +259,14 @@ var app = angular
               requireLogin: true
             }
           })
+          .state('monthly_bills', {
+            url: '/monthly_bills',
+            templateUrl: 'views/reports/monthly_bills.html',
+            controller: 'MonthlyBillsCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
             .state('payments', {
                 url: '/payments',
                 templateUrl: 'views/payments.html',
