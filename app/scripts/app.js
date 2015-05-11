@@ -243,11 +243,22 @@ var app = angular
               requireLogin: true
             }
           })
-
-
-
-
-
+          .state('billing_summary', {
+            url: '/billing_summary',
+            templateUrl: 'views/reports/billing_summary.html',
+            controller: 'BillingSummaryCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
+          .state('potential_cut_off', {
+            url: '/potential_cut_off',
+            templateUrl: 'views/reports/potential_cut_off.html',
+            controller: 'PotentialCutOffCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
             .state('payments', {
                 url: '/payments',
                 templateUrl: 'views/payments.html',
