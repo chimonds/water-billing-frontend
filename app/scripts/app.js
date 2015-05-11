@@ -267,6 +267,14 @@ var app = angular
               requireLogin: true
             }
           })
+          .state('ageing', {
+            url: '/ageing',
+            templateUrl: 'views/reports/ageing.html',
+            controller: 'AgeingCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
             .state('payments', {
                 url: '/payments',
                 templateUrl: 'views/payments.html',
