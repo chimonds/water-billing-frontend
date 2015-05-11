@@ -706,6 +706,16 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getPotentialCutOffReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORTS+'/potentialCutOff',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
   this.getAllBillingMonths = function(request) {
     return $http({
       method: POST_REQUEST,
@@ -716,6 +726,8 @@ app.service('appService', function($http, $cookieStore) {
       data: angular.toJson(getPayload(request))
     });
   };
+
+
 
 
 
