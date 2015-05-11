@@ -152,6 +152,14 @@ var app = angular
                 requireLogin: true
               }
             })
+          .state('statement', {
+            url: '/statement/{accountId}',
+            templateUrl: 'views/reports/statement.html',
+            controller: 'StatementCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
           .state('billing', {
             url: '/billing',
             templateUrl: 'views/billing.html',
