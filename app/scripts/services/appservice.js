@@ -716,6 +716,19 @@ app.service('appService', function($http, $cookieStore) {
       data: angular.toJson(getPayload(request))
     });
   };
+
+  this.getBillingSummaryReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORTS+'/billingSummary',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
   this.getAllBillingMonths = function(request) {
     return $http({
       method: POST_REQUEST,

@@ -65,13 +65,14 @@
 
 
           </div>
-
-          <md-button class="md-primary pull-right" ng-click="addAccountDialog();">
-            <span class="icon-layers action-button" aria-hidden="true"></span>
-          </md-button>
+          <md-button class="md-primary"  ui-sref="statement({ accountId: account.accountId})">View Statement</md-button>
+          <!--<md-button class="md-primary pull-right">-->
+            <!--<span class="icon-layers action-button" aria-hidden="true"></span>-->
+          <!--</md-button>-->
 
           <md-button class="md-primary pull-right" ng-click="addPaymentDialog();">
-            <span class="icon-plus action-button" aria-hidden="true"></span>
+            <!--<span class="icon-plus action-button" aria-hidden="true"></span>-->
+            Add Payment
           </md-button>
 
           <div class="clearfix"></div>
@@ -167,16 +168,6 @@
                   </tr>
                   </tbody>
                 </table>
-
-
-
-
-
-
-
-
-
-
                 </p>
               </md-tab-template>
             </md-tab>
