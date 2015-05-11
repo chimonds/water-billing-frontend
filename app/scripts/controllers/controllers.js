@@ -26,15 +26,22 @@
         {
           'category': 'Reports',
           'items': [
-            {'title': 'Accounts Receivable', 'state': 'balances', 'icon': 'icon-calendar'},
-            {'title': 'Credit Balances', 'state': 'credit_balances', 'icon': 'icon-calendar'},
-            {'title': 'Meter Readings', 'state': 'meter_readings', 'icon': 'icon-calendar'},
-            {'title': 'Meter Stops', 'state': 'meter_stops', 'icon': 'icon-calendar'},
-            {'title': 'Negative Readings', 'state': 'negative_readings', 'icon': 'icon-calendar'},
-            {'title': 'Billed Amount', 'state': 'billed_amount', 'icon': 'icon-calendar'},
-            {'title': 'Billing Checklist', 'state': 'billing_checklist', 'icon': 'icon-calendar'},
-            {'title': 'Field Card', 'state': 'field_card', 'icon': 'icon-calendar'},
-            {'title': 'Zones', 'state': 'zones', 'icon': 'icon-cursor-move'}]
+            {'title': 'Accounts Receivable', 'state': 'balances', 'icon': 'icon-bar-chart'},
+            {'title': 'Credit Balances', 'state': 'credit_balances', 'icon': 'icon-bar-chart'},
+            {'title': 'Meter Readings', 'state': 'meter_readings', 'icon': 'icon-bar-chart'},
+            {'title': 'Meter Stops', 'state': 'meter_stops', 'icon': 'icon-bar-chart'},
+            {'title': 'Negative Readings', 'state': 'negative_readings', 'icon': 'icon-bar-chart'},
+            {'title': 'Billed Amount', 'state': 'billed_amount', 'icon': 'icon-bar-chart'},
+            {'title': 'Billing Checklist', 'state': 'billing_checklist', 'icon': 'icon-bar-chart'},
+            {'title': 'Field Card', 'state': 'field_card', 'icon': 'icon-bar-chart'},
+
+            {'title': 'Payments', 'state': 'payments_report', 'icon': 'icon-bar-chart'},
+            {'title': 'Billing Summary', 'state': 'billing_summary', 'icon': 'icon-bar-chart'},
+            {'title': 'Potential Cut Off', 'state': 'potential_cut_off', 'icon': 'icon-bar-chart'},
+            {'title': 'Monthly Bills', 'state': 'monthly_bills', 'icon': 'icon-bar-chart'},
+            {'title': 'Ageing', 'state': 'ageing', 'icon': 'icon-bar-chart'},
+            {'title': 'WARIS', 'state': 'waris', 'icon': 'icon-bar-chart'}
+          ]
         },
         {
           'category':'Administration',

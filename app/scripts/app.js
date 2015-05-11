@@ -235,6 +235,16 @@ var app = angular
               requireLogin: true
             }
           })
+          .state('payments_report', {
+            url: '/payments_report',
+            templateUrl: 'views/reports/payments.html',
+            controller: 'PaymentsReportCtrl',
+            data: {
+              requireLogin: true
+            }
+          })
+
+
 
 
 
