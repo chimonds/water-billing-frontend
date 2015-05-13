@@ -3,7 +3,7 @@
 <md-content>
    <md-subheader class="md-primary">Use this panel to manage users</md-subheader>
    <md-content>
-      <md-button class="md-primary pull-right" ng-click="addUserDialog();">
+      <md-button ng-show="$root.users_create" class="md-primary pull-right" ng-click="addUserDialog();">
          <span class="icon-plus action-button" aria-hidden="true"></span>
       </md-button>
       <div class="clearfix"></div>
@@ -35,7 +35,7 @@
                <td>{{user.active}}</td>
                <td>{{user.userRole.name}}</td>
                <td align="right">
-                  <md-button class="md-primary" ng-click="editUserDialog($index)">Edit</md-button>
+                  <md-button ng-show="$root.users_update" class="md-primary" ng-click="editUserDialog($index)">Edit</md-button>
                </td>
             </tr>
             <tr>

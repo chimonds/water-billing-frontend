@@ -3,7 +3,7 @@
       <md-content>
          <md-subheader class="md-primary">Use this panel to manage connection zones</md-subheader>
          <md-content>
-            <md-button class="md-primary pull-right" ng-click="addZoneDialog();">
+            <md-button ng-show="$root.zones_create" class="md-primary pull-right" ng-click="addZoneDialog();">
                <span class="icon-plus action-button" aria-hidden="true"></span>
             </md-button>
             <div class="clearfix"></div>
@@ -31,7 +31,7 @@
                         <span am-time-ago="zone.createdOn"> </span>
                      </td>
                      <td align="right">
-                        <md-button class="md-primary" ng-click="editZoneDialog($index)">Edit</md-button>
+                        <md-button ng-show="$root.zones_update" class="md-primary" ng-click="editZoneDialog($index)">Edit</md-button>
                      </td>
                   </tr>
                   <tr>

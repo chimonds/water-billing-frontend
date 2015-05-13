@@ -3,7 +3,7 @@
       <md-content>
          <md-subheader class="md-primary">Use this panel to manage connection locations</md-subheader>
          <md-content>
-            <md-button class="md-primary pull-right" ng-click="addLocationDialog();">
+            <md-button ng-show="$root.location_create" class="md-primary pull-right" ng-click="addLocationDialog();">
                <span class="icon-plus action-button" aria-hidden="true"></span>
             </md-button>
             <div class="clearfix"></div>
@@ -31,7 +31,7 @@
                         <span am-time-ago="location.createdOn"> </span>
                      </td>
                      <td align="right">
-                        <md-button class="md-primary" ng-click="editLocationDialog($index)">Edit</md-button>
+                        <md-button ng-show="$root.location_update" class="md-primary" ng-click="editLocationDialog($index)">Edit</md-button>
                      </td>
                   </tr>
                   <tr>

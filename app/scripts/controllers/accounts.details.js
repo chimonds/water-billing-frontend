@@ -165,7 +165,7 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
         request.billingMonth =$scope.activeBillingMonth;
 
         //set transaction date
-        var transactionDate = moment(form.transactionDate).unix();
+        var transactionDate = moment(form.transactionDate).unix()*1000;
         request.transactionDate= transactionDate;
 
         //set payment type

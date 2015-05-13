@@ -25,7 +25,7 @@
                <td>{{option.description}}</td>
                <td>{{option.value}}</td>
                <td align="right">
-                  <md-button class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>
+                  <md-button ng-show="$root.settings_update" class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>
                </td>
             </tr>
             <tr>

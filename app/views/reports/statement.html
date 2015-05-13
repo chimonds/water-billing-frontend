@@ -1,0 +1,76 @@
+<md-card class="no-print">
+  <md-card-content>
+    <p>
+      <md-subheader class="md-primary">Account Statement Report</md-subheader>
+    <form name="myForm.object">
+      <md-content layout-sm="column" layout="row" layout-align="space-between center">
+
+      </md-content>
+    </form>
+    </p>
+
+    <p ng-show="progress">
+      Crunching data, please wait...
+      <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+    </p>
+    <p>
+
+    <div ng-show="error" class="alert alert-danger" role="alert">{{message}}</div>
+    </p>
+  </md-card-content>
+</md-card>
+
+<div class="report" ng-show="report">
+  <h1>{{records.company}}</h1>
+
+  <h2>
+    {{records.title}}
+    <span class="pull-right">{{records.date | date:'medium'}}</span>
+  </h2>
+  <hr/>
+  <h2>
+    {{account.accName}}
+    <span class="pull-right">{{account.accNo}}</span>
+  </h2>
+  <hr/>
+  <table width="100%">
+    <thead>
+    <tr>
+      <th>DATE</th>
+      <th>ITEM</th>
+      <th>REF#</th>
+      <th>
+        <span class="pull-right">
+          AMOUNT
+        </span>
+      </th>
+      <th>
+        <span class="pull-right">
+TOTAL
+          </span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="record in records.content">
+      <td>{{record.transactionDate | date}}</td>
+      <td>{{record.itemType}}</td>
+      <td>{{record.refNo}}</td>
+      <td align="right">{{record.amount | number}}</td>
+      <td align="right">{{record.runningAmount | number}}</td>
+    </tr>
+    <!--<tr>-->
+    <!--<td colspan="7">-->
+    <!--<hr/>-->
+    <!--<h1>-->
+    <!--Total-->
+    <!--<span class="pull-right">-->
+    <!--KES {{records.amount | number}}-->
+    <!--</span>-->
+    <!--</h1>-->
+    <!--</td>-->
+    <!--</tr>-->
+    </tbody>
+  </table>
+</div>
+

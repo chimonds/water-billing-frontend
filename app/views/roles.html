@@ -3,7 +3,7 @@
    <md-content>
    <md-subheader class="md-primary">Use this panel to manage user roles</md-subheader>
    <md-content ng-show="showRoles">
-      <md-button class="md-primary pull-right" ng-click="addRoleDialog();" aria-label="Add Role">
+      <md-button ng-show="$root.roles_create" class="md-primary pull-right" ng-click="addRoleDialog();" aria-label="Add Role">
          <span class="icon-plus action-button" aria-hidden="true"></span>
       </md-button>
       <div class="clearfix"></div>
@@ -35,8 +35,11 @@
                   <span am-time-ago="role.createdOn"> </span>
                </td>
                <td align="right">
-                  <md-button class="md-primary" ng-click="editRoleDialog($index)" aria-label="Edit Role">Edit</md-button>
-                  <md-button class="md-primary" ng-click="viewRoleProfile($index)" aria-label="View Role Profile">View</md-button>
+                  <!--<md-button ng-show="$root.roles_update" class="md-primary" ng-click="editRoleDialog($index)" aria-label="Edit Role">Edit</md-button>-->
+                  <!--<md-button ng-show="$root.permissions_update" class="md-primary" ng-click="viewRoleProfile($index)" aria-label="View Role Profile">View</md-button>-->
+
+                 <md-button class="md-primary" ng-click="editRoleDialog($index)" aria-label="Edit Role">Edit</md-button>
+                 <md-button class="md-primary" ng-click="viewRoleProfile($index)" aria-label="View Role Profile">View</md-button>
                </td>
             </tr>
             <tr>
@@ -73,7 +76,7 @@
                </md-input-container>
                <p>
                   <md-list style="height:auto;">
-                     <md-item  dir-paginate="assigned in assignedPermissions | itemsPerPage: 10 | filter:searchAssignedRoles"  pagination-id="assignedPermissionsPagination">
+                     <md-item  dir-paginate="assigned in assignedPermissions | itemsPerPage: 400 | filter:searchAssignedRoles"  pagination-id="assignedPermissionsPagination">
                         <span >
                            <md-button aria-label="Remove Permissions" class="md-primary pull-right " ng-click="removePermission($index);">
                               <span class="icon-close action-permission" aria-hidden="true"></span>
@@ -103,7 +106,7 @@
                </md-input-container>
                <p>
                   <md-list style="height:auto;">
-                     <md-item  dir-paginate="available in availablePermissions | itemsPerPage: 10 | filter:searchaAvailableRoles" pagination-id="availablePermissionsPagination">
+                     <md-item  dir-paginate="available in availablePermissions | itemsPerPage: 400 | filter:searchaAvailableRoles" pagination-id="availablePermissionsPagination">
                         <span>
                            <md-button class="md-primary pull-right " ng-click="addPermission($index);" aria-label="Add Permissions">
                               <span class="icon-plus action-permission" aria-hidden="true"></span>

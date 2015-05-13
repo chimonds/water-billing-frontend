@@ -64,9 +64,7 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
                 $scope.errorMsg = data.message;
                 $state.go('users');
             }
-
         });
-
     };
 
     //load users
@@ -118,8 +116,6 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
                 $scope.showErrorInfo = true;
                 $scope.errorClass = config.cssAlertInfo;
                 $scope.errorMsg = config.msgSendingData;
-
-                console.log(form);
 
                 var userRole = form.userRoleList;
                 console.log('Selected user role:' + userRole);
@@ -207,7 +203,7 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
                 request.firstName = form.firstName;
                 request.lastName = form.lastName;
                 request.emailAddress = form.emailAddress;
-                request.status = form.isActive;
+                request.active = form.isActive;
                 request.userRole = $scope.roles[userRole];
 
                 //send request

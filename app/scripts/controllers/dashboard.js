@@ -7,7 +7,7 @@
  * # LogoutCtrl
  * Controller of the DashboardCtrl
  */
-app.controller('DashboardCtrl', function ($scope, $cookieStore, $location, $window) {
+app.controller('DashboardCtrl', function ($scope,$rootScope, $cookieStore, $location, $window) {
 
   $scope.loadPaymentBillsChart = function () {
     $scope.paymentsBillsChart = {};

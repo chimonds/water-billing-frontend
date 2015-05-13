@@ -728,6 +728,16 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getAccountStatementReport = function(request, accountId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORTS+'/statement/'+accountId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
 
   this.getAllBillingMonths = function(request) {
     return $http({
