@@ -1,9 +1,10 @@
-body{
+body {
   color: #2e2e2e;
   font-family: 'Roboto', sans-serif;
   font-weight: 200;
 }
-.report{
+
+.report {
   margin-top: 0;
   width: 100%;
   margin-left: 0;
@@ -13,11 +14,12 @@ body{
 .pull-right {
   float: right !important;
 }
+
 .pull-left {
   float: left !important;
 }
-.no-print, .no-print *
-{
+
+.no-print, .no-print * {
   display: none !important;
 }
 
@@ -70,15 +72,16 @@ img {
 
 p,
 h2,
-h3,h4 {
+h3, h4 {
   orphans: 3;
   widows: 3;
   font-weight: 200;
 }
+
 h1,
 h2,
 h3,
-h4{
+h4 {
   font-weight: 200;
   page-break-after: avoid;
   line-height: 0.8;
@@ -96,44 +99,56 @@ p {
 .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
   float: left;
 }
+
 .col-md-12 {
   width: 100%;
 }
+
 .col-md-11 {
   width: 91.66666667%;
 }
+
 .col-md-10 {
   width: 83.33333333%;
 }
+
 .col-md-9 {
   width: 75%;
 }
+
 .col-md-8 {
   width: 66.66666667%;
 }
+
 .col-md-7 {
   width: 58.33333333%;
 }
+
 .col-md-6 {
   width: 50%;
 }
+
 .col-md-5 {
   width: 41.66666667%;
 }
+
 .col-md-4 {
   width: 33.33333333%;
 }
+
 .col-md-3 {
   width: 25%;
 }
+
 .col-md-2 {
   width: 16.66666667%;
 }
+
 .col-md-1 {
   width: 8.33333333%;
 }
 
-.clearfix{
+.clearfix {
   clear: both;
 }
 

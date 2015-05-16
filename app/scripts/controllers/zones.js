@@ -93,6 +93,7 @@ app.controller('ZonesCtrl', function($scope, $http, appService, $cookieStore, $s
         $scope.cancel = function() {
             $mdDialog.cancel();
         };
+
         $scope.update = function(form) {
             var myForm = $scope.myForm.object;
             if (myForm.$invalid === false) {

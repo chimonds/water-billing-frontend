@@ -750,6 +750,17 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.updatePassword = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + AUTH+'/updatePassword',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
 
 
 

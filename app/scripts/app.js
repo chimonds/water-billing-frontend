@@ -283,6 +283,14 @@ var app = angular
           requireLogin: true
         }
       })
+      .state('my_profile', {
+        url: '/my_profile',
+        templateUrl: 'views/my_profile.html',
+        controller: 'MyProfileCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
       .state('waris', {
         url: '/waris',
         templateUrl: 'views/reports/waris.html',

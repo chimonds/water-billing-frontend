@@ -6,7 +6,7 @@
 
       <form name="myForm.object">
         <md-content layout="row" layout="row" layout-align="space-between start">
-          <md-content flex="45">
+          <md-content flex="50">
             <md-card-content flex>
 
               <md-subheader class="md-primary">
@@ -16,12 +16,12 @@
         </span>
               </md-subheader>
 
-              <md-input-container flex="50">
+              <md-input-container>
                 <label>Name</label>
                 <input ng-model="data.accName" readonly>
               </md-input-container>
 
-              <md-input-container flex="50">
+              <md-input-container>
                 <label>Account#</label>
                 <input ng-model="data.accNo" readonly>
               </md-input-container>
@@ -85,17 +85,21 @@
                        aria-invalid="false">
               </md-input-container>
 
-              <div ng-show="error" class="alert alert-danger" role="alert">{{message}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                  aria-hidden="true">&times;</span></button>
+              <div ng-show="error" class="alert alert-danger" role="alert">
+                {{message}}
               </div>
+
+              <div ng-show="!error" ng-class="alert_css" role="alert">
+                {{message}}
+              </div>
+
+
 
 
               <md-content ng-show="accountFound">
                 <div ng-show="billed" class="alert alert-danger" role="alert">
                   Sorry account has already been billed.
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
+                  </button>
                 </div>
 
                 <md-content ng-show="!billed">
@@ -105,9 +109,7 @@
                   </md-content>
 
                   <div class="clearfix"></div>
-                  <div ng-show="!error" ng-class="alert_css" role="alert">
-                    {{message}}
-                  </div>
+
 
                   <md-input-container>
                     <label>Meter Reading</label>

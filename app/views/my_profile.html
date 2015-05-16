@@ -1,0 +1,59 @@
+<md-card>
+  <md-card-content>
+    <md-content>
+      <md-subheader class="md-primary">Use this panel to change your password</md-subheader>
+      <md-content>
+        <form name="myForm.object">
+
+          <md-input-container>
+            <label>Current Password</label>
+            <input md-maxlength="40" required name="existingPassword" type="password" ng-model="form.existingPassword">
+
+            <div ng-messages="myForm.object.existingPassword.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 40 characters long.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>New Password</label>
+            <input md-maxlength="30" required name="password" type="password" ng-model="form.newPassword">
+
+            <div ng-messages="myForm.object.password.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Confirm Password</label>
+            <input md-maxlength="30" required name="confirmPassword" type="password" ng-model="form.confirmPassword">
+
+            <div ng-messages="myForm.object.confirmPassword.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+
+          <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="md-actions" layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel();">
+              Close
+            </md-button>
+            <md-button class="md-primary" ng-click="update(form);">
+              Update
+            </md-button>
+          </div>
+        </form>
+
+
+      </md-content>
+    </md-content>
+  </md-card-content>
+</md-card>
+

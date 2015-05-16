@@ -63,8 +63,10 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
       var accountId = $scope.account.accountId;
       var request = {};
       appService.getLastBillByAccount(request, accountId).success(function (response) {
+        $scope.error = false;
         $scope.lastBill = response.payload;
         $scope.billed = $scope.lastBill.billed;
+        $scope.message ='';
       });
     }).error(function (data, status) {
       $scope.data = {};
@@ -142,34 +144,41 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
     });
   };
 
-  $scope.submit = function(){
-    var accountId = $scope.account.accountId;
-    var request = {};
-    request.billItemTypes = $scope.charged;
-    request.currentReading = $scope.form.meterReading;
-    request.previousReading = $scope.lastBill.currentReading;
+  $scope.submit = function (form) {
+    var myForm = $scope.myForm.object;
+    if (myForm.$invalid === false) {
+      var accountId = $scope.account.accountId;
+      var request = {};
+      request.billItemTypes = $scope.charged;
+      request.currentReading = $scope.form.meterReading;
+      request.previousReading = $scope.lastBill.currentReading;
 
-    //Send payload to server
-    $scope.error = false;
-    $scope.alert_css = config.cssAlertSucess;
-    $scope.message = config.msgSendingData;
-
-
-    appService.billAccount(request, accountId).success(function (response) {
+      //Send payload to server
       $scope.error = false;
       $scope.alert_css = config.cssAlertSucess;
-      $scope.message = response.message;
+      $scope.message = config.msgSendingData;
 
-    }).error(function (data, status) {
-      $scope.alert_css = config.cssAlertDanger;
-      if (status === 401) {
-        $state.go('session');
-        $scope.message = data.message;
-      } else {
-        $scope.error = true;
-        $scope.message = data.message;
-      }
-  });
 
+      appService.billAccount(request, accountId).success(function (response) {
+        $scope.error = false;
+        $scope.alert_css = config.cssAlertSucess;
+        $scope.message = response.message;
+
+        //reset values
+        $scope.charged='';
+        $scope.form.meterReading=''
+        $scope.lastBill.currentReading='';
+
+      }).error(function (data, status) {
+        $scope.alert_css = config.cssAlertDanger;
+        if (status === 401) {
+          $state.go('session');
+          $scope.message = data.message;
+        } else {
+          $scope.error = true;
+          $scope.message = data.message;
+        }
+      });
+    }
   }
 });

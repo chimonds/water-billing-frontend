@@ -39,8 +39,8 @@
             {'title': 'Billing Summary', 'state': 'billing_summary', 'icon': 'icon-bar-chart'},
             {'title': 'Potential Cut Off', 'state': 'potential_cut_off', 'icon': 'icon-bar-chart'},
             {'title': 'Monthly Bills', 'state': 'monthly_bills', 'icon': 'icon-bar-chart'},
-            {'title': 'Ageing', 'state': 'ageing', 'icon': 'icon-bar-chart'},
-            {'title': 'WARIS', 'state': 'waris', 'icon': 'icon-bar-chart'}
+            //{'title': 'Ageing', 'state': 'ageing', 'icon': 'icon-bar-chart'},
+            //{'title': 'WARIS', 'state': 'waris', 'icon': 'icon-bar-chart'}
           ]
         },
         {
@@ -48,7 +48,8 @@
           'items':[
             {'title':'Users', 'state':'users','icon':'icon-user'},
             {'title':'Roles', 'state':'roles','icon':'icon-lock-open'},
-            {'title':'Settings', 'state':'settings','icon':'icon-settings'}]
+            {'title':'Settings', 'state':'settings','icon':'icon-settings'},
+            {'title':'Change Password', 'state':'my_profile','icon':'icon-lock'}]
         }
       ];
 
