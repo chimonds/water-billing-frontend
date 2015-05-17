@@ -10,22 +10,29 @@
 app.controller('DashboardCtrl', function ($scope,$rootScope, $cookieStore, $location, $window) {
 
   $scope.loadPaymentBillsChart = function () {
+    //"#01579B"
+    //color: "#03A9F4",
     $scope.paymentsBillsChart = {};
     $scope.paymentsBillsChart.options = {chart: {type: 'line'}};
     $scope.paymentsBillsChart.title = {'text': 'Bills vs Payments'};
     $scope.paymentsBillsChart.loading = false;
     $scope.paymentsBillsChart.series = [
       {
-        name: 'Payments', color: "#03A9F4", data: [10, 15, 12, 8, 7, 80]
+        name: 'Payments',  data: [10, 15, 12, 8, 7, 80,10, 15, 12, 8, 7, 80,4, 20, 12, 3, 40, 30,10, 15, 12, 8, 7, 80]
       },
       {
-        name: 'Bills', color: "#01579B", data: [4, 20, 12, 3, 40, 30]
+        name: 'Bills', data: [4, 20, 12, 3, 40, 30,10, 15, 12, 8, 7, 80,4, 20, 12, 3, 40, 30,10, 15, 12, 8, 7, 80]
+      },
+      {
+        name: 'Cut off Fee', data: [4, 60, 12, 80, 40, 30,10, 15, 12, 6, 7, 40,4, 20, 18, 3, 40, 30,10, 15, 12, 8, 7, 80]
       },
 
-    ];
 
+
+    ];
+    console.log( $scope.paymentsBillsChart.series);
     $scope.paymentsBillsChart.xAxis = {
-      categories: ['Jan 2015', 'Feb 2015', 'Mar 2015', 'Apr 2015', 'May 2015', 'Jun 2015']
+      categories: ['Jan 2015', 'Feb 2015', 'Mar 2015', 'Apr 2015', 'May 2015', 'Jun 2015','Jan 2015', 'Feb 2015', 'Mar 2015', 'Apr 2015', 'May 2015', 'Jun 2015','Jan 2015', 'Feb 2015', 'Mar 2015', 'Apr 2015', 'May 2015', 'Jun 2015','Jan 2015', 'Feb 2015', 'Mar 2015', 'Apr 2015', 'May 2015', 'Jun 2015']
     };
 
     $scope.paymentsBillsChart.yAxis = {
