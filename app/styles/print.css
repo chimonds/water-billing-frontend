@@ -54,7 +54,6 @@ blockquote {
 thead {
   display: table-header-group;
 }
-
 table,
 tr,
 td,
@@ -95,4 +94,8 @@ hr {
   margin-bottom: 10px;
   border: 0;
   border-top: 1px solid #2e2e2e;
+}
+
+.tosha{
+  page-break-after: always;
 }

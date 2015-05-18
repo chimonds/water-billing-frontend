@@ -739,6 +739,18 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getMonthlyBillReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORTS+'/monthlyBills',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
   this.getAllBillingMonths = function(request) {
     return $http({
       method: POST_REQUEST,

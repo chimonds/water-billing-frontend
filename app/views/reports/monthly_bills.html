@@ -1,4 +1,42 @@
-<div class="report">
+<md-card class="no-print">
+  <md-card-content>
+    <p>
+      <md-subheader class="md-primary no-print">Monthly Bills Report</md-subheader>
+    <form name="myForm.object">
+      <md-content layout-sm="column" layout="row" layout-align="space-between center">
+        <!--Zones-->
+        <md-select ng-model="form.accZone" placeholder="Select Zone">
+          <md-optgroup label="Zones">
+            <md-option ng-repeat="zone in zones" value="{{$index}}">
+              {{zone.name}}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+
+        <!--Billing month-->
+        <md-select ng-model="form.billingMonth" placeholder="Billing Month">
+          <md-optgroup label="Billing Month">
+            <md-option ng-repeat="m in billingMonths" value="{{$index}}">
+              {{m.month | date}}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+        <md-button ng-click="generate(form)">Submit</md-button>
+      </md-content>
+    </form>
+    </p>
+
+    <p ng-show="progress">
+      Crunching data, please wait...
+      <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+    </p>
+    <p>
+      <div ng-show="error" class="alert alert-danger" role="alert">{{message}}</div>
+    </p>
+  </md-card-content>
+</md-card>
+
+<div class="report" ng-show="report" ng-repeat="bill in data.content">
   <table width="100%" border="0" style="font-weight: 100;">
     <tr>
       <td colspan="2">
@@ -9,13 +47,13 @@
                 <tr>
                   <td>
                     <h2>
-                      WOTE WATER & SEWERAGE COMPANY LTD
+                      {{data.company}}
                     </h2>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <h3 style="color:#006dcc">WATER BILL</h3>
+                    <h3 style="color:#006dcc">{{data.title}}</h3>
                   </td>
                 </tr>
 
@@ -35,57 +73,57 @@
     </tr>
     <tr>
       <td width="50%">
-        <table width="100%">
+        <table>
           <tr>
             <td>Name</td>
-            <td class="highlight"><strong>MAITHA MANYALA</strong></td>
+            <td class="highlight"><strong>{{bill.accName}}</strong></td>
           </tr>
           <tr>
             <td>Account#</td>
-            <td><strong>270040009</strong></td>
+            <td><strong>{{bill.accNo}}</strong></td>
           </tr>
           <tr>
             <td>Meter Number:</td>
-            <td><strong>270040009</strong></td>
+            <td><strong>{{bill.meterNo}}</strong></td>
           </tr>
           <tr>
-            <td>Meter Number:</td>
-            <td><strong>270040009</strong></td>
+            <td>Meter Size:</td>
+            <td><strong>{{bill.meterSize}}</strong></td>
           </tr>
           <tr>
             <td>Location:</td>
-            <td><strong>Mbui Nzau</strong></td>
+            <td><strong>{{bill.location}}</strong></td>
           </tr>
           <tr>
             <td>Billing Month</td>
-            <td><strong>Jan 2015</strong></td>
+            <td><strong>{{bill.billingMonth | date:'MMMM yyyy'}}</strong></td>
           </tr>
         </table>
       </td>
       <td width="50%" align="right" valign="top">
-        <table width="100%">
+        <table>
           <tr>
             <td align="right" colspan="2"><strong>Billing Summary</strong></td>
           </tr>
           <tr>
             <td align="right">Previous Reading</td>
-            <td align="right"><strong>60</strong></td>
+            <td align="right"><strong>{{bill.previousReading}}</strong></td>
           </tr>
           <tr>
             <td align="right">Current Reading</td>
-            <td align="right"><strong>100</strong></td>
+            <td align="right"><strong>{{bill.currentReading}}</strong></td>
           </tr>
           <tr>
             <td align="right">Date of Reading</td>
-            <td align="right"><strong>Jan 24, 2015</strong></td>
+            <td align="right"><strong>{{bill.billingMonth | date}}</strong></td>
           </tr>
           <tr>
             <td align="right">Consumption Type</td>
-            <td align="right"><strong>Actual</strong></td>
+            <td align="right"><strong>{{bill.consumptionType}}</strong></td>
           </tr>
           <tr>
             <td align="right">Units Consumed(M3)</td>
-            <td align="right"><strong>6</strong></td>
+            <td align="right"><strong>{{bill.unitsBilled | number}}</strong></td>
           </tr>
         </table>
       </td>
@@ -97,12 +135,16 @@
     </tr>
     <tr>
       <td>Balance b/f from last bill</td>
-      <td align="right">1,500</td>
+      <td align="right">
+        <strong>
+          {{bill.balanceBf | number}}
+        </strong>
+      </td>
     </tr>
     <tr>
       <td colspan="2">
         <table width="100%">
-          <tr>
+          <tr style="border-bottom: 1px solid #2e2e2e;">
             <td colspan="3"><strong>Payments</strong></td>
           </tr>
           <tr>
@@ -110,21 +152,29 @@
             <td><strong>Receipt#</strong></td>
             <td align="right"><strong>Amount</strong></td>
           </tr>
-          <tr>
-            <td>24 Jan, 2015</td>
-            <td>43093</td>
-            <td align="right">1,000</td>
+          <tr ng-repeat="payment in bill.payments">
+            <td>{{payment.transactionDate | date}}</td>
+            <td>{{payment.receiptNo}}</td>
+            <td align="right">{{payment.amount | number}}</td>
           </tr>
         </table>
       </td>
     </tr>
-    <tr>
-      <td>Total Payments</td>
-      <td align="right">3,000</td>
+    <tr style="border-bottom: 1px solid #2e2e2e;">
+      <td><strong>Total Payments</strong></td>
+      <td align="right">
+        <strong>
+          {{bill.totalPayments | number}}
+        </strong>
+      </td>
     </tr>
     <tr>
-      <td>Balance</td>
-      <td align="right">3,000</td>
+      <td><strong>Balance after Payments</strong></td>
+      <td align="right">
+        <strong>
+          {{bill.balanceBf-bill.totalPayments | number}}
+        </strong>
+      </td>
     </tr>
     <tr>
       <td><strong>Usage Summary</strong></td>
@@ -133,33 +183,22 @@
     <tr>
       <td>
         <table>
-          <tr>
-            <td>Min @ KES 200.00</td>
-          </tr>
-          <tr>
-            <td>14 @ KES 50 = 700.00</td>
-          </tr>
-          <tr>
-            <td>30 @ KES 65 = 1,950.00</td>
-          </tr>
-          <tr>
-            <td>25 @ KES 80 = 2,000.0</td>
+          <tr ng-repeat="c in bill.billSummaryList">
+            <td>
+              {{c}}
+            </td>
           </tr>
         </table>
       </td>
       <td align="right" valign="top">
         <table>
           <tr>
-            <td>Usage Grand Total</td>
-            <td align="right">1,000</td>
+            <td>Billed Amount</td>
+            <td align="right">{{bill.billedAmount | number}}</td>
           </tr>
-          <tr>
-            <td>Reconnection Fee</td>
-            <td align="right">1,000</td>
-          </tr>
-          <tr>
-            <td>Meter Rent</td>
-            <td align="right">1,000</td>
+          <tr ng-repeat="charge in bill.charges">
+            <td>{{charge.name}}</td>
+            <td align="right">{{charge.amount | number}}</td>
           </tr>
         </table>
       </td>
@@ -171,7 +210,7 @@
     </tr>
     <tr>
       <td><strong>Total Amount Due</strong></td>
-      <td align="right"><strong>4,000</strong></td>
+      <td align="right"><strong>{{(bill.balanceBf-bill.totalPayments) +bill.totalBilledAmount | number}}</strong></td>
     </tr>
     <tr>
       <td colspan="2">
@@ -179,14 +218,20 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2" align="center">The net account balance as at Jan 24, 2015 is KES 4,660.00. Please pay
-        this amount on or before Apr 30, 2015 to avoid disconection. A fee of Kshs.
-        500.00 is chargable before reconnection
+      <td colspan="2" align="center">
+        <div ng-show="!bill.inArreas">
+          The net account balance as at {{bill.billingMonth | date }} is <strong>KES {{(bill.balanceBf-bill.totalPayments) +bill.totalBilledAmount | number}}</strong> Please pay
+          this amount on or before <strong>{{data.heading4}}</strong> to avoid disconection. A fee of Kshs.
+          500.00 is chargable before reconnection
+        </div>
+        <div ng-show="bill.inArreas">
+          Your account is in arrears and you are due for disconnection without any further warning.
+        </div>
       </td>
     </tr>
     <tr>
       <td colspan="2" align="center">
-        <h2>Pay your bill to any Postbank Branch or Postbank agent</h2>
+        <h3>{{data.heading1}}</h3>
       </td>
     </tr>
     <tr>
@@ -204,13 +249,13 @@
           </tr>
           <tr>
             <td>
-              <h2><strong>1,000</strong></h2>
+              <h2><strong>{{bill.accNo}}</strong></h2>
             </td>
             <td align="center">
-              <h2><strong>Jan 2015</strong></h2>
+              <h2><strong>{{bill.billingMonth | date:'MMMM yyyy'}}</strong></h2>
             </td>
             <td align="right">
-              <h2><strong>1,000</strong></h2>
+              <h2><strong>{{(bill.balanceBf-bill.totalPayments) +bill.totalBilledAmount | number}}</strong></h2>
             </td>
           </tr>
         </table>
@@ -222,21 +267,19 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2" align="center">This office must be notified in writing of any change in tenancy or the vacation of
-        any premises
-        supplied with water, otherwise the last known occupier will be held responsible for all charges
-        until the connection is cut-off.
+      <td colspan="2" align="center">
+        <h3>{{data.heading2}}</h3>
       </td>
     </tr>
     <tr>
       <td colspan="2" align="center">
-        All Enquiries to:- MANAGING DIRECTOR. P.O Box 174, Makueni - kenya. Tel: 044 33087
+        <h3>{{data.heading3}}</h3>
       </td>
     </tr>
     <!--<tr>-->
-      <!--<td colspan="2" align="right">-->
-        <!--<span>Powered by Suncha Technologies info@suncha.co.ke</span>-->
-      <!--</td>-->
+    <!--<td colspan="2" align="right">-->
+    <!--<span>Powered by Suncha Technologies info@suncha.co.ke</span>-->
+    <!--</td>-->
     <!--</tr>-->
 
     <!--<tr>-->
@@ -244,5 +287,6 @@
     <!--<td>ONE</td>-->
     <!--</tr>-->
   </table>
+  <div class="tosha"></div>
 </div>
 

@@ -270,7 +270,7 @@ var app = angular
       .state('monthly_bills', {
         url: '/monthly_bills',
         templateUrl: 'views/reports/monthly_bills.html',
-        controller: 'MonthlyBillsCtrl',
+        controller: 'ReportMonthlyBillsCtrl',
         data: {
           requireLogin: true
         }
