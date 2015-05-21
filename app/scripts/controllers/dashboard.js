@@ -10,22 +10,34 @@
 app.controller('DashboardCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
 
   $scope.loadPaymentBillsChart = function () {
-    //"#01579B"
-    //color: "#03A9F4",
     $scope.paymentsBillsChart = {};
+    $scope.paymentsBillsChart.credits = {enabled: false};
     $scope.paymentsBillsChart.options = {chart: {type: 'line'}};
     $scope.paymentsBillsChart.title = {'text': 'Bill Items vs Payment Items'};
     $scope.paymentsBillsChart.loading = true;
     $scope.paymentsBillsChart.series = $scope.billsPaymentsLineGraph.series;
     $scope.paymentsBillsChart.xAxis = {};
     $scope.paymentsBillsChart.xAxis.categories = $scope.billsPaymentsLineGraph.xAxisMeta.items;
-
-
-    console.log($scope.paymentsBillsChart.xAxis);
-
     $scope.paymentsBillsChart.yAxis = {
       title: {
-        text: 'Amount (KES)'
+        text: 'Amount'
+      }
+    };
+    $scope.paymentsBillsChart.loading = false;
+  };
+
+  $scope.loadZonesBarChart = function () {
+    $scope.zonesBarChart = {};
+    $scope.zonesBarChart.credits = {enabled: false};
+    $scope.zonesBarChart.options = {chart: {type: 'column'}};
+    $scope.zonesBarChart.title = {'text': 'Zones'};
+    $scope.zonesBarChart.loading = false;
+    $scope.zonesBarChart.series = $scope.stats.zonesBarGraph.series;
+    $scope.zonesBarChart.xAxis = {};
+    $scope.zonesBarChart.xAxis.categories = $scope.stats.zonesBarGraph.xAxisMeta.items;
+    $scope.zonesBarChart.yAxis = {
+      title: {
+        text: 'Amount'
       }
     };
   };
@@ -77,6 +89,7 @@ app.controller('DashboardCtrl', function ($scope, $http, appService, $cookieStor
     ];
 
   };
+
   //$scope.loadPaymentBillsChart();
   $scope.loadPaymentBillsPie();
 
@@ -94,8 +107,9 @@ app.controller('DashboardCtrl', function ($scope, $http, appService, $cookieStor
 
     $scope.billsPaymentsLineGraph = $scope.stats.billsPaymentsLineGraph;
 
+
     $scope.loadPaymentBillsChart();
-    $scope.paymentsBillsChart.loading = false;
+    $scope.loadZonesBarChart();
     $state.go('dashboard');
   }).error(function (data, status) {
     if (status === 401) {
