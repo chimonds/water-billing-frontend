@@ -411,8 +411,7 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
 
   $scope.transferAccountDialog = function (index) {
     $scope.selectedAccount = $scope.accounts[index];
-
-
+    //console.log($scope.selectedAccount);
     $mdDialog.show({
       controller: TransferAccountDialogController,
       templateUrl: 'views/template/account_transfer.html',
@@ -478,7 +477,7 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
 
         //send request
         appService.transferAccount(request, consumerId).success(function (response) {
-          $scope.showErrorInfo = false;
+          $scope.showErrorInfo = true;
           $scope.errorClass = config.cssAlertSucess;
           $scope.errorMsg = response.message;
           //notify roles page to reload data

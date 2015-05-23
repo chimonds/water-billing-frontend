@@ -6,7 +6,7 @@
         <form name="myForm.object">
           <md-input-container>
             <label>Account Number</label>
-            <input maxlength="9" disabled="disabled" required type="number" name="accNo" ng-model="form.accNo">
+            <input maxlength="15" disabled="disabled" required type="text" name="accNo" ng-model="form.accNo">
             <div ng-messages="myForm.object.accNo.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="maxlength">The account number has to be less than 9 characters long.</div>
