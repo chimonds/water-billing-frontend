@@ -36,8 +36,16 @@
   </md-card-content>
 </md-card>
 
-<div class="report" ng-show="report" ng-repeat="bill in data.content">
+
+<div class="report" ng-show="report"  ng-repeat="bill in data.content">
   <table width="100%" border="0" style="font-weight: 100;">
+    <tr>
+      <td colspan="2">
+        <h2>
+          {{data.company}}
+        </h2>
+      </td>
+    </tr>
     <tr>
       <td colspan="2">
         <table width="100%">
@@ -46,17 +54,16 @@
               <table width="100%">
                 <tr>
                   <td>
-                    <h2>
-                      {{data.company}}
-                    </h2>
+                    <h3>
+                      {{data.title}}
+                    </h3>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    <h3 style="color:#006dcc">{{data.title}}</h3>
-                  </td>
-                </tr>
-
+                <!--<tr>-->
+                  <!--<td>-->
+                    <!--<h3 style="color:#006dcc">{{data.title}}</h3>-->
+                  <!--</td>-->
+                <!--</tr>-->
               </table>
             </td>
             <td width="20%">
@@ -79,7 +86,7 @@
             <td class="highlight"><strong>{{bill.accName}}</strong></td>
           </tr>
           <tr>
-            <td>Account#</td>
+            <td>Account Number</td>
             <td><strong>{{bill.accNo}}</strong></td>
           </tr>
           <tr>
@@ -102,9 +109,9 @@
       </td>
       <td width="50%" align="right" valign="top">
         <table>
-          <tr>
-            <td align="right" colspan="2"><strong>Billing Summary</strong></td>
-          </tr>
+          <!--<tr>-->
+            <!--<td align="right" colspan="2"><strong>Billing Summary</strong></td>-->
+          <!--</tr>-->
           <tr>
             <td align="right">Previous Reading</td>
             <td align="right"><strong>{{bill.previousReading}}</strong></td>
@@ -114,17 +121,18 @@
             <td align="right"><strong>{{bill.currentReading}}</strong></td>
           </tr>
           <tr>
-            <td align="right">Date of Reading</td>
-            <td align="right"><strong>{{bill.billingMonth | date}}</strong></td>
+            <td align="right">Units Consumed(M3)</td>
+            <td align="right"><strong>{{bill.unitsBilled | number}}</strong></td>
           </tr>
           <tr>
             <td align="right">Consumption Type</td>
             <td align="right"><strong>{{bill.consumptionType}}</strong></td>
           </tr>
           <tr>
-            <td align="right">Units Consumed(M3)</td>
-            <td align="right"><strong>{{bill.unitsBilled | number}}</strong></td>
+            <td align="right">Date of Reading</td>
+            <td align="right"><strong>{{bill.billingMonth | date}}</strong></td>
           </tr>
+
         </table>
       </td>
     </tr>
@@ -140,6 +148,9 @@
           {{bill.balanceBf | number}}
         </strong>
       </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="legroom">&nbsp;</td>
     </tr>
     <tr>
       <td colspan="2">
@@ -175,6 +186,9 @@
           {{bill.balanceBf-bill.totalPayments | number}}
         </strong>
       </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="legroom">&nbsp;</td>
     </tr>
     <tr>
       <td><strong>Usage Summary</strong></td>
@@ -234,16 +248,31 @@
         <h3>{{data.heading1}}</h3>
       </td>
     </tr>
+
+    <tr>
+      <td colspan="2" align="center">
+        <h3>{{data.heading2}}</h3>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        <h3>{{data.heading3}}</h3>
+      </td>
+    </tr>
+
     <tr>
       <td colspan="2">
         <hr/>
       </td>
     </tr>
+
+
+
     <tr>
       <td colspan="2">
         <table width="100%">
           <tr>
-            <td>Account#</td>
+            <td>Account Number</td>
             <td align="center">Billing Month</td>
             <td align="right">Amount Due</td>
           </tr>
@@ -266,26 +295,6 @@
         <hr/>
       </td>
     </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <h3>{{data.heading2}}</h3>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <h3>{{data.heading3}}</h3>
-      </td>
-    </tr>
-    <!--<tr>-->
-    <!--<td colspan="2" align="right">-->
-    <!--<span>Powered by Suncha Technologies info@suncha.co.ke</span>-->
-    <!--</td>-->
-    <!--</tr>-->
-
-    <!--<tr>-->
-    <!--<td>ONE</td>-->
-    <!--<td>ONE</td>-->
-    <!--</tr>-->
   </table>
   <div class="tosha"></div>
 </div>

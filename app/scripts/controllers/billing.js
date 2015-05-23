@@ -42,15 +42,35 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
 
 
   $scope.searchAccount = function () {
-    var accNo = $scope.accNo;
+    //Reinitialize this values
+    $scope.form.meterReading='';
+    $scope.form.previousReading='';
+    $scope.form.unitsConsumed='';
+    $scope.form.consumptionType='';
+    $scope.totalBilled='';
+    $scope.totalCharges='';
+
+    $scope.accountFound = false;
+    $scope.searchingResults =false;
+    $scope.submittingBill = false;
+    //blank last bill info
+    $scope.lastBill={};
+
+    var accNo = $scope.form.accNo;
+    if(accNo.length<9){
+      $scope.searchingResults =true;
+      return;
+    }
+
     //send request
     //request.accNo=accNo;
     var request = {};
     request.accNo = accNo;
-
     appService.getAccount(request).success(function (response) {
       $scope.account = response.payload;
+      //console.log(response);
       $scope.accountFound = true;
+      $scope.searchingResults =true;
       $scope.error = false;
 
       $scope.data = $scope.account;
@@ -65,6 +85,7 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
       appService.getLastBillByAccount(request, accountId).success(function (response) {
         $scope.error = false;
         $scope.lastBill = response.payload;
+        $scope.form.previousReading = $scope.lastBill.currentReading;
         $scope.billed = $scope.lastBill.billed;
         $scope.message ='';
       });
@@ -113,7 +134,7 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
   }
 
   $scope.calcUnits = function () {
-    var lastReading = $scope.lastBill.currentReading;
+    var lastReading = $scope.form.previousReading;
     var currentReading = $scope.form.meterReading;
     var units = currentReading - lastReading;
     if (units > 0) {
@@ -151,9 +172,10 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
       var request = {};
       request.billItemTypes = $scope.charged;
       request.currentReading = $scope.form.meterReading;
-      request.previousReading = $scope.lastBill.currentReading;
+      request.previousReading = $scope.form.previousReading;
 
       //Send payload to server
+      $scope.submittingBill = true;
       $scope.error = false;
       $scope.alert_css = config.cssAlertSucess;
       $scope.message = config.msgSendingData;
@@ -163,12 +185,6 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
         $scope.error = false;
         $scope.alert_css = config.cssAlertSucess;
         $scope.message = response.message;
-
-        //reset values
-        $scope.charged='';
-        $scope.form.meterReading=''
-        $scope.lastBill.currentReading='';
-
       }).error(function (data, status) {
         $scope.alert_css = config.cssAlertDanger;
         if (status === 401) {

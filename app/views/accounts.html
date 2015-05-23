@@ -29,7 +29,7 @@
 
             </th>
             <th>
-              <span class="pull-right total-records">{{totalAccounts | number}}</span>
+              <span class="pull-right">{{totalAccounts | number}}</span>
             </th>
           </tr>
           </thead>
@@ -43,7 +43,7 @@
             <td>{{account.zone.name}}</td>
             <td>{{account.meter.meterNo}}</td>
             <td>
-              <span am-time-ago="account.createdOn"> </span>
+              {{account.createdOn | date}}
             </td>
             <td align="right">
               <span class="money-color">

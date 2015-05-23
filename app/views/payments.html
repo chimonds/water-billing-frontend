@@ -35,8 +35,10 @@
           </thead>
           <tbody>
           <tr dir-paginate="payment in payments | itemsPerPage: 10" total-items="totalPayments" pagination-id="pagePagination">
-            <td>{{payment.receiptNo }}</td>
-            <td><span am-time-ago="payment.createdOn"> </span></td>
+            <td>{{payment.accNo }}</td>
+            <td>
+              {{ payment.createdOn | date}}
+            </td>
             <td>{{ payment.transactionDate | date}}</td>
             <td>{{ payment.receiptNo}}</td>
             <td>{{ payment.paymentType.name | uppercase}}</td>

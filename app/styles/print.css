@@ -1,8 +1,9 @@
 body {
   /*color: #2e2e2e;*/
   color: #737373;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 200;
+  font-family: 'Roboto';
+  font-weight: 100;
+  font-size: 12px;
 }
 
 .report {
@@ -70,17 +71,41 @@ h2,
 h3, h4 {
   orphans: 3;
   widows: 3;
-  font-weight: 200;
+  /*font-weight: 200;*/
+  /*font-family: Roboto-Light;*/
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-weight: 200;
   page-break-after: avoid;
   line-height: 0.8;
+  letter-spacing: 2px;
 }
+
+h1{
+  font-weight: 100;
+  font-family: Roboto-Light;
+  font-size: 22px;
+}
+h2{
+  font-weight: 100;
+  font-family: Roboto;
+  font-size: 18px;
+}
+h3{
+  font-weight: 100;
+  font-family: Roboto;
+  font-size: 16px;
+}
+.legroom{
+  height: 10px;
+  display: block;
+  padding-top: 5px;
+}
+
+
 
 p {
   margin: 0 0 10px;
@@ -98,4 +123,12 @@ hr {
 
 .tosha{
   page-break-after: always;
+}
+strong{
+  font-family: Roboto-Light;
+  font-weight: 100;
+}
+th{
+  font-family: Roboto-Light;
+  font-weight: 300;
 }

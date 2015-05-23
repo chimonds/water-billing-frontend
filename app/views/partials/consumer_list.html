@@ -23,7 +23,7 @@
       <th>EMAIL ADDRESS</th>
       <th>CREATED</th>
       <th>
-        <span class="pull-right total-records">{{totalConsumers | number}} Records</span>
+        <span class="pull-right">{{totalConsumers | number}} Records</span>
       </th>
     </tr>
     </thead>
@@ -35,7 +35,7 @@
       <td>{{consumer.phoneNumber}}</td>
       <td>{{consumer.emailAddress | lowercase}}</td>
       <td>
-        <span am-time-ago="consumer.createdOn"> </span>
+        {{consumer.createdOn | date}}
       </td>
       <td align="right">
         <md-button class="md-primary" ng-click="editConsumerDialog($index)">Edit</md-button>

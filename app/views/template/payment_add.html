@@ -4,7 +4,7 @@
     <div layout="column" flex>
       <md-content>
         <form name="myForm.object">
-          <h2 class="md-headline pull-left">Billing Date: <strong>{{data.billingMonth | date}}</strong></h2>
+          <h2 class="md-headline pull-left">Billing Month: <strong>{{activeBillingMonth.month | date:'MMM, yyyy'}}</strong></h2>
           <h2 class="md-display-1 pull-right">Balance: <span class="money-color">KES {{data.outstandingBalance | number}}</span></h2>
           <div class="clearfix"></div>
           <!--Connection tariff-->
@@ -45,7 +45,7 @@
               </md-input-container>
               <md-input-container>
                 <label>Notes</label>
-                <textarea required name="notes" ng-model="form.notes"></textarea>
+                <textarea  name="notes" ng-model="form.notes"></textarea>
               </md-input-container>
 
             </div>

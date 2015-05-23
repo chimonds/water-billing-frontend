@@ -12,8 +12,8 @@
 
 app.service('appService', function ($http, $cookieStore) {
   //TEST -  comment this
-  //var BASE_URL = 'http://localhost:9090/api/v1/';
-  var BASE_URL = 'http://45.55.206.222:9090/api/v1/';
+  var BASE_URL = 'http://localhost:9090/api/v1/';
+  //var BASE_URL = 'http://45.55.206.222:9090/api/v1/';
 
   var ROLES = 'roles';
   var PERMISSIONS = 'permissions';
