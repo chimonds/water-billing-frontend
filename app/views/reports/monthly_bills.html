@@ -17,10 +17,17 @@
         <md-select ng-model="form.billingMonth" placeholder="Billing Month">
           <md-optgroup label="Billing Month">
             <md-option ng-repeat="m in billingMonths" value="{{$index}}">
-              {{m.month | date}}
+              {{m.month | date:'MMM, yyyy'}}
             </md-option>
           </md-optgroup>
         </md-select>
+
+        <!--Account Number-->
+        <md-input-container>
+          <label>Account#</label>
+          <input type="text" ng-model="form.accNo">
+        </md-input-container>
+
         <md-button ng-click="generate(form)">Submit</md-button>
       </md-content>
     </form>

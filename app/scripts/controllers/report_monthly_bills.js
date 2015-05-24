@@ -63,6 +63,13 @@ app.controller('ReportMonthlyBillsCtrl', function ($scope, $http, appService, $c
       request.creditBalances = $scope.credit[accountStatus].name;
     }
 
+    var accNo = form.accNo;
+    if (typeof accNo !== 'undefined') {
+      request.accNo = accNo;
+    }
+
+    console.log(request);
+
     var params = {};
     params.fields = request;
 
