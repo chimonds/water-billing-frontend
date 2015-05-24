@@ -36,7 +36,7 @@
             <th>Charge</th>
             <th>Created</th>
             <th>
-              <span class="pull-right total-records">{{totalMeters | number}} Records</span>
+              <span class="pull-right">{{totalMeters | number}} Records</span>
             </th>
           </tr>
           </thead>
@@ -54,7 +54,7 @@
               {{meter.meterOwner.charge | uppercase}}
             </td>
             <td>
-              <span am-time-ago="meter.createdOn"> </span>
+              {{meter.createdOn | date}}
             </td>
             <td align="right">
               <md-button ng-show="!meter.assigned" class="md-primary" ng-click="allocateMeterDialog($index)">
