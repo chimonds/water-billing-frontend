@@ -4,6 +4,7 @@ body {
   font-family: 'Roboto';
   font-weight: 100;
   font-size: 12px;
+  letter-spacing: 2px;
 }
 
 .report {
@@ -86,7 +87,7 @@ h4 {
 
 h1{
   font-weight: 100;
-  font-family: Roboto-Light;
+  font-family: Roboto-Regular;
   font-size: 22px;
 }
 h2{
