@@ -84,7 +84,9 @@ h4 {
   line-height: 0.8;
   letter-spacing: 2px;
 }
-
+.pull-right{
+  float: right;
+}
 h1{
   font-weight: 100;
   font-family: Roboto-Regular;
@@ -130,6 +132,7 @@ strong{
   font-weight: 100;
 }
 th{
+  text-align: left;
   font-family: Roboto-Light;
   font-weight: 300;
 }

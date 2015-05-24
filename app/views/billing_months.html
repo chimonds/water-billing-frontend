@@ -11,7 +11,7 @@
          <thead>
             <tr>
                <th>Billing Date</th>
-               <th>Open</th>
+               <th>Status</th>
                 <th>Created On</th>
                <th></th>
             </tr>
@@ -19,7 +19,7 @@
          <tbody>
             <tr dir-paginate="month in months | itemsPerPage: 10" total-items="totalMonths" pagination-id="monthPagination">
                <td>{{ month.month | date}}</td>
-               <td>{{month.active}}</td>
+               <td>{{month.open}}</td>
                <td>
                   <span am-time-ago="month.createdOn"> </span>
                </td>
