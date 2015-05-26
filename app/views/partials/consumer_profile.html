@@ -8,13 +8,14 @@
       <md-card-content>
         <h1 style="font-weight: 200;">
 
-            {{ selectedConsumer.firstName | uppercase}}
-            {{selectedConsumer.middleName | uppercase}}
-            {{selectedConsumer.lastName | uppercase}}
+          {{ selectedConsumer.firstName | uppercase}}
+          {{selectedConsumer.middleName | uppercase}}
+          {{selectedConsumer.lastName | uppercase}}
 
           <span class="pull-right money-color">KES {{totalBalance | number}}</span>
 
         </h1>
+
         <p>
           <md-divider></md-divider>
         </p>
@@ -24,10 +25,12 @@
               Created:
               <strong>{{selectedConsumer.createdOn | date}}</strong>
             </p>
+
             <p>
               Identity Number :
               <strong>{{selectedConsumer.identityNo}}</strong>
             </p>
+
             <p>
               Created By :
               <strong>{{selectedConsumer.identityNo}}</strong>
@@ -40,7 +43,7 @@
             <p>
               Postal Address:
               <strong>
-                  {{selectedConsumer.postalAddress}}
+                {{selectedConsumer.postalAddress}}
               </strong>
             </p>
 
@@ -61,7 +64,6 @@
 
 
         </div>
-
 
         <md-subheader class="md-primary" flex layout-fill style="padding-left: 0;">
           Account List
@@ -118,7 +120,7 @@
             <td align="right">
               <md-button class="md-primary" ng-click="editAccountDialog($index)">Edit</md-button>
               <md-button class="md-primary" ng-click="transferAccountDialog($index)">Transfer</md-button>
-              <md-button class="md-primary"  ui-sref="account({ accountId: account.accountId})">View</md-button>
+              <md-button class="md-primary" ui-sref="account({ accountId: account.accountId})">View</md-button>
             </td>
           </tr>
           </tbody>

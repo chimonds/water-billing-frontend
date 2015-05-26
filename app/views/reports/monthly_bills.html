@@ -74,7 +74,7 @@
               </table>
             </td>
             <td width="20%">
-              <img src="images/yeoman.png" class="pull-right"/>
+              <img src="images/yeoman.png" class="pull-right" width="50"/>
             </td>
           </tr>
         </table>
@@ -252,18 +252,20 @@
     </tr>
     <tr>
       <td colspan="2" align="center">
-        <h3>{{data.heading1}}</h3>
+        <!--<p>{{data.heading1}}</p>-->
+        <p ng-bind-html="data.heading1"></p>
       </td>
     </tr>
 
     <tr>
       <td colspan="2" align="center">
-        <h3>{{data.heading2}}</h3>
+        <p ng-bind-html="data.heading2"></p>
       </td>
     </tr>
     <tr>
       <td colspan="2" align="center">
-        <h3>{{data.heading3}}</h3>
+        <!--<p>{{data.heading3}}</p>-->
+        <p ng-bind-html="data.heading3"></p>
       </td>
     </tr>
 

@@ -12,7 +12,7 @@
 
 app.service('appService', function ($http, $cookieStore) {
   //TEST -  comment this
-  var BASE_URL = 'http://localhost:9090/api/v1/';
+  var BASE_URL = 'http://192.168.0.104:9090/api/v1/';
   //var BASE_URL = 'http://45.55.206.222:9090/api/v1/';
 
   var ROLES = 'roles';
@@ -587,6 +587,17 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.deleteBill = function (request, billId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLS + '/delete/' + billId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.getPayments = function (request) {
     return $http({
       method: POST_REQUEST,
@@ -597,6 +608,19 @@ app.service('appService', function ($http, $cookieStore) {
       data: angular.toJson(getPayload(request))
     });
   };
+
+
+  this.transferPayment = function (request, accountId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + PAYMENTS+'/transfer/'+accountId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
 
   this.getBillItemTypes = function (request) {
     return $http({

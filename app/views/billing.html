@@ -40,8 +40,8 @@
                         <td><h3>{{data.averageConsumption}}</h3></td>
                       </tr>
                       <tr>
-                        <td>Active</td>
-                        <td><h3>{{data.active}}</h3></td>
+                        <td>Status</td>
+                        <td><h3>{{data.accountStatus}}</h3></td>
                       </tr>
                       <tr>
                         <td>Balance</td>
@@ -98,7 +98,7 @@
                     <md-content  flex>
                         <md-input-container flex="90" class="md-default-theme">
                           <label for="input_041">Search account</label>
-                          <input ng-change="searchAccount()" ng-model="form.accNo" maxlength="9"
+                          <input ng-change="searchAccount()" ng-model="form.accNo" maxlength="12"
                                  class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041"
                                  aria-invalid="false">
                         </md-input-container>
@@ -116,13 +116,12 @@
                       </div>
 
 
+                      <div ng-show="Accountbilled" class="alert alert-danger" role="alert">
+                        Sorry account has already been billed for the month of <h3>{{activeBillingMonth.month | date:'MMM, yyyy'}}</h3>
+                        </button>
+                      </div>
 
                         <md-content ng-show="accountFound">
-                          <div ng-show="billed" class="alert alert-danger" role="alert">
-                            Sorry account has already been billed for the month of <h3>{{activeBillingMonth.month | date:'MMM, yyyy'}}</h3>
-                            </button>
-                          </div>
-
                           <md-content ng-show="!billed">
                             <md-content flex layout="row" layout-align="space-between center">
                               <h1 style="font-weight: 200;" class="money-color">KES {{totalBilled+totalCharges | number}}</h1>

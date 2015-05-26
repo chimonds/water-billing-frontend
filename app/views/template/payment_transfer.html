@@ -1,27 +1,27 @@
 <md-dialog aria-label="Edit Meter" flex>
   <md-content>
-    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to allocate meter <strong>{{selectedMeter.meterNo}}</strong> to a connection</md-subheader>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to transfer a payment</md-subheader>
     <div layout="column" flex>
       <md-content class="md-padding">
         <form name="myForm.object">
           <div class="pull-left">
             <p>
-              Meter Number: <strong>{{selectedMeter.meterNo}}</strong>
+              Receipt Number: <strong>{{payment.receiptNo}}</strong>
             </p>
             <p>
-              Initial Meter Reading: <strong>{{selectedMeter.initialReading}}</strong>
+              Amount: <strong>{{payment.amount}}</strong>
             </p>
           </div>
           <div class="pull-right">
             <p>
-              Meter Owner: <strong>{{selectedMeter.meterOwner.name}}</strong>
+              Account No: <strong>{{payment.accNo}}</strong>
+
             </p>
             <p>
-              MeterSize: <strong>{{selectedMeter.meterSize.size}}</strong>
+              Date: <strong>{{payment.transactionDate | date}}</strong>
             </p>
           </div>
           <div class="clearfix"></div>
-
 
           <md-input-container>
             <label>Connection Number</label>
@@ -49,8 +49,11 @@
 
             <md-card ng-show="accountFound">
               <md-card-content>
-                Account No: <strong>{{account.accNo}}</strong>
-                Tariff: <strong>{{account.tariff.name}}</strong>
+                <h1>{{account.accName}}</h1>
+                <p>
+                  Account No: <strong>{{account.accNo}}</strong>
+                  Tariff: <strong>{{account.tariff.name}}</strong>
+                </p>
               </md-card-content>
             </md-card>
           </div>
@@ -64,8 +67,8 @@
             <md-button ng-click="cancel();">
               Close
             </md-button>
-            <md-button ng-disabled="!accountFound" class="md-primary" ng-click="allocate(form);">
-              Allocate
+            <md-button ng-disabled="!accountFound" class="md-primary" ng-click="transfer(form);">
+              Transfer
             </md-button>
           </div>
         </form>

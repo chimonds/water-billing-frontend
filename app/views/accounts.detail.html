@@ -59,8 +59,8 @@
                 <strong>{{account.meter.meterNo}} </strong>
               </p>
             <p>
-              Active:
-              <strong>{{account.active}} </strong>
+              Status:
+              <strong>{{account.accountStatus}} </strong>
             </p>
             </span>
 
@@ -129,7 +129,6 @@
                     <td>{{bill.consumptionType}}</td>
                     <td align="right">{{bill.currentReading | number}}</td>
                     <td align="right">{{bill.previousReading | number}}</td>
-
                     <td align="right">{{bill.unitsBilled | number}}</td>
 
 
@@ -158,10 +157,8 @@
                         {{bill.totalBilled | number}}
                       </span>
                     </td>
-
-
                     <td align="right">
-                      <md-button class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>
+                      <md-button ng-show="$root.bill_delete" class="md-primary" ng-click="deleteBillDialog($index)">Delete</md-button>
                     </td>
                   </tr>
                   <tr>

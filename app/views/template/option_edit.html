@@ -16,14 +16,23 @@
                      <div ng-message="md-maxlength">The name has to be less than 250 characters long.</div>
                   </div>
                </md-input-container>
-               <md-input-container>
-                  <label>Value</label>
-                  <input md-maxlength="100" required name="optionValue" ng-model="form.value">
-                  <div ng-messages="myForm.object.optionValue.$error">
-                     <div ng-message="required">This is required.</div>
-                     <div ng-message="md-maxlength">The name has to be less than 100 characters long.</div>
-                  </div>
-               </md-input-container>
+               <!--<md-input-container>-->
+                  <!--<label>Value</label>-->
+                  <!--<input  required name="optionValue" ng-model="form.value">-->
+                  <!--<div ng-messages="myForm.object.optionValue.$error">-->
+                     <!--<div ng-message="required">This is required.</div>-->
+                  <!--</div>-->
+               <!--</md-input-container>-->
+
+              <md-input-container>
+                <label>Value</label>
+                  <textarea required name="optionValue" ng-model="form.value">
+                  </textarea>
+                <div ng-messages="myForm.object.optionValue.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-input-container>
+
 
                <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}</div>
                <div class="md-actions" layout="row">

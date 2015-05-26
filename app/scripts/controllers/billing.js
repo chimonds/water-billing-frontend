@@ -53,6 +53,7 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
     $scope.accountFound = false;
     $scope.searchingResults =false;
     $scope.submittingBill = false;
+    $scope.Accountbilled = false;
     //blank last bill info
     $scope.lastBill={};
 
@@ -68,14 +69,12 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
     request.accNo = accNo;
     appService.getAccount(request).success(function (response) {
       $scope.account = response.payload;
-      //console.log(response);
+      $scope.billed = true;
       $scope.accountFound = true;
       $scope.searchingResults =true;
       $scope.error = false;
-
       $scope.data = $scope.account;
 
-      $scope.billed = true;
 
       //get bill item types
       $scope.getBillItemTypes();
@@ -87,6 +86,7 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
         $scope.lastBill = response.payload;
         $scope.form.previousReading = $scope.lastBill.currentReading;
         $scope.billed = $scope.lastBill.billed;
+        $scope.Accountbilled= $scope.lastBill.billed;
         $scope.message ='';
       });
     }).error(function (data, status) {
@@ -94,10 +94,12 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
       if (status === 401) {
         $state.go('session');
         $scope.message = data.message;
+        $scope.billed = true;
       } else {
         $scope.error = true;
         $scope.accountFound = false;
         $scope.message = data.message;
+        $scope.billed = true;
       }
     });
   };

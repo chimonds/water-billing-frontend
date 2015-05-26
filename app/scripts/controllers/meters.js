@@ -100,8 +100,6 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
 
   $scope.deallocateMeterDialog = function (index) {
     $scope.selectedMeter = $scope.meters[index];
-    console.log($scope.selectedMeter);
-
     $mdDialog.show({
       controller: AllocateMeterDialogController,
       templateUrl: 'views/template/meter_deallocate.html',
