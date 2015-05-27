@@ -10,7 +10,7 @@
       <table class="table table-hover">
          <thead>
             <tr>
-               <th>Billing Date</th>
+               <th>Billing Month</th>
                <th>Status</th>
                 <th>Created On</th>
                <th></th>
@@ -18,7 +18,7 @@
          </thead>
          <tbody>
             <tr dir-paginate="month in months | itemsPerPage: 10" total-items="totalMonths" pagination-id="monthPagination">
-               <td>{{ month.month | date}}</td>
+               <td>{{ month.month | date:'MMM, yyyy'}}</td>
                <td>{{month.open}}</td>
                <td>
                   <span am-time-ago="month.createdOn"> </span>

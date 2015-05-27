@@ -12,7 +12,7 @@
 
 app.service('appService', function ($http, $cookieStore) {
   //TEST -  comment this
-  var BASE_URL = 'http://192.168.0.104:9090/api/v1/';
+  var BASE_URL = 'http://localhost:9090/api/v1/';
   //var BASE_URL = 'http://45.55.206.222:9090/api/v1/';
 
   var ROLES = 'roles';
@@ -429,10 +429,10 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateMeter = function (request) {
+  this.updateMeter = function (request, meterId) {
     return $http({
-      method: PUT_REQUEST,
-      url: BASE_URL + METERS,
+      method: POST_REQUEST,
+      url: BASE_URL + METERS+'/update/'+meterId,
       headers: {
         'Content-Type': 'application/json'
       },

@@ -250,14 +250,17 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
         $scope.errorClass = config.cssAlertInfo;
         $scope.errorMsg = config.msgSendingData;
 
+        var meterId=form.meterId;
 
         var request = {};
-        request = form;
-        request.meterOwner = $scope.meterOwners[request.meterOwner];
-        request.meterSize = $scope.meterSizes[request.meterSize];
+        request.meterId = form.meterId;
+        request.meterNo = form.meterNo;
+        request.initialReading= form.initialReading;
+        request.meterOwner = $scope.meterOwners[form.meterOwner];
+        request.meterSize = $scope.meterSizes[form.meterSize];
 
         //send request
-        appService.updateMeter(form).success(function (response) {
+        appService.updateMeter(request,meterId).success(function (response) {
 
           $scope.errorOccured = false;
           $scope.errorClass = config.cssAlertSucess;
