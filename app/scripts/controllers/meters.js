@@ -261,7 +261,6 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
 
         //send request
         appService.updateMeter(request,meterId).success(function (response) {
-
           $scope.errorOccured = false;
           $scope.errorClass = config.cssAlertSucess;
           $scope.errorMsg = response.message;

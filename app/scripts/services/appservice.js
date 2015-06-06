@@ -406,6 +406,16 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.updateAccountStatus = function (request, accountId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + ACCOUNTS+'/status/'+accountId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
 
   this.createAccount = function (request, consumerId) {
     return $http({

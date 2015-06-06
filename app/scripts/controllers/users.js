@@ -20,7 +20,7 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
     $scope.searchFilter = {};
     $scope.searchFilter.text = '';
 
-    //listen on role added
+    //listen on user added
     $scope.$on('onReloadUsers', function(event) {
         $scope.getUsers(1);
     });
@@ -211,7 +211,7 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
                     $scope.errorOccured = false;
                     $scope.errorClass = config.cssAlertSucess;
                     $scope.errorMsg = response.message;
-                    //notify roles page to reload data
+                    //notify users page to reload data
                     $rootScope.$broadcast('onReloadUsers');
 
                 }).error(function(data, status) {

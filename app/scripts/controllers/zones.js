@@ -20,7 +20,7 @@ app.controller('ZonesCtrl', function($scope, $http, appService, $cookieStore, $s
     $scope.searchFilter = {};
     $scope.searchFilter.text = '';
 
-    //listen on role added
+    //listen on zone added
     $scope.$on('onReloadPageData', function(event) {
         $scope.getPageData(1);
     });

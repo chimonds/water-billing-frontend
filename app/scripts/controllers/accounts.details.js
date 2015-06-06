@@ -9,22 +9,21 @@
  * Controller of the AccountsDetailCtrl
  */
 
-app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope, $stateParams) {
+app.controller('AccountsDetailCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope, $stateParams) {
   $scope.accountId = $stateParams.accountId;
   $scope.consumerName = $stateParams.consumerName;
 
   var request = {};
   var accountId = $scope.accountId;
 
-  $scope.$on('onReloadAccountData', function(event) {
+  $scope.$on('onReloadAccountData', function (event) {
     $scope.getAccountProfile();
   });
 
 
-
-  $scope.getAccountProfile = function() {
+  $scope.getAccountProfile = function () {
     //send request
-    appService.getAccountById(request, accountId).success(function(response) {
+    appService.getAccountById(request, accountId).success(function (response) {
       $scope.account = response.payload;
       $scope.accountFound = true;
       $scope.errorOccured = false;
@@ -36,7 +35,7 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
       //get payments
       $scope.getPayments(1);
 
-    }).error(function(data, status) {
+    }).error(function (data, status) {
       if (status === 401) {
         $state.go('session');
         $scope.message = data.message;
@@ -51,7 +50,7 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
   $scope.getAccountProfile();
 
 
-  $scope.getBills = function(newPage) {
+  $scope.getBills = function (newPage) {
     newPage--;
     var request = {};
     request.page = newPage;
@@ -62,12 +61,12 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
     var accountId = $scope.account.accountId;
 
     //send request
-    appService.getBillsByAccount(request, accountId).success(function(response) {
+    appService.getBillsByAccount(request, accountId).success(function (response) {
       $scope.errorOccured = false;
       $scope.bills = response.payload.content;
       $scope.totalBills = response.payload.totalElements;
 
-    }).error(function(data, status) {
+    }).error(function (data, status) {
       if (status === 401) {
         $state.go('session');
         $scope.message = data.message;
@@ -79,7 +78,7 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
 
   };
 
-  $scope.getPayments = function(newPage) {
+  $scope.getPayments = function (newPage) {
     newPage--;
     var request = {};
     request.page = newPage;
@@ -90,12 +89,12 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
     var accountId = $scope.account.accountId;
 
     //send request
-    appService.getPaymentsByAccount(request, accountId).success(function(response) {
+    appService.getPaymentsByAccount(request, accountId).success(function (response) {
       $scope.errorOccured = false;
       $scope.payments = response.payload.content;
       $scope.totalPayments = response.payload.totalElements;
 
-    }).error(function(data, status) {
+    }).error(function (data, status) {
       if (status === 401) {
         $state.go('session');
         $scope.message = data.message;
@@ -107,12 +106,12 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
 
   };
 
-  $scope.addPaymentDialog = function() {
+  $scope.addPaymentDialog = function () {
     $mdDialog.show({
       controller: AddPaymentDialogController,
       templateUrl: 'views/template/payment_add.html',
       resolve: {
-        account: function() {
+        account: function () {
           return $scope.account;
         }
       }
@@ -135,21 +134,21 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
     request.filter = '';
 
     //Get active billing month
-    appService.getActiveBillingMonths(request).success(function(response) {
+    appService.getActiveBillingMonths(request).success(function (response) {
       $scope.activeBillingMonth = response.payload;
       $scope.data.billingMonth = $scope.activeBillingMonth.billingMonth;
     });
 
     //Get payment types
-    appService.getPaymentTypes(request).success(function(response) {
+    appService.getPaymentTypes(request).success(function (response) {
       $scope.paymentTypes = response.payload.content;
     });
 
 
-    $scope.cancel = function() {
+    $scope.cancel = function () {
       $mdDialog.cancel();
     };
-    $scope.save = function(form) {
+    $scope.save = function (form) {
       var myForm = $scope.myForm.object;
       if (myForm.$invalid === false) {
 
@@ -175,14 +174,14 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
         var accountId = $scope.account.accountId;
 
         //send request
-        appService.createPayment(request, accountId).success(function(response) {
+        appService.createPayment(request, accountId).success(function (response) {
           $scope.errorOccured = false;
           $scope.errorClass = config.cssAlertSucess;
           $scope.errorMsg = response.message;
           //notify
           $rootScope.$broadcast('onReloadAccountData');
 
-        }).error(function(data, status) {
+        }).error(function (data, status) {
           if (status === 401) {
             $state.go('session');
             $scope.message = data.message;
@@ -200,13 +199,13 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
     };
   };
 
-  $scope.deleteBillDialog = function(index) {
+  $scope.deleteBillDialog = function (index) {
     $scope.bill = $scope.bills[index];
     $mdDialog.show({
       controller: DeleteBillDialogController,
       templateUrl: 'views/template/bill_delete.html',
       resolve: {
-        bill: function() {
+        bill: function () {
           return $scope.bill;
         }
       }
@@ -222,11 +221,10 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
     console.log($scope.bill);
 
 
-
-    $scope.cancel = function() {
+    $scope.cancel = function () {
       $mdDialog.cancel();
     };
-    $scope.update = function(form) {
+    $scope.update = function (form) {
       var myForm = $scope.myForm.object;
       if (myForm.$invalid === false) {
         //good to go
@@ -236,14 +234,14 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
         var billId = $scope.bill.billId;
 
         //send request
-        appService.deleteBill(request, billId).success(function(response) {
+        appService.deleteBill(request, billId).success(function (response) {
           $scope.errorOccured = false;
           $scope.errorClass = config.cssAlertSucess;
           $scope.errorMsg = response.message;
           //notify
           $rootScope.$broadcast('onReloadAccountData');
 
-        }).error(function(data, status) {
+        }).error(function (data, status) {
           if (status === 401) {
             $state.go('session');
             $scope.message = data.message;
@@ -260,5 +258,59 @@ app.controller('AccountsDetailCtrl', function($scope, $http, appService, $cookie
       }
     };
   };
+
+  $scope.changeAccountStatusDialog = function () {
+    $mdDialog.show({
+      controller: ChangeAccountStatusDialogController,
+      templateUrl: 'views/template/account_change_status.html',
+      resolve: {
+        account: function () {
+          return $scope.account;
+        }
+      }
+    });
+  };
+
+  function ChangeAccountStatusDialogController($scope, $mdDialog, $rootScope, account, appService) {
+    var config = appService.getCofig();
+    $scope.myForm = {};
+    $scope.account = account;
+    $scope.form ={};
+
+    $scope.cancel = function () {
+      $mdDialog.cancel();
+    };
+    $scope.update = function (form) {
+      var myForm = $scope.myForm.object;
+      if (myForm.$invalid === false) {
+        //good to go
+        $scope.showErrorInfo = true;
+        $scope.errorClass = config.cssAlertInfo;
+        $scope.errorMsg = config.msgSendingData;
+        var accountId = $scope.account.accountId;
+        var request = {};
+        request.notes = form.notes;
+        //send request
+        appService.updateAccountStatus(request, accountId).success(function (response) {
+          $scope.errorOccured = false;
+          $scope.errorClass = config.cssAlertSucess;
+          $scope.errorMsg = response.message;
+          //notify
+          $rootScope.$broadcast('onReloadAccountData');
+
+        }).error(function (data, status) {
+          if (status === 401) {
+            $state.go('session');
+            $scope.message = data.message;
+          } else {
+            $scope.errorOccured = true;
+            $scope.errorClass = config.cssAlertDanger;
+            $scope.errorMsg = data.message;
+          }
+        });
+      }
+    };
+  };
+
 
 });
