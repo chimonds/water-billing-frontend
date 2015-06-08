@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name maji.controller:BalancesCtrl
+ * @name majiApp.controller:BalancesCtrl
  * @description
  * # BalancesCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 
 app.controller('BalancesCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {

@@ -5,7 +5,7 @@
  * @name majiApp.controller:PaymentsReportCtrl
  * @description
  * # PaymentsReportCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 app.controller('PaymentsReportCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
   var config = appService.getCofig();

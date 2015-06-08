@@ -5,7 +5,7 @@
  * @name majiApp.controller:BillingCtrl
  * @description
  * # BillingCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
   var config = appService.getCofig();

@@ -631,6 +631,16 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.allocateMpesaTransaction = function (request, recordId) {
+    return $http({
+      method: PUT_REQUEST,
+      url: BASE_URL + MPESA + '/allocate/' + recordId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
 
   this.transferPayment = function (request, accountId) {
     return $http({

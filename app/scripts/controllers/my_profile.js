@@ -5,7 +5,7 @@
  * @name majiApp.controller:MyProfileCtrl
  * @description
  * # MyProfileCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 app.controller('MyProfileCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
   //get config

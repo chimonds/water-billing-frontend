@@ -38,9 +38,9 @@
               </span>
             </td>
             <td align="right">
-              <md-button ng-show="!transaction.assigned" class="md-primary">Assign</md-button>
+              <md-button ng-show="!transaction.assigned" class="md-primary" ng-click="assignTransactionDialog($index)">Allocate</md-button>
 
-              <span ng-show="transaction.assigned">Assigned</span>
+              <span ng-show="transaction.assigned">Allocated</span>
             </td>
           </tr>
           <tr>

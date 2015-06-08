@@ -3,7 +3,7 @@
 /**
  * @author maitha.manyala [at] gmail.com
  * @ngdoc function
- * @name maji.controller:AccountsDetailCtrl
+ * @name majiApp.controller:AccountsDetailCtrl
  * @description
  * # UsersCtrl
  * Controller of the AccountsDetailCtrl

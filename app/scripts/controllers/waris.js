@@ -7,7 +7,7 @@
  * # WarisCtrl
  * Controller of the majiApp
  */
-angular.module('equismsApp')
+angular.module('majiApp')
   .controller('WarisCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

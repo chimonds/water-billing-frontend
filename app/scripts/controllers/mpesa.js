@@ -5,7 +5,7 @@
  * @name majiApp.controller:MpesaCtrl
  * @description
  * # MpesaCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 
 app.controller('MpesaCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
@@ -70,8 +70,8 @@ app.controller('MpesaCtrl', function($scope, $http, appService, $cookieStore, $s
   $scope.assignTransactionDialog = function (index) {
     $scope.transaction = $scope.transactions[index];
     $mdDialog.show({
-      controller: AssignTransactionDialogController,
-      templateUrl: 'views/template/transaction_edit.html',
+      controller: AllocateTransactionDialogController,
+      templateUrl: 'views/template/pesa_edit.html',
       resolve: {
         transaction: function () {
           return $scope.transaction;
@@ -80,37 +80,47 @@ app.controller('MpesaCtrl', function($scope, $http, appService, $cookieStore, $s
     });
   };
 
-  function AssignTransactionDialogController($scope, $mdDialog, $rootScope, transaction, appService) {
+  function AllocateTransactionDialogController($scope, $mdDialog, $rootScope, transaction, appService) {
     var config = appService.getCofig();
     $scope.myForm = {};
     $scope.transaction = transaction;
     $scope.form = {};
 
-    console.log(transaction);
+    var request = {};
+    request.page = 0;
+    request.size = 20;
 
-    $scope.cancel = function () {
-      $mdDialog.cancel();
+    $scope.searchConnection = function () {
+      var request = {};
+      request.accNo = $scope.form.accountNo;
+      //send request
+      appService.getAccount(request).success(function (response) {
+        $scope.account = response.payload;
+        $scope.accountFound = true;
+        $scope.errorOccured = false;
+      }).error(function (data, status) {
+        if (status === 401) {
+          $state.go('session');
+          $scope.message = data.message;
+        } else {
+          $scope.errorOccured = true;
+          $scope.accountFound = false;
+          $scope.errorMsg = data.message;
+        }
+      });
     };
-    $scope.update = function (form) {
-      var myForm = $scope.myForm.object;
-      if (myForm.$invalid === false) {
-        //good to go
-        $scope.showErrorInfo = true;
-        $scope.errorClass = config.cssAlertInfo;
-        $scope.errorMsg = config.msgSendingData;
 
-        var meterId=form.meterId;
+    $scope.allocate = function (form) {
+      var myForm = $scope.myForm;
+      if (myForm.object.$valid) {
 
-        var request = {};
-        request.meterId = form.meterId;
-        request.meterNo = form.meterNo;
-        request.initialReading= form.initialReading;
-        request.meterOwner = $scope.meterOwners[form.meterOwner];
-        request.meterSize = $scope.meterSizes[form.meterSize];
+        var transaction = {};
+        transaction.notes = form.notes;
+        transaction.mpesaAcc = form.accountNo;
+        var transactionId = $scope.transaction.recordId;
 
-        //send request
-        appService.updateMeter(request,meterId).success(function (response) {
-          $scope.errorOccured = false;
+        appService.allocateMpesaTransaction(transaction, transactionId).success(function (response) {
+          $scope.showErrorInfo = true;
           $scope.errorClass = config.cssAlertSucess;
           $scope.errorMsg = response.message;
           //notify roles page to reload data
@@ -121,17 +131,49 @@ app.controller('MpesaCtrl', function($scope, $http, appService, $cookieStore, $s
             $state.go('session');
             $scope.message = data.message;
           } else {
-            $scope.errorOccured = true;
+            $scope.showErrorInfo = true;
             $scope.errorClass = config.cssAlertDanger;
             $scope.errorMsg = data.message;
           }
         });
-      } else {
-        $scope.errorOccured = true;
-        $scope.errorClass = config.cssAlertDanger;
-        $scope.errorMsg = "Please fill all the mandatory fields";
       }
     };
+
+    $scope.deallocate = function (form) {
+      var myForm = $scope.myForm;
+      if (myForm.object.$valid) {
+        console.log(form);
+
+        var selectedMeter = $scope.selectedMeter;
+        selectedMeter.notes = form.notes;
+
+        var meterId = selectedMeter.meterId;
+
+        appService.updateMeterDeallocate(selectedMeter, meterId).success(function (response) {
+
+          $scope.showErrorInfo = true;
+          $scope.errorClass = config.cssAlertSucess;
+          $scope.errorMsg = response.message;
+          //notify roles page to reload data
+          $rootScope.$broadcast('onReloadPageData');
+
+        }).error(function (data, status) {
+          if (status === 401) {
+            $state.go('session');
+            $scope.message = data.message;
+          } else {
+            $scope.showErrorInfo = true;
+            $scope.errorClass = config.cssAlertDanger;
+            $scope.errorMsg = data.message;
+          }
+        });
+      }
+    };
+
+    $scope.cancel = function () {
+      $mdDialog.cancel();
+    };
+
   }
 
 });
