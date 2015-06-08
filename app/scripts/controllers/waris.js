@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:WarisCtrl
+ * @name majiApp.controller:WarisCtrl
  * @description
  * # WarisCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 angular.module('equismsApp')
   .controller('WarisCtrl', function ($scope) {

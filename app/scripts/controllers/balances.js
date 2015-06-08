@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:BalancesCtrl
+ * @name maji.controller:BalancesCtrl
  * @description
  * # BalancesCtrl
  * Controller of the equismsApp

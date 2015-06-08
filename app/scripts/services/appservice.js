@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc service
- * @name billingApp.appService
+ * @name majiApp.appService
  * @description
  * # appService
- * Service in the billingApp.
+ * Service in the majiApp.
  * @author Maitha Manyala <maitha.manyala [at] gmail.com>
  *
  */
@@ -37,6 +37,7 @@ app.service('appService', function ($http, $cookieStore) {
   var BILL_ITEM_TYPES = 'bill_item_types';
   var REPORTS = 'reports';
   var STATS = 'stats';
+  var MPESA = 'mpesa';
 
   //__________________________
   var POST_REQUEST = 'POST';
@@ -612,6 +613,17 @@ app.service('appService', function ($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + PAYMENTS,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getMpesaTransactions = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + MPESA,
       headers: {
         'Content-Type': 'application/json'
       },

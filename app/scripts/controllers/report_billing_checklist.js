@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:ReportBillingChecklistCtrl
+ * @name majiApp.controller:ReportBillingChecklistCtrl
  * @description
  * # ReportBillingChecklistCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
   app.controller('ReportBillingChecklistCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
     var config = appService.getCofig();

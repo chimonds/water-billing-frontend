@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:BillingSummaryCtrl
+ * @name majiApp.controller:BillingSummaryCtrl
  * @description
  * # BillingSummaryCtrl
  * Controller of the equismsApp

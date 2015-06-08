@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:PotentialCutOffCtrl
+ * @name majiApp.controller:PotentialCutOffCtrl
  * @description
  * # PotentialCutOffCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 
   app.controller('PotentialCutOffCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope,$stateParams) {

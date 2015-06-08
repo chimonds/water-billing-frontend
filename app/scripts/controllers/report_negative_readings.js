@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:ReportNegativeReadingsCtrl
+ * @name majiApp.controller:ReportNegativeReadingsCtrl
  * @description
  * # ReportNegativeReadingsCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 
   app.controller('ReportNegativeReadingsCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {

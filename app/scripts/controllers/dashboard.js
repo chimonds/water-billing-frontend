@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name billingApp.controller:LogoutCtrl
+ * @name majiApp.controller:LogoutCtrl
  * @description
  * # LogoutCtrl
  * Controller of the DashboardCtrl

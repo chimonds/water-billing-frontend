@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:ReportBilledAmountCtrl
+ * @name majiApp.controller:ReportBilledAmountCtrl
  * @description
  * # ReportBilledAmountCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 
   app.controller('ReportBilledAmountCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {

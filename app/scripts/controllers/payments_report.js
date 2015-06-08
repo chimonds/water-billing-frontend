@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:PaymentsReportCtrl
+ * @name majiApp.controller:PaymentsReportCtrl
  * @description
  * # PaymentsReportCtrl
  * Controller of the equismsApp

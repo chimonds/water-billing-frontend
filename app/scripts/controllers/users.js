@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name billingApp.controller:ReportsCtrl
+ * @name majiApp.controller:ReportsCtrl
  * @description
  * # UsersCtrl
- * Controller of the billingApp
+ * Controller of the majiApp
  */
 
 app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {

@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name billingApp
+ * @name majiApp
  * @description
- * # billingApp
+ * # majiApp
  *
  * Main module of the application.
  */
 var app = angular
-  .module('equismsApp', [
+  .module('majiApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -295,6 +295,14 @@ var app = angular
         url: '/waris',
         templateUrl: 'views/reports/waris.html',
         controller: 'WarisCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
+      .state('mpesa', {
+        url: '/mpesa',
+        templateUrl: 'views/mpesa.html',
+        controller: 'MpesaCtrl',
         data: {
           requireLogin: true
         }

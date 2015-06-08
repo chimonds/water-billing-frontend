@@ -13,6 +13,8 @@
             {'title': 'Consumers', 'state': 'consumers', 'icon': 'icon-users'},
             {'title': 'Accounts', 'state': 'accounts', 'icon': 'icon-share'},
             {'title': 'Payments', 'state': 'payments', 'icon': 'icon-wallet'},
+            {'title': 'M-PESA', 'state': 'mpesa', 'icon': 'icon-wallet'},
+            {'title': 'PostBank', 'state': 'postbank', 'icon': 'icon-wallet'},
             {'title': 'Billing', 'state': 'billing', 'icon': 'icon-calculator'},
             {'title': 'Meters', 'state': 'meters', 'icon': 'icon-compass'}]
         },

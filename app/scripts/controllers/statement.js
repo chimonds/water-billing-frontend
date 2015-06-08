@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:StatementCtrl
+ * @name majiApp.controller:StatementCtrl
  * @description
  * # StatementCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
   app.controller('StatementCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope,$stateParams) {
     $scope.accountId = $stateParams.accountId;

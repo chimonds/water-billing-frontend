@@ -3,7 +3,7 @@
 /**
  * @author maitha.manyala [at] gmail.com
  * @ngdoc function
- * @name billingApp.controller:BillingMonthsCtrl
+ * @name majiApp.controller:BillingMonthsCtrl
  * @description
  * # UsersCtrl
  * Controller of the BillingMonthsCtrl

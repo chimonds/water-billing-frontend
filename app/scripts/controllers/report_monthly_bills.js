@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:ReportMonthlyBillsCtrl
+ * @name majiApp.controller:ReportMonthlyBillsCtrl
  * @description
  * # ReportMonthlyBillsCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 app.controller('ReportMonthlyBillsCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
   var config = appService.getCofig();

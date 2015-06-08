@@ -445,4 +445,11 @@ html {
   padding: 0;
   margin: 0;
 }
+.stats-caption{
+  font-size: 20px;
+  line-height: 0px;
+  font-family: 'Roboto';
+  letter-spacing: 2px;
+  font-weight: 300;
+}
 

@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:ReportMeterStopsCtrl
+ * @name majiApp.controller:ReportMeterStopsCtrl
  * @description
  * # ReportMeterStopsCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 
   app.controller('ReportMeterStopsCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {

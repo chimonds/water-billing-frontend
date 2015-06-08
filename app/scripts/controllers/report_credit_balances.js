@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:ReportCreditBalancesCtrl
+ * @name majiApp.controller:ReportCreditBalancesCtrl
  * @description
  * # ReportCreditBalancesCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
   app.controller('ReportCreditBalancesCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
     var config = appService.getCofig();

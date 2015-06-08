@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name billingApp.controller:RolesCtrl
+ * @name majiApp.controller:RolesCtrl
  * @description
  * # RolesCtrl
- * Controller of the billingApp
+ * Controller of the majiApp
  */
 
 app.controller('RolesCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {

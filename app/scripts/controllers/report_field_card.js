@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:ReportFieldCardCtrl
+ * @name majiApp.controller:ReportFieldCardCtrl
  * @description
  * # ReportFieldCardCtrl
- * Controller of the equismsApp
+ * Controller of the majiApp
  */
 
 app.controller('ReportFieldCardCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {

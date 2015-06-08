@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name billingApp.controller:LoginCtrl
+ * @name majiApp.controller:LoginCtrl
  * @description
  * # LoginCtrl
  * Controller of the LoginCtrl

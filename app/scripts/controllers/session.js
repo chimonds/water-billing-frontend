@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name billingApp.controller:LogoutCtrl
+ * @name majiApp.controller:LogoutCtrl
  * @description
  * # LogoutCtrl
- * Controller of the billingApp
+ * Controller of the majiApp
  */
 
   app.controller('SessionCtrl', function ($scope,$cookieStore,$rootScope,$location, $window) {

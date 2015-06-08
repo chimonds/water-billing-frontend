@@ -12,37 +12,46 @@
         <md-content class="total-records" layout="column" layout-align="space-between center">
 
           <md-content flex>{{stats.topView.consumers | number}}</md-content>
-          <md-subheader flex>Consumers</md-subheader>
+          <md-subheader class="stats-caption" flex>Consumers</md-subheader>
         </md-content>
 
         <md-content class="total-records" style="color: #9C27B0" layout="column" layout-align="space-between center">
 
           <md-content flex>{{stats.topView.accounts | number}}</md-content>
-          <md-subheader flex>Accounts</md-subheader>
+          <md-subheader class="stats-caption" flex>Accounts</md-subheader>
         </md-content>
 
         <md-content class="total-records" style="color:#3F51B5;" layout="column" layout-align="space-between center">
 
           <md-content flex>{{stats.topView.active | number}}</md-content>
-          <md-subheader flex>Active</md-subheader>
+          <md-subheader class="stats-caption" flex>Active</md-subheader>
         </md-content>
 
         <md-content class="total-records" style="color: #FF5252" layout="column" layout-align="space-between center">
 
           <md-content flex>{{stats.topView.inactive | number}}</md-content>
-          <md-subheader flex>In Active</md-subheader>
+          <md-subheader class="stats-caption" flex>In Active</md-subheader>
         </md-content>
 
         <md-content class="total-records" style="color: #4CAF50" layout="column" layout-align="space-between center">
 
           <md-content flex>{{stats.topView.paidLastMonth | number}}</md-content>
-          <md-subheader flex class="md-warning">Billed this Month</md-subheader>
+          <md-subheader  flex class="stats-caption">Billed this Month</md-subheader>
         </md-content>
 
         <md-content class="total-records" style="color: #009688" layout="column" layout-align="space-between center">
-
           <md-content flex>{{stats.topView.paidThisMonth | number}}</md-content>
-          <md-subheader flex>Paid This Month</md-subheader>
+          <md-subheader  class="stats-caption" flex>Paid This Month</md-subheader>
+        </md-content>
+
+        <md-content class="total-records" style="color: #009688" layout="column" layout-align="space-between center">
+          <md-content flex>{{stats.topView.paidThisMonth | number}}</md-content>
+          <md-subheader  class="stats-caption" flex>Paid Today</md-subheader>
+        </md-content>
+
+        <md-content class="total-records" style="color: #009688" layout="column" layout-align="space-between center">
+          <md-content flex>{{stats.topView.paidThisMonth | number}}</md-content>
+          <md-subheader class="stats-caption" flex>Not Allocated</md-subheader>
         </md-content>
 
       </md-content>

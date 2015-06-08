@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name equismsApp.controller:MyProfileCtrl
+ * @name majiApp.controller:MyProfileCtrl
  * @description
  * # MyProfileCtrl
  * Controller of the equismsApp
