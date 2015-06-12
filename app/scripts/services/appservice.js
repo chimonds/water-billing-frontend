@@ -38,6 +38,7 @@ app.service('appService', function ($http, $cookieStore) {
   var REPORTS = 'reports';
   var STATS = 'stats';
   var MPESA = 'mpesa';
+  var POSTBANK = 'postbank';
 
   //__________________________
   var POST_REQUEST = 'POST';
@@ -635,6 +636,28 @@ app.service('appService', function ($http, $cookieStore) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + MPESA + '/allocate/' + recordId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getPostBankTransactions = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + POSTBANK,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.allocatePostBankTransaction = function (request, recordId) {
+    return $http({
+      method: PUT_REQUEST,
+      url: BASE_URL + POSTBANK + '/allocate/' + recordId,
       headers: {
         'Content-Type': 'application/json'
       },

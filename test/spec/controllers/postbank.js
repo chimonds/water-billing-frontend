@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: AgeingCtrl', function () {
+describe('Controller: PostbankCtrl', function () {
 
   // load the controller's module
   beforeEach(module('majiApp'));
 
-  var AgeingCtrl,
+  var PostbankCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    AgeingCtrl = $controller('AgeingCtrl', {
+    PostbankCtrl = $controller('PostbankCtrl', {
       $scope: scope
     });
   }));

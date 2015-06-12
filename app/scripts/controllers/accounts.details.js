@@ -311,6 +311,4 @@ app.controller('AccountsDetailCtrl', function ($scope, $http, appService, $cooki
       }
     };
   };
-
-
 });

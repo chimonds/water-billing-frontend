@@ -307,6 +307,14 @@ var app = angular
           requireLogin: true
         }
       })
+      .state('postbank', {
+        url: '/postbank',
+        templateUrl: 'views/postbank.html',
+        controller: 'PostBankCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
       .state('payments', {
         url: '/payments',
         templateUrl: 'views/payments.html',
