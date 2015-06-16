@@ -1,0 +1,48 @@
+<md-card>
+  <md-card-content>
+    <md-content>
+      <div ng-include="'views/sms_menu.html'"></div>
+      <md-subheader class="md-primary">Use this panel to manage SMS Templates</md-subheader>
+      <md-content>
+         <md-button ng-show="$root.zones_create" class="md-primary pull-right" ng-click="addTemplateDialog();">
+            <span class="icon-plus action-button" aria-hidden="true"></span>
+         </md-button>
+         <div class="clearfix"></div>
+         <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+            {{errorMsg}}
+         </div>
+         <md-input-container flex class="md-default-theme">
+            <label for="input_041">Search</label>
+            <input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+         </md-input-container>
+         <table class="table table-hover">
+            <thead>
+               <tr>
+                  <th>Created</th>
+                  <th>Name</th>
+                  <th>Message</th>
+                  <th>Needs Approval</th>
+                  <th></th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr dir-paginate="template in templates | itemsPerPage: 10" total-items="totalTemplates" pagination-id="pagePagination">
+                  <td>{{ template.createdOn | date }}</td>
+                  <td>{{template.name}}</td>
+                  <td>{{template.message}}</td>
+                  <td>{{template.needsApproval}}</td>
+                  <td align="right">
+                     <md-button ng-show="$root.sms_template_update" class="md-primary" ng-click="editTemplateDialog($index)">Edit</md-button>
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="4" align="center">
+                     <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </md-content>
+    </md-content>
+  </md-card-content>
+</md-card>

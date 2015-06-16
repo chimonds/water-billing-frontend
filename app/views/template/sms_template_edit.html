@@ -1,0 +1,48 @@
+<md-dialog aria-label="Edit User Role" flex>
+   <md-content>
+      <md-subheader class="md-sticky-no-effect md-primary">Use this panel to edit SMS template</md-subheader>
+      <div layout="column" flex>
+         <md-content class="md-padding">
+            <form name="myForm.object">
+               <md-input-container>
+                  <label>Name</label>
+                  <input md-maxlength="200" ng-disabled='true' required name="templateName" ng-model="form.name">
+                  <div ng-messages="myForm.object.templateName.$error">
+                     <div ng-message="required">This is required.</div>
+                     <div ng-message="md-maxlength">The name has to be less than 200 characters long.</div>
+                  </div>
+               </md-input-container>
+               <md-input-container>
+                  <label>Message</label>
+                  <textarea required name="templateMessage" ng-model="form.message">
+                  </textarea rows="4" cols="50">
+                  <div ng-messages="myForm.object.templateMessage.$error">
+                     <div ng-message="required">This is required.</div>
+                  </div>
+               </md-input-container>
+               <p>
+                  Placeholders below are available
+                  <p>
+                   <span class='label label-info' ng-repeat="placeholder in placeholders">{{placeholder}} </span>
+                  </p>
+               </p>
+               
+               <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="md-actions" layout="row">
+                  <span flex></span>
+                  <md-button ng-click="cancel();">
+                     Close
+                  </md-button>
+                  <md-button class="md-primary" ng-click="update(form);">
+                     Update
+                  </md-button>
+               </div>
+            </form>
+         </md-content>
+      </div>
+   </md-content>
+</md-dialog>

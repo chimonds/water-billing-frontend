@@ -10,7 +10,7 @@
  */
 
 app.controller('ZonesCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
- //get config
+    //get config
     var config = appService.getCofig();
     $scope.params = {};
     $scope.params.page = 1;

@@ -16,6 +16,7 @@
             {'title': 'M-PESA', 'state': 'mpesa', 'icon': 'icon-wallet'},
             {'title': 'PostBank', 'state': 'postbank', 'icon': 'icon-wallet'},
             {'title': 'Billing', 'state': 'billing', 'icon': 'icon-calculator'},
+            {'title': 'SMS', 'state': 'sms', 'icon': 'icon-envelope'},
             {'title': 'Meters', 'state': 'meters', 'icon': 'icon-compass'}]
         },
         {

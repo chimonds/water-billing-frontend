@@ -1,0 +1,30 @@
+<md-button ng-show="$root.zones_create" class="md-primary md-raised pull-right" ng-click="addZoneDialog();">
+   New SMS
+</md-button>
+<table class="table table-hover">
+   <thead>
+      <tr>
+         <th>Name</th>
+         <th>Description</th>
+         <th>Created</th>
+         <th></th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr dir-paginate="zone in zones | itemsPerPage: 10" total-items="totalZones" pagination-id="pagePagination">
+         <td>{{ zone.name }}</td>
+         <td>{{zone.description}}</td>
+         <td>
+            <span am-time-ago="zone.createdOn"> </span>
+         </td>
+         <td align="right">
+            <md-button ng-show="$root.zones_update" class="md-primary" ng-click="editZoneDialog($index)">Edit</md-button>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="4" align="center">
+            <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+         </td>
+      </tr>
+   </tbody>
+</table>

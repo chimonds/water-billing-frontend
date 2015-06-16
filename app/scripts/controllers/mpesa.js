@@ -116,7 +116,7 @@ app.controller('MpesaCtrl', function($scope, $http, appService, $cookieStore, $s
 
         var transaction = {};
         transaction.notes = form.notes;
-        transaction.mpesaAcc = form.accountNo;
+        transaction.mpesaacc = form.accountNo;
         var transactionId = $scope.transaction.recordId;
 
         appService.allocateMpesaTransaction(transaction, transactionId).success(function (response) {

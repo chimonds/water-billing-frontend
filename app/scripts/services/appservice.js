@@ -39,6 +39,7 @@ app.service('appService', function ($http, $cookieStore) {
   var STATS = 'stats';
   var MPESA = 'mpesa';
   var POSTBANK = 'postbank';
+  var SMS_TEMPLATES ='smstemplates';
 
   //__________________________
   var POST_REQUEST = 'POST';
@@ -863,6 +864,45 @@ app.service('appService', function ($http, $cookieStore) {
       },
       data: angular.toJson(getPayload(request))
     });
+  };
+
+  this.getSMSTemplates = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + SMS_TEMPLATES,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.updateTemplate = function (request, objectId) {
+    return $http({
+      method: PUT_REQUEST,
+      url: BASE_URL + SMS_TEMPLATES + '/' + objectId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.createSMSTemplate = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + SMS_TEMPLATES + '/create',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
+  this.getSMSPlaceholders = function(){
+    var placeholders = ['$account','$balance','$receiptno', '$billing_month','$bill_amount','$firstname'];
+    return placeholders;
   };
 
   this.getCofig = function () {

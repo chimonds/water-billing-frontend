@@ -6,15 +6,15 @@
         <form name="myForm.object">
           <div class="pull-left">
             <p>
-              MPESA Code: <strong>{{transaction.mpesaCode}}</strong>
+              MPESA Code: <strong>{{transaction.mpesacode}}</strong>
             </p>
             <p>
-              Amount: <strong>{{transaction.amount}}</strong>
+              Amount: <strong>{{transaction.mpesaamt | number}}</strong>
             </p>
           </div>
           <div class="pull-right">
             <p>
-              Sender: <strong>{{transaction.sender}}</strong>
+              Sender: <strong>{{transaction.mpesa_sender}}</strong>
             </p>
             <p>
               MSISDN: <strong>{{transaction.mpesa_msisdn}}</strong>

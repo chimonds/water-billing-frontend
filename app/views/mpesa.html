@@ -19,22 +19,25 @@
             <th>Code</th>
             <th>MSDIN</th>
             <th>Assigned</th>
-            <th>Amount</th>
+            <th>
+              <span class="pull-right">
+                Amount
+              </span>
+            </th>
             <th></th>
           </tr>
           </thead>
           <tbody>
           <tr dir-paginate="transaction in transactions | itemsPerPage: 10" total-items="totalTransactions" pagination-id="pagePagination">
             <td>{{ transaction.createdOn | date:'medium' }}</td>
-            <td>{{transaction.mpesaAcc}}</td>
-            <td>{{transaction.sender}}</td>
-            <td>{{transaction.mpesaCode}}</td>
+            <td>{{transaction.mpesaacc}}</td>
+            <td>{{transaction.mpesa_sender}}</td>
+            <td>{{transaction.mpesacode}}</td>
             <td>{{transaction.mpesa_msisdn}}</td>
-            <td>{{transaction.toAccount}}</td>
-
+            <td>{{transaction.assigned}}</td>
             <td>
               <span class="pull-right">
-                {{transaction.amount | number}}
+                {{transaction.mpesaamt | number}}
               </span>
             </td>
             <td align="right">

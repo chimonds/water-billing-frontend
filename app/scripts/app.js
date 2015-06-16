@@ -168,6 +168,22 @@ var app = angular
           requireLogin: true
         }
       })
+      .state('sms', {
+        url: '/sms/outbox',
+        templateUrl: 'views/sms.html',
+        controller: 'SmsCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
+      .state('sms_templates', {
+        url: '/sms/templates',
+        templateUrl: 'views/sms_templates.html',
+        controller: 'SmsTemplatesCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
       .state('balances', {
         url: '/balances',
         templateUrl: 'views/reports/balances.html',
