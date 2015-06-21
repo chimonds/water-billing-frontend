@@ -1,8 +1,31 @@
 <md-card>
   <md-card-content>
     <md-content>
-      <div ng-include="'views/sms_menu.html'"></div>
-      
+      <md-subheader class="md-primary">Use this panel to manage SMSs</md-subheader>
+      <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Outbox">
+        <md-content class="md-padding">
+          <!--  -->
+        </md-content>
+      </md-tab>
+      <md-tab label="Sent">
+        <md-content class="md-padding">
+          <!--  -->
+          </md-content>
+      </md-tab>
+      <md-tab label="Templates">
+        <md-content class="md-padding">
+          <div ng-include="'views/sms_templates.html'"></div>
+        </md-content>
+      </md-tab>
+      <md-tab label="New Message">
+        <md-content class="md-padding">
+          <div ng-include="'views/sms_new.html'"></div>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+      <!-- <div ng-include="'views/sms_menu.html'"></div> -->
+
     </md-content>
   </md-card-content>
 </md-card>

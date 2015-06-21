@@ -173,7 +173,5 @@ app.controller('MpesaCtrl', function($scope, $http, appService, $cookieStore, $s
     $scope.cancel = function () {
       $mdDialog.cancel();
     };
-
   }
-
 });

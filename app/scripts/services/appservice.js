@@ -799,6 +799,17 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.getAgeingReport = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORTS + '/ageing',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.getBillingSummaryReport = function (request) {
     return $http({
       method: POST_REQUEST,

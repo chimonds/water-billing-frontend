@@ -1,0 +1,49 @@
+<div class="form-group">
+   <label for="zones">Select zones</label>
+   <tags-input
+      class="bootstrap"
+      ng-model="zones"
+      display-property="name"
+      placeholder="Add a zone">
+      <auto-complete source="loadZones($query)"
+         min-length="0"
+         load-on-focus="true"
+         load-on-empty="true"
+         max-results-to-show="5">
+      </auto-complete>
+   </tags-input>
+</div>
+<div class="form-group">
+   <label for="phones">Mobile Numbers</label>
+   <tags-input
+      class="bootstrap"
+      placeholder="Add mobile numbers"
+      replace-spaces-with-dashes="false"
+      ng-model="phones">
+   </tags-input>
+</div>
+<!--SMS template-->
+<md-select  ng-model="sms.template" placeholder="SMS Template">
+   <md-optgroup label="SMS template">
+      <md-option ng-repeat="template in remotetemplates" ng-value="template">
+         {{template.name}}
+      </md-option>
+   </md-optgroup>
+</md-select>
+<br />
+<p>
+<h3 class="md-headline">{{sms.template.message}}</h3>
+<h2 class="md-subhead label label-info">{{sms.template.message.length}} Characters</h2>
+</p>
+<div ng-show="composeError" ng-class="errorClass" role="alert">
+   {{errorMsg}}
+   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+   <span aria-hidden="true">&times;</span>
+   </button>
+</div>
+<div class="md-actions" layout="row">
+   <span flex></span>
+   <md-button class="md-primary" ng-click="submitMessage();">
+      Submit
+   </md-button>
+</div>
