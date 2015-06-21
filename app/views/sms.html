@@ -5,7 +5,7 @@
       <md-tabs md-dynamic-height md-border-bottom>
       <md-tab label="Outbox">
         <md-content class="md-padding">
-          <!--  -->
+          <div ng-include="'views/sms_outbox.html'"></div>
         </md-content>
       </md-tab>
       <md-tab label="Sent">
@@ -18,7 +18,7 @@
           <div ng-include="'views/sms_templates.html'"></div>
         </md-content>
       </md-tab>
-      <md-tab label="New Message">
+      <md-tab label="New SMS">
         <md-content class="md-padding">
           <div ng-include="'views/sms_new.html'"></div>
         </md-content>

@@ -40,6 +40,7 @@ app.service('appService', function ($http, $cookieStore) {
   var MPESA = 'mpesa';
   var POSTBANK = 'postbank';
   var SMS_TEMPLATES ='smstemplates';
+  var SMS ='sms';
 
   //__________________________
   var POST_REQUEST = 'POST';
@@ -903,6 +904,17 @@ app.service('appService', function ($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + SMS_TEMPLATES + '/create',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.createSMS = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + SMS + '/create',
       headers: {
         'Content-Type': 'application/json'
       },

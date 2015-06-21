@@ -1,3 +1,14 @@
+<!-- <md-input-container>
+   <label>Name</label>
+   <input md-maxlength="100" name="smsName" ng-model="smsName">
+</md-input-container> -->
+
+<div class="form-group">
+    <label>Name</label>
+    <input type="text" class="form-control" ng-model="sms.name" placeholder="SMS Name">
+</div>
+
+
 <div class="form-group">
    <label for="zones">Select zones</label>
    <tags-input
@@ -13,6 +24,7 @@
       </auto-complete>
    </tags-input>
 </div>
+
 <div class="form-group">
    <label for="phones">Mobile Numbers</label>
    <tags-input

@@ -50,7 +50,14 @@
         var zones = $scope.zones;
         var phones = $scope.phones;
         var template = $scope.sms.template;
-        if(zones.length == 0 && phones.length==0){
+        var name = $scope.sms.name;
+
+        if(name.length==0){
+          $scope.composeError = true;
+          $scope.errorClass = config.cssAlertDanger;
+          $scope.errorMsg = "SMS name can not be empty";
+        }
+        else if(zones.length == 0 && phones.length==0){
           $scope.composeError = true;
           $scope.errorClass = config.cssAlertDanger;
           $scope.errorMsg = "Please select a zone or enter a mobile number";
@@ -60,9 +67,12 @@
           $scope.errorMsg = "Please sms template";
         }else {
           var request = {};
+          request.name = name;
           request.zones = zones;
-          request.phones = phones;
-          request.template = template;
+          request.contacts = phones;
+          request.smsTemplate = template;
+
+          //console.log(request);
 
           //send request
           appService.createSMS(request).success(function(response) {
