@@ -1,53 +1,83 @@
-<md-content>
+<div ng-show="smsListError" class="alert alert-danger" role="alert">
+   {{errorMsg}}
+</div>
+<md-content dir-paginate="sms in SMSs | itemsPerPage: 10" total-items="totalSMSs" pagination-id="smsPagination">
+   <table width="100%">
+      <tr>
+         <td>
+            <p style="font-size:18px; font-weight:bold;">
+               {{sms.name | uppercase}}
+            </p>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <p style="font-size:16px;">
+               {{sms.smsTemplate.message}}
+            </p>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <p>
+               <strong>Zones</strong>
+            <div>
+               <span ng-repeat="zone in sms.zones" class="label label-default pull-left">{{zone.name}}</span>
+            </div>
+            </p>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <p>
+               <strong>Contacts</strong>
+            <div>
+               <span ng-repeat="contact in sms.contacts" class="label label-default pull-left">{{contact.text}}</span>
+            </div>
+            </p>
+         </td>
+      </tr>
+      <tr>
+         <td align="right">
+            <br/>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <span>
+               <table width="100%" bgcolor="#F5F5F5">
+                  <tr>
+                     <td>
+                        <span class="label label-info" ng-show="sms.approved">
+                          All: {{sms.messages | number}}
+                        </span>
+                     </td>
+                     <td>
+                        <span class="label label-danger" ng-show="sms.approved">
+                        Pending: {{sms.messages - sms.messagesSent | number}}
+                        </span>
+                     </td>
+                     <td>
+                        <span class="label label-success" ng-show="sms.approved">
+                        Sent: {{sms.messagesSent | number}}
+                        </span>
+                     </td>
+                     <td>
+                        <span class="label label-success">
+                        {{sms.status}}
+                        </span>
+                     </td>
 
-  <table width="100%">
-    <tr>
-      <td>
-          <h1 class="md-display-1">XMASS Message</h1>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Thank you for your payment of KES $amount to a/c $account (txn id $receiptno). Your new water balance is KES $balance. Test.
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong>Zones</strong>
-        <div>2121, 32323, 3232,53535</div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong>Contacts</strong>
-        <div>2121, 32323, 3232,53535</div>
-      </td>
-    </tr>
-    <tr>
-      <td align="right">
-      <br/>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <table width="100%">
-          <tr>
-
-            <td>All: 6,000</td>
-            <td>Pending: 5,000</td>
-            <td>Sent: 1,000</td>
-            <td align="right">Status: Pending Approval</td>
-          </tr>
-        </table
-        Status: Pending Approval
-      </td>
-    </tr>
-
-  </table>
-
-<br/>
-
-
-  <md-divider></md-divider>
-
+                     <td align="right">
+                        <md-button  class="md-primary" ng-show="!sms.approved" ng-click="approveSMSDialog($index)">Approve/Reject</md-button>
+                      </td>
+                  </tr>
+               </table>
+            </span>
+         </td>
+      </tr>
+   </table>
+   <br/>
+   <md-divider></md-divider>
 </md-content>
+<dir-pagination-controls on-page-change="pageChangedSMS(newPageNumber)" pagination-id="smsPagination"></dir-pagination-controls>

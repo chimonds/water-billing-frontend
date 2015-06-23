@@ -922,9 +922,46 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.approveSMS = function (request, smsGroupId) {
+    return $http({
+      method: PUT_REQUEST,
+      url: BASE_URL + SMS + '/approve/'+ smsGroupId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getSMSs = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + SMS+'/groups',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getSMSSent = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + SMS,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
 
   this.getSMSPlaceholders = function(){
-    var placeholders = ['$account','$balance','$receiptno', '$billing_month','$bill_amount','$firstname'];
+    var placeholders = ['$account_no','$balance','$firstname'];
+    //$account
+    //$balance
+    //$firstname
+    //$zone_no
     return placeholders;
   };
 

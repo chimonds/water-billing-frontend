@@ -1,0 +1,60 @@
+<md-dialog aria-label="Edit User Role" flex>
+   <md-content>
+      <md-subheader class="md-sticky-no-effect md-primary">Use this panel to edit zone</md-subheader>
+      <div layout="column" flex>
+         <md-content class="md-padding">
+            <form name="myForm.object">
+              <!-- SMS name -->
+               <md-input-container>
+                  <label>Name</label>
+                  <input md-maxlength="30"  ng-model="sms.name">
+               </md-input-container>
+
+               <!-- Message -->
+               <md-input-container>
+                  <label>Message</label>
+                  <textarea ng-disabled="true" name="smsNotes" ng-model="sms.smsTemplate.message">
+                  </textarea rows="4" cols="50">
+               </md-input-container>
+
+               <!-- Action -->
+               <md-select required name="status" ng-model="sms.approval" placeholder="Approve/Reject">
+                 <md-optgroup label="Approve/Reject">
+                   <md-option ng-repeat="s in status" value="{{$index}}">
+                     {{s.name}}
+                   </md-option>
+                 </md-optgroup>
+               </md-select>
+               <div ng-messages="myForm.object.status.$error">
+                 <div ng-message="required">This is required.</div>
+               </div>
+
+               <!--Notes  -->
+               <md-input-container>
+                  <label>Notes</label>
+                  <textarea required name="smsNotes" ng-model="sms.notes">
+                  </textarea rows="4" cols="50">
+                  <div ng-messages="myForm.object.smsNotes.$error">
+                     <div ng-message="required">This is required.</div>
+                  </div>
+               </md-input-container>
+
+               <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">
+                 {{errorMsg}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               </div>
+               <br />
+               <div class="md-actions" layout="row">
+                  <span flex></span>
+                  <md-button ng-click="cancel();">
+                     Close
+                  </md-button>
+                  <md-button class="md-primary" ng-click="update(sms);">
+                     Submit
+                  </md-button>
+               </div>
+            </form>
+         </md-content>
+      </div>
+   </md-content>
+</md-dialog>

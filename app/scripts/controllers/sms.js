@@ -43,6 +43,33 @@
       $scope.loadAllSMSTemplates();
       //End load all sms templates
 
+      //Load all sms templates
+      $scope.loadAllSMSs = function(){
+        var request = {};
+        request.page = 0;
+        request.size = 100;
+        $scope.smsListError = false;
+        appService.getSMSs(request).success(function(response) {
+            $scope.SMSs = response.payload.content;
+            $scope.totalSMSs = response.payload.totalElements;
+            console.log($scope.smss);
+        }).error(function(data, status) {
+            if (status === 401) {
+                $state.go('session');
+                $scope.message = data.message;
+            } else {
+                $scope.smsListError = true;
+                $scope.errorClass = config.cssAlertDanger;
+                $scope.errorMsg = data.message;
+            }
+        });
+      };
+
+      $scope.loadAllSMSs();
+      //End load all sms templates
+
+
+
       $scope.sms = {template:""};
 
       $scope.submitMessage = function(){
@@ -268,6 +295,82 @@
               }
           };
       };
+
+      $scope.approveSMSDialog = function(index) {
+          $scope.sms = $scope.SMSs[index];
+
+          $mdDialog.show({
+              controller: ApproveSMSDialogController,
+              templateUrl: 'views/template/sms_approve.html',
+              resolve: {
+                  sms: function() {
+                      return $scope.sms;
+                  }
+              }
+          });
+      };
+
+      function ApproveSMSDialogController($scope, $mdDialog, $rootScope, sms, appService) {
+          var config = appService.getCofig();
+          //sms placeholders
+          $scope.placeholders = appService.getSMSPlaceholders();
+          $scope.myForm = {};
+          $scope.sms = sms;
+
+          $scope.status =
+            [
+              {'name': 'Approve'},
+              {'name': 'Reject'}
+            ];
+
+          console.log($scope.sms);
+
+          //$scope.form = sms;
+
+          $scope.cancel = function() {
+              $mdDialog.cancel();
+          };
+
+          $scope.update = function(form) {
+              var myForm = $scope.myForm.object;
+              if (myForm.$invalid === false) {
+                  //good to go
+                  $scope.showErrorInfo = true;
+                  $scope.errorClass = config.cssAlertInfo;
+                  $scope.errorMsg = config.msgSendingData;
+
+                  var request = {};
+                  request.notes = $scope.sms.notes;
+                  var status = $scope.sms.approval;
+                  request.status = $scope.status[status].name;
+                  var smsGroupId = $scope.sms.smsGroupId;
+
+                  console.log(request);
+                  //send request
+                  appService.approveSMS(request,smsGroupId).success(function(response) {
+                      $scope.errorOccured = false;
+                      $scope.errorClass = config.cssAlertSucess;
+                      $scope.errorMsg = response.message;
+                      //notify roles page to reload data
+                      $rootScope.$broadcast('onReloadPageData');
+
+                  }).error(function(data, status) {
+                      if (status === 401) {
+                          $state.go('session');
+                          $scope.message = data.message;
+                      } else {
+                          $scope.errorOccured = true;
+                          $scope.errorClass = config.cssAlertDanger;
+                          $scope.errorMsg = data.message;
+                      }
+                  });
+              } else {
+                  $scope.errorOccured = true;
+                  $scope.errorClass = config.cssAlertDanger;
+                  $scope.errorMsg = "Please fill all the mandatory fields";
+              }
+          };
+      }
 
 
   });

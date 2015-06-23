@@ -221,6 +221,11 @@ label {
   background-color: #F4F4F4;
 }
 
+.label-default {
+  color: #333333;
+  background-color: #F4F4F4;
+}
+
 .label-active {
   background-color: #5cb85c;
   color: #f5f5f5;
