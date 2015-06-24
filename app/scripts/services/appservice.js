@@ -944,7 +944,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getSMSSent = function (request) {
+  this.getMessages = function (request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + SMS,

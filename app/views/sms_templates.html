@@ -1,6 +1,6 @@
 
       <md-content>
-         <md-button ng-show="$root.zones_create" class="md-primary pull-right" ng-click="addTemplateDialog();">
+         <md-button ng-show="$root.sms_create" class="md-primary pull-right" ng-click="addTemplateDialog();">
             <span class="icon-plus action-button" aria-hidden="true"></span>
          </md-button>
          <div class="clearfix"></div>
@@ -9,7 +9,7 @@
          </div>
          <md-input-container flex class="md-default-theme">
             <label for="input_041">Search</label>
-            <input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+            <input ng-init="contactsGroupFilter = {}" ng-model="smsGroupFilter.text" ng-change="getSMSGroups(1)" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
          </md-input-container>
          <table class="table table-hover">
             <thead>
@@ -22,7 +22,7 @@
                </tr>
             </thead>
             <tbody>
-               <tr dir-paginate="template in templates | itemsPerPage: 10" total-items="totalTemplates" pagination-id="pagePagination">
+               <tr dir-paginate="template in templates | itemsPerPage: 10" total-items="totalTemplates" pagination-id="pagePaginationTemplate">
                   <td>{{ template.createdOn | date }}</td>
                   <td>{{template.name}}</td>
                   <td>{{template.message}}</td>
@@ -32,8 +32,8 @@
                   </td>
                </tr>
                <tr>
-                  <td colspan="4" align="center">
-                     <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+                  <td colspan="5" align="center">
+                     <dir-pagination-controls on-page-change="pageChangedTemplate(newPageNumber)" pagination-id="pagePaginationTemplate"></dir-pagination-controls>
                   </td>
                </tr>
             </tbody>

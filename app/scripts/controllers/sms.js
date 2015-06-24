@@ -43,30 +43,86 @@
       $scope.loadAllSMSTemplates();
       //End load all sms templates
 
-      //Load all sms templates
-      $scope.loadAllSMSs = function(){
-        var request = {};
-        request.page = 0;
-        request.size = 100;
-        $scope.smsListError = false;
-        appService.getSMSs(request).success(function(response) {
-            $scope.SMSs = response.payload.content;
-            $scope.totalSMSs = response.payload.totalElements;
-            console.log($scope.smss);
-        }).error(function(data, status) {
-            if (status === 401) {
-                $state.go('session');
-                $scope.message = data.message;
-            } else {
-                $scope.smsListError = true;
-                $scope.errorClass = config.cssAlertDanger;
-                $scope.errorMsg = data.message;
-            }
-        });
+
+      //SMS groups
+      $scope.pageChangedSMSGroups = function(newPage) {
+          $scope.getSMSGroups(newPage);
       };
 
-      $scope.loadAllSMSs();
-      //End load all sms templates
+      $scope.smsGroupFilter ={};
+      
+      $scope.getSMSGroups = function(newPage) {
+          newPage--;
+          var request = {};
+          request.page = newPage;
+          request.size = 10;
+
+
+          if (typeof $scope.smsGroupFilter.text === 'undefined') {
+              $scope.smsGroupFilter.text = '';
+          }
+
+          //set search filter
+          request.filter = $scope.smsGroupFilter.text;
+
+          //send request
+          appService.getSMSs(request).success(function(response) {
+              $scope.errorOccured = false;
+              $scope.SMSs = response.payload.content;
+              $scope.totalSMSs = response.payload.totalElements;
+          }).error(function(data, status) {
+               if(status===401){
+                  $state.go('session');
+                  $scope.message = data.message;
+              }else{
+                  $scope.errorOccured = true;
+                  $scope.errorMsg = data.message;
+              }
+          });
+      };
+
+      $scope.getSMSGroups(1);
+     //End sms groups
+
+      //Messages
+      $scope.pageChangedMessages = function(newPage) {
+          $scope.getMessages(newPage);
+      };
+
+      $scope.messagesFilter={};
+      $scope.getMessages = function(newPage) {
+          newPage--;
+          var request = {};
+          request.page = newPage;
+          request.size = 10;
+
+
+          if (typeof $scope.messagesFilter.text === 'undefined') {
+              $scope.messagesFilter.text = '';
+          }
+
+          //set search filter
+          request.filter = $scope.messagesFilter.text;
+
+          //send request
+          appService.getMessages(request).success(function(response) {
+              $scope.errorOccured = false;
+              $scope.messages = response.payload.content;
+              $scope.totalMessages = response.payload.totalElements; //to change this
+          }).error(function(data, status) {
+               if(status===401){
+                  $state.go('session');
+                  $scope.message = data.message;
+              }else{
+                  $scope.errorOccured = true;
+                  $scope.errorMsg = data.message;
+              }
+          });
+      };
+      $scope.getMessages(1);
+
+     //End messages
+
 
 
 
