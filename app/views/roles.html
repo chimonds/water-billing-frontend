@@ -70,13 +70,13 @@
          <md-card flex>
             <md-card-content>
                <md-subheader class="md-primary">Assigned Permissions</md-subheader>
-               <md-input-container flex class="md-default-theme">
+               <!-- <md-input-container flex class="md-default-theme">
                   <label for="input_041">Search</label>
                   <input ng-model="searchAssignedRoles"  class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
-               </md-input-container>
+               </md-input-container> -->
                <p>
                   <md-list style="height:auto;">
-                     <md-item  dir-paginate="assigned in assignedPermissions | orderBy:'name' | itemsPerPage: 400 | filter:searchAssignedRoles"  pagination-id="assignedPermissionsPagination">
+                     <md-item  ng-repeat="assigned in assignedPermissions  | filter:searchAssignedRoles">
                         <span >
                            <md-button aria-label="Remove Permissions" class="md-primary pull-right " ng-click="removePermission($index);">
                               <span class="icon-close action-permission" aria-hidden="true"></span>
@@ -92,7 +92,7 @@
                         </span>
                         <span class="clearfix"></span>
                      </md-item>
-                     <dir-pagination-controls  pagination-id="assignedPermissionsPagination"></dir-pagination-controls>
+                     <!-- <dir-pagination-controls  pagination-id="assignedPermissionsPagination"></dir-pagination-controls> -->
                   </md-list>
                </p>
             </md-card-content>
@@ -100,13 +100,13 @@
          <md-card flex>
             <md-card-content>
                <md-subheader class="md-primary">Available Permissions</md-subheader>
-               <md-input-container flex class="md-default-theme">
+               <!-- <md-input-container flex class="md-default-theme">
                   <label for="input_041">Search</label>
                   <input ng-model="searchaAvailableRoles"  class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
-               </md-input-container>
+               </md-input-container> -->
                <p>
                   <md-list style="height:auto;">
-                     <md-item  dir-paginate="available in availablePermissions | orderBy:'name' | itemsPerPage: 400 | filter:searchaAvailableRoles" pagination-id="availablePermissionsPagination">
+                     <md-item  ng-repeat="available in availablePermissions | filter:searchaAvailableRoles">
                         <span>
                            <md-button class="md-primary pull-right " ng-click="addPermission($index);" aria-label="Add Permissions">
                               <span class="icon-plus action-permission" aria-hidden="true"></span>
@@ -122,9 +122,9 @@
                         </span>
                         <span class="clearfix"></span>
                      </md-item>
-                     <md-item>
+                     <!-- <md-item>
                         <dir-pagination-controls  pagination-id="availablePermissionsPagination"></dir-pagination-controls>
-                     </md-item>
+                     </md-item> -->
                   </md-list>
                </p>
             </md-card-content>

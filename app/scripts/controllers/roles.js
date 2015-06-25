@@ -51,6 +51,8 @@ app.controller('RolesCtrl', function($scope, $http, appService, $cookieStore, $s
     $scope.removePermission = function(index){
         var selectedPermission = $scope.assignedPermissions[index];
         console.log(index);
+        console.log(selectedPermission);
+        
         //remove from assigned
         $scope.assignedPermissions.splice(index, 1);
 

@@ -34,12 +34,10 @@
              <h4 class="menu-header" flex>
                {{menu.category}}
              </h4>
-             <!--<md-divider></md-divider>-->
-             <md-button ng-click="toggleMenu()" flex ng-repeat="item in menu.items" ui-sref="{{item.state}}" class="md-primary">
+             <md-button ng-click="toggleMenu()" flex ng-repeat="item in menu.items" ui-sref="{{item.state}}"   class="md-primary">
                <span aria-hidden="true" class="{{item.icon}}"></span>
                {{item.title}}
              </md-button>
-
            </md-content>
          </md-content>
       </md-sidenav>
