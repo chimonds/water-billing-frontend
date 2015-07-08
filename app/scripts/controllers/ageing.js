@@ -75,6 +75,29 @@
         $scope.records = response.payload;
         $scope.report = true;
 
+        //Calculate the totals
+        $scope.totalAbove0=0;
+        $scope.totalabove30=0;
+        $scope.totalabove60=0;
+        $scope.totalabove90=0;
+        $scope.totalabove120=0;
+        $scope.totalabove180=0;
+        $scope.totalBalance=0;
+
+        for(var i = 0; i < $scope.records.content.length; i++){
+            var record = $scope.records.content[i];
+
+
+            $scope.totalAbove0+= record.above0;
+            $scope.totalabove30+= record.above30;
+            $scope.totalabove60+= record.above60;
+            $scope.totalabove90+= record.above90;
+            $scope.totalabove120+= record.above120;
+            $scope.totalabove180+= record.above180;
+            $scope.totalBalance+= record.balance;
+        }
+
+
       }).error(function (data, status) {
         if (status === 401) {
           $scope.progress = false;

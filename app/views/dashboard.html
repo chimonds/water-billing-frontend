@@ -1,13 +1,4 @@
 <md-content flex layout="column">
-
-<!--
-
-",\n" +
-",\n" +
-",\n" +
-",\n" +
-",\n" +
-",\n" + -->
   <md-card ng-show="!$root.dashboard_view">
     <md-card-content>
       <h1>Welcome aboard</h1>
@@ -79,16 +70,18 @@
 
       </md-content>
 
+      <md-content ng-show="$root.stats_zones_account_balances" flex layout="row" layout-align="space-between center">
+        <md-content flex>
+          <highchart config="zonesBarBalancesChart"></highchart>
+        </md-content>
+      </md-content>
+
       <md-content ng-show="$root.stats_zones_bargraph" flex layout="row" layout-align="space-between center">
         <md-content flex>
           <highchart config="zonesBarChart"></highchart>
         </md-content>
-        <!--Consumers/Accounts-->
-        <!--<md-content flex="25">-->
-        <!--<highchart config="paymentsBillsPie"></highchart>-->
-        <!--</md-content>-->
-
       </md-content>
+
 
 
 

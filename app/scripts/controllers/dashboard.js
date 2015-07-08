@@ -30,12 +30,29 @@ app.controller('DashboardCtrl', function ($scope, $http, appService, $cookieStor
     $scope.zonesBarChart = {};
     $scope.zonesBarChart.credits = {enabled: false};
     $scope.zonesBarChart.options = {chart: {type: 'column'}};
-    $scope.zonesBarChart.title = {'text': 'Zones'};
+    $scope.zonesBarChart.title = {'text': 'Zones Bills/Payments'};
     $scope.zonesBarChart.loading = false;
     $scope.zonesBarChart.series = $scope.stats.zonesBarGraph.series;
     $scope.zonesBarChart.xAxis = {};
     $scope.zonesBarChart.xAxis.categories = $scope.stats.zonesBarGraph.xAxisMeta.items;
     $scope.zonesBarChart.yAxis = {
+      title: {
+        text: 'Amount'
+      }
+    };
+  };
+
+  $scope.loadZonesBalancesBarChart = function () {
+    $scope.zonesBarBalancesChart = {};
+    $scope.zonesBarBalancesChart.credits = {enabled: false};
+    $scope.zonesBarBalancesChart.options = {chart: {type: 'column'}};
+    $scope.zonesBarBalancesChart.plotOptions = {column: {stacking:'normal'}};
+    $scope.zonesBarBalancesChart.title = {'text': 'Zone Balances'};
+    $scope.zonesBarBalancesChart.loading = false;
+    $scope.zonesBarBalancesChart.series = $scope.stats.zoneBalances.series;
+    $scope.zonesBarBalancesChart.xAxis = {};
+    $scope.zonesBarBalancesChart.xAxis.categories = $scope.stats.zoneBalances.xAxisMeta.items;
+    $scope.zonesBarBalancesChart.yAxis = {
       title: {
         text: 'Amount'
       }
@@ -110,12 +127,12 @@ app.controller('DashboardCtrl', function ($scope, $http, appService, $cookieStor
 
     $scope.loadPaymentBillsChart();
     $scope.loadZonesBarChart();
+    $scope.loadZonesBalancesBarChart();
     $state.go('dashboard');
   }).error(function (data, status) {
     if (status === 401) {
       $state.go('session');
       $scope.message = data.message;
-
 
     } else {
       //$scope.errorOccured = true;
