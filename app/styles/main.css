@@ -10,6 +10,10 @@ body {
   font-style: normal;
   -webkit-font-smoothing: subpixel-antialiased;
 }
+.table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 0px solid #ddd;
+}
 
 h1,
 h2, {
@@ -101,11 +105,11 @@ h3{
   line-height: 22px;
   font-family: 'Roboto';
   letter-spacing: 2px;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .md-button {
-  font-family: 'Roboto';
+  font-family: 'Roboto-light';
   text-transform: none;
   text-align: left;
   font-weight: 100;
@@ -132,12 +136,18 @@ md-input-container {
   font-style: normal;
 }
 
-.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+/*.table > thead > tr > th,  .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
   font-size: 16px;
   /*line-height: 12px;*/
-  font-family: 'Roboto-Light';
-  font-weight: 100;
-  font-style: normal;
+  /*font-family: 'Roboto';*/
+  /*font-weight: 300;
+  font-style: normal;*/
+/*}*/
+
+.table > thead > tr > th{
+  font-size: 14px;
+  font-family: 'Roboto';
+  font-weight: 500;
 }
 .total-records {
   font-family: 'Roboto';
@@ -509,4 +519,44 @@ html {
 .bootstrap .autocomplete .suggestion-item.selected em {
   color: #262626;
   background-color: #ffff00;
+}
+.line-wrap {
+  width: 18px;
+  /*height: 12px;*/
+  -webkit-transition: all;
+  -o-transition: all;
+  transition: all;
+  -webkit-transition-duration: 300ms;
+  transition-duration: 300ms;
+  margin: 10px 20px;
+  cursor: pointer;
+}
+.line-wrap .line {
+  background-color: #fff;
+}
+.line-wrap .line.center {
+  margin: 3px 0;
+}
+.line-wrap .line {
+  width: 18px;
+  height: 2px;
+  -webkit-transition: all;
+  -o-transition: all;
+  transition: all;
+  -webkit-transition-duration: 300ms;
+  transition-duration: 300ms;
+}
+.open .line-wrap {
+  transform: rotate(180deg);
+}
+.open .line-wrap .line.top {
+  width: 12px;
+  transform: translateX(8px) translateY(1px) rotate(45deg);
+}
+.open .line-wrap .line.bottom {
+  width: 12px;
+  transform: translateX(8px) translateY(-1px) rotate(-45deg);
+}
+.logo-image {
+    vertical-align: inherit;
 }

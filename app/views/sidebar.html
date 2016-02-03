@@ -1,13 +1,17 @@
 <div layout="column" layout-fill ng-controller="SidebarCtrl" flex>
    <md-toolbar  ng-show="showMainToolbar" scroll-shrink layout="row" class="sticky-nav no-print">
       <div class="md-toolbar-tools">
-         <h2 flex="70">
-            <md-button ng-click="toggleMenu()" aria-label="Toggle menu">
-               <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+         <span flex-gt-md="40" flex-md="40" flex-md flex-sm flex-xs>
+            <md-button aria-label="Toggle menu"  ng-click="toggleMenu()" style="min-width:8px;">
+              <div class="line-wrap">
+                <div class="line top"></div>
+                <div class="line center"></div>
+                <div class="line bottom"></div>
+              </div>
             </md-button>
-            <span>AQUA Pro</span>
-         </h2>
-         <h2 flex="30" class="pull-right">
+            <img class="logo-image" src="images/logo.png"/>
+         </span>
+         <span flex-gt-md="60" flex-md="60" hide-sm>
                <md-button ng-href="#logout" class="pull-right" aria-label="Logout">
                   <span aria-hidden="true" class="icon-power"></span>
                </md-button>
@@ -16,7 +20,7 @@
            {{currentUser.name}}
          </md-button>
 
-         </h2>
+       </span>
       </div>
    </md-toolbar>
    <md-content layout="vertical" flex style="min-height: 200px;height:auto;">
@@ -25,48 +29,53 @@
       <md-sidenav   class="md-sidenav-left sticky-navsidebar no-print" md-component-id="left" >
          <!-- <md-toolbar > -->
 
-         <md-toolbar >
-            <h1 class="md-toolbar-tools">Menu</h1>
+         <md-toolbar style="background:#64B5F6">
+            <h1 class="md-toolbar-tools">KIMAWASCO</h1>
          </md-toolbar>
          <md-content  class="md-padding" flex layout="column" layout-align="start">
            <md-content flex layout="column">
              <h4 class="menu-header" flex>
-               Main
+               Main Menu
              </h4>
              <md-button ng-click="toggleMenu()" flex  ui-sref="dashboard" ng-show="$root.dashboard_view"   class="md-primary">
-               <span aria-hidden="true" class="icon-grid"></span>
+               <!-- <span aria-hidden="true" class="icon-grid"></span> -->
                Dashboard
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="consumers" ng-show="$root.consumers_view"   class="md-primary">
-               <span aria-hidden="true" class="icon-users"></span>
+               <!-- <span aria-hidden="true" class="icon-users"></span> -->
                Consumers
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="accounts" ng-show="$root.accounts_view"   class="md-primary">
-               <span aria-hidden="true" class="icon-share"></span>
+               <!-- <span aria-hidden="true" class="icon-share"></span> -->
                Accounts
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="payments" ng-show="$root.payments_view"   class="md-primary">
-               <span aria-hidden="true" class="icon-wallet"></span>
+               <!-- <span aria-hidden="true" class="icon-wallet"></span> -->
                Payments
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="mpesa" ng-show="$root.mpesa_view"   class="md-primary">
-               <span aria-hidden="true" class="icon-screen-smartphone"></span>
+               <!-- <span aria-hidden="true" class="icon-screen-smartphone"></span> -->
                M-PESA
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="postbank" ng-show="$root.postbank_view"   class="md-primary">
-               <span aria-hidden="true" class="icon-credit-card"></span>
+               <!-- <span aria-hidden="true" class="icon-credit-card"></span> -->
                PostBank
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="billing" ng-show="$root.bill_account"   class="md-primary">
-               <span aria-hidden="true" class="icon-calculator"></span>
+               <!-- <span aria-hidden="true" class="icon-calculator"></span> -->
                Billing
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="sms" ng-show="$root.sms_view"   class="md-primary">
-               <span aria-hidden="true" class="icon-envelope"></span>
+               <!-- <span aria-hidden="true" class="icon-envelope"></span> -->
                SMS
              </md-button>
+             <md-button ng-click="toggleMenu()" flex  ui-sref="remote_readings" ng-show="$root.meter_readings_view"   class="md-primary">
+               <!-- <span aria-hidden="true" class="icon-target"></span> -->
+               Meter Readings
+             </md-button>
+
              <md-button ng-click="toggleMenu()" flex  ui-sref="meters" ng-show="$root.meter_view"   class="md-primary">
-               <span aria-hidden="true" class="icon-compass"></span>
+               <!-- <span aria-hidden="true" class="icon-compass"></span> -->
                Meters
              </md-button>
            </md-content>
@@ -76,15 +85,15 @@
                Billing Setups
              </h4>
              <md-button ng-click="toggleMenu()" flex ui-sref="billing_months" ng-show="$root.billing_month_view"  class="md-primary">
-               <span aria-hidden="true" class="icon-calendar"></span>
+               <!-- <span aria-hidden="true" class="icon-calendar"></span> -->
                Billing Months
              </md-button>
              <md-button ng-click="toggleMenu()" flex ui-sref="locations" ng-show="$root.location_view"  class="md-primary">
-               <span aria-hidden="true" class="icon-pointer"></span>
+               <!-- <span aria-hidden="true" class="icon-pointer"></span> -->
                Locations
              </md-button>
              <md-button ng-click="toggleMenu()" flex ui-sref="zones" ng-show="$root.zones_view"  class="md-primary">
-               <span aria-hidden="true" class="icon-cursor-move"></span>
+               <!-- <span aria-hidden="true" class="icon-cursor-move"></span> -->
                Zones
              </md-button>
            </md-content>
@@ -95,59 +104,59 @@
                Reports
              </h4>
              <md-button ng-click="toggleMenu()" flex  ui-sref="balances" ng-show="$root.report_account_receivable"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Accounts Receivable
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="credit_balances" ng-show="$root.report_credit_balances"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Credit Balances
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="meter_readings" ng-show="$root.report_meter_readings"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Meter Readings
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="meter_stops" ng-show="$root.report_meter_stops"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Meter Stops
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="negative_readings" ng-show="$root.report_negative_readings"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Negative Readings
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="billed_amount" ng-show="$root.report_billed_amount"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Billed Amount
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="billing_checklist" ng-show="$root.report_billing_checklist"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Billing Checklist
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="field_card" ng-show="$root.report_field_report"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Field Card
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="payments_report" ng-show="$root.report_payments"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Payments
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="billing_summary" ng-show="$root.report_billing_summary"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Billing Summary
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="potential_cut_off" ng-show="$root.report_potential_cut_off"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Potential Cut Off
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="monthly_bills" ng-show="$root.report_monthly_bills"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Monthly Bills
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="ageing" ng-show="$root.report_ageing"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Ageing
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="waris" ng-show="$root.report_waris"   class="md-primary">
-               <span aria-hidden="true" class="icon-bar-chart"></span>
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                WARIS
              </md-button>
            </md-content>
@@ -158,19 +167,19 @@
                Administration
              </h4>
              <md-button ng-click="toggleMenu()" flex  ui-sref="users" ng-show="$root.users_view"  class="md-primary">
-               <span aria-hidden="true" class="icon-user"></span>
+               <!-- <span aria-hidden="true" class="icon-user"></span> -->
                Users
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="roles" ng-show="$root.roles_view"  class="md-primary">
-               <span aria-hidden="true" class="icon-lock-open"></span>
+               <!-- <span aria-hidden="true" class="icon-lock-open"></span> -->
                Roles
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="settings" ng-show="$root.settings_view"  class="md-primary">
-               <span aria-hidden="true" class="icon-settings"></span>
+               <!-- <span aria-hidden="true" class="icon-settings"></span> -->
                Settings
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="my_profile"  class="md-primary">
-               <span aria-hidden="true" class="icon-lock"></span>
+               <!-- <span aria-hidden="true" class="icon-lock"></span> -->
                Change Password
              </md-button>
            </md-content>

@@ -22,6 +22,7 @@
                <th>Created</th>
                <th>Active</th>
                <th>Role</th>
+               <th>Password</th>
                <th></th>
             </tr>
          </thead>
@@ -34,12 +35,15 @@
                </td>
                <td>{{user.active}}</td>
                <td>{{user.userRole.name}}</td>
+               <td>
+                  <md-button ng-show="$root.users_update" class="md-primary" ng-click="resetUserDialog($index)">Reset</md-button>
+               </td>
                <td align="right">
                   <md-button ng-show="$root.users_update" class="md-primary" ng-click="editUserDialog($index)">Edit</md-button>
                </td>
             </tr>
             <tr>
-               <td colspan="6" align="center">
+               <td colspan="7" align="center">
                   <dir-pagination-controls on-page-change="pageChangedUsers(newPageNumber)" pagination-id="usersPagination"></dir-pagination-controls>
                </td>
             </tr>

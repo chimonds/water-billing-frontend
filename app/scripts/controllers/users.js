@@ -89,6 +89,67 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
         });
     };
 
+    $scope.resetUserDialog = function(index) {
+        $scope.selectedUser = $scope.users[index];
+        $mdDialog.show({
+            controller: resetPasswordDialogController,
+            templateUrl: 'views/template/reset_password.html',
+            resolve: {
+                selectedUser: function() {
+                    return $scope.selectedUser;
+                }
+            }
+        });
+    };
+
+    function resetPasswordDialogController($scope, $mdDialog, $rootScope, selectedUser, appService) {
+        var config = appService.getCofig();
+        $scope.myForm = {};
+        $scope.selectedUser = selectedUser;
+        $scope.form = selectedUser;
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+        $scope.update = function(form) {
+            var myForm = $scope.myForm.object;
+            if (myForm.$invalid === false) {
+                //good to go
+                $scope.showErrorInfo = true;
+                $scope.errorClass = config.cssAlertInfo;
+                $scope.errorMsg = config.msgSendingData;
+
+
+                var request = {};
+                request.emailAddress = form.emailAddress;
+
+                //send request
+                appService.resetUserPassword(request).success(function(response) {
+                    $scope.errorOccured = false;
+                    $scope.errorClass = config.cssAlertSucess;
+                    $scope.errorMsg = response.message;
+                    //notify roles page to reload data
+                    $rootScope.$broadcast('onReloadUsers');
+
+                }).error(function(data, status) {
+                     if(status===401){
+                        $state.go('session');
+                        $scope.message = data.message;
+                    }else{
+                        $scope.errorOccured = true;
+                        $scope.errorClass = config.cssAlertDanger;
+                        $scope.errorMsg = data.message;
+                    }
+                });
+            } else {
+                $scope.errorOccured = true;
+                $scope.errorClass = config.cssAlertDanger;
+                $scope.errorMsg = "Please fill all the mandatory fields";
+            }
+        };
+    };
+
+
     function EditUserDialogController($scope, $mdDialog, $rootScope, selectedUser, appService) {
         var config = appService.getCofig();
         $scope.myForm = {};

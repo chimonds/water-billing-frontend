@@ -6,7 +6,7 @@
         <form name="myForm.object">
           <md-input-container>
             <label>First Name</label>
-            <input md-maxlength="100" required name="firstName" ng-model="form.firstName" ng-pattern="/^[a-zA-Z_ ]*$/">
+            <input md-maxlength="100" required name="firstName" ng-model="form.firstName">
             <div ng-messages="myForm.object.firstName.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 100 characters long.</div>

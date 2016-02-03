@@ -12,8 +12,8 @@
 
 app.service('appService', function ($http, $cookieStore) {
   //TEST -  comment this
-  var BASE_URL = 'http://localhost:9090/api/v1/';
-  //var BASE_URL = 'http://45.55.206.222:9090/api/v1/';
+  // var BASE_URL = 'http://localhost:9090/api/v1/';
+  var BASE_URL = 'https://kimawasco.opentembo.io/simba/api/v1/';
 
   var ROLES = 'roles';
   var PERMISSIONS = 'permissions';
@@ -41,6 +41,7 @@ app.service('appService', function ($http, $cookieStore) {
   var POSTBANK = 'postbank';
   var SMS_TEMPLATES ='smstemplates';
   var SMS ='sms';
+  var METER_READINGS ='meterReadings';
 
   //__________________________
   var POST_REQUEST = 'POST';
@@ -111,6 +112,18 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.getRemoteMeterReadings = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + METER_READINGS,
+      params: request,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.createRole = function (request) {
     return $http({
       method: POST_REQUEST,
@@ -160,6 +173,17 @@ app.service('appService', function ($http, $cookieStore) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + USERS,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.resetUserPassword = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + 'auth/resetPassword',
       headers: {
         'Content-Type': 'application/json'
       },

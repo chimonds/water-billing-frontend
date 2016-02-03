@@ -1,0 +1,51 @@
+<md-card>
+<md-card-content>
+<md-content>
+   <md-subheader class="md-primary">Use this panel to manage meter readings</md-subheader>
+   <md-content>
+      <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+         {{errorMsg}}
+      </div>
+      <md-input-container flex class="md-default-theme">
+         <label for="input_041">Search</label>
+         <input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seachUsers()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+      </md-input-container>
+      <table class="table table-hover">
+         <thead>
+            <tr>
+               <th>Created On</th>
+               <th>Added By</th>
+               <th>Account no#</th>
+               <th>Billing Month</th>
+               <th>Reading</th>
+               <th>Latitude</th>
+               <th>Longitude</th>
+               <th>View Location</th>
+               <th></th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr dir-paginate="reading in meterReadings | itemsPerPage: 10" total-items="totalMeterReadings" pagination-id="optionsPagination">
+               <td>{{reading.createdOn | date}}</td>
+                <td>{{reading.addedBy}}</td>
+               <td>{{reading.accNo}}</td>
+               <td>{{reading.billingMonth}}</td>
+               <td>{{reading.reading}}</td>
+               <td>{{reading.latitude}}</td>
+               <td>{{reading.longitude}}</td>
+               <td align="right">
+                 <a target="_blank" href="https://maps.google.com/maps?q={{reading.latitude}},{{reading.longitude}}+(Location)&amp;iwloc=A&amp;hl=en">View Map</a>
+                  <!-- <md-button  class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button> -->
+               </td>
+            </tr>
+            <tr>
+               <td colspan="8" align="center">
+                  <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="optionsPagination"></dir-pagination-controls>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </md-content>
+</md-content>
+</md-card-content>
+</md-card>

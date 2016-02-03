@@ -15,12 +15,12 @@ var app = angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch',
+    // 'ngTouch',
     'ngMaterial',
     'siTable',
     'ngMessages',
     'chart.js',
-    'ui.bootstrap.datetimepicker',
+    // 'ui.bootstrap.datetimepicker',
     'ui.router',
     'angularUtils.directives.dirPagination',
     'angular-loading-bar',
@@ -34,7 +34,8 @@ var app = angular
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
-    paginationTemplateProvider.setPath('bower_components/angular-utils-pagination/dirPagination.tpl.html');
+    //paginationTemplateProvider.setPath('bower_components/angular-utils-pagination/dirPagination.tpl.html');
+    paginationTemplateProvider.setPath('views/dirPagination.tpl.html');
 
 
     $urlRouterProvider.otherwise('/login');
@@ -120,6 +121,7 @@ var app = angular
           requireLogin: true
         }
       })
+
       .state('billing_months', {
         url: '/billing_months',
         templateUrl: 'views/billing_months.html',
@@ -206,6 +208,15 @@ var app = angular
         url: '/credit_balances',
         templateUrl: 'views/reports/credit_balances.html',
         controller: 'ReportCreditBalancesCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
+
+      .state('remote_readings', {
+        url: '/remote_readings',
+        templateUrl: 'views/meter_readings.html',
+        controller: 'RemoteReadingsCtrl',
         data: {
           requireLogin: true
         }
@@ -365,28 +376,28 @@ var app = angular
     // });
 
 
-    $mdThemingProvider.definePalette('amazingPaletteName', {
-      '50': 'ffebee',
-      '100': 'ffcdd2',
-      '200': 'ef9a9a',
-      '300': 'e57373',
-      '400': 'ef5350',
-      '500': 'eb6706',
-      '600': 'e53935',
-      '700': 'd32f2f',
-      '800': 'c62828',
-      '900': 'b71c1c',
-      'A100': 'ff8a80',
-      'A200': 'ff5252',
-      'A400': 'ff1744',
-      'A700': 'd50000',
-      'contrastDefaultColor': 'light', // whether, by default, text (contrast)
-      // on this palette should be dark or light
-      'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
-        '200', '300', '400', 'A100'
-      ],
-      'contrastLightColors': undefined // could also specify this if default was 'dark'
-    });
+    // $mdThemingProvider.definePalette('amazingPaletteName', {
+    //   '50': 'ffebee',
+    //   '100': 'ffcdd2',
+    //   '200': 'ef9a9a',
+    //   '300': 'e57373',
+    //   '400': 'ef5350',
+    //   '500': 'eb6706',
+    //   '600': 'e53935',
+    //   '700': 'd32f2f',
+    //   '800': 'c62828',
+    //   '900': 'b71c1c',
+    //   'A100': 'ff8a80',
+    //   'A200': 'ff5252',
+    //   'A400': 'ff1744',
+    //   'A700': 'd50000',
+    //   'contrastDefaultColor': 'light', // whether, by default, text (contrast)
+    //   // on this palette should be dark or light
+    //   'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+    //     '200', '300', '400', 'A100'
+    //   ],
+    //   'contrastLightColors': undefined // could also specify this if default was 'dark'
+    // });
 
     $mdThemingProvider.theme('default')
     .primaryColor('blue');
