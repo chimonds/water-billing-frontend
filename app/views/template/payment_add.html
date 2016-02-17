@@ -1,6 +1,6 @@
 <md-dialog aria-label="brown" flex>
   <md-content>
-    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to add payments to account# <strong>{{data.accNo}}</strong></md-subheader>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to add receipt to account# <strong>{{data.accNo}}</strong></md-subheader>
     <div layout="column" flex>
       <md-content>
         <form name="myForm.object">
@@ -8,7 +8,7 @@
           <h2 class="md-display-1 pull-right">Balance: <span class="money-color">KES {{data.outstandingBalance | number}}</span></h2>
           <div class="clearfix"></div>
           <!--Connection tariff-->
-          <md-select required name="tariff" ng-model="form.paymentType" placeholder="Please select payment type">
+          <md-select required name="tariff" ng-model="form.paymentType" placeholder="Please select receipt type">
             <md-option ng-repeat="paymentType in paymentTypes" value="{{$index}}">
               {{paymentType.name}}
             </md-option>

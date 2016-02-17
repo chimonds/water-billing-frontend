@@ -6,7 +6,7 @@
             <form name="myForm.object">
                <md-input-container>
                   <label>Name</label>
-                  <input md-maxlength="30" required name="roleName" ng-model="myForm.name" ng-pattern="/^[a-zA-Z_ ]*$/">
+                  <input md-maxlength="30" required name="roleName" ng-model="myForm.name">
                   <div ng-messages="myForm.object.roleName.$error">
                      <div ng-message="required">This is required.</div>
                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -15,7 +15,7 @@
                </md-input-container>
                <md-input-container>
                   <label>Description</label>
-                  <textarea required name="roleDescription" ng-model="myForm.description" ng-pattern="/^[a-zA-Z_ ]*$/">
+                  <textarea required name="roleDescription" ng-model="myForm.description">
                   </textarea rows="4" cols="50">
                   <div ng-messages="myForm.object.roleDescription.$error">
                      <div ng-message="required">This is required.</div>
@@ -23,7 +23,7 @@
                   </div>
                </md-input-container>
                <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}
-                  
+
 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                </div>
                <div class="md-actions" layout="row">

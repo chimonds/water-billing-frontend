@@ -151,10 +151,9 @@ md-input-container {
 }
 .total-records {
   font-family: 'Roboto';
-
   color: #2196F3;
-  font-size: 38px;
-  font-weight: 100;
+  font-size: 22px;
+  font-weight: 400;
 }
 
 .nav > li > a {
@@ -461,11 +460,9 @@ html {
   margin: 0;
 }
 .stats-caption{
-  font-size: 20px;
-  line-height: 0px;
+  font-size: 16px;
   font-family: 'Roboto';
-  letter-spacing: 2px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 

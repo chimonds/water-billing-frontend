@@ -28,12 +28,14 @@
                      <div ng-message="md-maxlength">The name has to be less than 50 characters long.</div>
                   </div>
                </md-input-container>
+                <md-input-container>
                <md-select required name="userRole" ng-model="form.userRoleList" placeholder="Assign a user role">
                   <md-option ng-repeat="role in roles" ng-selected="{{role.userRoleId == selectedUser.userRole.userRoleId}}"  value="{{$index}}" >{{role.name}}</md-option>
                </md-select>
                <div ng-messages="myForm.object.userRole.$error">
                   <div ng-message="required">This is required.</div>
                </div>
+               </md-input-container>
                <md-input-container>
                   <md-checkbox class="md-primary" ng-model="form.active"  aria-label="Is Active">
                      Is Active

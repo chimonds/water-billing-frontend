@@ -259,7 +259,7 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
 
     var request = {};
     request.page = 0;
-    request.size = 100;
+    request.size = 500;
     request.filter = '';
 
     //Get locations list
@@ -345,7 +345,7 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
 
     var request = {};
     request.page = 0;
-    request.size = 100;
+    request.size = 500;
     request.filter = '';
 
     //Get locations list

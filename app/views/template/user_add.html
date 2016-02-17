@@ -1,56 +1,60 @@
 <md-dialog aria-label="brown" flex>
-   <md-content>
-      <md-subheader class="md-sticky-no-effect md-primary">Use this panel to add a user</md-subheader>
-      <div layout="column" flex>
-         <md-content class="md-padding">
-            <form name="myForm.object">
-               <md-input-container>
-                  <label>Email Address</label>
-                  <input type="email" md-maxlength="150" required name="userEmailAddress" ng-model="form.emailAddress">
-                  <div ng-messages="myForm.object.userEmailAddress.$error">
-                     <div ng-message="required">This is required.</div>
-                     <div ng-message="md-maxlength">The name has to be less than 150 characters long.</div>
-                  </div>
-               </md-input-container>
-               <md-input-container>
-                  <label>First name</label>
-                  <input md-maxlength="50" required name="userFirstName" ng-model="form.firstName">
-                  <div ng-messages="myForm.object.userFirstName.$error">
-                     <div ng-message="required">This is required.</div>
-                     <div ng-message="md-maxlength">The name has to be less than 50 characters long.</div>
-                  </div>
-               </md-input-container>
-               <md-input-container>
-                  <label>Last name</label>
-                  <input md-maxlength="50" required name="userLastName" ng-model="form.lastName">
-                  <div ng-messages="myForm.object.userLastName.$error">
-                     <div ng-message="required">This is required.</div>
-                     <div ng-message="md-maxlength">The name has to be less than 50 characters long.</div>
-                  </div>
-               </md-input-container>
-               <md-select required name="userRole" ng-model="form.userRole" placeholder="Assign a user role">
-                  <md-option ng-repeat="role in roles" value="{{role.userRoleId}}">{{role.name}}</md-option>
-               </md-select>
-               <div ng-messages="myForm.object.userRole.$error">
-                  <div ng-message="required">This is required.</div>
-               </div>
-               <md-input-container>
-                  <md-checkbox class="md-primary" ng-model="form.isActive" ng-true-value="1" ng-false-value="0" aria-label="Is Active">
-                     Is Active
-                  </md-checkbox>
-               </md-input-container>
-               <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}</div>
-               <div class="md-actions" layout="row">
-                  <span flex></span>
-                  <md-button  ng-click="cancel();">
-                     Close
-                  </md-button>
-                  <md-button class="md-raised md-primary" ng-click="save(form);">
-                     Save
-                  </md-button>
-               </div>
-            </form>
-         </md-content>
-      </div>
-   </md-content>
+  <md-content>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to add a user</md-subheader>
+    <div flex layout="column">
+      <md-content class="md-padding">
+        <form name="myForm.object">
+          <md-input-container>
+            <label>Email Address</label>
+            <input md-maxlength="150" name="userEmailAddress" ng-model="form.emailAddress" required type="email">
+            <div ng-messages="myForm.object.userEmailAddress.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 150 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>First name</label>
+            <input md-maxlength="50" name="userFirstName" ng-model="form.firstName" required>
+            <div ng-messages="myForm.object.userFirstName.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 50 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>Last name</label>
+            <input md-maxlength="50" name="userLastName" ng-model="form.lastName" required>
+            <div ng-messages="myForm.object.userLastName.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 50 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>User Role</label>
+            <md-select name="userRole" ng-model="form.userRole" required>
+              <md-option ng-repeat="role in roles" value="{{role.userRoleId}}">{{role.name}}</md-option>
+            </md-select>
+            <div ng-messages="myForm.object.userRole.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <md-checkbox aria-label="Is Active" class="md-primary" ng-false-value="0" ng-model="form.isActive" ng-true-value="1">
+              Is Active
+            </md-checkbox>
+          </md-input-container>
+          <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}</div>
+          <div class="md-actions" layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel();">
+              Close
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="save(form);">
+              Save
+            </md-button>
+          </div>
+        </form>
+      </md-content>
+    </div>
+  </md-content>
 </md-dialog>
