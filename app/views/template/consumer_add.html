@@ -4,7 +4,7 @@
     <div layout="column" flex>
       <md-content class="md-padding">
         <form name="myForm.object">
-          <md-input-container>
+          <md-input-container class="md-block">
             <label>First Name</label>
             <input md-maxlength="100" required name="firstName" ng-model="form.firstName">
             <div ng-messages="myForm.object.firstName.$error">
@@ -14,23 +14,28 @@
             </div>
           </md-input-container>
 
-          <md-input-container>
+          <md-input-container class="md-block">
             <label>Middle Name</label>
             <input md-maxlength="100"  name="middleName" ng-model="form.middleName">
           </md-input-container>
 
-          <md-input-container>
+          <md-input-container class="md-block">
             <label>Last Name</label>
             <input md-maxlength="100"  name="lastName" ng-model="form.lastName">
           </md-input-container>
 
-          <md-input-container>
+          <md-input-container class="md-block">
             <label>Identity No/ KRA PIN</label>
             <input md-maxlength="15" required name="identityNo" ng-model="form.identityNo">
             <div ng-messages="myForm.object.identityNo.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 15 characters long.</div>
             </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Postal Address</label>
+            <input ng-model="form.postalAddress">
           </md-input-container>
 
           <md-input-container>

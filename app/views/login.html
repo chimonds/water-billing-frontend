@@ -30,14 +30,14 @@
                <md-content>
                   <md-content class="md-padding md-accent">
                      <form name="myForm.object">
-                        <md-input-container>
+                        <md-input-container class="md-block" required>
                            <label>Email Address</label>
                            <input type="email" required name="emailAddress" ng-model="myForm.username"/>
                            <div ng-messages="myForm._email.$error">
                               <div ng-message="required">This is required.</div>
                            </div>
                         </md-input-container>
-                        <md-input-container>
+                        <md-input-container class="md-block" required>
                            <label>Password</label>
                            <input type="password" required name="_password" ng-model="myForm.password"/>
                            <div ng-messages="myForm._password.$error">

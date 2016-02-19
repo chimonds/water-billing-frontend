@@ -15,9 +15,10 @@
       $scope.getAllZones = function(){
         var request = {};
         request.page = 0;
-        request.size = 50;
+        request.size = 500;
         appService.getZones(request).success(function(response) {
             $scope.remotezones = response.payload.content;
+            console.log($scope.remotezones);
         });
       };
 
@@ -50,7 +51,7 @@
       };
 
       $scope.smsGroupFilter ={};
-      
+
       $scope.getSMSGroups = function(newPage) {
           newPage--;
           var request = {};

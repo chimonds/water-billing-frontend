@@ -76,7 +76,7 @@
 
           <md-button ng-show="$root.payment_create" class="md-primary pull-right" ng-click="addPaymentDialog();">
             <!--<span class="icon-plus action-button" aria-hidden="true"></span>-->
-            Add Payment
+            Add Receipt
           </md-button>
 
           <div class="clearfix"></div>
@@ -84,11 +84,10 @@
             {{errorMsg}}
           </div>
 
-          <md-tabs md-border-bottom md-selected="data.selectedIndex">
-            <md-divider></md-divider>
-            <md-tab id="tab1">
-              <md-tab-label>Bills</md-tab-label>
-              <md-tab-template>
+          <!-- <md-tabs md-border-bottom md-selected="data.selectedIndex"> -->
+            <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Bills">
+              <md-content>
                   <p>
                 <table class="table table-hover">
                   <thead>
@@ -170,12 +169,12 @@
                   </tbody>
                 </table>
                 </p>
-              </md-tab-template>
+              </md-content>
             </md-tab>
 
-            <md-tab id="tab2">
-              <md-tab-label>Payments</md-tab-label>
-              <md-tab-template>
+            <md-tab label="Receipts">
+
+              <md-content>
                 <p>
                 <table class="table table-hover">
                   <thead>
@@ -220,7 +219,7 @@
                   </tbody>
                 </table>
                 </p>
-              </md-tab-template>
+              </md-content>
             </md-tab>
           </md-tabs>
 

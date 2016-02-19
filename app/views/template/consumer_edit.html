@@ -39,6 +39,11 @@
           </md-input-container>
 
           <md-input-container>
+            <label>Postal Address</label>
+            <input ng-model="form.postalAddress">
+          </md-input-container>
+
+          <md-input-container>
             <label>Email Address</label>
             <input md-maxlength="80" type="email"  name="emailAddress" ng-model="form.emailAddress">
             <div ng-messages="myForm.object.emailAddress.$error">
