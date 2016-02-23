@@ -28,10 +28,9 @@
 
       <md-sidenav   class="md-sidenav-left sticky-navsidebar no-print" md-component-id="left" >
          <!-- <md-toolbar > -->
-
-         <md-toolbar style="background:#64B5F6">
-            <h1 class="md-toolbar-tools">NOLTURESH</h1>
-         </md-toolbar>
+         <!-- <md-toolbar style="background:#64B5F6">
+            <h1 class="md-toolbar-tools">KIMAEA</h1>
+         </md-toolbar> -->
          <md-content  class="md-padding" flex layout="column" layout-align="start">
            <md-content flex layout="column">
              <h4 class="menu-header" flex>
@@ -96,6 +95,11 @@
                <!-- <span aria-hidden="true" class="icon-cursor-move"></span> -->
                Zones
              </md-button>
+
+             <md-button ng-click="toggleMenu()" flex ui-sref="categories" ng-show="$root.accountCategory_view"  class="md-primary">
+               Categories
+             </md-button>
+
            </md-content>
 
            <!-- Reports -->
@@ -137,7 +141,7 @@
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="payments_report" ng-show="$root.report_payments"   class="md-primary">
                <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
-               Payments
+               Receipts
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="billing_summary" ng-show="$root.report_billing_summary"   class="md-primary">
                <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
@@ -147,6 +151,11 @@
                <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Potential Cut Off
              </md-button>
+
+             <md-button ng-click="toggleMenu()" flex  ui-sref="accounts_not_billed" ng-show="$root.report_accounts_not_billed"   class="md-primary">
+               Accounts not Billed
+             </md-button>
+
              <md-button ng-click="toggleMenu()" flex  ui-sref="monthly_bills" ng-show="$root.report_monthly_bills"   class="md-primary">
                <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Monthly Bills

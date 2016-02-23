@@ -10,7 +10,7 @@
  *
  */
 
-app.service('appService', function ($http, $cookieStore) {
+app.service('appService', function($http, $cookieStore) {
   //TEST -  comment this
   // var BASE_URL = 'http://192.168.0.102:9090/api/v1/';
   var BASE_URL = 'http://localhost:9090/api/v1/';
@@ -27,6 +27,7 @@ app.service('appService', function ($http, $cookieStore) {
   var BILLING_MONTHS = 'billing_months';
   var LOCATIONS = 'locations';
   var ZONES = 'zones';
+  var CATEGORIES = 'accountCategory';
   var CONSUMERS = 'consumers';
   var ACCOUNTS = 'accounts';
   var METERS = 'meters';
@@ -41,9 +42,9 @@ app.service('appService', function ($http, $cookieStore) {
   var STATS = 'stats';
   var MPESA = 'mpesa';
   var POSTBANK = 'postbank';
-  var SMS_TEMPLATES ='smstemplates';
-  var SMS ='sms';
-  var METER_READINGS ='meterReadings';
+  var SMS_TEMPLATES = 'smstemplates';
+  var SMS = 'sms';
+  var METER_READINGS = 'meterReadings';
 
   //__________________________
   var POST_REQUEST = 'POST';
@@ -55,8 +56,7 @@ app.service('appService', function ($http, $cookieStore) {
 
   function getToken() {
     var userInfo = $cookieStore.get('userInfo');
-    if (typeof userInfo === 'undefined') {
-    } else {
+    if (typeof userInfo === 'undefined') {} else {
       return userInfo.token;
     }
   }
@@ -69,20 +69,22 @@ app.service('appService', function ($http, $cookieStore) {
     return payload;
   }
 
-  this.getAuthToken = function () {
+  this.getAuthToken = function() {
     return getToken();
   }
 
-  this.authenticate = function (request) {
+  this.authenticate = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + AUTH,
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json'
+      },
       data: angular.toJson(request)
     });
   };
 
-  this.getRoles = function (request) {
+  this.getRoles = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ROLES,
@@ -94,7 +96,7 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
 
-  this.getUsers = function (request) {
+  this.getUsers = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + USERS,
@@ -102,7 +104,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getOptions = function (request) {
+  this.getOptions = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + OPTIONS,
@@ -114,7 +116,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getRemoteMeterReadings = function (request) {
+  this.getRemoteMeterReadings = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + METER_READINGS,
@@ -126,7 +128,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.createRole = function (request) {
+  this.createRole = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ROLES + "/create",
@@ -137,7 +139,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateRole = function (request, objectId) {
+  this.updateRole = function(request, objectId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + ROLES + '/' + objectId,
@@ -149,7 +151,7 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
 
-  this.createUser = function (request) {
+  this.createUser = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + USERS + '/create',
@@ -160,7 +162,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateOption = function (request, objectId) {
+  this.updateOption = function(request, objectId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + OPTIONS + '/' + objectId,
@@ -171,7 +173,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateUser = function (request) {
+  this.updateUser = function(request) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + USERS,
@@ -182,7 +184,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.resetUserPassword = function (request) {
+  this.resetUserPassword = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + 'auth/resetPassword',
@@ -194,7 +196,7 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
 
-  this.updateRoleWithPemissions = function (request, objectId) {
+  this.updateRoleWithPemissions = function(request, objectId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + PERMISSIONS + '/' + objectId,
@@ -206,7 +208,7 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
 
-  this.getRolePermissions = function (roleId) {
+  this.getRolePermissions = function(roleId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + PERMISSIONS + '/' + roleId,
@@ -224,7 +226,7 @@ app.service('appService', function ($http, $cookieStore) {
   //Start custom calls
   //
 
-  this.getBillingMonths = function (request) {
+  this.getBillingMonths = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLING_MONTHS,
@@ -235,7 +237,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getActiveBillingMonths = function (request) {
+  this.getActiveBillingMonths = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLING_MONTHS + '/active',
@@ -246,7 +248,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateBillingMonth = function (request, objectId) {
+  this.updateBillingMonth = function(request, objectId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + BILLING_MONTHS + '/' + objectId,
@@ -258,7 +260,7 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
 
-  this.getLocations = function (request) {
+  this.getLocations = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + LOCATIONS,
@@ -269,7 +271,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateLocation = function (request, objectId) {
+  this.updateLocation = function(request, objectId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + LOCATIONS + '/' + objectId,
@@ -281,7 +283,7 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
 
-  this.createLocation = function (request) {
+  this.createLocation = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + LOCATIONS + '/create',
@@ -292,7 +294,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getZones = function (request) {
+  this.getZones = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ZONES,
@@ -303,7 +305,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateZone = function (request, objectId) {
+  this.updateZone = function(request, objectId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + ZONES + '/' + objectId,
@@ -314,7 +316,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.createZone = function (request) {
+  this.createZone = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ZONES + '/create',
@@ -326,7 +328,51 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
 
-  this.getConsumers = function (request) {
+  this.getAccountCategories = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + CATEGORIES,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getAllAccountCategories = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + CATEGORIES + '/all',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.updateAccountCategory = function(request, objectId) {
+    return $http({
+      method: PUT_REQUEST,
+      url: BASE_URL + CATEGORIES + '/' + objectId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.createAccountCategory = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + CATEGORIES + '/create',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getAccountConsumers = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + CONSUMERS,
@@ -337,7 +383,18 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getConsumer = function (request, consumerId) {
+  this.getConsumers = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + CONSUMERS,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getConsumer = function(request, consumerId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + CONSUMERS + '/one/' + consumerId,
@@ -348,7 +405,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateConsumer = function (request, objectId) {
+  this.updateConsumer = function(request, objectId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + CONSUMERS + '/' + objectId,
@@ -359,7 +416,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.createConsumer = function (request) {
+  this.createConsumer = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + CONSUMERS + '/create',
@@ -370,7 +427,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getAccountsByConsumer = function (request, consumerId) {
+  this.getAccountsByConsumer = function(request, consumerId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS + "/" + consumerId,
@@ -381,7 +438,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getAccounts = function (request) {
+  this.getAccounts = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS,
@@ -392,7 +449,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getAccount = function (request) {
+  this.getAccount = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS + "/one",
@@ -403,7 +460,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getAccountById = function (request, accountId) {
+  this.getAccountById = function(request, accountId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS + "/one/" + accountId,
@@ -414,7 +471,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateAccount = function (request, objectId) {
+  this.updateAccount = function(request, objectId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + ACCOUNTS + '/' + objectId,
@@ -425,7 +482,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.transferAccount = function (request, consumerId) {
+  this.transferAccount = function(request, consumerId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + ACCOUNTS + '/transfer/' + consumerId,
@@ -436,10 +493,10 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateAccountStatus = function (request, accountId) {
+  this.updateAccountStatus = function(request, accountId) {
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + ACCOUNTS+'/status/'+accountId,
+      url: BASE_URL + ACCOUNTS + '/status/' + accountId,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -447,7 +504,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.createAccount = function (request, consumerId) {
+  this.createAccount = function(request, consumerId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS + '/create/' + consumerId,
@@ -458,7 +515,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getMeters = function (request) {
+  this.getMeters = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + METERS,
@@ -469,10 +526,10 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateMeter = function (request, meterId) {
+  this.updateMeter = function(request, meterId) {
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + METERS+'/update/'+meterId,
+      url: BASE_URL + METERS + '/update/' + meterId,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -480,7 +537,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateMeterAllocate = function (request, meterId) {
+  this.updateMeterAllocate = function(request, meterId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + METERS + '/allocate/' + meterId,
@@ -491,7 +548,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateMeterDeallocate = function (request, meterId) {
+  this.updateMeterDeallocate = function(request, meterId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + METERS + '/deallocate/' + meterId,
@@ -502,7 +559,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.createMeter = function (request) {
+  this.createMeter = function(request) {
     var payload = angular.toJson(getPayload(request));
     console.log(payload);
 
@@ -516,7 +573,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getMeterSizes = function (request) {
+  this.getMeterSizes = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + METER_SIZES,
@@ -527,7 +584,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getMeterOwners = function (request) {
+  this.getMeterOwners = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + METER_OWNERS,
@@ -539,7 +596,7 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
 
-  this.getTariffs = function (request) {
+  this.getTariffs = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + TARIFFS,
@@ -550,7 +607,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.calculateAmountBilled = function (request, accountId) {
+  this.calculateAmountBilled = function(request, accountId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + TARIFFS + '/calculate/' + accountId,
@@ -561,7 +618,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getPaymentTypes = function (request) {
+  this.getPaymentTypes = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + PAYMENT_TYPES,
@@ -572,7 +629,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getPaymentsByAccount = function (request, account_id) {
+  this.getPaymentsByAccount = function(request, account_id) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + PAYMENTS + '/' + account_id,
@@ -583,7 +640,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.createPayment = function (request, accountId) {
+  this.createPayment = function(request, accountId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + PAYMENTS + '/create/' + accountId,
@@ -594,7 +651,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getBillsByAccount = function (request, account_id) {
+  this.getBillsByAccount = function(request, account_id) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLS + '/' + account_id,
@@ -605,7 +662,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getLastBillByAccount = function (request, accountId) {
+  this.getLastBillByAccount = function(request, accountId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLS + '/last/' + accountId,
@@ -616,7 +673,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.billAccount = function (request, accountId) {
+  this.billAccount = function(request, accountId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLS + '/bill/' + accountId,
@@ -627,7 +684,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.deleteBill = function (request, billId) {
+  this.deleteBill = function(request, billId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLS + '/delete/' + billId,
@@ -638,7 +695,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getPayments = function (request) {
+  this.getPayments = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + PAYMENTS,
@@ -649,7 +706,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getMpesaTransactions = function (request) {
+  this.getMpesaTransactions = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + MPESA,
@@ -660,7 +717,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.allocateMpesaTransaction = function (request, recordId) {
+  this.allocateMpesaTransaction = function(request, recordId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + MPESA + '/allocate/' + recordId,
@@ -671,7 +728,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getPostBankTransactions = function (request) {
+  this.getPostBankTransactions = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + POSTBANK,
@@ -682,7 +739,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.allocatePostBankTransaction = function (request, recordId) {
+  this.allocatePostBankTransaction = function(request, recordId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + POSTBANK + '/allocate/' + recordId,
@@ -693,10 +750,10 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.transferPayment = function (request, accountId) {
+  this.transferPayment = function(request, accountId) {
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + PAYMENTS+'/transfer/'+accountId,
+      url: BASE_URL + PAYMENTS + '/transfer/' + accountId,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -705,7 +762,7 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
 
-  this.getBillItemTypes = function (request) {
+  this.getBillItemTypes = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILL_ITEM_TYPES,
@@ -716,7 +773,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getAccountsReceivables = function (request) {
+  this.getAccountsReceivables = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS + '/accountsReceivables',
@@ -727,7 +784,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getCreditBalances = function (request) {
+  this.getCreditBalances = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS + '/creditBalances',
@@ -738,7 +795,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getMeterReadings = function (request) {
+  this.getMeterReadings = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLS + '/meterReadings',
@@ -749,7 +806,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getMeterStops = function (request) {
+  this.getMeterStops = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLS + '/meterStops',
@@ -760,7 +817,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getNegativeReadings = function (request) {
+  this.getNegativeReadings = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLS + '/negativeReadings',
@@ -771,7 +828,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getBilledAmountReport = function (request) {
+  this.getBilledAmountReport = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLS + '/billedAmount',
@@ -782,7 +839,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getFieldCardReport = function (request) {
+  this.getFieldCardReport = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS + '/fieldCard',
@@ -793,7 +850,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getBillingChecklistReport = function (request) {
+  this.getBillingChecklistReport = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLS + '/checklist',
@@ -804,7 +861,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getPaymentsReport = function (request) {
+  this.getPaymentsReport = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + REPORTS + '/payments',
@@ -815,7 +872,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getPotentialCutOffReport = function (request) {
+  this.getPotentialCutOffReport = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + REPORTS + '/potentialCutOff',
@@ -826,7 +883,19 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getAgeingReport = function (request) {
+  this.getAccountsNotBilledReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORTS + '/accountsNotBilled',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
+  this.getAgeingReport = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + REPORTS + '/ageing',
@@ -837,7 +906,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getBillingSummaryReport = function (request) {
+  this.getBillingSummaryReport = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + REPORTS + '/billingSummary',
@@ -848,7 +917,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getWarisReport = function (request) {
+  this.getWarisReport = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + REPORTS + '/waris',
@@ -859,7 +928,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getAccountStatementReport = function (request, accountId) {
+  this.getAccountStatementReport = function(request, accountId) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + REPORTS + '/statement/' + accountId,
@@ -870,7 +939,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getMonthlyBillReport = function (request) {
+  this.getMonthlyBillReport = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + REPORTS + '/monthlyBills',
@@ -882,7 +951,7 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
 
-  this.getAllBillingMonths = function (request) {
+  this.getAllBillingMonths = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILLING_MONTHS + '/all',
@@ -893,7 +962,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updatePassword = function (request) {
+  this.updatePassword = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + AUTH + '/updatePassword',
@@ -904,7 +973,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getStats = function (request) {
+  this.getStats = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + STATS,
@@ -915,7 +984,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getSMSTemplates = function (request) {
+  this.getSMSTemplates = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + SMS_TEMPLATES,
@@ -926,7 +995,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.updateTemplate = function (request, objectId) {
+  this.updateTemplate = function(request, objectId) {
     return $http({
       method: PUT_REQUEST,
       url: BASE_URL + SMS_TEMPLATES + '/' + objectId,
@@ -937,7 +1006,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.createSMSTemplate = function (request) {
+  this.createSMSTemplate = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + SMS_TEMPLATES + '/create',
@@ -948,7 +1017,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.createSMS = function (request) {
+  this.createSMS = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + SMS + '/create',
@@ -959,10 +1028,10 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.approveSMS = function (request, smsGroupId) {
+  this.approveSMS = function(request, smsGroupId) {
     return $http({
       method: PUT_REQUEST,
-      url: BASE_URL + SMS + '/approve/'+ smsGroupId,
+      url: BASE_URL + SMS + '/approve/' + smsGroupId,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -970,10 +1039,10 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getSMSs = function (request) {
+  this.getSMSs = function(request) {
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + SMS+'/groups',
+      url: BASE_URL + SMS + '/groups',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -981,7 +1050,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-  this.getMessages = function (request) {
+  this.getMessages = function(request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + SMS,
@@ -993,8 +1062,8 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
 
-  this.getSMSPlaceholders = function(){
-    var placeholders = ['$account_no','$balance','$firstname'];
+  this.getSMSPlaceholders = function() {
+    var placeholders = ['$account_no', '$balance', '$firstname'];
     //$account
     //$balance
     //$firstname
@@ -1002,7 +1071,7 @@ app.service('appService', function ($http, $cookieStore) {
     return placeholders;
   };
 
-  this.getCofig = function () {
+  this.getCofig = function() {
     var configs = {
       cssAlertInfo: 'alert alert-info',
       cssAlertSucess: 'alert alert-success',

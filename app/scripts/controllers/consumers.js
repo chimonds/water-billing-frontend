@@ -276,6 +276,10 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
     });
 
 
+    appService.getAllAccountCategories(request).success(function (response) {
+      $scope.categories = response.payload;
+    });
+
 
     $scope.cancel = function () {
       $mdDialog.cancel();
@@ -295,6 +299,7 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
         request.location = $scope.locations[form.accLocation];
         request.zone = $scope.zones[form.accZone];
         request.tariff = $scope.tariffs[form.accTariff];
+        request.accountCategory= $scope.categories[form.accCategory];
 
         var accountId = $scope.selectedAccount.accountId;
 
@@ -361,6 +366,10 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
       $scope.tariffs = response.payload.content;
     });
 
+    appService.getAllAccountCategories(request).success(function (response) {
+      $scope.categories = response.payload;
+    });
+
     $scope.cancel = function () {
       $mdDialog.cancel();
     };
@@ -379,6 +388,7 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
         request.location = $scope.locations[form.accLocation];
         request.zone = $scope.zones[form.accZone];
         request.tariff = $scope.tariffs[form.accTariff];
+        request.accountCategory= $scope.categories[form.accCategory];
 
         var consumerId = $scope.selectedConsumer.consumerId;
 

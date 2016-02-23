@@ -1,52 +1,63 @@
 <md-card class="no-print">
   <md-card-content>
     <p>
-      <md-subheader class="md-primary no-print">Payments Report</md-subheader>
-    <form name="myForm.object">
-      <md-content layout-sm="column" layout="row" layout-align="space-between center">
-        <!--Zones-->
-        <md-select ng-model="form.accZone" placeholder="Select Zone">
-          <md-optgroup label="Zones">
-            <md-option ng-repeat="zone in zones" value="{{$index}}">
-              {{zone.name}}
-            </md-option>
-          </md-optgroup>
-        </md-select>
+      <md-subheader class="md-primary no-print">Receipts Report</md-subheader>
+      <form name="myForm.object">
+        <md-content layout-align="space-between center" layout-sm="column" layout="row">
+          <!--Zones-->
+          <md-input-container>
+            <label>Zone</label>
+            <md-select ng-model="form.accZone">
+              <md-option ng-repeat="zone in zones" value="{{$index}}">
+                {{zone.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
 
-        <!--PaymentType-->
-        <md-select ng-model="form.paymentType" placeholder="Payment Type">
-          <md-optgroup label="Payment Type">
-            <md-option ng-repeat="p in paymentTypes" value="{{$index}}">
-              {{p.name}}
-            </md-option>
-          </md-optgroup>
-        </md-select>
+          <!--PaymentType-->
+          <md-input-container>
+            <label>Receipt Type</label>
+            <md-select ng-model="form.paymentType">
+              <md-option ng-repeat="p in paymentTypes" value="{{$index}}">
+                {{p.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
 
-        <!--Credit balances-->
-        <!--<md-select ng-model="form.credit" placeholder="Credit Balances">-->
-        <!--<md-optgroup label="Credit Balances">-->
-        <!--<md-option ng-repeat="c in credit" value="{{$index}}">-->
-        <!--{{c.name}}-->
-        <!--</md-option>-->
-        <!--</md-optgroup>-->
-        <!--</md-select>-->
+          <!--PaymentSource-->
+          <md-input-container>
+            <label>Receipt Source</label>
+            <md-select ng-model="form.paymentSource">
+                <md-option value="1">Cash</md-option>
+                <md-option value="2">M-PESA</md-option>
+                <md-option value="3">Postbank</md-option>
+            </md-select>
+          </md-input-container>
 
-        <!--From date-->
-        <md-input-container>
-          <label>From Date</label>
-          <input type="date" ng-model="form.fromDate">
-        </md-input-container>
+          <!--Credit balances-->
+          <!--<md-select ng-model="form.credit" placeholder="Credit Balances">-->
+          <!--<md-optgroup label="Credit Balances">-->
+          <!--<md-option ng-repeat="c in credit" value="{{$index}}">-->
+          <!--{{c.name}}-->
+          <!--</md-option>-->
+          <!--</md-optgroup>-->
+          <!--</md-select>-->
 
-        <md-input-container>
-          <label>To Date</label>
-          <input type="date" ng-model="form.toDate">
-        </md-input-container>
+          <!--From date-->
+          <md-input-container>
+            <label>From Date</label>
+            <input ng-model="form.fromDate" type="date">
+          </md-input-container>
 
+          <md-input-container>
+            <label>To Date</label>
+            <input ng-model="form.toDate" type="date">
+          </md-input-container>
 
-        <md-button ng-click="generate(form)">Submit</md-button>
+          <md-button ng-click="generate(form)">Submit</md-button>
 
-      </md-content>
-    </form>
+        </md-content>
+      </form>
     </p>
 
     <p ng-show="progress">
@@ -54,7 +65,7 @@
       <md-progress-linear md-mode="indeterminate"></md-progress-linear>
     </p>
     <p>
-    <div ng-show="error" class="alert alert-danger" role="alert">{{message}}</div>
+      <div class="alert alert-danger" ng-show="error" role="alert">{{message}}</div>
     </p>
   </md-card-content>
 </md-card>
@@ -67,42 +78,42 @@
   <hr/>
   <table width="100%">
     <thead>
-    <tr>
-      <th>ACCOUNT#</th>
-      <th>NAME</th>
-      <th>ZONE</th>
-      <th>DATE</th>
-      <th>TYPE</th>
-      <th>RECEIPT#</th>
-      <th>
-      <span class="pull-right">
-              AMOUNT (KES)
-      </span>
-      </th>
-    </tr>
+      <tr>
+        <th>ACCOUNT#</th>
+        <th>NAME</th>
+        <th>ZONE</th>
+        <th>DATE</th>
+        <th>TYPE</th>
+        <th>RECEIPT#</th>
+        <th>
+          <span class="pull-right">
+            AMOUNT (KES)
+          </span>
+        </th>
+      </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="record in records.content | orderBy:'-transactionDate'">
-      <td>{{record.accNo}}</td>
-      <td>{{record.accName}}</td>
-      <td>{{record.zone}}</td>
-      <td>{{record.transactionDate | date}}</td>
-      <td>{{record.paymentType}}</td>
-      <td>{{record.receiptNo}}</td>
-      <td align="right">{{record.amount | number}}</td>
-    </tr>
-    <tr>
-      <td colspan="7">
-        <hr/>
-        <h1>
-          Total
-        <span class="pull-right">
-          KES {{records.amount | number}}
-        </span>
-        </h1>
-      </td>
-    </tr>
+      <tr ng-repeat="record in records.content | orderBy:'-transactionDate'">
+        <td>{{record.accNo}}</td>
+        <td>{{record.accName}}</td>
+        <td>{{record.zone}}</td>
+        <td>{{record.transactionDate | date}}</td>
+        <td>{{record.paymentType}}</td>
+        <td>{{record.receiptNo}}</td>
+        <td align="right">{{record.amount | number}}</td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <hr/>
+          <h1>
+            Total
+            <span class="pull-right">
+              KES
+              {{records.amount | number}}
+            </span>
+          </h1>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
-

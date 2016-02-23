@@ -1,6 +1,6 @@
-<md-dialog aria-label="Edit User Role" flex>
+<md-dialog aria-label="Edit account category" flex>
   <md-content>
-    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to add zone</md-subheader>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to edit account category</md-subheader>
     <div flex layout="column">
       <md-content class="md-padding">
         <form name="myForm.object">
@@ -17,7 +17,6 @@
             <textarea name="roleDescription" ng-model="form.description" required></textarea rows="4" cols="50">
             <div ng-messages="myForm.object.roleDescription.$error">
               <div ng-message="required">This is required.</div>
-
             </div>
           </md-input-container>
           <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}
@@ -31,8 +30,8 @@
             <md-button ng-click="cancel();">
               Close
             </md-button>
-            <md-button class="md-primary" ng-click="save(form);">
-              Save
+            <md-button class="md-primary" ng-click="update(form);">
+              Update
             </md-button>
           </div>
         </form>

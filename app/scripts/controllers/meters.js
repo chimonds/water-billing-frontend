@@ -9,7 +9,7 @@
  * Controller of the MetersCtrl
  */
 
-app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
+app.controller('MetersCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
   //get config
   var config = appService.getCofig();
   $scope.params = {};
@@ -21,16 +21,16 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
   $scope.searchFilter.text = '';
 
   //listen on data added
-  $scope.$on('onReloadPageData', function (event) {
+  $scope.$on('onReloadPageData', function(event) {
     $scope.getPageData(1);
   });
 
   //handle pagination
-  $scope.pageChanged = function (newPage) {
+  $scope.pageChanged = function(newPage) {
     $scope.getPageData(newPage);
   };
 
-  $scope.getPageData = function (newPage) {
+  $scope.getPageData = function(newPage) {
     newPage--;
     var request = {};
     request.page = newPage;
@@ -44,12 +44,12 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
     request.filter = $scope.searchFilter.text;
 
     //send request
-    appService.getMeters(request).success(function (response) {
+    appService.getMeters(request).success(function(response) {
       $scope.errorOccured = false;
       $scope.meters = response.payload.content;
       $scope.totalMeters = response.payload.totalElements;
       $state.go('meters');
-    }).error(function (data, status) {
+    }).error(function(data, status) {
       if (status === 401) {
         $state.go('session');
         $scope.message = data.message;
@@ -66,45 +66,45 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
   //load page data
   $scope.getPageData(1);
 
-  $scope.seach = function () {
+  $scope.seach = function() {
     $scope.getPageData(1);
   };
 
-  $scope.editMeterDialog = function (index) {
+  $scope.editMeterDialog = function(index) {
     $scope.selectedMeter = $scope.meters[index];
 
     $mdDialog.show({
       controller: EditMeterDialogController,
       templateUrl: 'views/template/meter_edit.html',
       resolve: {
-        selectedMeter: function () {
+        selectedMeter: function() {
           return $scope.selectedMeter;
         }
       }
     });
   };
 
-  $scope.allocateMeterDialog = function (index) {
+  $scope.allocateMeterDialog = function(index) {
     $scope.selectedMeter = $scope.meters[index];
 
     $mdDialog.show({
       controller: AllocateMeterDialogController,
       templateUrl: 'views/template/meter_allocate.html',
       resolve: {
-        selectedMeter: function () {
+        selectedMeter: function() {
           return $scope.selectedMeter;
         }
       }
     });
   };
 
-  $scope.deallocateMeterDialog = function (index) {
+  $scope.deallocateMeterDialog = function(index) {
     $scope.selectedMeter = $scope.meters[index];
     $mdDialog.show({
       controller: AllocateMeterDialogController,
       templateUrl: 'views/template/meter_deallocate.html',
       resolve: {
-        selectedMeter: function () {
+        selectedMeter: function() {
           return $scope.selectedMeter;
         }
       }
@@ -124,15 +124,15 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
     request.page = 0;
     request.size = 20;
 
-    $scope.searchConnection = function () {
+    $scope.searchConnection = function() {
       var request = {};
       request.accNo = $scope.form.accountNo;
       //send request
-      appService.getAccount(request).success(function (response) {
+      appService.getAccount(request).success(function(response) {
         $scope.account = response.payload;
         $scope.accountFound = true;
         $scope.errorOccured = false;
-      }).error(function (data, status) {
+      }).error(function(data, status) {
         if (status === 401) {
           $state.go('session');
           $scope.message = data.message;
@@ -145,11 +145,11 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
     }
 
     //get meter owners
-    appService.getMeterOwners(request).success(function (response) {
+    appService.getMeterOwners(request).success(function(response) {
       $scope.meterOwners = response.payload.content;
     });
 
-    $scope.allocate = function (form) {
+    $scope.allocate = function(form) {
       var myForm = $scope.myForm;
       if (myForm.object.$valid) {
         console.log(form);
@@ -160,7 +160,7 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
 
         var meterId = selectedMeter.meterId;
 
-        appService.updateMeterAllocate(selectedMeter, meterId).success(function (response) {
+        appService.updateMeterAllocate(selectedMeter, meterId).success(function(response) {
 
           $scope.showErrorInfo = true;
           $scope.errorClass = config.cssAlertSucess;
@@ -168,7 +168,7 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
           //notify roles page to reload data
           $rootScope.$broadcast('onReloadPageData');
 
-        }).error(function (data, status) {
+        }).error(function(data, status) {
           if (status === 401) {
             $state.go('session');
             $scope.message = data.message;
@@ -181,17 +181,18 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
       }
     };
 
-    $scope.deallocate = function (form) {
+    $scope.deallocate = function(form) {
       var myForm = $scope.myForm;
       if (myForm.object.$valid) {
-          console.log(form);
+        console.log(form);
 
         var selectedMeter = $scope.selectedMeter;
         selectedMeter.notes = form.notes;
+        selectedMeter.canBeAllocated = form.canBeAllocated;
 
         var meterId = selectedMeter.meterId;
 
-        appService.updateMeterDeallocate(selectedMeter, meterId).success(function (response) {
+        appService.updateMeterDeallocate(selectedMeter, meterId).success(function(response) {
 
           $scope.showErrorInfo = true;
           $scope.errorClass = config.cssAlertSucess;
@@ -199,7 +200,7 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
           //notify roles page to reload data
           $rootScope.$broadcast('onReloadPageData');
 
-        }).error(function (data, status) {
+        }).error(function(data, status) {
           if (status === 401) {
             $state.go('session');
             $scope.message = data.message;
@@ -212,7 +213,7 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
       }
     };
 
-    $scope.cancel = function () {
+    $scope.cancel = function() {
       $mdDialog.cancel();
     };
 
@@ -230,19 +231,19 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
     request.size = 20;
 
     //get meter sizes
-    appService.getMeterSizes(request).success(function (response) {
+    appService.getMeterSizes(request).success(function(response) {
       $scope.meterSizes = response.payload.content;
     });
 
     //get meter owners
-    appService.getMeterOwners(request).success(function (response) {
+    appService.getMeterOwners(request).success(function(response) {
       $scope.meterOwners = response.payload.content;
     });
 
-    $scope.cancel = function () {
+    $scope.cancel = function() {
       $mdDialog.cancel();
     };
-    $scope.update = function (form) {
+    $scope.update = function(form) {
       var myForm = $scope.myForm.object;
       if (myForm.$invalid === false) {
         //good to go
@@ -250,24 +251,24 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
         $scope.errorClass = config.cssAlertInfo;
         $scope.errorMsg = config.msgSendingData;
 
-        var meterId=form.meterId;
+        var meterId = form.meterId;
 
         var request = {};
         request.meterId = form.meterId;
         request.meterNo = form.meterNo;
-        request.initialReading= form.initialReading;
+        request.initialReading = form.initialReading;
         request.meterOwner = $scope.meterOwners[form.meterOwner];
         request.meterSize = $scope.meterSizes[form.meterSize];
 
         //send request
-        appService.updateMeter(request,meterId).success(function (response) {
+        appService.updateMeter(request, meterId).success(function(response) {
           $scope.errorOccured = false;
           $scope.errorClass = config.cssAlertSucess;
           $scope.errorMsg = response.message;
           //notify roles page to reload data
           $rootScope.$broadcast('onReloadPageData');
 
-        }).error(function (data, status) {
+        }).error(function(data, status) {
           if (status === 401) {
             $state.go('session');
             $scope.message = data.message;
@@ -285,7 +286,7 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
     };
   }
 
-  $scope.addMeterDialog = function () {
+  $scope.addMeterDialog = function() {
     $mdDialog.show({
       controller: AddMeterDialogController,
       templateUrl: 'views/template/meter_add.html'
@@ -302,20 +303,20 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
     request.size = 20;
 
     //get meter sizes
-    appService.getMeterSizes(request).success(function (response) {
+    appService.getMeterSizes(request).success(function(response) {
       $scope.meterSizes = response.payload.content;
     });
 
     //get meter owners
-    appService.getMeterOwners(request).success(function (response) {
+    appService.getMeterOwners(request).success(function(response) {
       $scope.meterOwners = response.payload.content;
     });
 
 
-    $scope.cancel = function () {
+    $scope.cancel = function() {
       $mdDialog.cancel();
     };
-    $scope.save = function (form) {
+    $scope.save = function(form) {
       var myForm = $scope.myForm.object;
       if (myForm.$invalid === false) {
 
@@ -329,14 +330,14 @@ app.controller('MetersCtrl', function ($scope, $http, appService, $cookieStore, 
         $scope.errorMsg = config.msgSendingData;
 
         //send request
-        appService.createMeter(request).success(function (response) {
+        appService.createMeter(request).success(function(response) {
           $scope.errorOccured = false;
           $scope.errorClass = config.cssAlertSucess;
           $scope.errorMsg = response.message;
           //notify page to reload data
           $rootScope.$broadcast('onReloadPageData');
 
-        }).error(function (data, status) {
+        }).error(function(data, status) {
           if (status === 401) {
             $state.go('session');
             $scope.message = data.message;

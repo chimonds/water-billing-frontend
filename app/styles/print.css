@@ -6,28 +6,23 @@ body {
   font-size: 12px;
   letter-spacing: 2px;
 }
-
 .report {
   padding-top: 0;
   margin-top: 0;
   width: 100%;
   margin-left: 0;
   margin-right: 0;
+  display: block !important;
 }
-
 .no-print, .no-print * {
   display: none !important;
 }
-
-a,
-a:visited {
+a, a:visited {
   text-decoration: underline;
 }
-
 a[href]:after {
   content: " (" attr(href) ")";
 }
-
 abbr[title]:after {
   content: " (" attr(title) ")";
 }
@@ -37,13 +32,10 @@ abbr[title]:after {
  * or use the `javascript:` pseudo protocol
  */
 
-a[href^="#"]:after,
-a[href^="javascript:"]:after {
+a[href^="#"]:after, a[href^="javascript:"]:after {
   content: "";
 }
-
-pre,
-blockquote {
+pre, blockquote {
   border: 1px solid #999;
   page-break-inside: avoid;
 }
@@ -56,64 +48,62 @@ blockquote {
 thead {
   display: table-header-group;
 }
-table,
-tr,
-td,
-img {
+/*table, tr, td, img {
   page-break-inside: avoid;
+}*/
+table {
+  /*display: block !important;*/
+  page-break-inside: avoid;
+  page-break-inside: auto
 }
-
+tbody{
+    page-break-inside: auto
+/*display: block !important;*/
+}
+tr {
+  page-break-inside: avoid;
+  page-break-after: auto
+}
 img {
   max-width: 100% !important;
 }
-
-p,
-h2,
-h3, h4 {
+p, h2, h3, h4 {
   orphans: 3;
   widows: 3;
   /*font-weight: 200;*/
   /*font-family: Roboto-Light;*/
 }
-
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
   page-break-after: avoid;
   line-height: 0.8;
   letter-spacing: 2px;
 }
-.pull-right{
+.pull-right {
   float: right;
 }
-h1{
+h1 {
   font-weight: 100;
   font-family: Roboto-Regular;
   font-size: 20px;
 }
-h2{
+h2 {
   font-weight: 100;
   font-family: Roboto;
   font-size: 18px;
 }
-h3{
+h3 {
   font-weight: 100;
   font-family: Roboto;
   font-size: 16px;
 }
-.legroom{
+.legroom {
   height: 10px;
   display: block;
   padding-top: 5px;
 }
-
-
-
 p {
   margin: 0 0 10px;
 }
-
 .highlight {
   font-weight: 400;
 }
@@ -123,15 +113,14 @@ hr {
   border: 0;
   border-top: 1px solid #2e2e2e;
 }
-
-.tosha{
+.tosha {
   page-break-after: always;
 }
-strong{
+strong {
   font-family: Roboto-Light;
   font-weight: 100;
 }
-th{
+th {
   text-align: left;
   font-family: Roboto-Light;
   font-weight: 300;

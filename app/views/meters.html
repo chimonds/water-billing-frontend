@@ -8,67 +8,70 @@
       </md-subheader>
       <md-content>
 
-        <md-button ng-show="$root.meter_create" class="md-primary pull-right" ng-click="addMeterDialog();">
-          <span class="icon-plus action-button" aria-hidden="true"></span>
+        <md-button class="md-primary pull-right" ng-click="addMeterDialog();" ng-show="$root.meter_create">
+          <span aria-hidden="true" class="icon-plus action-button"></span>
         </md-button>
         <div class="clearfix"></div>
-        <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" ng-show="errorOccured" role="alert">
           {{errorMsg}}
         </div>
-        <md-input-container flex class="md-default-theme">
+        <md-input-container class="md-default-theme" flex>
           <label for="input_041">Search</label>
-          <input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+          <input aria-invalid="false" class="ng-pristine ng-valid md-input ng-touched" id="input_041" ng-change="seach()" ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" tabindex="0">
         </md-input-container>
 
         <table class="table table-hover">
           <thead>
-          <tr>
-            <th>Meter No</th>
+            <tr>
+              <th>Meter No</th>
 
-            <th>Account#</th>
-            <th>Initial Reading</th>
-            <th>Owner</th>
+              <th>Account#</th>
+              <th>Initial Reading</th>
+              <th>Owner</th>
 
-            <th>Size</th>
-            <th>
-              <span class="pull-right">Rent Amount</span>
-            </th>
-            <th>Charge</th>
-            <th>Created</th>
-            <th>
-              <span class="pull-right">{{totalMeters | number}} Records</span>
-            </th>
-          </tr>
+              <th>Size</th>
+              <th>
+                <span class="pull-right">Rent Amount</span>
+              </th>
+              <th>Charge</th>
+              <th>Created</th>
+              <th>
+                <span class="pull-right">{{totalMeters | number}}
+                  Records</span>
+              </th>
+            </tr>
           </thead>
           <tbody>
-          <tr dir-paginate="meter in meters | itemsPerPage: 10" total-items="totalMeters" pagination-id="pagePagination">
-            <td>{{ meter.meterNo | uppercase}}</td>
+            <tr dir-paginate="meter in meters | itemsPerPage: 10" pagination-id="pagePagination" total-items="totalMeters">
+              <td>{{ meter.meterNo | uppercase}}</td>
 
-            <td>{{meter.accountId}}</td>
+              <td>{{meter.accountId}}</td>
 
-            <td>{{meter.initialReading | number}}</td>
-            <td>{{meter.meterOwner.name}}</td>
-            <td>{{meter.meterSize.size | uppercase}}</td>
-            <td align="right">{{meter.meterSize.rentAmount | number }}</td>
-            <td>
-              {{meter.meterOwner.charge | uppercase}}
-            </td>
-            <td>
-              {{meter.createdOn | date}}
-            </td>
-            <td align="right">
-              <md-button ng-show="!meter.assigned" class="md-primary" ng-click="allocateMeterDialog($index)">
-                Allocate
-              </md-button>
-              <md-button ng-show="meter.assigned" class="md-primary" ng-click="deallocateMeterDialog($index)">Deallocate</md-button>
-              <md-button class="md-primary" ng-click="editMeterDialog($index)">Edit</md-button>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="10" align="center">
-              <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
-            </td>
-          </tr>
+              <td>{{meter.initialReading | number}}</td>
+              <td>{{meter.meterOwner.name}}</td>
+              <td>{{meter.meterSize.size | uppercase}}</td>
+              <td align="right">{{meter.meterSize.rentAmount | number }}</td>
+              <td>
+                {{meter.meterOwner.charge | uppercase}}
+              </td>
+              <td>
+                {{meter.createdOn | date}}
+              </td>
+              <td align="right">
+                <span ng-show="meter.canBeAllocated">
+                  <md-button class="md-primary" ng-click="allocateMeterDialog($index)" ng-show="!meter.assigned">
+                    Allocate
+                  </md-button>
+                </span>
+                <md-button class="md-primary" ng-click="deallocateMeterDialog($index)" ng-show="meter.assigned">Deallocate</md-button>
+                <md-button class="md-primary" ng-click="editMeterDialog($index)">Edit</md-button>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" colspan="10">
+                <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+              </td>
+            </tr>
           </tbody>
         </table>
       </md-content>

@@ -105,6 +105,14 @@ var app = angular
           requireLogin: true
         }
       })
+      .state('categories', {
+        url: '/categories',
+        templateUrl: 'views/accountCategories.html',
+        controller: 'CategoriesCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
       .state('locations', {
         url: '/locations',
         templateUrl: 'views/locations.html',
@@ -290,6 +298,14 @@ var app = angular
         url: '/potential_cut_off',
         templateUrl: 'views/reports/potential_cut_off.html',
         controller: 'PotentialCutOffCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
+      .state('accounts_not_billed', {
+        url: '/accounts_not_billed',
+        templateUrl: 'views/reports/accounts_not_billed.html',
+        controller: 'AccountsNotBilledCtrl',
         data: {
           requireLogin: true
         }

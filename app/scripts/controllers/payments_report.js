@@ -66,6 +66,12 @@ app.controller('PaymentsReportCtrl', function ($scope, $http, appService, $cooki
       request.paymentTypeId = $scope.paymentTypes[paymentType].paymentTypeId;
     }
 
+    var paymentSource = form.paymentSource;
+    if (typeof paymentSource !== 'undefined') {
+      request.paymentSourceId = form.paymentSource;
+    }
+
+
     var params= {};
     params.fields = request;
 

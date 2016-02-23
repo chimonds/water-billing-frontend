@@ -1,12 +1,12 @@
 <md-dialog aria-label="Edit connection" flex>
   <md-content>
     <md-subheader class="md-sticky-no-effect md-primary">Use this panel to edit account info</md-subheader>
-    <div layout="column" flex>
+    <div flex layout="column">
       <md-content class="md-padding">
         <form name="myForm.object">
           <md-input-container>
             <label>Account Number</label>
-            <input maxlength="9" required  name="accNo" ng-model="form.accNo">
+            <input maxlength="9" name="accNo" ng-model="form.accNo" required>
 
             <div ng-messages="myForm.object.accNo.$error">
               <div ng-message="required">This is required.</div>
@@ -16,7 +16,7 @@
 
           <md-input-container>
             <label>Average Consumption</label>
-            <input maxlength="4" type="number" name="averageConsumption" ng-model="form.averageConsumption">
+            <input maxlength="4" name="averageConsumption" ng-model="form.averageConsumption" type="number">
 
             <div ng-messages="myForm.object.averageConsumption.$error">
               <div ng-message="required">This is required.</div>
@@ -27,7 +27,7 @@
           <!--Balance brought forward-->
           <md-input-container>
             <label>Balance Brought Forward (KES)</label>
-            <input maxlength="6" type="number" name="balanceBroughtForward" ng-model="form.balanceBroughtForward">
+            <input maxlength="6" name="balanceBroughtForward" ng-model="form.balanceBroughtForward" type="number">
 
             <div ng-messages="myForm.object.balanceBroughtForward.$error">
               <div ng-message="required">This is required.</div>
@@ -39,7 +39,7 @@
           <div ng-show="form.metered">
             <md-input-container>
               <label>Metered</label>
-              <input name="metered" disabled="disabled" ng-model="form.meter.meterNo">
+              <input disabled="disabled" name="metered" ng-model="form.meter.meterNo">
             </md-input-container>
           </div>
 
@@ -47,69 +47,75 @@
           <div ng-show="!form.metered">
             <md-input-container>
               <label>Metered</label>
-              <input name="metered" disabled="disabled" ng-model="form.metered">
+              <input disabled="disabled" name="metered" ng-model="form.metered">
             </md-input-container>
           </div>
 
           <div flex layout="row">
-            <div flex="30">
 
+            <md-input-container>
+              <label>Category</label>
               <!--Connection Location-->
-              <md-select required name="location" ng-model="form.accLocation" placeholder="Assign account location">
-                <md-option ng-repeat="location in locations" value="{{$index}}"
-                           ng-selected="{{location.locationId == selectedAccount.location.locationId}}">
+              <md-select name="location" ng-model="form.accLocation" placeholder="Assign account location" required>
+                <md-option ng-repeat="location in locations" ng-selected="{{location.locationId == selectedAccount.location.locationId}}" value="{{$index}}">
                   {{location.name}}
                 </md-option>
               </md-select>
               <div ng-messages="myForm.object.location.$error">
                 <div ng-message="required">This is required.</div>
               </div>
+            </md-input-container>
 
-            </div>
-
-            <div flex="30">
-
-              <!--Connection zone-->
-              <md-select required name="zone" ng-model="form.accZone" placeholder="Assign account zone">
-                <md-option ng-repeat="zone in zones" value="{{$index}}"
-                           ng-selected="{{zone.zoneId == selectedAccount.zone.zoneId}}">
+            <!--Connection zone-->
+            <md-input-container>
+              <label>Zone</label>
+              <md-select name="zone" ng-model="form.accZone" placeholder="Assign account zone" required>
+                <md-option ng-repeat="zone in zones" ng-selected="{{zone.zoneId == selectedAccount.zone.zoneId}}" value="{{$index}}">
                   {{zone.name}}
                 </md-option>
               </md-select>
               <div ng-messages="myForm.object.zone.$error">
                 <div ng-message="required">This is required.</div>
               </div>
+            </md-input-container>
 
-            </div>
-
-            <div flex="30">
-
-
-              <!--Connection tariff-->
-              <md-select required name="tariff" ng-model="form.accTariff" placeholder="Assign account tariff">
-                <md-option ng-repeat="tariff in tariffs" value="{{$index}}"
-                           ng-selected="{{tariff.tariffId == selectedAccount.tariff.tariffId}}">
+            <!--Connection tariff-->
+            <md-input-container>
+              <label>Tarrif</label>
+              <md-select name="tariff" ng-model="form.accTariff" required>
+                <md-option ng-repeat="tariff in tariffs" ng-selected="{{tariff.tariffId == selectedAccount.tariff.tariffId}}" value="{{$index}}">
                   {{tariff.name}}
                 </md-option>
               </md-select>
               <div ng-messages="myForm.object.tariff.$error">
                 <div ng-message="required">This is required.</div>
               </div>
+            </md-input-container>
 
-            </div>
-
+            <md-input-container>
+              <label>Category</label>
+              <md-select name="category" ng-model="form.accCategory" required>
+                <md-option ng-repeat="category in categories" ng-selected="{{category.categoryId == selectedAccount.accountCategory.categoryId}}" value="{{$index}}">
+                  {{category.name}}
+                </md-option>
+              </md-select>
+              <div ng-messages="myForm.object.tariff.$error">
+                <div ng-message="required">This is required.</div>
+              </div>
+            </md-input-container>
 
           </div>
 
-          <br />
+          <br/>
 
-          <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}
+          <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}
 
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-              aria-hidden="true">&times;</span></button>
+            <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
 
-          <div  layout="row">
+          <div layout="row">
             <br>
             <span flex></span>
             <md-button ng-click="cancel();">
