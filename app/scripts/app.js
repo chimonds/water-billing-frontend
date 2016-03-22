@@ -221,6 +221,15 @@ var app = angular
         }
       })
 
+      .state('customers_without_phones', {
+        url: '/customers_without_phone_numbers',
+        templateUrl: 'views/reports/customers_without_phone_numbers.html',
+        controller: 'ReportCustomersWithoutPhoneNumbersCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
+
       .state('remote_readings', {
         url: '/remote_readings',
         templateUrl: 'views/meter_readings.html',

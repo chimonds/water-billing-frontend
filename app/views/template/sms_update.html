@@ -1,0 +1,50 @@
+<md-dialog aria-label="Edit User Role" flex>
+  <md-content>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to edit SMS</md-subheader>
+    <div flex layout="column">
+      <md-content class="md-padding">
+        <form name="myForm.object">
+          <md-input-container>
+            <label>Mobile Number</label>
+            <input md-maxlength="10" name="mobileNumber" ng-model="form.mobileNumber" required>
+            <div ng-messages="myForm.object.mobileNumber.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 10 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>Message</label>
+            <textarea name="roleDescription" ng-model="form.message" readonly="true"></textarea rows="4" cols="50">
+          </md-input-container>
+
+          <md-input-container>
+            <md-checkbox aria-label="Message Sent" class="md-primary" ng-false-value="false" ng-model="form.send" ng-true-value="true">
+              Sent
+            </md-checkbox>
+          </md-input-container>
+
+          <md-input-container>
+            <md-checkbox aria-label="Is message void" class="md-primary" ng-false-value="false" ng-model="form.isVoid" ng-true-value="true">
+              Void
+            </md-checkbox>
+          </md-input-container>
+
+          <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}
+            <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="md-actions" layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel();">
+              Close
+            </md-button>
+            <md-button class="md-primary" ng-click="update(form);">
+              Update
+            </md-button>
+          </div>
+        </form>
+      </md-content>
+    </div>
+  </md-content>
+</md-dialog>

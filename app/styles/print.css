@@ -2,17 +2,22 @@ body {
   /*color: #2e2e2e;*/
   color: #737373;
   font-family: 'Roboto';
-  font-weight: 100;
-  font-size: 12px;
-  letter-spacing: 2px;
+  font-weight: 100 !important;
+  font-size: 12px !important;
+  letter-spacing: 2px !important;
+  /*overflow:hidden !important;*/
+  /*overflow-y: visible !important;*/
+  overflow: hidden !important;
 }
 .report {
-  padding-top: 0;
-  margin-top: 0;
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  display: block !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  /*display: block !important;*/
+  /*overflow: hidden !important;*/
+  display: block;
 }
 .no-print, .no-print * {
   display: none !important;
@@ -48,22 +53,20 @@ pre, blockquote {
 thead {
   display: table-header-group;
 }
-/*table, tr, td, img {
+table, tr, td, img {
   page-break-inside: avoid;
-}*/
-table {
-  /*display: block !important;*/
+
+}
+
+/*table {
+
   page-break-inside: avoid;
   page-break-inside: auto
-}
-tbody{
-    page-break-inside: auto
-/*display: block !important;*/
 }
 tr {
   page-break-inside: avoid;
   page-break-after: auto
-}
+}*/
 img {
   max-width: 100% !important;
 }
@@ -114,7 +117,7 @@ hr {
   border-top: 1px solid #2e2e2e;
 }
 .tosha {
-  page-break-after: always;
+  page-break-after: always !important;
 }
 strong {
   font-family: Roboto-Light;

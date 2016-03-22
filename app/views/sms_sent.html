@@ -1,47 +1,51 @@
-      <md-content>
-         <div class="clearfix"></div>
-         <div ng-show="errorOccured" class="alert alert-danger" role="alert">
-            {{errorMsg}}
-         </div>
-         <md-input-container flex class="md-default-theme">
-            <label for="input_041">Search</label>
-            <input ng-init="contactsGroupFilter = {}" ng-model="messagesFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
-         </md-input-container>
-         <table class="table table-hover">
-            <thead>
-               <tr>
-                  <th>Created</th>
-                  <th>Message</th>
-                  <th>Recipient</th>
-                  <th>Sent</th>
-                  <th>Response</th>
-                  <th>Date Sent</th>
-                  <!-- <th>{{totalMessages | number}}</th> -->
-               </tr>
-            </thead>
-            <tbody>
-               <tr dir-paginate="message in messages | itemsPerPage: 10" total-items="totalMessages" pagination-id="pagePaginationMessages">
-                  <td>{{message.createdOn | date }}</td>
-                  <td>{{message.message}}</td>
-                  <td>{{message.mobileNumber}}</td>
-                  <td>
-                    <span ng-show="message.send" style="color:green">Sent</span>
-                    <span ng-show="!message.send" style="color:red">Pending</span>
-                    <!-- {{message.send}} -->
-
-                  </td>
-                  <td>{{message.response}}</td>
-                  <td><span ng-show="message.send">{{message.dateSend | date}}</span></td>
-                  <!-- <td></td> -->
-                  <!-- <td align="right">
-                     <md-button ng-show="$root.sms_template_update" class="md-primary" ng-click="editTemplateDialog($index)">Edit</md-button>
-                  </td> -->
-               </tr>
-               <tr>
-                  <td colspan="6" align="center">
-                     <dir-pagination-controls on-page-change="pageChangedMessages(newPageNumber)" pagination-id="pagePaginationMessages"></dir-pagination-controls>
-                  </td>
-               </tr>
-            </tbody>
-         </table>
-      </md-content>
+<md-content>
+  <div class="clearfix"></div>
+  <div class="alert alert-danger" ng-show="errorOccured" role="alert">
+    {{errorMsg}}
+  </div>
+  <md-input-container class="md-default-theme" flex>
+    <label for="input_041">Search</label>
+    <input aria-invalid="false" class="ng-pristine ng-valid md-input ng-touched" id="input_041" ng-change="searchMessages()" ng-init="contactsGroupFilter = {}" ng-model="messagesFilter.text" tabindex="0">
+  </md-input-container>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Created</th>
+        <th>Message</th>
+        <th>Recipient</th>
+        <th>Sent</th>
+        <th>Is Void</th>
+        <th>Response</th>
+        <th>Date Sent</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr dir-paginate="message in messages | itemsPerPage: 10" pagination-id="pagePaginationMessages" total-items="totalMessages">
+        <td>{{message.createdOn | date:'medium' }}</td>
+        <td>{{message.message}}</td>
+        <td>{{message.mobileNumber}}</td>
+        <td>
+          <span ng-show="message.send" style="color:green">Sent</span>
+          <span ng-show="!message.send" style="color:red">Pending</span>
+        </td>
+        <td>
+          <span ng-show="message.isVoid" style="color:red">Void</span>
+          <span ng-show="!message.isVoid" style="color:green">Not Void</span>
+        </td>
+        <td>{{message.response}}</td>
+        <td>
+          <span ng-show="message.send">{{message.dateSend | date:'medium'}}</span>
+        </td>
+        <td align="right">
+          <md-button class="md-primary" ng-click="editMessageDialog($index)">Edit</md-button>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" colspan="8">
+          <dir-pagination-controls on-page-change="pageChangedMessages(newPageNumber)" pagination-id="pagePaginationMessages"></dir-pagination-controls>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</md-content>

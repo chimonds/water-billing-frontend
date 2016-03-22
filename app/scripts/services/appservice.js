@@ -872,6 +872,18 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getCustomersWithoutPhoneNumbers = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORTS + '/consumersWithoutPhones',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
   this.getPotentialCutOffReport = function(request) {
     return $http({
       method: POST_REQUEST,
@@ -1028,6 +1040,18 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.updateMessage = function(request, recordId) {
+    return $http({
+      method: PUT_REQUEST,
+      url: BASE_URL + SMS +'/'+recordId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
   this.approveSMS = function(request, smsGroupId) {
     return $http({
       method: PUT_REQUEST,
@@ -1078,7 +1102,6 @@ app.service('appService', function($http, $cookieStore) {
       cssAlertDanger: 'alert alert-danger',
       msgSendingData: 'Please wait, sending data...'
     };
-
     return configs;
   }
 
