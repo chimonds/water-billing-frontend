@@ -12,6 +12,8 @@
               </md-option>
             </md-optgroup>
           </md-select> -->
+          <md-button ng-show="report" filename="customers_without_phone_numbers.csv" ng-csv="generateCsv()" csv-header="['CUSTOMER ID',	'NAME']">Export to CSV</md-button>
+
           <md-button ng-click="generate(form)">Submit</md-button>
         </md-content>
       </form>

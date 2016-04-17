@@ -36,7 +36,7 @@
           <label>Date</label>
           <input type="date" ng-model="form.transactionDate">
         </md-input-container>
-
+        <md-button ng-show="report" filename="credit_balances.csv" ng-csv="generateCsv()" csv-header="['ACCOUNT#', 'NAME', 'ZONE','STATUS','BALANCE']">Export to CSV</md-button>
         <md-button ng-click="generate(form)">Submit</md-button>
 
       </md-content>

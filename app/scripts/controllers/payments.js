@@ -68,13 +68,13 @@ app.controller('PaymentsCtrl', function($scope, $http, appService, $cookieStore,
     $scope.getPageData(1);
   };
 
-  $scope.transferPaymentDialog = function (index) {
+  $scope.transferPaymentDialog = function(index) {
     $scope.payment = $scope.payments[index];
     $mdDialog.show({
       controller: TransferPaymentDialogController,
       templateUrl: 'views/template/payment_transfer.html',
       resolve: {
-        payment: function () {
+        payment: function() {
           return $scope.payment;
         }
       }
@@ -92,14 +92,14 @@ app.controller('PaymentsCtrl', function($scope, $http, appService, $cookieStore,
     request.page = 0;
     request.size = 20;
 
-    $scope.searchConnection = function () {
+    $scope.searchConnection = function() {
       var request = {};
       request.accNo = $scope.form.accountNo;
-      appService.getAccount(request).success(function (response) {
+      appService.getAccount(request).success(function(response) {
         $scope.account = response.payload;
         $scope.accountFound = true;
         $scope.errorOccured = false;
-      }).error(function (data, status) {
+      }).error(function(data, status) {
         if (status === 401) {
           $state.go('session');
           $scope.message = data.message;
@@ -111,23 +111,23 @@ app.controller('PaymentsCtrl', function($scope, $http, appService, $cookieStore,
       });
     }
 
-    $scope.transfer = function (form) {
+    $scope.transfer = function(form) {
       var myForm = $scope.myForm;
       if (myForm.object.$valid) {
         console.log(form);
 
         var request = $scope.payment;
-        request.notes =form.notes;
+        request.notes = form.notes;
         var accountId = $scope.account.accountId;
 
-        appService.transferPayment(request, accountId).success(function (response) {
+        appService.transferPayment(request, accountId).success(function(response) {
           $scope.showErrorInfo = true;
           $scope.errorClass = config.cssAlertSucess;
           $scope.errorMsg = response.message;
           //notify roles page to reload data
           $rootScope.$broadcast('onReloadPageData');
 
-        }).error(function (data, status) {
+        }).error(function(data, status) {
           if (status === 401) {
             $state.go('session');
             $scope.message = data.message;
@@ -139,7 +139,58 @@ app.controller('PaymentsCtrl', function($scope, $http, appService, $cookieStore,
         });
       }
     };
-    $scope.cancel = function () {
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+  }
+
+  $scope.voidPaymentDialog = function(index) {
+    $scope.payment = $scope.payments[index];
+    $mdDialog.show({
+      controller: VoidPaymentDialogController,
+      templateUrl: 'views/template/payment_void.html',
+      resolve: {
+        payment: function() {
+          return $scope.payment;
+        }
+      }
+    });
+  };
+
+  function VoidPaymentDialogController($scope, $mdDialog, $rootScope, payment, appService) {
+    var config = appService.getCofig();
+    $scope.myForm = {};
+    $scope.payment = payment;
+    $scope.form = {};
+
+
+
+    $scope.voidReceipt = function(form) {
+      var myForm = $scope.myForm;
+      if (myForm.object.$valid) {
+        var request = $scope.payment;
+        request.notes = form.notes;
+
+        appService.voidPayment(request).success(function(response) {
+          $scope.showErrorInfo = true;
+          $scope.errorClass = config.cssAlertSucess;
+          $scope.errorMsg = response.message;
+
+          $rootScope.$broadcast('onReloadPageData');
+
+        }).error(function(data, status) {
+          if (status === 401) {
+            $state.go('session');
+            $scope.message = data.message;
+          } else {
+            $scope.showErrorInfo = true;
+            $scope.errorClass = config.cssAlertDanger;
+            $scope.errorMsg = data.message;
+          }
+        });
+      }
+    };
+    $scope.cancel = function() {
       $mdDialog.cancel();
     };
   }

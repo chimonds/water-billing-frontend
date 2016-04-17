@@ -8,39 +8,41 @@
  * Controller of the majiApp
  */
 
-app.controller('BalancesCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
+app.controller('BalancesCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
   var config = appService.getCofig();
   $scope.progress = false;
   $scope.report = false;
   $scope.form = {};
 
-  $scope.status =
-    [
-      {'name': 'All'},
-      {'name': 'Active'},
-      {'name': 'Inactive'}
-    ];
+  $scope.status = [{
+    'name': 'All'
+  }, {
+    'name': 'Active'
+  }, {
+    'name': 'Inactive'
+  }];
 
-  $scope.credit =
-    [
-      {'name': 'Include'},
-      {'name': 'Exclude'},
-      {'name': 'Only'}
-    ];
+  $scope.credit = [{
+    'name': 'Include'
+  }, {
+    'name': 'Exclude'
+  }, {
+    'name': 'Only'
+  }];
 
   var request = {};
   request.page = 0;
   request.size = 100;
 
   //Load zones
-  appService.getZones(request).success(function (response) {
+  appService.getZones(request).success(function(response) {
     $scope.zones = response.payload.content;
-  }).error(function (data, status) {
+  }).error(function(data, status) {
     $state.go('session');
   });
 
 
-  $scope.generate = function (form) {
+  $scope.generate = function(form) {
     $scope.progress = true;
     $scope.report = false;
     //Get active billing month
@@ -50,7 +52,7 @@ app.controller('BalancesCtrl', function ($scope, $http, appService, $cookieStore
 
     //set transaction date
     var transactionDate = moment(form.transactionDate).unix();
-    if(typeof transactionDate ==='undefined' || typeof transactionDate ==='NaN'){
+    if (typeof transactionDate === 'undefined' || typeof transactionDate === 'NaN') {
       transactionDate = moment().unix();
     }
     request.transactionDate = transactionDate;
@@ -71,16 +73,16 @@ app.controller('BalancesCtrl', function ($scope, $http, appService, $cookieStore
       request.creditBalances = $scope.credit[accountStatus].name;
     }
 
-    var params= {};
+    var params = {};
     params.fields = request;
 
-    appService.getAccountsReceivables(params).success(function (response) {
+    appService.getAccountsReceivables(params).success(function(response) {
       $scope.progress = false;
       $scope.error = false;
       $scope.accounts = response.payload;
       $scope.report = true;
 
-    }).error(function (data, status) {
+    }).error(function(data, status) {
       if (status === 401) {
         $scope.progress = false;
         $state.go('session');
@@ -94,4 +96,25 @@ app.controller('BalancesCtrl', function ($scope, $http, appService, $cookieStore
     });
 
   };
+
+  //Generate CSV File
+  $scope.generateCsv = function() {
+    $scope.csvData = [];
+    var accounts = $scope.accounts.content;
+    angular.forEach(accounts, function(value) {
+      var accStatus = 'Active';
+      if (!value.active) {
+        accStatus = 'Inactive';
+      }
+      $scope.csvData.push({
+        a: value.accNo,
+        b: value.accName,
+        c: value.zone,
+        d: accStatus,
+        e: value.balance
+      });
+    });
+    return $scope.csvData;
+  };
+  
 });

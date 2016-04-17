@@ -90,4 +90,19 @@ app.controller('AccountsNotBilledCtrl', function($scope, $http, appService, $coo
     });
 
   };
+
+  //Generate CSV File
+  //'ACCOUNT#',	'NAME',	'ZONE'
+  $scope.generateCsv = function() {
+    $scope.csvData = [];
+    var accounts = $scope.records.content;
+    angular.forEach(accounts, function(value) {
+      $scope.csvData.push({
+        a: value.accNo,
+        b: value.accName,
+        c: value.zone
+      });
+    });
+    return $scope.csvData;
+  };
 });

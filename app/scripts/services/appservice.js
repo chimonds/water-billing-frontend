@@ -761,6 +761,17 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.voidPayment = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + PAYMENTS + '/void',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
 
   this.getBillItemTypes = function(request) {
     return $http({

@@ -26,6 +26,7 @@ var app = angular
     'angular-loading-bar',
     'angularMoment',
     'highcharts-ng',
+    'ngCsv',
     'ngTagsInput'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider, paginationTemplateProvider) {

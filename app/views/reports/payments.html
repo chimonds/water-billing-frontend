@@ -53,7 +53,7 @@
             <label>To Date</label>
             <input ng-model="form.toDate" type="date">
           </md-input-container>
-
+          <md-button ng-show="report" filename="receipts.csv" ng-csv="generateCsv()" csv-header="['ACCOUNT#',	'NAME',	'ZONE',	'DATE',	'TYPE',	'RECEIPT#',	'AMOUNT']">Export to CSV</md-button>
           <md-button ng-click="generate(form)">Submit</md-button>
 
         </md-content>

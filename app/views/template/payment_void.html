@@ -1,0 +1,63 @@
+<md-dialog aria-label="Edit Meter" flex>
+  <md-content>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to void a receipt</md-subheader>
+    <div flex layout="column">
+      <md-content class="md-padding">
+        <form name="myForm.object">
+          <div class="pull-left">
+            <p>
+              Receipt Number:
+              <strong>{{payment.receiptNo}}</strong>
+            </p>
+            <p>
+              Amount:
+              <strong>{{payment.amount}}</strong>
+            </p>
+          </div>
+          <div class="pull-right">
+            <p>
+              Account No:
+              <strong>{{payment.accNo}}</strong>
+
+            </p>
+            <p>
+              Date:
+              <strong>{{payment.transactionDate | date}}</strong>
+            </p>
+          </div>
+          <div class="clearfix"></div>
+
+          <md-input-container>
+            <label>Notes</label>
+            <textarea  name="notes" ng-model="form.notes"></textarea rows="4" cols="50">
+            <div ng-messages="myForm.object.notes.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+          <div>
+            <div class="alert alert-danger" ng-show="errorOccured" role="alert">
+              {{errorMsg}}
+            </div>
+          </div>
+
+          <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}
+
+            <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel();">
+              Close
+            </md-button>
+            <md-button class="md-primary" ng-click="voidReceipt(form);">
+              Void
+            </md-button>
+          </div>
+        </form>
+      </md-content>
+    </div>
+  </md-content>
+</md-dialog>
