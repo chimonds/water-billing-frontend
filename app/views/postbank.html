@@ -3,63 +3,73 @@
     <md-content>
       <md-subheader class="md-primary">Use this panel to manage PostBank transactions</md-subheader>
       <md-content>
-        <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" ng-show="errorOccured" role="alert">
           {{errorMsg}}
         </div>
-        <md-input-container flex class="md-default-theme">
+
+        <br>
+        <div class="well">
+          <button class="md-primary" ngf-max-size="1MB" ngf-select="upload($file, $invalidFiles)" type="file">
+            Select File
+            {{f.name}}</button>
+
+          <!-- File: -->
+          <span class="pull-right" style="font:smaller">
+            <span class="progress" ng-show="f.progress >= 0">
+              <div ng-bind="f.progress + '%'" style="width:{{f.progress}}%"></div>
+            </span>
+          </span>
+        </div>
+
+        <md-input-container class="md-default-theme" flex>
           <label for="input_041">Search</label>
-          <input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
+          <input aria-invalid="false" class="ng-pristine ng-valid md-input ng-touched" id="input_041" ng-change="seach()" ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" tabindex="0">
         </md-input-container>
         <table class="table table-hover">
           <thead>
-          <tr>
-            <th>CREATED</th>
-            <th>SEQ_NO</th>
-            <th>ACCT_NO</th>
-            <th>TXNDATETIME</th>
-            <th>BILL_AMT</th>
-            <th>CHARGED_AMT</th>
-            <th>PAID_AMT</th>
-            <th>PAYEE_NAMES</th>
-            <th></th>
-            <!-- SEQ_NO	ACCT_NO	TXNDATETIME	BRANCH	BILL_AMT	CHARGED_AMT	PAID_AMT	RUNNING_BAL	PAYERACCT	PAYEE_NAMES -->
-          </tr>
+            <tr>
+              <th>CREATED</th>
+              <th>NAME</th>
+              <th><span class="pull-right">LINES</span></th>
+              <th><span class="pull-right">AMOUNT</span></th>
+              <th>VALID</th>
+              <th>STATUS</th>
+              <th></th>
+                <th></th>
+            </tr>
           </thead>
           <tbody>
-          <tr dir-paginate="transaction in transactions | itemsPerPage: 10" total-items="totalTransactions" pagination-id="pagePagination">
-            <td>{{ transaction.createdOn | date:'medium' }}</td>
-            <td>{{transaction.seqNo}}</td>
-            <td>{{transaction.accNo}}</td>
-            <td>{{transaction.txndatetime}}</td>
-            <td>
-              <span class="pull-right">
-                {{transaction.billAmount | number}}
-              </span>
-            </td>
-            <td>
-              <span class="pull-right">
-                {{transaction.chargedAmount | number}}
-              </span>
-            </td>
-            <td>
-              <span class="pull-right">
-                {{transaction.paidAmount | number}}
-              </span>
+            <tr dir-paginate="file in files | itemsPerPage: 10" pagination-id="pagePagination" total-items="totalFiles">
+              <td>{{ file.createdOn | date:'medium' }}</td>
+              <td>{{file.name}}</td>
+              <td align="right">{{file.lineCount | number}}</td>
+              <td align="right">{{file.amount | number}}</td>
+              <td>
+                <span ng-switch="file.isValid">
+                  <span ng-switch-when="true">Yes</span>
+                  <span ng-switch-when="false">No</span>
+                </span>
               </td>
-            <td>
-              {{transaction.payeeNames}}
-            </td>
-            <td align="right">
-              <md-button ng-show="!transaction.assigned" class="md-primary" ng-click="assignTransactionDialog($index)">Allocate</md-button>
+              <td>
+                <span ng-switch="file.status">
+                  <span ng-switch-when="0" style="color:orange;">Draft</span>
+                  <span ng-switch-when="1" style="color:green;">Posted</span>
+                  <span ng-switch-when="2" style="color:red;">Voided</span>
+                </span>
+              </td>
+              <td>
+                <md-button class="md-primary" ng-click="postDialog($index)">Action</md-button>
+              </td>
 
-              <span ng-show="transaction.assigned">Allocated</span>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="9" align="center">
-              <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
-            </td>
-          </tr>
+              <td>
+                <md-button class="md-primary tembo-button" ui-sref="postbankFile({ fileId: file.fileId})">View</md-button>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" colspan="8">
+                <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+              </td>
+            </tr>
           </tbody>
         </table>
       </md-content>

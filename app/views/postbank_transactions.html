@@ -1,0 +1,84 @@
+<md-card>
+  <md-card-content>
+    <md-content>
+      <table width="100%">
+        <tr>
+          <td colspan="2">
+            <md-subheader class="md-primary card-header" flex>
+              Post Bank File#
+              {{file.name}}
+              <span class="pull-right">Amount
+                {{file.amount}}
+
+                (<span ng-switch="file.status">
+                  <span ng-switch-when="0">Draft</span>
+                  <span ng-switch-when="1">Posted</span>
+                  <span ng-switch-when="2">Voided</span>
+                </span>)
+              </span>
+
+            </md-subheader>
+            <ol class="breadcrumb" flex>
+              <li>
+                <a ui-sref="dashboard">Home</a>
+              </li>
+              <li>
+                <a ui-sref="postbank">Post Bank Files</a>
+              </li>
+              <li class="active">{{file.name | lowercase}}</li>
+            </ol>
+          </td>
+        </tr>
+      </table>
+
+      <md-content>
+        <div class="alert alert-danger" ng-show="errorOccured" role="alert">
+          {{errorMsg}}
+        </div>
+
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>CREATED</th>
+              <th>SEQ_NO</th>
+              <th>ACCT_NO</th>
+              <th>
+                <span class="pull-right">PAID_AMT</span>
+              </th>
+              <th>PAYEE_NAMES</th>
+              <th>Receipt Valid</th>
+              <th>A/c Valid</th>
+              <th>Assigned</th>
+              <!-- SEQ_NO	ACCT_NO	TXNDATETIME	BRANCH	BILL_AMT	CHARGED_AMT	PAID_AMT	RUNNING_BAL	PAYERACCT	PAYEE_NAMES -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr dir-paginate="transaction in transactions | itemsPerPage: 10" pagination-id="pagePagination" total-items="totalTransactions">
+              <td>{{ transaction.createdOn | date:'medium' }}</td>
+              <td>{{transaction.seqNo}}</td>
+              <td>{{transaction.accNo}}</td>
+
+              <td>
+                <span class="pull-right">
+                  {{transaction.paidAmount | number}}
+                </span>
+              </td>
+              <td>
+                {{transaction.payeeNames}}
+              </td>
+              <td>
+                {{transaction.receiptValid}}
+              </td>
+              <td>
+                {{transaction.accountValid}}
+              </td>
+              <td>
+                {{transaction.assigned}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-content>
+    </md-content>
+  </md-card-content>
+</md-card>

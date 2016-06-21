@@ -27,7 +27,8 @@ var app = angular
     'angularMoment',
     'highcharts-ng',
     'ngCsv',
-    'ngTagsInput'
+    'ngTagsInput',
+    'ngFileUpload'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider, paginationTemplateProvider) {
 
@@ -248,6 +249,15 @@ var app = angular
           requireLogin: true
         }
       })
+
+      .state('report_accounts', {
+        url: '/report_accounts',
+        templateUrl: 'views/reports/accounts.html',
+        controller: 'ReportAccountsCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
       .state('meter_stops', {
         url: '/meter_stops',
         templateUrl: 'views/reports/meter_stops.html',
@@ -364,6 +374,14 @@ var app = angular
         url: '/postbank',
         templateUrl: 'views/postbank.html',
         controller: 'PostBankCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
+      .state('postbankFile', {
+        url: '/postbank/{fileId}',
+        templateUrl: 'views/postbank_transactions.html',
+        controller: 'PostBankTransactionsCtrl',
         data: {
           requireLogin: true
         }

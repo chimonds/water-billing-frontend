@@ -1,71 +1,76 @@
 <md-dialog aria-label="Edit Meter" flex>
   <md-content>
-    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to allocate transaction <strong>{{transaction.seqNo}}</strong> to a account</md-subheader>
-    <div layout="column" flex>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to post/void
+      <strong>{{file.name}}</strong>
+    </md-subheader>
+    <div flex layout="column">
       <md-content class="md-padding">
         <form name="myForm.object">
           <div class="pull-left">
             <p>
-              PostBank Code: <strong>{{transaction.seqNo}}</strong>
+              Lines:
+              <strong>{{file.lineCount | number}}</strong>
             </p>
             <p>
-              Amount: <strong>{{transaction.paidAmount}}</strong>
+              Amount:
+              <strong>{{file.amount | number}}</strong>
             </p>
           </div>
           <div class="pull-right">
             <p>
-              Sender: <strong>{{transaction.payeeNames}}</strong>
+              Valid:
+              <strong>
+                <span ng-switch="file.isValid">
+                  <span ng-switch-when="true">Yes</span>
+                  <span ng-switch-when="false">No</span>
+                </span>
+              </strong>
             </p>
             <p>
-              Created: <strong>{{transaction.createdOn | date}}</strong>
+              Status:
+              <strong>
+                <span ng-switch="file.status">
+                  <span ng-switch-when="0">Draft</span>
+                  <span ng-switch-when="1">Posted</span>
+                  <span ng-switch-when="2">Voided</span>
+                </span>
+              </strong>
             </p>
           </div>
           <div class="clearfix"></div>
 
-
           <md-input-container>
-            <label>Connection Number</label>
-            <input ng-change="searchConnection();" maxlength="9"  type="text"  required name="initialReading" ng-model="form.accountNo">
-            <div ng-messages="myForm.object.initialReading.$error">
-              <div ng-message="required">This is required.</div>
-              <div ng-message=" maxlength">The connection number has to be less than 9 characters long.</div>
-            </div>
+            <label>Action</label>
+            <md-select ng-model="form.action">
+              <md-option value="1">
+                Post
+              </md-option>
+              <md-option value="2">
+                Void
+              </md-option>
+            </md-select>
           </md-input-container>
-
-          <md-input-container>
-            <label>Notes</label>
-                  <textarea required name="notes" ng-model="form.notes">
-                  </textarea rows="4" cols="50">
-            <div ng-messages="myForm.object.notes.$error">
-              <div ng-message="required">This is required.</div>
-            </div>
-          </md-input-container>
-
 
           <div>
-            <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+            <div class="alert alert-danger" ng-show="errorOccured" role="alert">
               {{errorMsg}}
             </div>
 
-            <md-card ng-show="accountFound">
-              <md-card-content>
-                Account No: <strong>{{account.accNo}}</strong>
-                Tariff: <strong>{{account.tariff.name}}</strong>
-              </md-card-content>
-            </md-card>
           </div>
 
-          <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}
+          <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}
 
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div  layout="row">
+          <div layout="row">
             <span flex></span>
             <md-button ng-click="cancel();">
               Close
             </md-button>
-            <md-button ng-disabled="!accountFound" class="md-primary" ng-click="allocate(form);">
-              Allocate
+            <md-button class="md-primary" ng-click="post(form);">
+              Submit
             </md-button>
           </div>
         </form>

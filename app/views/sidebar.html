@@ -107,6 +107,10 @@
              <h4 class="menu-header" flex>
                Reports
              </h4>
+             <md-button ng-click="toggleMenu()" flex  ui-sref="report_accounts" ng-show="$root.report_accounts"   class="md-primary">
+               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
+               Accounts
+             </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="balances" ng-show="$root.report_account_receivable"   class="md-primary">
                <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Accounts Receivable

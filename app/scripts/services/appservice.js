@@ -73,6 +73,9 @@ app.service('appService', function($http, $cookieStore) {
     return getToken();
   }
 
+  this.getBaseURl = function() {
+    return BASE_URL;
+  }
   this.authenticate = function(request) {
     return $http({
       method: POST_REQUEST,
@@ -728,16 +731,56 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
-  this.getPostBankTransactions = function(request) {
+  this.getPostBankFiles = function(request) {
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + POSTBANK,
+      url: BASE_URL + 'postBankFiles',
       headers: {
         'Content-Type': 'application/json'
       },
       data: angular.toJson(getPayload(request))
     });
   };
+
+  this.getPostBankFile = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + 'postBankFiles/one',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
+  this.postPostBankFile = function(request) {
+    return $http({
+      method: PUT_REQUEST,
+      url: BASE_URL + 'postBankFiles',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
+
+  this.getPostBankFileTransactions = function(fileId) {
+    var request={};
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + 'postBankFiles/byFile/'+fileId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
+
 
   this.allocatePostBankTransaction = function(request, recordId) {
     return $http({
@@ -854,6 +897,17 @@ app.service('appService', function($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS + '/fieldCard',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getAccountsReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + ACCOUNTS + '/accounts',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -1054,7 +1108,7 @@ app.service('appService', function($http, $cookieStore) {
   this.updateMessage = function(request, recordId) {
     return $http({
       method: PUT_REQUEST,
-      url: BASE_URL + SMS +'/'+recordId,
+      url: BASE_URL + SMS + '/' + recordId,
       headers: {
         'Content-Type': 'application/json'
       },

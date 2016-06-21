@@ -20,6 +20,7 @@
                   </md-option>
                </md-optgroup>
             </md-select>
+            <md-button ng-show="report" filename="ageing.csv" ng-csv="generateCsv()" csv-header="['ACCOUNT#','NAME','STATUS','ZONE','0-30','30-60','60-90','90-120','120-180','Above 180','Balance']">Export to CSV</md-button>
             <md-button ng-click="generate(form)">Submit</md-button>
          </md-content>
       </form>

@@ -7,141 +7,155 @@
  * # PostbankCtrl
  * Controller of the majiApp
  */
-  app.controller('PostBankCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
-    var config = appService.getCofig();
-    $scope.params = {};
-    $scope.params.page = 1;
-    $scope.params.size = 10;
+app.controller('PostBankCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope, $timeout, Upload) {
+  var config = appService.getCofig();
+  $scope.params = {};
+  $scope.params.page = 1;
+  $scope.params.size = 10;
 
-    //search filter
-    $scope.searchFilter = {};
-    $scope.searchFilter.text = '';
+  //search filter
+  $scope.searchFilter = {};
+  $scope.searchFilter.text = '';
 
-    //listen on role added
-    $scope.$on('onReloadPageData', function(event) {
-      $scope.getPageData(1);
+  //listen on role added
+  $scope.$on('onReloadPageData', function(event) {
+    $scope.getPageData(1);
+  });
+
+  //handle pagination
+  $scope.pageChanged = function(newPage) {
+    $scope.getPageData(newPage);
+  };
+
+  $scope.getPageData = function(newPage) {
+    newPage--;
+    var request = {};
+    request.page = newPage;
+    request.size = 10;
+
+
+    if (typeof $scope.searchFilter.text === 'undefined') {
+      $scope.searchFilter.text = '';
+    }
+    //set search filter
+    request.filter = $scope.searchFilter.text;
+
+    //send request
+    appService.getPostBankFiles(request).success(function(response) {
+      $scope.errorOccured = false;
+      $scope.files = response.payload.content;
+      $scope.totalFiles = response.payload.totalElements; //to change this
+      $state.go('postbank');
+    }).error(function(data, status) {
+      if (status === 401) {
+        $state.go('session');
+        $scope.message = data.message;
+      } else {
+        $scope.errorOccured = true;
+        $scope.errorMsg = data.message;
+        $state.go('postbank');
+      }
     });
 
-    //handle pagination
-    $scope.pageChanged = function(newPage) {
-      $scope.getPageData(newPage);
-    };
+  };
 
-    $scope.getPageData = function(newPage) {
-      newPage--;
-      var request = {};
-      request.page = newPage;
-      request.size = 10;
+  //load page data
+  $scope.getPageData(1);
 
-
-      if (typeof $scope.searchFilter.text === 'undefined') {
-        $scope.searchFilter.text = '';
-      }
-      //set search filter
-      request.filter = $scope.searchFilter.text;
-
-      //send request
-      appService.getPostBankTransactions(request).success(function(response) {
-        $scope.errorOccured = false;
-        $scope.transactions = response.payload.content;
-        $scope.totalTransactions = response.payload.totalElements; //to change this
-        $state.go('postbank');
-      }).error(function(data, status) {
-        if (status === 401) {
-          $state.go('session');
-          $scope.message = data.message;
-        } else {
-          $scope.errorOccured = true;
-          $scope.errorMsg = data.message;
-          $state.go('postbank');
-        }
-      });
-
-    };
-
-    //load page data
+  $scope.seach = function() {
     $scope.getPageData(1);
+  };
 
-    $scope.seach = function() {
-      $scope.getPageData(1);
-    };
 
-    $scope.assignTransactionDialog = function (index) {
-      $scope.transaction = $scope.transactions[index];
-      $mdDialog.show({
-        controller: AllocateTransactionDialogController,
-        templateUrl: 'views/template/postbank_edit.html',
-        resolve: {
-          transaction: function () {
-            return $scope.transaction;
-          }
-        }
+  $scope.upload = function(file, errFiles) {
+    var postUrl = appService.getBaseURl() + 'postBankFiles/create';
+    var token = appService.getAuthToken();
+    $scope.errorMsg = "";
+
+    $scope.f = file;
+    $scope.errFile = errFiles && errFiles[0];
+    if (file) {
+      file.upload = Upload.upload({
+        url: postUrl,
+        fields: {
+          'token': token
+        }, // additional data to send
+        file: file
       });
-    };
+      file.upload.then(function(response) {
+        $timeout(function() {
+          //$scope.errorMsg = response.message;
+          $scope.getPageData(1);
+        });
+      }, function(response) {
+        $scope.errorMsg = response.data.message;
+        $scope.getPageData(1);
+        if (response.status > 0) {
+          $scope.errorMsg = response.data.message;
+        }
+      }, function(evt) {
+        file.progress = Math.min(100, parseInt(100.0 *
+          evt.loaded / evt.total));
+      });
+    }
+  };
 
-    function AllocateTransactionDialogController($scope, $mdDialog, $rootScope, transaction, appService) {
-      var config = appService.getCofig();
-      $scope.myForm = {};
-      $scope.transaction = transaction;
-      $scope.form = {};
 
-      var request = {};
-      request.page = 0;
-      request.size = 20;
 
-      $scope.searchConnection = function () {
+
+  $scope.postDialog = function(index) {
+    $scope.file = $scope.files[index];
+    $mdDialog.show({
+      controller: PostFileCtrl,
+      templateUrl: 'views/template/postbank_edit.html',
+      resolve: {
+        file: function() {
+          return $scope.file;
+        }
+      }
+    });
+  };
+
+  function PostFileCtrl($scope, $mdDialog, $rootScope, file, appService) {
+    var config = appService.getCofig();
+    $scope.myForm = {};
+    $scope.file = file;
+    $scope.form = {};
+
+
+
+    $scope.post = function(form) {
+      var myForm = $scope.myForm;
+      if (myForm.object.$valid) {
+
         var request = {};
-        request.accNo = $scope.form.accountNo;
-        //send request
-        appService.getAccount(request).success(function (response) {
-          $scope.account = response.payload;
-          $scope.accountFound = true;
-          $scope.errorOccured = false;
-        }).error(function (data, status) {
+        request.fileId = $scope.file.fileId;
+        request.status = form.action;
+
+        appService.postPostBankFile(request).success(function(response) {
+          $scope.showErrorInfo = true;
+          $scope.errorClass = config.cssAlertSucess;
+          $scope.errorMsg = response.message;
+          //notify roles page to reload data
+          $rootScope.$broadcast('onReloadPageData');
+
+        }).error(function(data, status) {
           if (status === 401) {
             $state.go('session');
             $scope.message = data.message;
           } else {
-            $scope.errorOccured = true;
-            $scope.accountFound = false;
+            $scope.showErrorInfo = true;
+            $scope.errorClass = config.cssAlertDanger;
             $scope.errorMsg = data.message;
           }
         });
-      };
-
-      $scope.allocate = function (form) {
-        var myForm = $scope.myForm;
-        if (myForm.object.$valid) {
-
-          var transaction = {};
-          transaction.notes = form.notes;
-          transaction.accNo = form.accountNo;
-          var transactionId = $scope.transaction.postbankTransactionId;
-
-          appService.allocatePostBankTransaction(transaction, transactionId).success(function (response) {
-            $scope.showErrorInfo = true;
-            $scope.errorClass = config.cssAlertSucess;
-            $scope.errorMsg = response.message;
-            //notify roles page to reload data
-            $rootScope.$broadcast('onReloadPageData');
-
-          }).error(function (data, status) {
-            if (status === 401) {
-              $state.go('session');
-              $scope.message = data.message;
-            } else {
-              $scope.showErrorInfo = true;
-              $scope.errorClass = config.cssAlertDanger;
-              $scope.errorMsg = data.message;
-            }
-          });
-        }
       }
-
-      $scope.cancel = function () {
-        $mdDialog.cancel();
-      };
-
     }
 
-  });
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+  }
+
+});
