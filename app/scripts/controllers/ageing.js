@@ -124,7 +124,7 @@ app.controller('AgeingCtrl', function($scope, $http, appService, $cookieStore, $
       }
       $scope.csvData.push({
         a: value.accNo,
-        b: value.accName,
+        b: value.name,
         c: accStatus,
         d: value.zone,
         e: value.above0,

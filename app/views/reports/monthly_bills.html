@@ -47,7 +47,7 @@
 <div class="report" ng-show="report"  ng-repeat="bill in data.content">
   <table width="100%" border="0" style="overflow:hidden;font-weight: 100;">
     <tr>
-      <td colspan="2">
+      <td colspan="2" align="center">
         <h1>
           {{data.company}}
         </h1>
@@ -57,25 +57,30 @@
       <td colspan="2">
         <table width="100%">
           <tr>
+            <td width="20%">
+              <!-- <img src="images/kimawasco.png" class="pull-right" width="50"/> -->
+              <!-- <img src="images/nolturesh.png" class="pull-right" width="50"/> -->
+              <!-- Get this from settings -->
+              <img src="{{data.imageUrl}}"  width="50"/>
+            </td>
             <td width="80%">
               <table width="100%">
                 <tr>
                   <td>
-                    <h3>
-                      {{data.title}}
-                    </h3>
+                    <span class="pull-right">
+                      <p ng-bind-html="data.address"></p>
+                    </span>
                   </td>
                 </tr>
-                <!--<tr>-->
-                  <!--<td>-->
-                    <!--<h3 style="color:#006dcc">{{data.title}}</h3>-->
-                  <!--</td>-->
-                <!--</tr>-->
               </table>
             </td>
-            <td width="20%">
-              <!-- <img src="images/kimawasco.png" class="pull-right" width="50"/> -->
-              <img src="images/nolturesh.png" class="pull-right" width="50"/>
+          </tr>
+          <tr>
+            <td colspan="2" align="center">
+              <!-- Report title -->
+              <h3 class="billtitle">
+                {{data.title}}
+              </h3>
             </td>
           </tr>
         </table>

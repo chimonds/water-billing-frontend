@@ -14,8 +14,10 @@ app.service('appService', function($http, $cookieStore) {
   //TEST -  comment this
   // var BASE_URL = 'http://192.168.0.102:9090/api/v1/';
   var BASE_URL = 'http://localhost:9090/api/v1/';
+  // var BASE_URL = 'http://192.168.0.103:9090/api/v1/';
   // var BASE_URL = 'https://kimawasco.opentembo.io/simba/api/v1/';
   // var BASE_URL = 'http://192.168.0.101/simba/api/v1/';
+  // var BASE_URL = 'https://wowasco.opentembo.io/simba/api/v1/';
 
   var ROLES = 'roles';
   var PERMISSIONS = 'permissions';
@@ -665,6 +667,18 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getBillOnAverageUnits = function() {
+    var request = {};
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLS + '/billOnAverageUnits',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.getLastBillByAccount = function(request, accountId) {
     return $http({
       method: POST_REQUEST,
@@ -768,10 +782,10 @@ app.service('appService', function($http, $cookieStore) {
 
 
   this.getPostBankFileTransactions = function(fileId) {
-    var request={};
+    var request = {};
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + 'postBankFiles/byFile/'+fileId,
+      url: BASE_URL + 'postBankFiles/byFile/' + fileId,
       headers: {
         'Content-Type': 'application/json'
       },

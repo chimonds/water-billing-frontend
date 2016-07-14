@@ -99,6 +99,10 @@ h3 {
   font-family: Roboto;
   font-size: 16px;
 }
+.billtitle{
+  background-color: blue !important;
+  color: #FFFFFF !important;
+}
 .legroom {
   height: 10px;
   display: block;

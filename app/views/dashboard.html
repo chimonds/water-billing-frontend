@@ -43,6 +43,35 @@
           <md-subheader  class="stats-caption" flex>Paid This Month</md-subheader>
         </md-content>
 
+        <!-- <md-content ng-show="$root.stats_paid_today" class="total-records" style="color: #009688" layout="column" layout-align="space-between center">
+          <md-content flex>{{stats.topView.paidToday | number}}</md-content>
+          <md-subheader  class="stats-caption" flex>Paid Today</md-subheader>
+        </md-content>
+
+        <md-content ng-show="$root.stats_payments_not_allocated" class="total-records" style="color: #009688" layout="column" layout-align="space-between center">
+          <md-content flex>{{stats.topView.notAllocated | number}}</md-content>
+          <md-subheader class="stats-caption" flex>Not Allocated</md-subheader>
+        </md-content>
+
+        <md-content ng-show="$root.stats_sms_balance" class="total-records" style="color: #009688" layout="column" layout-align="space-between center">
+          <md-content flex>{{stats.topView.smsBalance | number}}</md-content>
+          <md-subheader class="stats-caption" flex>SMS Balance</md-subheader>
+        </md-content> -->
+
+      </md-content>
+
+      <md-content flex layout-align="space-between center" layout-md="column" layout-gt-sm="column" layout-gt-md="row" layout-sm="column" layout-lg="row">
+
+        <md-content ng-show="$root.stats_paid_today" class="total-records" style="color: #009688" layout="column" layout-align="space-between center">
+          <md-content flex>{{stats.topView.balances | number}}</md-content>
+          <md-subheader  class="stats-caption" flex>Balances</md-subheader>
+        </md-content>
+
+        <md-content ng-show="$root.stats_paid_today" class="total-records" style="color: #009688" layout="column" layout-align="space-between center">
+          <md-content flex>{{stats.topView.creditBalances | number}}</md-content>
+          <md-subheader  class="stats-caption" flex>Credit Balances</md-subheader>
+        </md-content>
+
         <md-content ng-show="$root.stats_paid_today" class="total-records" style="color: #009688" layout="column" layout-align="space-between center">
           <md-content flex>{{stats.topView.paidToday | number}}</md-content>
           <md-subheader  class="stats-caption" flex>Paid Today</md-subheader>

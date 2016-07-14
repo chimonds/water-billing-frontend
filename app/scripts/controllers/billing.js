@@ -37,6 +37,21 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
     }
   });
 
+  appService.getBillOnAverageUnits().success(function (response) {
+    $scope.billOnAverageUnits = response.payload;
+  }).error(function (data, status) {
+    if (status === 401) {
+      $state.go('session');
+      $scope.message = data.message;
+    } else {
+      $scope.errorOccured = true;
+      $scope.errorMsg = data.message;
+      $state.go('billing');
+    }
+  });
+
+
+
   $scope.data = {};
   $scope.data.lastBillingDate = '';
 
@@ -58,7 +73,7 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
     $scope.lastBill={};
 
     var accNo = $scope.form.accNo;
-    if(accNo.length<9){
+    if(accNo.length<5){
       $scope.searchingResults =true;
       return;
     }
@@ -139,7 +154,7 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
     var lastReading = $scope.form.previousReading;
     var currentReading = $scope.form.meterReading;
     var units = currentReading - lastReading;
-    if (units > 0) {
+    if (units > $scope.billOnAverageUnits) {
       $scope.form.consumptionType = 'Actual';
     } else {
       units = $scope.data.averageConsumption;

@@ -25,7 +25,7 @@
 
           <md-input-container>
             <label>Connection Number</label>
-            <input ng-change="searchConnection();" maxlength="9"  type="text"  required name="initialReading" ng-model="form.accountNo">
+            <input ng-change="searchConnection();" maxlength="12"  type="text"  required name="initialReading" ng-model="form.accountNo">
             <div ng-messages="myForm.object.initialReading.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message=" maxlength">The connection number has to be less than 9 characters long.</div>
