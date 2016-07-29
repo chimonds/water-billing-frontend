@@ -1,19 +1,21 @@
 <md-dialog aria-label="brown" flex>
   <md-content>
-    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to open/close a billing date</md-subheader>
+    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to update bill item type</md-subheader>
     <div flex layout="column">
       <md-content class="md-padding">
         <form name="myForm.object">
 
           <md-input-container>
-            <label>Billing Date</label>
-            <input disabled="disabled" ng-model="form.billingDate | date">
+            <label>Name</label>
+            <input disabled="disabled" ng-model="form.name">
           </md-input-container>
 
           <md-input-container>
-            <md-checkbox aria-label="Is Open" class="md-primary" ng-model="form.isActive">
-              Open
-            </md-checkbox>
+            <label>Amount</label>
+            <input name="amount" ng-model="form.amount" required type="number">
+            <div ng-messages="myForm.object.amount.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
           </md-input-container>
 
           <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}</div>

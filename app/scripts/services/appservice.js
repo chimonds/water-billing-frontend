@@ -18,6 +18,8 @@ app.service('appService', function($http, $cookieStore) {
   // var BASE_URL = 'https://kimawasco.opentembo.io/simba/api/v1/';
   // var BASE_URL = 'http://192.168.0.101/simba/api/v1/';
   // var BASE_URL = 'https://wowasco.opentembo.io/simba/api/v1/';
+  // var BASE_URL = 'http://192.168.0.101:9090/api/v1/';
+
 
   var ROLES = 'roles';
   var PERMISSIONS = 'permissions';
@@ -454,6 +456,18 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getSchemesList = function() {
+    var request = {};
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + ACCOUNTS + '/schemeList',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.getAccount = function(request) {
     return $http({
       method: POST_REQUEST,
@@ -502,6 +516,17 @@ app.service('appService', function($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ACCOUNTS + '/status/' + accountId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.turnOnOffAccount = function(request, accountId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + ACCOUNTS + '/turnOnOff/' + accountId,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -834,6 +859,17 @@ app.service('appService', function($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + BILL_ITEM_TYPES,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.updateBillItemType = function(request, recordId) {
+    return $http({
+      method: PUT_REQUEST,
+      url: BASE_URL + BILL_ITEM_TYPES + '/' + recordId,
       headers: {
         'Content-Type': 'application/json'
       },

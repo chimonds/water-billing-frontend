@@ -18,6 +18,7 @@
                <thead>
                   <tr>
                      <th>Name</th>
+                     <th>Scheme</th>
                      <th>Description</th>
                      <th>Created</th>
                      <th></th>
@@ -26,6 +27,7 @@
                <tbody>
                   <tr dir-paginate="zone in zones | itemsPerPage: 10" total-items="totalZones" pagination-id="pagePagination">
                      <td>{{ zone.name }}</td>
+                     <td>{{ zone.scheme.name }}</td>
                      <td>{{zone.description}}</td>
                      <td>
                         <span am-time-ago="zone.createdOn"> </span>

@@ -1,0 +1,33 @@
+<md-card>
+  <md-card-content>
+    <md-content>
+      <md-subheader class="md-primary">Use this panel to manage bill item types</md-subheader>
+      <md-content>
+        <div class="clearfix"></div>
+        <div class="alert alert-danger" ng-show="errorOccured" role="alert">
+          {{errorMsg}}
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Created On</th>
+              <th>Name</th>
+              <th><span class="pull-right">Charge</span></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="billItemType in billItemTypes">
+              <td><span am-time-ago="billItemType.createdOn"></span></td>
+              <td>{{billItemType.name}}</td>
+              <td align="right">{{billItemType.amount | number}}</td>
+              <td align="right">
+                <md-button class="md-primary" ng-click="editDialog($index)">Edit</md-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-content>
+    </md-content>
+  </md-card-content>
+</md-card>

@@ -87,6 +87,11 @@
                <!-- <span aria-hidden="true" class="icon-calendar"></span> -->
                Billing Months
              </md-button>
+
+             <md-button ng-click="toggleMenu()" flex ui-sref="bill_item_types" ng-show="$root.settings_update"  class="md-primary">
+               Bill Item Types
+             </md-button>
+
              <md-button ng-click="toggleMenu()" flex ui-sref="locations" ng-show="$root.location_view"  class="md-primary">
                <!-- <span aria-hidden="true" class="icon-pointer"></span> -->
                Locations

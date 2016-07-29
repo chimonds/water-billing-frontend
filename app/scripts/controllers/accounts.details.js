@@ -259,6 +259,60 @@ app.controller('AccountsDetailCtrl', function ($scope, $http, appService, $cooki
     };
   };
 
+  $scope.turnOnOffDialog = function () {
+    $mdDialog.show({
+      controller: TurnOnOffDialogController,
+      templateUrl: 'views/template/account_turn_on_off.html',
+      resolve: {
+        account: function () {
+          return $scope.account;
+        }
+      }
+    });
+  };
+
+  function TurnOnOffDialogController($scope, $mdDialog, $rootScope, account, appService) {
+    var config = appService.getCofig();
+    $scope.myForm = {};
+    $scope.account = account;
+    $scope.form ={};
+
+    $scope.cancel = function () {
+      $mdDialog.cancel();
+    };
+    $scope.update = function (form) {
+      var myForm = $scope.myForm.object;
+      if (myForm.$invalid === false) {
+        //good to go
+        $scope.showErrorInfo = true;
+        $scope.errorClass = config.cssAlertInfo;
+        $scope.errorMsg = config.msgSendingData;
+        var accountId = $scope.account.accountId;
+        var request = {};
+        request.notes = form.notes;
+        //send request
+        appService.turnOnOffAccount(request, accountId).success(function (response) {
+          $scope.errorOccured = false;
+          $scope.errorClass = config.cssAlertSucess;
+          $scope.errorMsg = response.message;
+          //notify
+          $rootScope.$broadcast('onReloadAccountData');
+
+        }).error(function (data, status) {
+          if (status === 401) {
+            $state.go('session');
+            $scope.message = data.message;
+          } else {
+            $scope.errorOccured = true;
+            $scope.errorClass = config.cssAlertDanger;
+            $scope.errorMsg = data.message;
+          }
+        });
+      }
+    };
+  };
+
+
   $scope.changeAccountStatusDialog = function () {
     $mdDialog.show({
       controller: ChangeAccountStatusDialogController,
@@ -311,4 +365,5 @@ app.controller('AccountsDetailCtrl', function ($scope, $http, appService, $cooki
       }
     };
   };
+
 });

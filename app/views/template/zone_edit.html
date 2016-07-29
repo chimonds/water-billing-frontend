@@ -1,4 +1,4 @@
-<md-dialog aria-label="Edit User Role" flex>
+<md-dialog aria-label="Edit User Role" flex="50">
   <md-content>
     <md-subheader class="md-sticky-no-effect md-primary">Use this panel to edit zone</md-subheader>
     <div flex layout="column">
@@ -12,6 +12,18 @@
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
           </md-input-container>
+
+          <md-input-container>
+            <label>Scheme</label>
+            <md-select name="scheme" ng-model="form.scheme.schemeId" required>
+              <md-option ng-repeat="scheme in schemes" value="{{scheme.schemeId}}">{{scheme.name}}
+              </md-option>
+            </md-select>
+            <div ng-messages="myForm.object.scheme.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
           <md-input-container>
             <label>Description</label>
             <textarea name="roleDescription" ng-model="form.description" required></textarea rows="4" cols="50">

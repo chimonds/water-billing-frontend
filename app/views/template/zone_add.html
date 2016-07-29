@@ -12,6 +12,19 @@
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
           </md-input-container>
+
+          <md-input-container>
+            <label>Scheme</label>
+            <md-select name="scheme" ng-model="form.scheme.schemeId" required>
+              <md-option ng-repeat="scheme in schemes" value="{{scheme.schemeId}}">{{scheme.name}}
+              </md-option>
+            </md-select>
+            <div ng-messages="myForm.object.scheme.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+
           <md-input-container>
             <label>Description</label>
             <textarea name="roleDescription" ng-model="form.description" required></textarea rows="4" cols="50">
@@ -20,6 +33,7 @@
 
             </div>
           </md-input-container>
+
           <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}
 
             <button aria-label="Close" class="close" data-dismiss="alert" type="button">

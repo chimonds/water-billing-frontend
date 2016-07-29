@@ -1,0 +1,57 @@
+<md-dialog aria-label="Change account status" flex>
+  <md-content>
+    <span ng-switch="account.onStatus">
+      <span ng-switch-when="0" style="color:#ffffff;background:#FF5722;padding:8px">Pending</span>
+      <span ng-switch-when="1" style="color:#ffffff;background:#5cb85c;padding:8px">Turned On</span>
+      <span ng-switch-when="2" style="color:#ffffff;background:#ff0000;padding:8px">Turned Off</span>
+    </span>
+
+    <span ng-switch="account.onStatus">
+      <span ng-switch-when="0">
+        <md-subheader class="md-sticky-no-effect md-primary">Would you like to turn on account
+          <strong>{{account.accNo}}</strong>?</md-subheader>
+        <md-content class="md-padding">
+          <div class="alert alert-success" role="alert">This allows you to bill and receipt the account</div>
+        </md-content>
+      </span>
+      <span ng-switch-when="1">
+        <md-subheader class="md-sticky-no-effect md-primary">Would you like to turn off account
+          <strong>{{account.accNo}}</strong>?</md-subheader>
+        <md-content class="md-padding">
+          <div class="alert alert-danger" role="alert">
+            <strong>Warning!</strong>
+            This process is not reversable. You will not be able to bill and receipt the account after the action.</div>
+        </md-content>
+      </span>
+    </span>
+
+    <div flex layout="column">
+      <md-content class="md-padding">
+        <form name="myForm.object">
+          <md-input-container>
+            <label>Notes</label>
+            <textarea name="notes" ng-model="form.notes" ng-pattern="/^[a-zA-Z_ ]*$/" required></textarea rows="4" cols="50">
+            <div ng-messages="myForm.notes.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="pattern">Special characters not allowed</div>
+            </div>
+          </md-input-container>
+          <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}
+            <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="md-actions" layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel();">
+              Close
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="update(form);">
+              Yes
+            </md-button>
+          </div>
+        </form>
+      </md-content>
+    </div>
+  </md-content>
+</md-dialog>

@@ -140,6 +140,14 @@ var app = angular
           requireLogin: true
         }
       })
+      .state('bill_item_types', {
+        url: '/bill_item_types',
+        templateUrl: 'views/bill_item_types.html',
+        controller: 'BillItemTypesCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
       .state('consumers', {
         url: '/consumers',
         templateUrl: 'views/consumers.html',

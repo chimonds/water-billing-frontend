@@ -3,13 +3,13 @@
 /**
  * @author maitha.manyala [at] gmail.com
  * @ngdoc function
- * @name majiApp.controller:BillingMonthsCtrl
+ * @name majiApp.controller:BillItemTypesCtrl
  * @description
  * # UsersCtrl
- * Controller of the BillingMonthsCtrl
+ * Controller of the BillItemTypesCtrl
  */
 
-app.controller('BillingMonthsCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
+app.controller('BillItemTypesCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
   //get config
   var config = appService.getCofig();
   $scope.params = {};
@@ -42,11 +42,10 @@ app.controller('BillingMonthsCtrl', function($scope, $http, appService, $cookieS
     request.filter = '';
 
     //send request
-    appService.getBillingMonths(request).success(function(response) {
+    appService.getBillItemTypes(request).success(function(response) {
       $scope.errorOccured = false;
-      $scope.months = response.payload.content;
-      $scope.totalMonths = response.payload.totalElements; //to change this
-      $state.go('billing_months');
+      $scope.billItemTypes = response.payload;
+      //$state.go('billing_months');
     }).error(function(data, status) {
       if (status === 401) {
         $state.go('session');
@@ -63,27 +62,25 @@ app.controller('BillingMonthsCtrl', function($scope, $http, appService, $cookieS
   //load data
   $scope.getPageData(1);
 
-  $scope.editBillingMonthDialog = function(index) {
-    $scope.billingMonth = $scope.months[index];
+  $scope.editDialog = function(index) {
+    $scope.billItemType = $scope.billItemTypes[index];
 
     $mdDialog.show({
       controller: EditBillingMonthDialogController,
-      templateUrl: 'views/template/billing_month_edit.html',
+      templateUrl: 'views/template/bill_item_type_edit.html',
       resolve: {
-        billingMonth: function() {
-          return $scope.billingMonth;
+        billItemType: function() {
+          return $scope.billItemType;
         }
       }
     });
   };
 
-  function EditBillingMonthDialogController($scope, $mdDialog, $rootScope, billingMonth, appService) {
+  function EditBillingMonthDialogController($scope, $mdDialog, $rootScope, billItemType, appService) {
     var config = appService.getCofig();
-    $scope.billingMonth = billingMonth;
+    $scope.billItemType = billItemType;
 
-    $scope.form = {};
-    $scope.form.billingDate = billingMonth.month;
-    $scope.form.isActive = billingMonth.active;
+    $scope.form = billItemType;
 
 
     $scope.cancel = function() {
@@ -97,24 +94,16 @@ app.controller('BillingMonthsCtrl', function($scope, $http, appService, $cookieS
       $scope.errorClass = config.cssAlertInfo;
       $scope.errorMsg = config.msgSendingData;
 
-      if (form.isActive === false) {
-        $scope.billingMonth.current = 0;
-      } else {
-        $scope.billingMonth.current = 1;
-      }
-
-      // $scope.billingMonth.current = form.isActive;
-      var request = $scope.billingMonth;
-      var billingMonthId = $scope.billingMonth.billingMonthId;
+      var request = $scope.billItemType;
+      var billTypeId = $scope.billItemType.billTypeId;
 
       //send request
-      appService.updateBillingMonth(request, billingMonthId).success(function(response) {
+      appService.updateBillItemType(request, billTypeId).success(function(response) {
         $scope.errorOccured = false;
         $scope.errorClass = config.cssAlertSucess;
         $scope.errorMsg = response.message;
         //notify roles page to reload data
         $rootScope.$broadcast('onReloadPageData');
-
       }).error(function(data, status) {
         if (status === 401) {
           $state.go('session');
@@ -125,7 +114,6 @@ app.controller('BillingMonthsCtrl', function($scope, $http, appService, $cookieS
           $scope.errorMsg = data.message;
         }
       });
-
     };
   }
 });
