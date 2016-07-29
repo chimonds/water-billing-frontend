@@ -44,7 +44,7 @@
           </p>
           <p>
             Status:
-            <a href="" ng-click="turnOnOffDialog();">
+            <a href="" ng-click="turnOnOffDialog();" class="account-status">
               <span ng-switch="account.onStatus">
                 <span ng-switch-when="0" style="color:#ffffff;background:#FF5722;padding:8px">Pending</span>
                 <span ng-switch-when="1" style="color:#ffffff;background:#5cb85c;padding:8px">Turned On</span>
@@ -82,7 +82,7 @@
             </p>
             <p>
               Cut Off:
-              <a href="" ng-click="changeAccountStatusDialog();">
+              <a href="" ng-click="changeAccountStatusDialog();" class="account-status">
                 <span ng-switch="account.isCutOff">
                   <span ng-switch-when="true" style="color:#ffffff;background:#ff0000;padding:8px">Yes</span>
                   <span ng-switch-when="false" style="color:#ffffff;background:#5cb85c;padding:8px">No</span>

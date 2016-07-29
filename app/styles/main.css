@@ -532,3 +532,6 @@ html {
     background: orange;
     width: 0;
 }
+.account-status:hover{
+  text-decoration: none;
+}

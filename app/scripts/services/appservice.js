@@ -312,6 +312,17 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getZonesByScheme = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + ZONES+'/byScheme',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.updateZone = function(request, objectId) {
     return $http({
       method: PUT_REQUEST,
