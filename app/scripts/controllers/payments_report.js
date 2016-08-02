@@ -17,12 +17,33 @@ app.controller('PaymentsReportCtrl', function($scope, $http, appService, $cookie
   request.page = 0;
   request.size = 100;
 
-  //Load zones
-  appService.getZones(request).success(function(response) {
-    $scope.zones = response.payload.content;
+  //Getting billing months
+  appService.getBillingMonths().success(function(response) {
+    $scope.billingMonths = response.payload;
   }).error(function(data, status) {
     $state.go('session');
   });
+
+  //get schemes
+  appService.getSchemesList().success(function(response) {
+    $scope.schemes = response.payload;
+  }).error(function(data, status) {
+    $state.go('session');
+  });
+
+  //Load zones
+  $scope.getSchemeZones = function() {
+    $scope.zones = {};
+    $scope.form.zoneId = "";
+
+    var request = {};
+    request.schemeId = $scope.form.schemeId;
+    appService.getZonesByScheme(request).success(function(response) {
+      $scope.zones = response.payload;
+    }).error(function(data, status) {
+      $state.go('session');
+    });
+  };
 
   //Get payment types
   appService.getPaymentTypes(request).success(function(response) {
@@ -36,46 +57,24 @@ app.controller('PaymentsReportCtrl', function($scope, $http, appService, $cookie
     $scope.progress = true;
     $scope.report = false;
     //Get active billing month
-    var request = {};
-
-    var myForm = $scope.myForm.object;
+    // var request = {};
+    //
+    // var myForm = $scope.myForm.object;
 
     //set from date
-    var fromDate = moment(form.fromDate).unix();
-    if (typeof fromDate === 'undefined' || typeof fromDate === 'NaN') {
-      fromDate = moment().unix();
-    }
-    request.fromDate = fromDate;
+    // var fromDate = moment(form.fromDate).unix();
+    // if (typeof fromDate === 'undefined' || typeof fromDate === 'NaN') {
+    //   fromDate = moment().unix();
+    // }
+    // request.fromDate = fromDate;
+    //
+    // var toDate = moment(form.toDate).unix();
+    // if (typeof toDate === 'undefined' || typeof toDate === 'NaN') {
+    //   toDate = moment().unix();
+    // }
+    // request.toDate = toDate;
 
-    var toDate = moment(form.toDate).unix();
-    if (typeof toDate === 'undefined' || typeof toDate === 'NaN') {
-      toDate = moment().unix();
-    }
-    request.toDate = toDate;
-
-
-
-    //select zone
-    var zone = form.accZone;
-    if (typeof zone !== 'undefined') {
-      request.zoneId = $scope.zones[zone].zoneId;
-    }
-
-    var paymentType = form.paymentType;
-    if (typeof paymentType !== 'undefined') {
-      request.paymentTypeId = $scope.paymentTypes[paymentType].paymentTypeId;
-    }
-
-    var paymentSource = form.paymentSource;
-    if (typeof paymentSource !== 'undefined') {
-      request.paymentSourceId = form.paymentSource;
-    }
-
-
-    var params = {};
-    params.fields = request;
-
-    appService.getPaymentsReport(params).success(function(response) {
+    appService.getPaymentsReport(form).success(function(response) {
       $scope.progress = false;
       $scope.error = false;
       $scope.records = response.payload;
@@ -100,7 +99,7 @@ app.controller('PaymentsReportCtrl', function($scope, $http, appService, $cookie
     $scope.csvData = [];
     var accounts = $scope.records.content;
     angular.forEach(accounts, function(value) {
-      var transDate= new Date(value.transactionDate);
+      var transDate = new Date(value.transactionDate);
       $scope.csvData.push({
         a: value.accNo,
         b: value.accName,

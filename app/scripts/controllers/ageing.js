@@ -14,101 +14,91 @@ app.controller('AgeingCtrl', function($scope, $http, appService, $cookieStore, $
   $scope.report = false;
   $scope.form = {};
 
-  $scope.status = [{
-    'name': 'All'
-  }, {
-    'name': 'Active'
-  }, {
-    'name': 'Inactive'
-  }];
+  $scope.params = {};
+  $scope.params.page = 1;
+  $scope.params.size = 10;
 
-  $scope.credit = [{
-    'name': 'Include'
-  }, {
-    'name': 'Exclude'
-  }, {
-    'name': 'Only'
-  }];
 
-  var request = {};
-  request.page = 0;
-  request.size = 100;
+  //search filter
+  $scope.searchFilter = {};
 
-  //Load zones
-  appService.getZones(request).success(function(response) {
-    $scope.zones = response.payload.content;
+
+  $scope.$on('onReloadPageData', function(event) {
+    $scope.getPageData(1);
+  });
+
+  //handle pagination
+  $scope.pageChanged = function(newPage) {
+    $scope.getPageData(newPage);
+  };
+
+  $scope.getPageData = function(newPage) {
+    newPage--;
+    var request = {};
+    request.page = newPage;
+    request.size = 10;
+
+    //send request
+    appService.getAgeingReportHeaders(request).success(function(response) {
+      $scope.error = false;
+      $scope.headers = response.payload.content;
+      $scope.totalRecords = response.payload.totalElements; //to change this
+    }).error(function(data, status) {
+      if (status === 401) {
+        $state.go('session');
+        $scope.message = data.message;
+      } else {
+        $scope.error = true;
+        $scope.message = data.message;
+      }
+    });
+  };
+
+  //load page data
+  $scope.getPageData(1);
+
+
+  //get schemes
+  appService.getSchemesList().success(function(response) {
+    $scope.schemes = response.payload;
   }).error(function(data, status) {
     $state.go('session');
   });
 
+  //Load zones
+  $scope.getSchemeZones = function() {
+    $scope.zones = {};
+
+    var request = {};
+    request.schemeId = $scope.form.scheme.schemeId;
+    appService.getZonesByScheme(request).success(function(response) {
+      $scope.zones = response.payload;
+    }).error(function(data, status) {
+      $state.go('session');
+    });
+  };
+
 
   $scope.generate = function(form) {
-    $scope.progress = true;
-    $scope.report = false;
-    //Get active billing month
-    var request = {};
+    $scope.showErrorInfo = true;
+    $scope.errorClass = config.cssAlertInfo;
+    $scope.errorMsg = config.msgSendingData;
 
-    var myForm = $scope.myForm.object;
-
-    //set transaction date
-    var transactionDate = moment(form.transactionDate).unix();
-    if (typeof transactionDate === 'undefined' || typeof transactionDate === 'NaN') {
-      transactionDate = moment().unix();
-    }
-    request.transactionDate = transactionDate;
-
-    //select zone
-    var zone = form.accZone;
-    if (typeof zone !== 'undefined') {
-      request.zoneId = $scope.zones[zone].zoneId;
-    }
-
-    var accountStatus = form.status;
-    if (typeof accountStatus !== 'undefined') {
-      request.accountStatus = $scope.status[accountStatus].name;
-    }
-
-    var params = {};
-    params.fields = request;
-
-    appService.getAgeingReport(params).success(function(response) {
-      $scope.progress = false;
-      $scope.error = false;
-      $scope.records = response.payload;
-      $scope.report = true;
-
-      //Calculate the totals
-      $scope.totalAbove0 = 0;
-      $scope.totalabove30 = 0;
-      $scope.totalabove60 = 0;
-      $scope.totalabove90 = 0;
-      $scope.totalabove120 = 0;
-      $scope.totalabove180 = 0;
-      $scope.totalBalance = 0;
-
-      for (var i = 0; i < $scope.records.content.length; i++) {
-        var record = $scope.records.content[i];
-
-
-        $scope.totalAbove0 += record.above0;
-        $scope.totalabove30 += record.above30;
-        $scope.totalabove60 += record.above60;
-        $scope.totalabove90 += record.above90;
-        $scope.totalabove120 += record.above120;
-        $scope.totalabove180 += record.above180;
-        $scope.totalBalance += record.balance;
-      }
-
+    appService.createAgeingBalanceReportHeader(form).success(function(response) {
+      $scope.errorOccured = false;
+      $scope.errorClass = config.cssAlertSucess;
+      $scope.errorMsg = response.message;
+      //notify page to reload data
+      $rootScope.$broadcast('onReloadPageData');
 
     }).error(function(data, status) {
       if (status === 401) {
-        $scope.progress = false;
         $state.go('session');
         $scope.message = data.message;
       } else {
-        $scope.progress = false;
-        $scope.error = true;
-        $scope.message = data.message;
+        $scope.errorOccured = true;
+        $scope.errorClass = config.cssAlertDanger;
+        $scope.errorMsg = data.message;
       }
     });
   };

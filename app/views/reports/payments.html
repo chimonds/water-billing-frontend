@@ -3,12 +3,22 @@
     <p>
       <md-subheader class="md-primary no-print">Receipts Report</md-subheader>
       <form name="myForm.object">
-        <md-content layout-align="space-between center" layout-sm="column" layout="row">
+        <div layout-align="space-between center" layout-sm="column" layout="row">
+
+          <md-input-container>
+            <label>Scheme</label>
+            <md-select ng-change="getSchemeZones()" ng-model="form.schemeId">
+              <md-option ng-repeat="scheme in schemes" value="{{scheme.schemeId}}">
+                {{scheme.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
           <!--Zones-->
           <md-input-container>
             <label>Zone</label>
-            <md-select ng-model="form.accZone">
-              <md-option ng-repeat="zone in zones" value="{{$index}}">
+            <md-select ng-model="form.zoneId">
+              <md-option ng-repeat="zone in zones" value="{{zone.zoneId}}">
                 {{zone.name}}
               </md-option>
             </md-select>
@@ -17,8 +27,8 @@
           <!--PaymentType-->
           <md-input-container>
             <label>Receipt Type</label>
-            <md-select ng-model="form.paymentType">
-              <md-option ng-repeat="p in paymentTypes" value="{{$index}}">
+            <md-select ng-model="form.paymentTypeId">
+              <md-option ng-repeat="p in paymentTypes" value="{{p.paymentTypeId}}">
                 {{p.name}}
               </md-option>
             </md-select>
@@ -27,21 +37,12 @@
           <!--PaymentSource-->
           <md-input-container>
             <label>Receipt Source</label>
-            <md-select ng-model="form.paymentSource">
+            <md-select ng-model="form.paymentSourceId">
                 <md-option value="1">Cash</md-option>
                 <md-option value="2">M-PESA</md-option>
                 <md-option value="3">Postbank</md-option>
             </md-select>
           </md-input-container>
-
-          <!--Credit balances-->
-          <!--<md-select ng-model="form.credit" placeholder="Credit Balances">-->
-          <!--<md-optgroup label="Credit Balances">-->
-          <!--<md-option ng-repeat="c in credit" value="{{$index}}">-->
-          <!--{{c.name}}-->
-          <!--</md-option>-->
-          <!--</md-optgroup>-->
-          <!--</md-select>-->
 
           <!--From date-->
           <md-input-container>
@@ -53,10 +54,11 @@
             <label>To Date</label>
             <input ng-model="form.toDate" type="date">
           </md-input-container>
+
           <md-button ng-show="report" filename="receipts.csv" ng-csv="generateCsv()" csv-header="['ACCOUNT#',	'NAME',	'ZONE',	'DATE',	'TYPE',	'RECEIPT#',	'AMOUNT']">Export to CSV</md-button>
           <md-button ng-click="generate(form)">Submit</md-button>
 
-        </md-content>
+        </div>
       </form>
     </p>
 
@@ -93,7 +95,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="record in records.content | orderBy:'-transactionDate'">
+      <tr ng-repeat="record in records.content">
         <td>{{record.accNo}}</td>
         <td>{{record.accName}}</td>
         <td>{{record.zone}}</td>

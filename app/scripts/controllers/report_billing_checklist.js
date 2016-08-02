@@ -13,75 +13,39 @@ app.controller('ReportBillingChecklistCtrl', function($scope, $http, appService,
   $scope.report = false;
   $scope.form = {};
 
-  $scope.status = [{
-    'name': 'All'
-  }, {
-    'name': 'Active'
-  }, {
-    'name': 'Inactive'
-  }];
-
-  $scope.credit = [{
-    'name': 'Include'
-  }, {
-    'name': 'Exclude'
-  }, {
-    'name': 'Only'
-  }];
-
-  var request = {};
-  request.page = 0;
-  request.size = 100;
-
-  //Load zones
-  appService.getZones(request).success(function(response) {
-    $scope.zones = response.payload.content;
-  }).error(function(data, status) {
-    $state.go('session');
-  });
-
-  appService.getAllBillingMonths(request).success(function(response) {
-    console.log(response);
+  //Getting billing months
+  appService.getBillingMonths().success(function(response) {
     $scope.billingMonths = response.payload;
   }).error(function(data, status) {
     $state.go('session');
   });
 
+  //get schemes
+  appService.getSchemesList().success(function(response) {
+    $scope.schemes = response.payload;
+  }).error(function(data, status) {
+    $state.go('session');
+  });
+
+  //Load zones
+  $scope.getSchemeZones = function() {
+    $scope.zones = {};
+    $scope.form.zoneId = "";
+
+    var request = {};
+    request.schemeId = $scope.form.schemeId;
+    appService.getZonesByScheme(request).success(function(response) {
+      $scope.zones = response.payload;
+    }).error(function(data, status) {
+      $state.go('session');
+    });
+  };
 
   $scope.generate = function(form) {
     $scope.progress = true;
     $scope.report = false;
-    //Get active billing month
-    var request = {};
 
-    var myForm = $scope.myForm.object;
-
-    //select zone
-    var billingMonth = form.billingMonth;
-    if (typeof billingMonth !== 'undefined') {
-      request.billingMonthId = $scope.billingMonths[billingMonth].billingMonthId;
-    }
-
-    //select zone
-    var zone = form.accZone;
-    if (typeof zone !== 'undefined') {
-      request.zoneId = $scope.zones[zone].zoneId;
-    }
-
-    var accountStatus = form.status;
-    if (typeof accountStatus !== 'undefined') {
-      request.accountStatus = $scope.status[accountStatus].name;
-    }
-
-    var creditBalances = form.credit;
-    if (typeof creditBalances !== 'undefined') {
-      request.creditBalances = $scope.credit[accountStatus].name;
-    }
-
-    var params = {};
-    params.fields = request;
-
-    appService.getBillingChecklistReport(params).success(function(response) {
+    appService.getBillingChecklistReport(form).success(function(response) {
       $scope.progress = false;
       $scope.error = false;
       $scope.data = response.payload;
@@ -96,7 +60,6 @@ app.controller('ReportBillingChecklistCtrl', function($scope, $http, appService,
         $scope.progress = false;
         $scope.error = true;
         $scope.message = data.message;
-        $state.go('billing_checklist');
       }
     });
   };
@@ -124,7 +87,7 @@ app.controller('ReportBillingChecklistCtrl', function($scope, $http, appService,
         i: value.meterRent,
         j: value.otherCharges,
         k: value.amountBilled,
-        l: (value.meterRent+ value.otherCharges+ value.amountBilled)
+        l: (value.meterRent + value.otherCharges + value.amountBilled)
       });
     });
     return $scope.csvData;

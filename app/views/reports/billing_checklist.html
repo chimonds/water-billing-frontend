@@ -2,40 +2,50 @@
   <md-card-content>
     <p>
       <md-subheader class="md-primary no-print">Billing Checklist Report</md-subheader>
-    <form name="myForm.object">
-      <md-content layout-sm="column" layout="row" layout-align="space-between center">
-        <!--Zones-->
-        <md-select ng-model="form.accZone" placeholder="Select Zone">
-          <md-optgroup label="Zones">
-            <md-option ng-repeat="zone in zones" value="{{$index}}">
-              {{zone.name}}
-            </md-option>
-          </md-optgroup>
-        </md-select>
+      <form name="myForm.object">
+        <div layout-align="space-between center" layout-sm="column" layout="row">
 
-        <!--Account status-->
-        <md-select ng-model="form.status" placeholder="Account Status">
-          <md-optgroup label="Account Status">
-            <md-option ng-repeat="s in status" value="{{$index}}">
-              {{s.name}}
-            </md-option>
-          </md-optgroup>
-        </md-select>
+          <md-input-container>
+            <label>CutOff</label>
+            <md-select name="cutOff" ng-model="form.cutOff">
+              <md-option value="false">No</md-option>
+              <md-option value="true">Yes</md-option>
+            </md-select>
+          </md-input-container>
 
-        <!--Billing month-->
-        <md-select ng-model="form.billingMonth" placeholder="Billing Month">
-          <md-optgroup label="Billing Month">
-            <md-option ng-repeat="m in billingMonths" value="{{$index}}">
-              {{m.month | date:'MMM, yyyy'}}
-            </md-option>
-          </md-optgroup>
-        </md-select>
+          <md-input-container>
+            <label>Scheme</label>
+            <md-select ng-change="getSchemeZones()" ng-model="form.schemeId">
+              <md-option ng-repeat="scheme in schemes" value="{{scheme.schemeId}}">
+                {{scheme.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
 
-        <md-button ng-show="report" filename="billing_checklist.csv" ng-csv="generateCsv()" csv-header="['ACCOUNT#',	'NAME',	'ZONE','CONSUMPTION','CR','PR','AVERAGE','UNITS','METER RENT','CHARGES','BILLED','TOTAL']">Export to CSV</md-button>
-        <md-button ng-click="generate(form)">Submit</md-button>
+          <!--Zones-->
+          <md-input-container>
+            <label>Zone</label>
+            <md-select ng-model="form.zoneId">
+              <md-option ng-repeat="zone in zones" value="{{zone.zoneId}}">
+                {{zone.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
 
-      </md-content>
-    </form>
+          <!--Billing month-->
+          <md-input-container>
+            <label>Billing Month</label>
+            <md-select ng-model="form.billingMonthId">
+              <md-option ng-repeat="m in billingMonths" value="{{m.billingMonthId}}">
+                {{m.month | date:'MMM, yyyy'}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-button csv-header="['ACCOUNT#',	'NAME',	'ZONE','CONSUMPTION','CR','PR','AVERAGE','UNITS','METER RENT','CHARGES','BILLED','TOTAL']" filename="billing_checklist.csv" ng-csv="generateCsv()" ng-show="report">Export to CSV</md-button>
+          <md-button ng-click="generate(form)">Submit</md-button>
+        </div>
+      </form>
     </p>
 
     <p ng-show="progress">
@@ -43,8 +53,7 @@
       <md-progress-linear md-mode="indeterminate"></md-progress-linear>
     </p>
     <p>
-
-    <div ng-show="error" class="alert alert-danger" role="alert">{{message}}</div>
+      <div class="alert alert-danger" ng-show="error" role="alert">{{message}}</div>
     </p>
   </md-card-content>
 </md-card>
@@ -56,88 +65,88 @@
     <span class="pull-right">{{data.date | date:'medium'}}</span>
   </h2>
   <p>
-    {{data.content.length | number}} Records
+    {{data.content.length | number}}
+    Records
   </p>
   <hr/>
   <table width="100%">
     <thead>
-    <tr>
-      <th>ACCOUNT#</th>
-      <th>NAME</th>
-      <th>ZONE</th>
-      <th>CONSUMPTION</th>
-      <th>
-        <span class="pull-right">
-          CR
-        </span>
-      </th>
-      <th>
-        <span class="pull-right">
-          PR
-      </span>
-      </th>
+      <tr>
+        <th>ACCOUNT#</th>
+        <th>NAME</th>
+        <th>ZONE</th>
+        <th>CONSUMPTION</th>
+        <th>
+          <span class="pull-right">
+            CR
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            PR
+          </span>
+        </th>
 
-      <th>
-      <span class="pull-right">
-              AVERAGE
-      </span>
-      </th>
-      <th>
-      <span class="pull-right">
-              UNITS
-      </span>
-      </th>
-      <th>
-      <span class="pull-right">
-              METER RENT
-      </span>
-      </th>
-      <th>
-      <span class="pull-right">
-              BILLED
-      </span>
-      </th>
-      <th>
-      <span class="pull-right">
-              TOTAL
-      </span>
-      </th>
-    </tr>
+        <th>
+          <span class="pull-right">
+            AVERAGE
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            UNITS
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            METER RENT
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            BILLED
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            TOTAL
+          </span>
+        </th>
+      </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="reading in data.content | orderBy:'-amountBilled'">
-      <td>{{reading.accNo}}</td>
-      <td>{{reading.accName}}</td>
-      <td>{{reading.zone}}</td>
-      <td>{{reading.consumption}}</td>
-      <td align="right">{{reading.currentReading}}</td>
-      <td align="right">{{reading.previousReading}}</td>
-      <td align="right">{{reading.average | number}}</td>
-      <td align="right">{{reading.units | number}}</td>
-      <td align="right">{{reading.meterRent | number}}</td>
-      <td align="right">{{reading.amountBilled | number}}</td>
-      <td align="right">{{reading.meterRent+ reading.amountBilled  | number}}</td>
-    </tr>
-    <tr>
-      <td colspan="11">
-        <hr/>
-      </td>
-    </tr>
-    <tr>
-      <td>Total</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td align="right"></td>
-      <td align="right"></td>
-      <td align="right"></td>
-      <td align="right">{{data.units | number}}</td>
-      <td align="right">{{data.meterRent | number}}</td>
-      <td align="right">{{data.amount | number}}</td>
-      <td align="right">{{data.meterRent+data.amount  | number}}</td>
+      <tr ng-repeat="reading in data.content | orderBy:'-amountBilled'">
+        <td>{{reading.accNo}}</td>
+        <td>{{reading.accName}}</td>
+        <td>{{reading.zone}}</td>
+        <td>{{reading.consumption}}</td>
+        <td align="right">{{reading.currentReading}}</td>
+        <td align="right">{{reading.previousReading}}</td>
+        <td align="right">{{reading.average | number}}</td>
+        <td align="right">{{reading.units | number}}</td>
+        <td align="right">{{reading.meterRent | number}}</td>
+        <td align="right">{{reading.amountBilled | number}}</td>
+        <td align="right">{{reading.meterRent+ reading.amountBilled  | number}}</td>
+      </tr>
+      <tr>
+        <td colspan="11">
+          <hr/>
+        </td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="right"></td>
+        <td align="right"></td>
+        <td align="right"></td>
+        <td align="right">{{data.units | number}}</td>
+        <td align="right">{{data.meterRent | number}}</td>
+        <td align="right">{{data.amount | number}}</td>
+        <td align="right">{{data.meterRent+data.amount  | number}}</td>
 
-    </tr>
+      </tr>
     </tbody>
   </table>
 </div>
-

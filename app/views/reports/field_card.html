@@ -2,39 +2,49 @@
   <md-card-content>
     <p>
       <md-subheader class="md-primary no-print">Field Card Report</md-subheader>
-    <form name="myForm.object">
-      <md-content layout-sm="column" layout="row" layout-align="space-between center">
-        <!--Zones-->
-        <md-select ng-model="form.accZone" placeholder="Select Zone">
-          <md-optgroup label="Zones">
-            <md-option ng-repeat="zone in zones" value="{{$index}}">
-              {{zone.name}}
-            </md-option>
-          </md-optgroup>
-        </md-select>
+      <form name="myForm.object">
+        <div layout-align="space-between center" layout-sm="column" layout="row">
+          <md-input-container>
+            <label>Status</label>
+            <md-select name="status" ng-model="form.onStatus">
+              <md-option value="0">Pending</md-option>
+              <md-option value="1">Turned On</md-option>
+              <md-option value="2">Turned Off</md-option>
+            </md-select>
+          </md-input-container>
 
-        <!--Account status-->
-        <md-select ng-model="form.status" placeholder="Account Status">
-          <md-optgroup label="Account Status">
-            <md-option ng-repeat="s in status" value="{{$index}}">
-              {{s.name}}
-            </md-option>
-          </md-optgroup>
-        </md-select>
+          <md-input-container>
+            <label>CutOff</label>
+            <md-select name="cutOff" ng-model="form.cutOff">
+              <md-option value="false">No</md-option>
+              <md-option value="true">Yes</md-option>
+            </md-select>
+          </md-input-container>
 
-        <!--Billing month-->
-        <!--<md-select ng-model="form.billingMonth" placeholder="Billing Month">-->
-        <!--<md-optgroup label="Billing Month">-->
-        <!--<md-option ng-repeat="m in billingMonths" value="{{$index}}">-->
-        <!--{{m.month | date}}-->
-        <!--</md-option>-->
-        <!--</md-optgroup>-->
-        <!--</md-select>-->
-        <md-button ng-show="report" filename="field_card.csv" ng-csv="generateCsv()" csv-header="['ACCOUNT#',	'NAME',	'ZONE','LOCATION','STATUS','METER NO',	'METER OWNER',	'READING',	'COMMENTS']">Export to CSV</md-button>
-        <md-button ng-click="generate(form)">Submit</md-button>
+          <md-input-container>
+            <label>Scheme</label>
+            <md-select ng-change="getSchemeZones()" ng-model="form.schemeId">
+              <md-option ng-repeat="scheme in schemes" value="{{scheme.schemeId}}">
+                {{scheme.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
 
-      </md-content>
-    </form>
+          <!--Zones-->
+          <md-input-container>
+            <label>Zone</label>
+            <md-select ng-model="form.zoneId">
+              <md-option ng-repeat="zone in zones" value="{{zone.zoneId}}">
+                {{zone.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-button csv-header="['ACCOUNT#',	'NAME',	'ZONE','LOCATION','STATUS','METER NO',	'METER OWNER',	'READING',	'COMMENTS']" filename="field_card.csv" ng-csv="generateCsv()" ng-show="report">Export to CSV</md-button>
+          <md-button ng-click="generate(form)">Submit</md-button>
+
+        </div>
+      </form>
     </p>
 
     <p ng-show="progress">
@@ -43,7 +53,7 @@
     </p>
     <p>
 
-    <div ng-show="error" class="alert alert-danger" role="alert">{{message}}</div>
+      <div class="alert alert-danger" ng-show="error" role="alert">{{message}}</div>
     </p>
   </md-card-content>
 </md-card>
@@ -56,35 +66,36 @@
   </h2>
 
   <p>
-    {{data.content.length | number}} Records
+    {{data.content.length | number}}
+    Records
   </p>
   <hr/>
   <table width="100%">
     <thead>
-    <tr>
-      <th>ACCOUNT#</th>
-      <th>NAME</th>
-      <th>ZONE</th>
-      <th>LOCATION</th>
-      <th>STATUS</th>
-      <th>METER NO</th>
-      <th>METER OWNER</th>
-      <th>READING</th>
-      <th>COMMENTS</th>
-    </tr>
+      <tr>
+        <th>ACCOUNT#</th>
+        <th>NAME</th>
+        <th>ZONE</th>
+        <th>LOCATION</th>
+        <th>STATUS</th>
+        <th>METER NO</th>
+        <th>METER OWNER</th>
+        <th>READING</th>
+        <th>COMMENTS</th>
+      </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="reading in data.content | orderBy:'-accNo'">
-      <td>{{reading.accNo}}</td>
-      <td>{{reading.accName}}</td>
-      <td>{{reading.zone}}</td>
-      <td>{{reading.location}}</td>
-      <td>{{reading.status}}</td>
-      <td>{{reading.meterNo}}</td>
-      <td>{{reading.meterOwner}}</td>
-      <td></td>
-      <td></td>
-    </tr>
+      <tr ng-repeat="reading in data.content | orderBy:'-accNo'">
+        <td>{{reading.accNo}}</td>
+        <td>{{reading.accName}}</td>
+        <td>{{reading.zone}}</td>
+        <td>{{reading.location}}</td>
+        <td>{{reading.status}}</td>
+        <td>{{reading.meterNo}}</td>
+        <td>{{reading.meterOwner}}</td>
+        <td></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
 </div>

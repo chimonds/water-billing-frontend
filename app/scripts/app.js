@@ -212,6 +212,14 @@ var app = angular
           requireLogin: true
         }
       })
+      .state('balance', {
+        url: '/balances/{reportHeaderId}',
+        templateUrl: 'views/reports/balances.detail.html',
+        controller: 'BalancesDetailCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
 
       .state('bills', {
         url: '/monthly_bill_report',

@@ -14,87 +14,93 @@ app.controller('BalancesCtrl', function($scope, $http, appService, $cookieStore,
   $scope.report = false;
   $scope.form = {};
 
-  $scope.status = [{
-    'name': 'All'
-  }, {
-    'name': 'Active'
-  }, {
-    'name': 'Inactive'
-  }];
+  $scope.params = {};
+  $scope.params.page = 1;
+  $scope.params.size = 10;
 
-  $scope.credit = [{
-    'name': 'Include'
-  }, {
-    'name': 'Exclude'
-  }, {
-    'name': 'Only'
-  }];
 
-  var request = {};
-  request.page = 0;
-  request.size = 100;
+  //search filter
+  $scope.searchFilter = {};
 
-  //Load zones
-  appService.getZones(request).success(function(response) {
-    $scope.zones = response.payload.content;
+
+  $scope.$on('onReloadPageData', function(event) {
+    $scope.getPageData(1);
+  });
+
+  //handle pagination
+  $scope.pageChanged = function(newPage) {
+    $scope.getPageData(newPage);
+  };
+
+  $scope.getPageData = function(newPage) {
+    newPage--;
+    var request = {};
+    request.page = newPage;
+    request.size = 10;
+
+    //send request
+    appService.getAccountBalanceReportHeaders(request).success(function(response) {
+      $scope.error = false;
+      $scope.headers = response.payload.content;
+      $scope.totalRecords = response.payload.totalElements; //to change this
+    }).error(function(data, status) {
+      if (status === 401) {
+        $state.go('session');
+        $scope.message = data.message;
+      } else {
+        $scope.error = true;
+        $scope.message = data.message;
+      }
+    });
+  };
+
+  //load page data
+  $scope.getPageData(1);
+
+
+  //get schemes
+  appService.getSchemesList().success(function(response) {
+    $scope.schemes = response.payload;
   }).error(function(data, status) {
     $state.go('session');
   });
 
+  //Load zones
+  $scope.getSchemeZones = function() {
+    $scope.zones = {};
+
+    var request = {};
+    request.schemeId = $scope.form.scheme.schemeId;
+    appService.getZonesByScheme(request).success(function(response) {
+      $scope.zones = response.payload;
+    }).error(function(data, status) {
+      $state.go('session');
+    });
+  };
+
 
   $scope.generate = function(form) {
-    $scope.progress = true;
-    $scope.report = false;
-    //Get active billing month
-    var request = {};
+    $scope.showErrorInfo = true;
+    $scope.errorClass = config.cssAlertInfo;
+    $scope.errorMsg = config.msgSendingData;
 
-    var myForm = $scope.myForm.object;
-
-    //set transaction date
-    var transactionDate = moment(form.transactionDate).unix();
-    if (typeof transactionDate === 'undefined' || typeof transactionDate === 'NaN') {
-      transactionDate = moment().unix();
-    }
-    request.transactionDate = transactionDate;
-
-    //select zone
-    var zone = form.accZone;
-    if (typeof zone !== 'undefined') {
-      request.zoneId = $scope.zones[zone].zoneId;
-    }
-
-    var accountStatus = form.status;
-    if (typeof accountStatus !== 'undefined') {
-      request.accountStatus = $scope.status[accountStatus].name;
-    }
-
-    var creditBalances = form.credit;
-    if (typeof creditBalances !== 'undefined') {
-      request.creditBalances = $scope.credit[accountStatus].name;
-    }
-
-    var params = {};
-    params.fields = request;
-
-    appService.getAccountsReceivables(params).success(function(response) {
-      $scope.progress = false;
-      $scope.error = false;
-      $scope.accounts = response.payload;
-      $scope.report = true;
+    appService.createAccountBalanceReportHeader(form).success(function(response) {
+      $scope.errorOccured = false;
+      $scope.errorClass = config.cssAlertSucess;
+      $scope.errorMsg = response.message;
+      //notify page to reload data
+      $rootScope.$broadcast('onReloadPageData');
 
     }).error(function(data, status) {
       if (status === 401) {
-        $scope.progress = false;
         $state.go('session');
         $scope.message = data.message;
       } else {
-        $scope.progress = false;
-        $scope.error = true;
-        $scope.message = data.message;
-        $state.go('balances');
+        $scope.errorOccured = true;
+        $scope.errorClass = config.cssAlertDanger;
+        $scope.errorMsg = data.message;
       }
     });
-
   };
 
   //Generate CSV File
@@ -116,5 +122,5 @@ app.controller('BalancesCtrl', function($scope, $http, appService, $cookieStore,
     });
     return $scope.csvData;
   };
-  
+
 });

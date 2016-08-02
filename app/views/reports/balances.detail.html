@@ -1,0 +1,82 @@
+<md-card class="no-print">
+  <md-card-content>
+    <p>
+      <md-subheader class="md-primary no-print">Accounts Balances Report</md-subheader>
+      <ol class="breadcrumb" flex>
+        <li>
+          <a ui-sref="dashboard">Home</a>
+        </li>
+        <li>
+          <a ui-sref="balances">Balances</a>
+        </li>
+        <li class="active">{{reportHeaderId | lowercase}}</li>
+      </ol>
+
+      <md-button csv-header="['ACCOUNT#', 'NAME', 'ZONE','STATUS','BALANCE']" filename="balances.csv" ng-csv="generateCsv()" ng-show="report">Export to CSV</md-button>
+
+    </p>
+
+    <p>
+      <div class="alert alert-danger" ng-show="error" role="alert">{{message}}</div>
+    </p>
+
+  </md-card-content>
+</md-card>
+
+<div class="report">
+  <h1>{{accounts.company}}</h1>
+
+  <h2>
+    {{accounts.title}}
+    <span class="pull-right">{{accounts.date | date:'medium'}}</span>
+  </h2>
+  <hr/>
+  <table width="100%">
+    <thead>
+      <tr>
+        <th>ACCOUNT#</th>
+        <th>NAME</th>
+        <th>ZONE</th>
+        <th>STATUS</th>
+        <th>
+          <span class="pull-right">
+            BALANCE (KES)
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="account in accounts.content">
+        <td>{{account.accNo}}</td>
+        <td>{{account.name}}</td>
+        <td>{{account.zone}}</td>
+        <td>{{account.cutOff}}</td>
+        <td align="right">{{account.balance | number}}</td>
+      </tr>
+      <tr>
+        <td colspan="5">
+          <hr/>
+          <h1>
+            Totals
+            <span class="pull-right">
+              Balances
+              {{accounts.amount | number}}
+            </span>
+          </h1>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="5">
+          <hr/>
+          <h1>
+
+            <span class="pull-right">
+              Credit Balances
+              {{accounts.amount1 | number}}
+            </span>
+          </h1>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

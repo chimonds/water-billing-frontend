@@ -49,6 +49,7 @@ app.service('appService', function($http, $cookieStore) {
   var SMS_TEMPLATES = 'smstemplates';
   var SMS = 'sms';
   var METER_READINGS = 'meterReadings';
+  var REPORT_HEADERS = 'reportHeaders';
 
   //__________________________
   var POST_REQUEST = 'POST';
@@ -315,7 +316,7 @@ app.service('appService', function($http, $cookieStore) {
   this.getZonesByScheme = function(request) {
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + ZONES+'/byScheme',
+      url: BASE_URL + ZONES + '/byScheme',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -1100,6 +1101,20 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getBillingMonths = function() {
+    var request = {};
+    request.page = 0;
+    request.size = 100;
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLING_MONTHS + '/all',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.updatePassword = function(request) {
     return $http({
       method: POST_REQUEST,
@@ -1210,6 +1225,64 @@ app.service('appService', function($http, $cookieStore) {
       data: angular.toJson(getPayload(request))
     });
   };
+
+
+  this.getAccountBalanceReportHeaders = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORT_HEADERS,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getAgeingReportHeaders = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORT_HEADERS + '/ageingPage',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.createAccountBalanceReportHeader = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORT_HEADERS + '/accountBalances',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.createAgeingBalanceReportHeader = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORT_HEADERS + '/createAgeing',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getScheduledAccountBalancesReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORT_HEADERS + '/accountBalancesReport',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
 
 
   this.getSMSPlaceholders = function() {

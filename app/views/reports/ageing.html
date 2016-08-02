@@ -1,117 +1,123 @@
 <md-card class="no-print">
-   <md-card-content>
-      <p>
-         <md-subheader class="md-primary no-print">Ageing Report</md-subheader>
+  <md-card-content>
+    <p>
+      <md-subheader class="md-primary no-print">Ageing Report</md-subheader>
       <form name="myForm.object">
-         <md-content layout-sm="column" layout="row" layout-align="space-between center">
-            <!--Zones-->
-            <md-select ng-model="form.accZone" placeholder="Select Zone">
-               <md-optgroup label="Zones">
-                  <md-option ng-repeat="zone in zones" value="{{$index}}">
-                     {{zone.name}}
-                  </md-option>
-               </md-optgroup>
+        <div layout-align="space-between center" layout-sm="column" layout="row">
+
+          <md-input-container>
+            <label>Status</label>
+            <md-select name="status" ng-model="form.onStatus">
+              <md-option value="0">Pending</md-option>
+              <md-option value="1">Turned On</md-option>
+              <md-option value="2">Turned Off</md-option>
             </md-select>
-            <!--Account status-->
-            <md-select ng-model="form.status" placeholder="Account Status">
-               <md-optgroup label="Account Status">
-                  <md-option ng-repeat="s in status" value="{{$index}}">
-                     {{s.name}}
-                  </md-option>
-               </md-optgroup>
+          </md-input-container>
+
+          <md-input-container>
+            <label>CutOff</label>
+            <md-select name="cutOff" ng-model="form.cutOff">
+              <md-option value="0">All</md-option>
+              <md-option value="1">No</md-option>
+              <md-option value="2">Yes</md-option>
             </md-select>
-            <md-button ng-show="report" filename="ageing.csv" ng-csv="generateCsv()" csv-header="['ACCOUNT#','NAME','STATUS','ZONE','0-30','30-60','60-90','90-120','120-180','Above 180','Balance']">Export to CSV</md-button>
-            <md-button ng-click="generate(form)">Submit</md-button>
-         </md-content>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Scheme</label>
+            <md-select ng-change="getSchemeZones()" ng-model="form.scheme.schemeId">
+              <md-option ng-repeat="scheme in schemes" value="{{scheme.schemeId}}">
+                {{scheme.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <!--Zones-->
+          <md-input-container>
+            <label>Zone</label>
+            <md-select ng-model="form.zone.zoneId">
+              <md-option ng-repeat="zone in zones" value="{{zone.zoneId}}">
+                {{zone.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <!--Transaction date-->
+          <md-input-container>
+            <label>To Date</label>
+            <input ng-model="form.toDate" type="date">
+          </md-input-container>
+
+          <md-button csv-header="['ACCOUNT#', 'NAME', 'ZONE','STATUS','BALANCE']" filename="balances.csv" ng-csv="generateCsv()" ng-show="report">Export to CSV</md-button>
+          <md-button ng-click="generate(form)">Submit</md-button>
+        </div>
       </form>
-      </p>
-      <p ng-show="progress">
-         Crunching data, please wait...
-         <md-progress-linear md-mode="indeterminate"></md-progress-linear>
-      </p>
-      <p>
-      <div ng-show="error" class="alert alert-danger" role="alert">{{message}}</div>
-      </p>
-   </md-card-content>
-</md-card>
-<div class="report" ng-show="report">
-   <h1>{{records.company}}</h1>
-   <h2>
-      {{records.title}}
-      <span class="pull-right">{{records.date | date:'medium'}}</span>
-   </h2>
-   <hr/>
-   <table width="100%">
+    </p>
+
+    <p>
+      <div class="alert alert-danger" ng-show="error" role="alert">{{message}}</div>
+      <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}</div>
+    </p>
+
+    <table class="table table-hover">
       <thead>
-         <tr>
-            <th>ACCOUNT#</th>
-            <th>NAME</th>
-            <th>STATUS</th>
-            <th>ZONE</th>
-            <th>
-               <span class="pull-right">
-               0-30
-               </span>
-            </th>
-            <th>
-               <span class="pull-right">
-               30-60
-               </span>
-            </th>
-            <th>
-               <span class="pull-right">
-               60-90
-               </span>
-            </th>
-            <th>
-               <span class="pull-right">
-               90-120
-               </span>
-            </th>
-            <th>
-               <span class="pull-right">
-               120-180
-               </span>
-            </th>
-            <th>
-               <span class="pull-right">
-               Above 180
-               </span>
-            </th>
-            <th>
-               <span class="pull-right">
-               Balance
-               </span>
-            </th>
-         </tr>
-      </thead>
-      <tbody>
-         <tr ng-repeat="record in records.content | orderBy:'-balance'">
-            <td>{{record.accNo}}</td>
-            <td>{{record.name}}</td>
-            <td>{{record.cutOff}}</td>
-            <td>{{record.zone}}</td>
-            <td align="right">{{record.above0 | number}}</td>
-            <td align="right">{{record.above30 | number}}</td>
-            <td align="right">{{record.above60 | number}}</td>
-            <td align="right">{{record.above90 | number}}</td>
-            <td align="right">{{record.above120 | number}}</td>
-            <td align="right">{{record.above180 | number}}</td>
-            <td align="right">{{record.balance | number}}</td>
-         </tr>
-         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td align="right">{{totalAbove0 | number}}</td>
-            <td align="right">{{totalabove30 | number}}</td>
-            <td align="right">{{totalabove60 | number}}</td>
-            <td align="right">{{totalabove90 | number}}</td>
-            <td align="right">{{totalabove120| number}}</td>
-            <td align="right">{{totalabove180 | number}}</td>
-            <td align="right">{{totalBalance | number}}</td>
-         </tr>
-      </tbody>
-   </table>
-</div>
+        <tr>
+          <th>Created On</th>
+          <th>Requested By</th>
+          <th>To Date</th>
+          <th>On Status</th>
+          <th>Cut Off</th>
+          <th>Scheme</th>
+          <th>Zone</th>
+          <th>Status</th>
+          <th></th>
+          <th>
+            <span class="pull-right">
+              <md-button class="md-primary" ng-click="pageChanged(1)">Refresh</md-button>
+              <span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr dir-paginate="header in headers | itemsPerPage: 10" pagination-id="pagePagination" total-items="totalRecords">
+              <td>
+                <span am-time-ago="header.createdOn"></span>
+              </td>
+              <td>{{header.requestedBy }}</td>
+              <td>{{header.toDate | date }}</td>
+              <td>
+                <span ng-switch="header.onStatus">
+                  <span ng-switch-when="0" style="color:#FF5722;background:#f5f5f5;padding:8px">Pending</span>
+                  <span ng-switch-when="1" style="color:#5cb85c;background:#f5f5f5;padding:8px">Turned On</span>
+                  <span ng-switch-when="2" style="color:#ff0000;background:#f5f5f5;padding:8px">Turned Off</span>
+                </span>
+              </td>
+              <td>
+                <span ng-switch="header.cutOff">
+                  <span ng-switch-when="2" style="color:#ff0000;background:#f5f5f5;padding:8px">Yes</span>
+                  <span ng-switch-when="1" style="color:#5cb85c;background:#f5f5f5;padding:8px">No</span>
+                  <span ng-switch-when="0" style="color:#272727;background:#f5f5f5;padding:8px">All</span>
+                </span>
+              </td>
+              <td>{{header.scheme.name}}</td>
+              <td>{{header.zone.name}}</td>
+              <td>
+                <span ng-switch="header.status">
+                  <span ng-switch-when="0" style="color:#272727;background:#f5f5f5;padding:8px">Pending</span>
+                  <span ng-switch-when="1" style="color:#FF5722;background:#f5f5f5;padding:8px">Processing</span>
+                  <span ng-switch-when="2" style="color:#f5f5f5;background:#5cb85c;padding:8px">Processed</span>
+                </span>
+              </td>
+              <td>{{header.timeTaken}}</td>
+              <td align="right">
+                <md-button class="md-primary" ui-sref="balance({ reportHeaderId: header.reportHeaderId})">View</md-button>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" colspan="10">
+                <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-card-content>
+    </md-card>

@@ -4,7 +4,7 @@
     <p>
 
       <form name="myForm.object">
-        <md-content layout-align="space-between center" layout-sm="column" layout="row">
+        <div layout-align="space-between center" layout-sm="column" layout="row">
           <md-input-container>
             <label>Status</label>
             <md-select name="status" ng-model="form.onStatus">
@@ -24,8 +24,8 @@
 
           <md-input-container>
             <label>Scheme</label>
-            <md-select ng-model="form.schemeId" ng-change="getSchemeZones()">
-              <md-option ng-repeat="scheme in schemes" value="{{scheme.schemeId}}" >
+            <md-select ng-change="getSchemeZones()" ng-model="form.schemeId">
+              <md-option ng-repeat="scheme in schemes" value="{{scheme.schemeId}}">
                 {{scheme.name}}
               </md-option>
             </md-select>
@@ -44,7 +44,7 @@
           <md-button csv-header="['CREATED ON',	'ACCOUNT#', 'NAME','ZONE','MOBILE NO','STATUS']" filename="accounts.csv" ng-csv="generateCsv()" ng-show="report">Export to CSV</md-button>
           <md-button ng-click="generate(form)">Submit</md-button>
 
-        </md-content>
+        </div>
       </form>
     </p>
 
