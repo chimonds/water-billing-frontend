@@ -53,7 +53,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr dir-paginate="transaction in transactions | itemsPerPage: 10" pagination-id="pagePagination" total-items="totalTransactions">
+            <tr dir-paginate="transaction in transactions | itemsPerPage: 500" pagination-id="pagePagination" total-items="totalTransactions">
               <td>{{ transaction.createdOn | date:'medium' }}</td>
               <td>{{transaction.seqNo}}</td>
               <td>{{transaction.accNo}}</td>
@@ -74,6 +74,11 @@
               </td>
               <td>
                 {{transaction.assigned}}
+              </td>
+            </tr>
+            <tr>
+              <td align="center" colspan="3">
+                <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
               </td>
             </tr>
           </tbody>

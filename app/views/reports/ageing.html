@@ -48,7 +48,9 @@
             <input ng-model="form.toDate" type="date">
           </md-input-container>
 
-          <md-button csv-header="['ACCOUNT#', 'NAME', 'ZONE','STATUS','BALANCE']" filename="balances.csv" ng-csv="generateCsv()" ng-show="report">Export to CSV</md-button>
+          <!-- <md-button csv-header="['ACCOUNT#', 'NAME', 'ZONE','STATUS','BALANCE']" filename="balances.csv" ng-csv="generateCsv()" ng-show="report">Export to CSV</md-button> -->
+          <md-button csv-header="['ACCOUNT#','NAME','STATUS','ZONE','0-30','31-60','61-90','91-120','121-180','Above 181','Balance']" filename="ageing.csv" ng-csv="generateCsv()" ng-show="report">Export to CSV</md-button>
+
           <md-button ng-click="generate(form)">Submit</md-button>
         </div>
       </form>
@@ -109,7 +111,7 @@
               </td>
               <td>{{header.timeTaken}}</td>
               <td align="right">
-                <md-button class="md-primary" ui-sref="balance({ reportHeaderId: header.reportHeaderId})">View</md-button>
+                <md-button class="md-primary" ui-sref="ageingReport({ reportHeaderId: header.reportHeaderId})">View</md-button>
               </td>
             </tr>
             <tr>

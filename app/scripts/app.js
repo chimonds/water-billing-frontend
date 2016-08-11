@@ -30,7 +30,7 @@ var app = angular
     'ngTagsInput',
     'ngFileUpload'
   ])
-  .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider, paginationTemplateProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider, paginationTemplateProvider) {
 
     // Allow Cross Domain
     $httpProvider.defaults.useXDomain = true;
@@ -59,7 +59,7 @@ var app = angular
         }
       })
 
-      .state('users', {
+    .state('users', {
         url: '/users',
         templateUrl: 'views/users.html',
         controller: 'UsersCtrl',
@@ -132,7 +132,7 @@ var app = angular
         }
       })
 
-      .state('billing_months', {
+    .state('billing_months', {
         url: '/billing_months',
         templateUrl: 'views/billing_months.html',
         controller: 'BillingMonthsCtrl',
@@ -221,52 +221,52 @@ var app = angular
         }
       })
 
-      .state('bills', {
-        url: '/monthly_bill_report',
-        templateUrl: 'views/reports/monthly_bill_report.html',
-        controller: 'MonthlyBillReportCtrl',
-        data: {
-          requireLogin: true
-        }
-      })
+    .state('bills', {
+      url: '/monthly_bill_report',
+      templateUrl: 'views/reports/monthly_bill_report.html',
+      controller: 'MonthlyBillReportCtrl',
+      data: {
+        requireLogin: true
+      }
+    })
 
-      .state('credit_balances', {
-        url: '/credit_balances',
-        templateUrl: 'views/reports/credit_balances.html',
-        controller: 'ReportCreditBalancesCtrl',
-        data: {
-          requireLogin: true
-        }
-      })
+    .state('credit_balances', {
+      url: '/credit_balances',
+      templateUrl: 'views/reports/credit_balances.html',
+      controller: 'ReportCreditBalancesCtrl',
+      data: {
+        requireLogin: true
+      }
+    })
 
-      .state('customers_without_phones', {
-        url: '/customers_without_phone_numbers',
-        templateUrl: 'views/reports/customers_without_phone_numbers.html',
-        controller: 'ReportCustomersWithoutPhoneNumbersCtrl',
-        data: {
-          requireLogin: true
-        }
-      })
+    .state('customers_without_phones', {
+      url: '/customers_without_phone_numbers',
+      templateUrl: 'views/reports/customers_without_phone_numbers.html',
+      controller: 'ReportCustomersWithoutPhoneNumbersCtrl',
+      data: {
+        requireLogin: true
+      }
+    })
 
-      .state('remote_readings', {
-        url: '/remote_readings',
-        templateUrl: 'views/meter_readings.html',
-        controller: 'RemoteReadingsCtrl',
-        data: {
-          requireLogin: true
-        }
-      })
+    .state('remote_readings', {
+      url: '/remote_readings',
+      templateUrl: 'views/meter_readings.html',
+      controller: 'RemoteReadingsCtrl',
+      data: {
+        requireLogin: true
+      }
+    })
 
-      .state('meter_readings', {
-        url: '/meter_readings',
-        templateUrl: 'views/reports/meter_readings.html',
-        controller: 'ReportMeterReadingsCtrl',
-        data: {
-          requireLogin: true
-        }
-      })
+    .state('meter_readings', {
+      url: '/meter_readings',
+      templateUrl: 'views/reports/meter_readings.html',
+      controller: 'ReportMeterReadingsCtrl',
+      data: {
+        requireLogin: true
+      }
+    })
 
-      .state('report_accounts', {
+    .state('report_accounts', {
         url: '/report_accounts',
         templateUrl: 'views/reports/accounts.html',
         controller: 'ReportAccountsCtrl',
@@ -358,6 +358,14 @@ var app = angular
         url: '/ageing',
         templateUrl: 'views/reports/ageing.html',
         controller: 'AgeingCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
+      .state('ageingReport', {
+        url: '/ageing/{reportHeaderId}',
+        templateUrl: 'views/reports/ageing_detail.html',
+        controller: 'AgeingDetailCtrl',
         data: {
           requireLogin: true
         }
@@ -460,26 +468,25 @@ var app = angular
     // });
 
     $mdThemingProvider.theme('default')
-    .primaryColor('blue');
+      .primaryColor('blue');
 
     //teal
     // $mdThemingProvider.theme('default')
     //     .primaryColor('amazingPaletteName')
   });
 
-app.run(function ($rootScope, $state, $location, $cookieStore) {
+app.run(function($rootScope, $state, $location, $cookieStore) {
 
-  $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
     var userInfo = $cookieStore.get('userInfo');
 
-    if (typeof userInfo === 'undefined') {
-    } else {
+    if (typeof userInfo === 'undefined') {} else {
       $rootScope.currentUser = userInfo;
       $rootScope.showMainToolbar = true;
 
       var permissions = $cookieStore.get('permissions');
-      angular.forEach(permissions, function (permission) {
+      angular.forEach(permissions, function(permission) {
         $rootScope[permission] = true;
       });
     }

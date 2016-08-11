@@ -1,0 +1,101 @@
+<md-card class="no-print">
+  <md-card-content>
+    <p>
+      <md-subheader class="md-primary no-print">Ageing Report</md-subheader>
+      <ol class="breadcrumb" flex>
+        <li>
+          <a ui-sref="dashboard">Home</a>
+        </li>
+        <li>
+          <a ui-sref="ageing">Ageing</a>
+        </li>
+        <li class="active">{{reportHeaderId | lowercase}}</li>
+      </ol>
+      <md-button csv-header="['ACCOUNT#','NAME','STATUS','ZONE','0-30','31-60','61-90','91-120','121-180','Above 181','Balance']" filename="ageing.csv" ng-csv="generateCsv()" ng-show="report">Export to CSV</md-button>
+    </p>
+    <p>
+      <div class="alert alert-danger" ng-show="error" role="alert">{{message}}</div>
+    </p>
+  </md-card-content>
+</md-card>
+<div class="report" ng-show="report">
+  <h1>{{records.company}}</h1>
+  <h2>
+    {{records.title}}
+    <span class="pull-right">{{records.date | date:'medium'}}</span>
+  </h2>
+  <hr/>
+  <table width="100%">
+    <thead>
+      <tr>
+        <th>ACCOUNT#</th>
+        <th>NAME</th>
+        <th>STATUS</th>
+        <th>ZONE</th>
+        <th>
+          <span class="pull-right">
+            0-30
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            31-60
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            61-90
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            91-120
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            121-180
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            Above 181
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            Balance
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="record in accounts.content">
+        <td>{{record.accNo}}</td>
+        <td>{{record.name}}</td>
+        <td>{{record.cutOff}}</td>
+        <td>{{record.zone}}</td>
+        <td align="right">{{record.balanceToday | number}}</td>
+        <td align="right">{{record.balanceOneMonthsAgo | number}}</td>
+        <td align="right">{{record.balanceTwoMonthsAgo | number}}</td>
+        <td align="right">{{record.balanceThreeMonthsAgo | number}}</td>
+        <td align="right">{{record.balanceFourMonthsAgo | number}}</td>
+        <td align="right">{{record.balanceSixMonthsAgo | number}}</td>
+        <td align="right">{{record.balance | number}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="right">{{totalAbove0 | number}}</td>
+        <td align="right">{{totalabove30 | number}}</td>
+        <td align="right">{{totalabove60 | number}}</td>
+        <td align="right">{{totalabove90 | number}}</td>
+        <td align="right">{{totalabove120| number}}</td>
+        <td align="right">{{totalabove180 | number}}</td>
+        <td align="right">{{totalBalance | number}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

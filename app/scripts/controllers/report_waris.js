@@ -13,27 +13,28 @@ app.controller('WarisCtrl', function($scope, $http, appService, $cookieStore, $s
   $scope.report = false;
   $scope.form = {};
 
-  $scope.status = [{
-    'name': 'All'
-  }, {
-    'name': 'Active'
-  }, {
-    'name': 'Inactive'
-  }];
-
-  var request = {};
-  request.page = 0;
-  request.size = 100;
-
-  //Load zones
-  appService.getZones(request).success(function(response) {
-    $scope.zones = response.payload.content;
+  //get schemes
+  appService.getSchemesList().success(function(response) {
+    $scope.schemes = response.payload;
   }).error(function(data, status) {
     $state.go('session');
   });
 
-  appService.getAllBillingMonths(request).success(function(response) {
-    console.log(response);
+  //Load zones
+  $scope.getSchemeZones = function() {
+    $scope.zones = {};
+    $scope.form.zoneId = "";
+
+    var request = {};
+    request.schemeId = $scope.form.schemeId;
+    appService.getZonesByScheme(request).success(function(response) {
+      $scope.zones = response.payload;
+    }).error(function(data, status) {
+      $state.go('session');
+    });
+  };
+
+  appService.getBillingMonths().success(function(response) {
     $scope.billingMonths = response.payload;
   }).error(function(data, status) {
     $state.go('session');
@@ -43,35 +44,7 @@ app.controller('WarisCtrl', function($scope, $http, appService, $cookieStore, $s
   $scope.generate = function(form) {
     $scope.progress = true;
     $scope.report = false;
-    //Get active billing month
-    var request = {};
-
-    var myForm = $scope.myForm.object;
-
-    //select zone
-    var billingMonth = form.billingMonth;
-    if (typeof billingMonth !== 'undefined') {
-      request.billingMonthId = $scope.billingMonths[billingMonth].billingMonthId;
-      $scope.selectedBillingMonth=$scope.billingMonths[billingMonth];
-    }
-
-
-
-    //select zone
-    var zone = form.accZone;
-    if (typeof zone !== 'undefined') {
-      request.zoneId = $scope.zones[zone].zoneId;
-    }
-
-    var accountStatus = form.status;
-    if (typeof accountStatus !== 'undefined') {
-      request.accountStatus = $scope.status[accountStatus].name;
-    }
-
-    var params = {};
-    params.fields = request;
-
-    appService.getWarisReport(params).success(function(response) {
+    appService.getWarisReport(form).success(function(response) {
       $scope.progress = false;
       $scope.error = false;
       $scope.data = response.payload;
@@ -96,7 +69,7 @@ app.controller('WarisCtrl', function($scope, $http, appService, $cookieStore, $s
   $scope.generateCsv = function() {
     $scope.csvData = [];
     var summary = $scope.records;
-    var sum=$scope.data;
+    var sum = $scope.data;
 
     $scope.csvData.push({
       a: 'Billed Amount',
@@ -115,12 +88,12 @@ app.controller('WarisCtrl', function($scope, $http, appService, $cookieStore, $s
 
     $scope.csvData.push({
       a: 'Total Billed for the month',
-      b: summary.billedOnEstimate+summary.billedOnActual
+      b: summary.billedOnEstimate + summary.billedOnActual
     });
 
     $scope.csvData.push({
       a: '',
-      b:''
+      b: ''
     });
 
     $scope.csvData.push({
@@ -195,7 +168,7 @@ app.controller('WarisCtrl', function($scope, $http, appService, $cookieStore, $s
 
     $scope.csvData.push({
       a: 'Total Billed Consumption',
-      b: summary.unitsEstimatedConsumption+summary.unitsActualConsumption
+      b: summary.unitsEstimatedConsumption + summary.unitsActualConsumption
     });
 
     $scope.csvData.push({
@@ -236,7 +209,7 @@ app.controller('WarisCtrl', function($scope, $http, appService, $cookieStore, $s
 
     $scope.csvData.push({
       a: 'Total Balances for all Connections',
-      b: summary.balancesInactiveAccounts+summary.balancesActiveAccounts
+      b: summary.balancesInactiveAccounts + summary.balancesActiveAccounts
     });
 
 
@@ -313,7 +286,7 @@ app.controller('WarisCtrl', function($scope, $http, appService, $cookieStore, $s
 
     $scope.csvData.push({
       a: 'Number of Meters Read',
-      b: summary.meteredBilledAverage+summary.meteredBilledActual
+      b: summary.meteredBilledAverage + summary.meteredBilledActual
     });
 
 

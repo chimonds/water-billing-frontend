@@ -1282,6 +1282,17 @@ app.service('appService', function($http, $cookieStore) {
     });
   };
 
+  this.getScheduledAgeingBalancesReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORT_HEADERS + '/ageingReport',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
 
 
 
