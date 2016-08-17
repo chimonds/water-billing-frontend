@@ -77,6 +77,9 @@
                <!-- <span aria-hidden="true" class="icon-compass"></span> -->
                Meters
              </md-button>
+             <md-button ng-click="toggleMenu()" flex  ui-sref="logs" ng-show="$root.logs_view"   class="md-primary">
+               Logs
+             </md-button>
            </md-content>
 
            <md-content flex layout="column">
@@ -139,8 +142,10 @@
                <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Billed Amount
              </md-button>
+             <md-button ng-click="toggleMenu()" flex  ui-sref="report_billed_amount_detailed" ng-show="$root.report_billing_checklist"   class="md-primary">
+               Billed Amount Detailed
+             </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="billing_checklist" ng-show="$root.report_billing_checklist"   class="md-primary">
-               <!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
                Billing Checklist
              </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="field_card" ng-show="$root.report_field_report"   class="md-primary">

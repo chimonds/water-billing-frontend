@@ -1,0 +1,47 @@
+<md-card>
+  <md-card-content>
+    <md-content>
+      <md-subheader class="md-primary">
+        Use this panel to view user logs
+      </md-subheader>
+      <md-content>
+        <div class="clearfix"></div>
+        <div class="alert alert-danger" ng-show="errorOccured" role="alert">
+          {{errorMsg}}
+        </div>
+        <md-input-container class="md-default-theme" flex>
+          <label for="input_041">Search</label>
+          <input aria-invalid="false" class="ng-pristine ng-valid md-input ng-touched" id="input_041" ng-change="seach()" ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" tabindex="0">
+        </md-input-container>
+
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Created On</th>
+              <th>Created By</th>
+              <th>Notes</th>
+              <th>Previous</th>
+              <th>Current</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr dir-paginate="log in logs | itemsPerPage: 10" pagination-id="pagePagination" total-items="totalRecords">
+              <td>{{log.createdOn | date}}</td>
+              <td>{{log.author}}</td>
+              <td>{{log.notes}}</td>
+              <td>{{log.previousData}}</td>
+              <td>{{log.currentData}}</td>
+              <td>{{log.operation}}</td>
+            </tr>
+            <tr>
+              <td align="center" colspan="10">
+                <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-content>
+    </md-content>
+  </md-card-content>
+</md-card>

@@ -1,19 +1,9 @@
 <md-card class="no-print">
   <md-card-content>
-    <md-subheader class="md-primary no-print">Accounts Report</md-subheader>
     <p>
-
+      <md-subheader class="md-primary no-print">Billed Amount Detailed Report</md-subheader>
       <form name="myForm.object">
         <div layout-align="space-between center" layout-sm="column" layout="row">
-          <md-input-container>
-            <label>Status</label>
-            <md-select name="status" ng-model="form.onStatus">
-              <md-option value="0">Pending</md-option>
-              <md-option value="1">Turned On</md-option>
-              <md-option value="2">Turned Off</md-option>
-            </md-select>
-          </md-input-container>
-
           <md-input-container>
             <label>CutOff</label>
             <md-select name="cutOff" ng-model="form.cutOff">
@@ -41,9 +31,18 @@
             </md-select>
           </md-input-container>
 
-          <md-button csv-header="['CREATED ON',	'ACCOUNT#', 'NAME','ZONE','LOCATION','CATEGORY','MOBILE NO','METER OWNER','METER NO','METER SIZE','STATUS']" filename="accounts.csv" ng-csv="generateCsv()" ng-show="report">Export to CSV</md-button>
-          <md-button ng-click="generate(form)">Submit</md-button>
+          <!--Billing month-->
+          <md-input-container>
+            <label>Billing Month</label>
+            <md-select ng-model="form.billingMonthId">
+              <md-option ng-repeat="m in billingMonths" value="{{m.billingMonthId}}">
+                {{m.month | date:'MMM, yyyy'}}
+              </md-option>
+            </md-select>
+          </md-input-container>
 
+          <md-button csv-header="['ACCOUNT#',	'NAME','STATUS','ZONE','CATEGORY', 'PREVIOUS READING','CURRENT READING','CONSUMPTION TYPE','UNITS BILLED','AVERAGE UNITS','METER OWNER','METER NO','METER SIZE','METER RENT','BILLED AMOUNT','RECONNECTION FEE','AT OWNERS REQUEST FEE','CHANGE OF ACCOUNT NAME FEE','BY PASS FEE','BOUNCED CHEQUE FEE','SURCHARGE IRRIGATION FEE','SURCHARGE MISSUSE FEE','METER SERVICING FEE', 'TOTAL BILLED']" filename="billed_charges.csv" ng-csv="generateCsv()" ng-show="report">Export to CSV</md-button>
+          <md-button ng-click="generate(form)">Submit</md-button>
         </div>
       </form>
     </p>
@@ -65,7 +64,6 @@
     {{data.title}}
     <span class="pull-right">{{data.date | date:'medium'}}</span>
   </h2>
-
   <p>
     {{data.content.length | number}}
     Records
@@ -74,26 +72,44 @@
   <table width="100%">
     <thead>
       <tr>
-        <th>CREATED ON</th>
         <th>ACCOUNT#</th>
         <th>NAME</th>
         <th>ZONE</th>
-        <th>MOBILE NO</th>
         <th>METER NO</th>
-        <th>STATUS</th>
+        <th>METER SIZE</th>
+        <th>
+          <span class="pull-right">
+            AMOUNT
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            METER RENT
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            CHARGES
+          </span>
+        </th>
+        <th>
+          <span class="pull-right">
+            TOTAL
+          </span>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="reading in data.content | orderBy:'-createdOn'">
-        <td>{{reading.createdOn | date}}</td>
+      <tr ng-repeat="reading in data.content">
         <td>{{reading.accNo}}</td>
         <td>{{reading.accName}}</td>
         <td>{{reading.zone}}</td>
-        <td>{{reading.phoneNo}}</td>
         <td>{{reading.meterNo}}</td>
-        <td>{{reading.status}}</td>
-        <td></td>
-        <td></td>
+        <td>{{reading.meterSize}}</td>
+        <td align="right">{{reading.amount | number}}</td>
+        <td align="right">{{reading.meterRent | number}}</td>
+        <td align="right">{{reading.otherCharges | number}}</td>
+        <td align="right">{{reading.totalBill | number}}</td>
       </tr>
     </tbody>
   </table>

@@ -50,6 +50,7 @@ app.service('appService', function($http, $cookieStore) {
   var SMS = 'sms';
   var METER_READINGS = 'meterReadings';
   var REPORT_HEADERS = 'reportHeaders';
+  var LOGS = 'logs';
 
   //__________________________
   var POST_REQUEST = 'POST';
@@ -306,6 +307,17 @@ app.service('appService', function($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ZONES,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getLogs = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + LOGS,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -992,6 +1004,17 @@ app.service('appService', function($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + REPORTS + '/payments',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getBilledChargesReport = function(request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORTS + '/billingCharges',
       headers: {
         'Content-Type': 'application/json'
       },

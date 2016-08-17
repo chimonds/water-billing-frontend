@@ -44,9 +44,7 @@
           <tbody>
             <tr dir-paginate="meter in meters | itemsPerPage: 10" pagination-id="pagePagination" total-items="totalMeters">
               <td>{{ meter.meterNo | uppercase}}</td>
-
               <td>{{meter.accountId}}</td>
-
               <td>{{meter.initialReading | number}}</td>
               <td>{{meter.meterOwner.name}}</td>
               <td>{{meter.meterSize.size | uppercase}}</td>

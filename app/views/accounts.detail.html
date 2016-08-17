@@ -157,7 +157,7 @@
                 </thead>
                 <tbody>
                   <tr dir-paginate="bill in bills | itemsPerPage: 10" pagination-id="billsPagination" total-items="totalBills">
-                    <td>{{bill.billingMonth.month | date}}</td>
+                    <td>{{bill.billingMonth.month | date:'MMM, yyyy'}}</td>
                     <td>{{bill.createdOn | date}}</td>
                     <td>{{bill.consumptionType}}</td>
                     <td align="right">{{bill.currentReading | number}}</td>

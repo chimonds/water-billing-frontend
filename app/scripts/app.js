@@ -131,7 +131,14 @@ var app = angular
           requireLogin: true
         }
       })
-
+      .state('logs', {
+        url: '/logs',
+        templateUrl: 'views/logs.html',
+        controller: 'LogsCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
     .state('billing_months', {
         url: '/billing_months',
         templateUrl: 'views/billing_months.html',
@@ -302,6 +309,14 @@ var app = angular
         url: '/billing_checklist',
         templateUrl: 'views/reports/billing_checklist.html',
         controller: 'ReportBillingChecklistCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
+      .state('report_billed_amount_detailed', {
+        url: '/billed_amount_detailed',
+        templateUrl: 'views/reports/billed_charges.html',
+        controller: 'ReportBilledChargesCtrl',
         data: {
           requireLogin: true
         }

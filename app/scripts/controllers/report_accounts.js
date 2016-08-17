@@ -65,7 +65,7 @@ app.controller('ReportAccountsCtrl', function($scope, $http, appService, $cookie
   };
 
   //Generate CSV File
-  //'CREATED ON',	'ACCOUNT#', 'NAME','ZONE','MOBILE NO','STATUS'
+  //['CREATED ON',	'ACCOUNT#', 'NAME','ZONE','LOCATION','CATEGORY','MOBILE NO','METER OWNER','METER NO','METER SIZE','STATUS']
   $scope.generateCsv = function() {
     $scope.csvData = [];
     var accounts = $scope.data.content;
@@ -80,8 +80,13 @@ app.controller('ReportAccountsCtrl', function($scope, $http, appService, $cookie
         b: value.accNo,
         c: value.accName,
         d: value.zone,
-        e: value.phoneNo,
-        f: accStatus
+        e: value.location,
+        f: value.category,
+        g: value.phoneNo,
+        h: value.meterOwner,
+        i: value.meterNo,
+        j: value.meterSize,
+        k: accStatus
       });
     });
     return $scope.csvData;
