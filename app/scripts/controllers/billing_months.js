@@ -42,7 +42,7 @@ app.controller('BillingMonthsCtrl', function($scope, $http, appService, $cookieS
     request.filter = '';
 
     //send request
-    appService.getBillingMonths(request).success(function(response) {
+    appService.getBillingMonthsPage(request).success(function(response) {
       $scope.errorOccured = false;
       $scope.months = response.payload.content;
       $scope.totalMonths = response.payload.totalElements; //to change this
