@@ -41,7 +41,7 @@
               </md-input-container>
               <md-input-container>
                 <label>Amount</label>
-                <input maxlength="6" name="amountPaid" ng-model="form.amount" required type="number">
+                <input maxlength="9" name="amountPaid" ng-model="form.amount" required type="number">
                 <div ng-messages="myForm.object.amountPaid.$error">
                   <div ng-message="required">This is required.</div>
                   <div ng-message="maxlength">The name has to be less than 6 characters long.</div>
