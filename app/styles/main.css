@@ -5,7 +5,7 @@ body {
   color: #737373;
   /*color:#2e2e2e;*/
   font-family: 'Roboto';
-  /*font-weight: 300;*/
+  font-weight: 300;
   font-size: 16px;
   letter-spacing: 2px;
   font-style: normal;
@@ -19,13 +19,11 @@ h1, h2, {
   letter-spacing: 2px;
   font-size: 27px;
   line-height: 22px;
-  font-family: 'Roboto-Light';
   font-weight: 200;
   font-style: normal;
 }
 h3 {
   letter-spacing: 2px;
-  font-family: 'Roboto-Regular';
   font-weight: 300;
   font-style: normal;
   font-size: 22px;
@@ -35,7 +33,6 @@ h3 {
   margin-right: 10px;
   margin-bottom: 5px;
   font-size: 16px;
-  font-family: Roboto-Light;
   font-weight: 100;
 }
 .report {

@@ -83,7 +83,7 @@
                 <span am-time-ago="header.createdOn"></span>
               </td>
               <td>{{header.requestedBy }}</td>
-              <td>{{header.toDate | date }}</td>
+              <td>{{header.toDate | date:'medium' }}</td>
               <td>
                 <span ng-switch="header.onStatus">
                   <span ng-switch-when="0" style="color:#FF5722;background:#f5f5f5;padding:8px">Pending</span>
