@@ -25,7 +25,7 @@
             </md-select>
           </md-input-container>
 
-          <md-select ng-model="form.billingMonthId" placeholder="Billing Month">
+          <md-select ng-model="form.billingMonthId" placeholder="Billing Month" ng-change="getSelectedMonth()">
             <md-optgroup label="Billing Month">
               <md-option ng-repeat="m in billingMonths" value="{{m.billingMonthId}}">
                 {{m.month | date:'MMM, yyyy'}}
@@ -51,7 +51,7 @@
   <h2>
     {{data.title}}
     -
-    {{selectedBillingMonth.month | date:'MMM, yyyy'}}
+    {{selectedMonth.month | date:'MMM, yyyy'}}
     <span class="pull-right">{{data.date | date:'medium'}}</span>
   </h2>
   <hr/>
@@ -246,7 +246,7 @@
       <!--End Metering Status -->
 
       <!--Start Metering Connection analysis Status -->
-      <tr>
+      <!--<tr>
         <td>
           <strong>Metered Connections Analysis</strong>
         </td>
@@ -265,7 +265,7 @@
       <tr>
         <td>Number of Meters Read</td>
         <td align="right">{{records.meteredBilledAverage+records.meteredBilledActual | number}}</td>
-      </tr>
+      </tr>-->
       <!--End Metering Status -->
 
       <tr>

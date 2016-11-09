@@ -40,6 +40,15 @@ app.controller('WarisCtrl', function($scope, $http, appService, $cookieStore, $s
     $state.go('session');
   });
 
+  $scope.getSelectedMonth = function(){
+    var billingMonthId=$scope.form.billingMonthId;
+    angular.forEach($scope.billingMonths, function(billingMonth){
+      if(billingMonth.billingMonthId==billingMonthId){
+        $scope.selectedMonth= billingMonth;
+      }
+    });
+  };
+
 
   $scope.generate = function(form) {
     $scope.progress = true;
