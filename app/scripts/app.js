@@ -83,6 +83,22 @@ var app = angular
           requireLogin: true
         }
       })
+      .state('task-types', {
+        url: '/task-approvals',
+        templateUrl: 'views/task-types.html',
+        controller: 'TaskTypesCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
+      .state('task-type', {
+        url: '/task-approvals/{taskTypeId}',
+        templateUrl: 'views/task-types.detail.html',
+        controller: 'TaskTypesDetailCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
       .state('session', {
         url: '/session',
         templateUrl: 'views/logout.html',

@@ -1,0 +1,75 @@
+<md-card>
+	<md-card-content>
+		<md-content>
+			<h1 style="font-weight: 300;">
+				{{taskType.name | uppercase}}
+			</h1>
+			<p>{{taskType.description}}</p>
+
+			<!-- <p>
+        <md-divider></md-divider>
+      </p> -->
+			<ol class="breadcrumb" flex>
+				<li>
+					<a ui-sref="dashboard">Home</a>
+				</li>
+				<li>
+					<a ui-sref="task-types">Task Approvals</a>
+				</li>
+				<li class="active">{{taskType.name | lowercase}}</li>
+			</ol>
+
+			<!--<md-button class="md-primary pull-right">-->
+			<!--<span class="icon-layers action-button" aria-hidden="true"></span>-->
+			<!--</md-button>-->
+
+			<md-button class="md-primary  pull-right" ng-click="addApprovalDialog();" ng-show="$root.payment_create">
+				<!-- <span class="icon-plus action-button" aria-hidden="true"></span> -->
+				Add Approval Step
+			</md-button>
+
+			<div class="clearfix"></div>
+			<div class="alert alert-danger" ng-show="errorOccured" role="alert">
+				{{errorMsg}}
+			</div>
+
+			<h2>Approval Steps</h2>
+			<hr>
+			<p>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>NAME</th>
+							<th>ROLE</th>
+							<th>STEP</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="approval in approvals">
+							<td>{{approval.stepNo}}</td>
+							<td>{{approval.name}}</td>
+							<td>{{approval.userRole.name}}</td>
+							<td>
+								<span ng-switch="approval.approvalStep">
+                				<span ng-switch-when="1" style="color:#ffffff;background:#FF5722;padding:8px">Start</span>
+								<span ng-switch-when="2" style="color:#ffffff;background:#5cb85c;padding:8px">On Progress</span>
+								<span ng-switch-when="3" style="color:#ffffff;background:#ff0000;padding:8px">End</span>
+								</span>
+							</td>
+							<td align="right">
+								<md-button class="md-primary  pull-right" ng-click="removeStepDialog($index);">
+									Remove Step
+								</md-button>
+							</td>
+							<!--<td align="right">-->
+							<!--<md-button class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>-->
+							<!--</td>-->
+						</tr>
+					</tbody>
+				</table>
+			</p>
+		</md-content>
+	</md-card-content>
+</md-card>

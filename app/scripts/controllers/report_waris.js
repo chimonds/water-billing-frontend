@@ -270,7 +270,7 @@ app.controller('WarisCtrl', function($scope, $http, appService, $cookieStore, $s
       b: summary.activeMeteredAccounts
     });
     $scope.csvData.push({
-      a: 'Active Metered Connections',
+      a: 'Active unMetered Connections',
       b: summary.activeUnMeteredAccounts
     });
 
@@ -279,24 +279,24 @@ app.controller('WarisCtrl', function($scope, $http, appService, $cookieStore, $s
       b: ''
     });
 
-    $scope.csvData.push({
-      a: 'Metered Connections Analysis',
-      b: ''
-    });
-    $scope.csvData.push({
-      a: 'Actual',
-      b: summary.meteredBilledActual
-    });
+    // $scope.csvData.push({
+    //   a: 'Metered Connections Analysis',
+    //   b: ''
+    // });
+    // $scope.csvData.push({
+    //   a: 'Actual',
+    //   b: summary.meteredBilledActual
+    // });
 
-    $scope.csvData.push({
-      a: 'Estimate',
-      b: summary.meteredBilledAverage
-    });
+    // $scope.csvData.push({
+    //   a: 'Estimate',
+    //   b: summary.meteredBilledAverage
+    // });
 
-    $scope.csvData.push({
-      a: 'Number of Meters Read',
-      b: summary.meteredBilledAverage + summary.meteredBilledActual
-    });
+    // $scope.csvData.push({
+    //   a: 'Number of Meters Read',
+    //   b: summary.meteredBilledAverage + summary.meteredBilledActual
+    // });
 
 
 

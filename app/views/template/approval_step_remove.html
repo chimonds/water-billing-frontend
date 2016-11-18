@@ -1,0 +1,57 @@
+<md-dialog aria-label="Edit connection" flex>
+	<md-content>
+		<md-subheader class="md-sticky-no-effect md-primary">Use this panel to remove approval step {{approval.name}}</md-subheader>
+		<div layout="column" flex>
+			<md-content class="md-padding">
+				<form name="myForm.object">
+					<md-input-container>
+						<label>Name</label>
+						<input maxlength="200"  type="text" name="name" ng-model="form.name" ng-disabled="true">
+						<div ng-messages="myForm.object.name.$error">
+							<div ng-message="required">This is required.</div>
+							<div ng-message="maxlength">The approval step name has to be less than 200 characters long.</div>
+						</div>
+					</md-input-container>
+
+					<!--Connection Location-->
+					<md-input-container>
+						<label>User Role</label>
+						<md-select name="userRole" ng-model="form.userRole.userRoleId" required ng-disabled="true">
+							<md-option ng-repeat="userRole in userRoles" value="{{userRole.userRoleId}}">{{userRole.name}}
+							</md-option>
+						</md-select>
+						<div ng-messages="myForm.object.userRole.$error">
+							<div ng-message="required">This is required.</div>
+						</div>
+					</md-input-container>
+
+					<md-input-container>
+						<!--<label>Step</label>-->
+						<md-radio-group ng-model="form.approvalStep" ng-disabled="true">
+							<md-radio-button value="1" class="md-primary">Start</md-radio-button>
+							<md-radio-button value="2"> On Progress </md-radio-button>
+							<md-radio-button value="3">End</md-radio-button>
+						</md-radio-group>
+					</md-input-container>
+
+
+
+					<br />
+					<div ng-show="errorOccured" ng-class="errorClass" role="alert">{{errorMsg}}
+					</div>
+
+					<div layout="row">
+						<br>
+						<span flex></span>
+						<md-button ng-click="cancel();">
+							Close
+						</md-button>
+						<md-button class="md-primary" ng-click="save(form);">
+							Delete
+						</md-button>
+					</div>
+				</form>
+			</md-content>
+		</div>
+	</md-content>
+</md-dialog>

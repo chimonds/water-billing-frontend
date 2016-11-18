@@ -199,6 +199,9 @@
                <!-- <span aria-hidden="true" class="icon-lock-open"></span> -->
                Roles
              </md-button>
+            <md-button ng-click="toggleMenu()" flex  ui-sref="task-types" ng-show="$root.task_types_view"  class="md-primary">
+               Task Approvals
+             </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="settings" ng-show="$root.settings_view"  class="md-primary">
                <!-- <span aria-hidden="true" class="icon-settings"></span> -->
                Settings
