@@ -53,6 +53,8 @@ app.service('appService', function ($http, $cookieStore) {
   var LOGS = 'logs';
   var TASK_TYPES = 'taskTypes';
   var APPROVALS = 'approvals';
+  var APPROVAL_TASKS = 'tasks';
+  
 
 
   //__________________________
@@ -317,6 +319,16 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.getApprovalTasks = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + APPROVAL_TASKS,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
 
   this.getApprovalStepsByTaskType = function (taskTypeId) {
     var request = {};

@@ -40,6 +40,9 @@
                <!-- <span aria-hidden="true" class="icon-grid"></span> -->
                Dashboard
              </md-button>
+             <md-button ng-click="toggleMenu()" flex  ui-sref="approval-tasks" ng-show="$root.approval_tasks_view"  class="md-primary">
+               Approval Tasks
+             </md-button>
              <md-button ng-click="toggleMenu()" flex  ui-sref="consumers" ng-show="$root.consumers_view"   class="md-primary">
                <!-- <span aria-hidden="true" class="icon-users"></span> -->
                Customers

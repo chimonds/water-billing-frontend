@@ -135,7 +135,6 @@ app.controller('TaskTypesDetailCtrl', function ($scope, $http, appService, $cook
 
     $scope.removeStepDialog = function (index) {
         var approval = $scope.approvals[index];
-        console.log(approval);
         $mdDialog.show({
             controller: RemoveStepDialogController,
             templateUrl: 'views/template/approval_step_remove.html',
