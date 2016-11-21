@@ -234,7 +234,7 @@ app.controller('AccountsDetailCtrl', function ($scope, $http, appService, $cooki
         var billId = $scope.bill.billId;
 
         //send request
-        appService.deleteBill(request, billId).success(function (response) {
+        appService.deleteBill(form, billId).success(function (response) {
           $scope.errorOccured = false;
           $scope.errorClass = config.cssAlertSucess;
           $scope.errorMsg = response.message;

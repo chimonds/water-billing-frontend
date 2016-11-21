@@ -1,11 +1,19 @@
 <md-dialog aria-label="Edit User Role" flex>
-  <md-content>
-    <md-subheader class="md-sticky-no-effect md-primary">Would you like to delete <strong>{{bill.billingMonth.month | date:'MMM, yyyy'}}</strong> bill?</md-subheader>
-    <div layout="column" flex>
-      <md-content class="md-padding">
-        <form name="myForm.object">
-          <h2>Kindly note this process is not reversible</h2>
+	<md-content>
+		<md-subheader class="md-sticky-no-effect md-primary">Would you like to delete <strong>{{bill.billingMonth.month | date:'MMM, yyyy'}}</strong> bill?</md-subheader>
+		<div layout="column" flex>
+			<md-content class="md-padding">
+				<form name="myForm.object">
+					<!--<h2>Kindly note this process is not reversible</h2>-->
+					<md-input-container>
+						<label>Notes</label>
+						<textarea required name="notes" ng-model="form.notes">
+                  </textarea rows="4" cols="50">
+                  <div ng-messages="myForm.object.notes.$error">
+                     <div ng-message="required">This is required.</div>
 
+                  </div>
+            </md-input-container>
           <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           </div>

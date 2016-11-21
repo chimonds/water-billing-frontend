@@ -1,0 +1,115 @@
+<md-card>
+	<md-card-content>
+		<md-content>
+			<h1 style="font-weight: 300;">
+				{{task.taskType.name | uppercase}}  [{{task.sno}}]
+			</h1>
+			<p>{{task.taskType.description}}</p>
+
+			<!-- <p>
+        <md-divider></md-divider>
+      </p> -->
+			<ol class="breadcrumb" flex>
+				<li>
+					<a ui-sref="dashboard">Home</a>
+				</li>
+				<li>
+					<a ui-sref="approval-tasks">Approvals Tasks</a>
+				</li>
+				<li class="active">{{task.taskType.name | lowercase}}</li>
+			</ol>
+
+			<p>
+
+				<div class="col-md-4">
+					<md-input-container>
+						<label>Account#</label>
+						<input ng-model="task.account.accNo" ng-disabled="true">
+					</md-input-container>
+					<md-input-container>
+						<label>Name</label>
+						<input ng-model="task.account.accName" ng-disabled="true">
+					</md-input-container>
+					<md-input-container>
+						<label>Amount</label>
+						<input ng-model="task.amount" ng-disabled="true">
+					</md-input-container>
+					<md-input-container>
+						<label>Role</label>
+						<input ng-model="task.approval.userRole.name" ng-disabled="true">
+					</md-input-container>
+
+				</div>
+
+				<div class="col-md-4 col-sm-12 pull-right">
+					<span>
+						{{task.approval.name}} &nbsp;
+								<span ng-switch="task.approvalStep">
+                            <span ng-switch-when="1" style="color:#ffffff;background:#FF5722;padding:8px">Start</span>
+					<span ng-switch-when="2" style="color:#ffffff;background:#5cb85c;padding:8px">On Progress</span>
+					<span ng-switch-when="3" style="color:#ffffff;background:#ff0000;padding:8px">End</span>
+					</span>
+					</span>
+
+					<br>
+					<md-input-container>
+						<label>Notes</label>
+						<textarea name="notes" ng-model="task.notes"></textarea rows="4" cols="50">
+          </md-input-container>
+
+				</div>
+			</p>
+			<span class="clearfix"></span>
+
+			<!--<md-button class="md-primary pull-right">-->
+			<!--<span class="icon-layers action-button" aria-hidden="true"></span>-->
+			<!--</md-button>-->
+
+			<md-button class="md-secondary  pull-right" ng-click="addApprovalDialog();" ng-show="$root.payment_create">
+				Approve/Reject
+			</md-button>
+
+			<div class="clearfix"></div>
+			<div class="alert alert-danger" ng-show="errorOccured" role="alert">
+				{{errorMsg}}
+			</div>
+			<h2>Approvals</h2>
+			<hr>
+			<p>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>NAME</th>
+							<th>ROLE</th>
+							<th>STEP</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="approval in approvals">
+							<td>{{approval.stepNo}}</td>
+							<td>{{approval.name}}</td>
+							<td>{{approval.userRole.name}}</td>
+							<td>
+								<span ng-switch="approval.approvalStep">
+                				<span ng-switch-when="1" style="color:#ffffff;background:#FF5722;padding:8px">Start</span>
+								<span ng-switch-when="2" style="color:#ffffff;background:#5cb85c;padding:8px">On Progress</span>
+								<span ng-switch-when="3" style="color:#ffffff;background:#ff0000;padding:8px">End</span>
+								</span>
+							</td>
+							<td align="right">
+								<md-button class="md-primary  pull-right" ng-click="removeStepDialog($index);">
+									Remove Step
+								</md-button>
+							</td>
+							<!--<td align="right">-->
+							<!--<md-button class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>-->
+							<!--</td>-->
+						</tr>
+					</tbody>
+				</table>
+			</p>
+		</md-content>
+	</md-card-content>
+</md-card>

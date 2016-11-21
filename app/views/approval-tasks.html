@@ -1,60 +1,64 @@
 <md-card>
-   <md-card-content>
-      <md-content>
-         <md-subheader class="md-primary">Use this panel to manage approval tasks</md-subheader>
-         <md-content>
-            <div class="clearfix"></div>
-            <div ng-show="errorOccured" class="alert alert-danger" role="alert">
-               {{errorMsg}}
-            </div>
-            <md-input-container flex class="md-default-theme">
-               <label for="input_041">Search</label>
-               <input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
-            </md-input-container>
-            <table class="table table-hover">
-               <thead>
-                  <tr>
-                     <th>Created</th>                      
-                     <th>Request</th>
-                     <th>Account#</th>
-                     <th>Name</th>
-                     <th>Notes</th>
-                     <th>Amount</th>                     
-                     <th>Status</th>                     
-                     <th></th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr dir-paginate="task in tasks | itemsPerPage: 10" total-items="totalRecords" pagination-id="pagePagination">
-                    <td>
-                        <span am-time-ago="task.createdOn"> </span>
-                     </td>
-                     <td>{{task.taskType.name}}</td>
-                     <td>{{task.account.accNo }}</td>
-                     <td>{{task.account.accName }}</td>
-                     <td>{{task.notes}}</td>
-                     <td>{{task.amount | number}}</td>
-                     <td>
-                        <span ng-switch="task.approvalStep">
+	<md-card-content>
+		<md-content>
+			<md-subheader class="md-primary">Use this panel to manage approval tasks</md-subheader>
+			<md-content>
+				<div class="clearfix"></div>
+				<div ng-show="errorOccured" class="alert alert-danger" role="alert">
+					{{errorMsg}}
+				</div>
+				<md-input-container flex class="md-default-theme">
+					<label for="input_041">Search</label>
+					<input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched"
+						tabindex="0" id="input_041" aria-invalid="false">
+				</md-input-container>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Created</th>
+							<th>Request</th>
+							<th>Account#</th>
+							<th>Name</th>
+							<th>Notes</th>
+							<th>Amount</th>
+							<th>Role</th>
+							<th>Status</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr dir-paginate="task in tasks | itemsPerPage: 10" total-items="totalRecords" pagination-id="pagePagination">
+							<td>{{task.sno}}</td>														
+							<td>
+								<span am-time-ago="task.createdOn"> </span>
+							</td>
+							<td>{{task.taskType.name}}</td>
+							<td>{{task.account.accNo }}</td>
+							<td>{{task.account.accName }}</td>
+							<td>{{task.notes}}</td>
+							<td>{{task.amount | number}}</td>
+							<td>{{task.approval.userRole.name}}</td>
+							<td>
+								{{task.approval.name}} &nbsp;
+								<span ng-switch="task.approvalStep">
                             <span ng-switch-when="1" style="color:#ffffff;background:#FF5722;padding:8px">Start</span>
-                            <span ng-switch-when="2" style="color:#ffffff;background:#5cb85c;padding:8px">On Progress</span>
-                            <span ng-switch-when="3" style="color:#ffffff;background:#ff0000;padding:8px">End</span>
-                        </span>
-                     </td>
-                     
-
-                     <td align="right">
-                        <md-button class="md-primary" ng-click="editZoneDialog($index)">View</md-button>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td colspan="8" align="center">
-                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
-                     </td>
-                  </tr>
-               </tbody>
-            </table>
-         </md-content>
-      </md-content>
-   </md-card-content>
+								<span ng-switch-when="2" style="color:#ffffff;background:#5cb85c;padding:8px">On Progress</span>
+								<span ng-switch-when="3" style="color:#ffffff;background:#ff0000;padding:8px">End</span>
+								</span>
+							</td>
+							<td align="right">
+								<md-button class="md-primary" ui-sref="approval-task({ taskId: task.taskId})">View</md-button>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="9" align="center">
+								<dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</md-content>
+		</md-content>
+	</md-card-content>
 </md-card>

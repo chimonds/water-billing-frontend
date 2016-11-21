@@ -99,8 +99,16 @@ var app = angular
           requireLogin: true
         }
       })
+      .state('approval-task', {
+        url: '/approvals/{taskId}',
+        templateUrl: 'views/approval-tasks.detail.html',
+        controller: 'ApprovalTaskCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
       .state('approval-tasks', {
-        url: '/approval-tasks',
+        url: '/approvals',
         templateUrl: 'views/approval-tasks.html',
         controller: 'ApprovalTasksCtrl',
         data: {

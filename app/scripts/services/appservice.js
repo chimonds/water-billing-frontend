@@ -319,6 +319,19 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.getTaskById = function (taskId) {
+    var request={};
+    request.taskId= taskId;
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + APPROVAL_TASKS+'/one',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.getApprovalTasks = function (request) {
     return $http({
       method: POST_REQUEST,
