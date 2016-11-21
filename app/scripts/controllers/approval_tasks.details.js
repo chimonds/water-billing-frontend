@@ -26,7 +26,7 @@ app.controller('ApprovalTaskCtrl', function ($scope, $http, appService, $cookieS
             $scope.accountFound = true;
             $scope.errorOccured = false;
             //get approval steps
-            //$scope.getApprovalSteps();
+            $scope.getApprovals();
         }).error(function (data, status) {
             if (status === 401) {
                 $state.go('session');
@@ -41,10 +41,10 @@ app.controller('ApprovalTaskCtrl', function ($scope, $http, appService, $cookieS
 
     $scope.getOne();
 
-    $scope.getApprovalSteps = function () {
-        var taskTypeId = $scope.taskTypeId;
+    $scope.getApprovals = function () {
+        var taskId = $scope.taskId;
         //send request
-        appService.getApprovalStepsByTaskType(taskTypeId).success(function (response) {
+        appService.getTaskApprovals(taskId).success(function (response) {
             $scope.errorOccured = false;
             $scope.approvals = response.payload;
         }).error(function (data, status) {
@@ -59,36 +59,26 @@ app.controller('ApprovalTaskCtrl', function ($scope, $http, appService, $cookieS
 
     };
 
+
     $scope.addApprovalDialog = function () {
         $mdDialog.show({
             controller: AddApprovalStepDialogController,
-            templateUrl: 'views/template/approval_step_add.html',
+            templateUrl: 'views/template/approval_add.html',
             resolve: {
-                taskType: function () {
-                    return $scope.taskType;
+                task: function () {
+                    return $scope.task;
                 }
             }
         });
     };
 
-    function AddApprovalStepDialogController($scope, $mdDialog, $rootScope, taskType, appService) {
+    function AddApprovalStepDialogController($scope, $mdDialog, $rootScope, task, appService) {
         var config = appService.getCofig();
         $scope.myForm = {};
-        $scope.taskType = taskType;
+        $scope.task = task;
         $scope.form = {};
         $scope.data = {};
 
-        var request = {};
-        request.page = 0;
-        request.size = 100;
-        request.filter = '';
-
-        //Get active billing month
-
-        //Get payment types
-        appService.getRoles(request).success(function (response) {
-            $scope.userRoles = response.payload.content;
-        });
 
 
         $scope.cancel = function () {
@@ -104,11 +94,11 @@ app.controller('ApprovalTaskCtrl', function ($scope, $http, appService, $cookieS
 
                 var request = form;
                 //set billing month
-                request.taskType = {};
-                request.taskType.taskTypeId = $scope.taskType.taskTypeId;
+                request.task = {};
+                request.task.taskId = $scope.task.taskId;
 
                 //send request
-                appService.createApprovalStep(request).success(function (response) {
+                appService.createTaskApproval(request).success(function (response) {
                     $scope.errorOccured = true;
                     $scope.errorClass = config.cssAlertSucess;
                     $scope.errorMsg = response.message;

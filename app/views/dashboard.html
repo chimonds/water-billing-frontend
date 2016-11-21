@@ -9,11 +9,8 @@
     <md-card-content>
       <!--<md-subheader class="md-primary">Dashboard</md-subheader>-->
 
-      <md-content flex layout-align="space-between center" layout-md="column" layout-gt-sm="column" layout-gt-md="row" layout-sm="column" layout-lg="row">
-
-
+      <md-content flex layout-align="space-between center" layout-md="column" layout-gt-sm="column" layout-gt-md="row" layout-sm="column" layout-lg="row" >
         <md-content ng-show="$root.stats_consumer_count" class="total-records" layout="column" layout-align="space-between center">
-
           <md-content flex>{{stats.topView.consumers | number}}</md-content>
           <md-subheader class="stats-caption" flex>Consumers</md-subheader>
         </md-content>

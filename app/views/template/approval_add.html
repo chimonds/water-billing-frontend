@@ -1,0 +1,45 @@
+<md-dialog aria-label="Edit connection" flex>
+	<md-content>
+		<md-subheader class="md-sticky-no-effect md-primary">Use this panel to approve/reject</md-subheader>
+		<div layout="column" flex>
+			<md-content class="md-padding">
+				<form name="myForm.object">
+
+					<md-input-container>
+						<label>Approve/Reject</label>
+						<md-select name="action" ng-model="form.action" required>
+							<md-option  value="1">Approve</md-option>
+							<md-option  value="2">Reject</md-option>                            
+						</md-select>
+						<div ng-messages="myForm.object.action.$error">
+							<div ng-message="required">This is required.</div>
+						</div>
+					</md-input-container>
+                    <md-input-container>
+						<label>Notes</label>
+						<textarea required name="notes" ng-model="form.notes">
+                        </textarea rows="10" cols="50">
+                        <div ng-messages="myForm.object.notes.$error">
+                            <div ng-message="required">This is required.</div>
+                         </div>
+                    </md-input-container>
+
+					<br />
+					<div ng-show="errorOccured" ng-class="errorClass" role="alert">{{errorMsg}}
+					</div>
+
+					<div layout="row">
+						<br>
+						<span flex></span>
+						<md-button ng-click="cancel();">
+							Close
+						</md-button>
+						<md-button class="md-primary" ng-click="save(form);">
+							Submit
+						</md-button>
+					</div>
+				</form>
+			</md-content>
+		</div>
+	</md-content>
+</md-dialog>

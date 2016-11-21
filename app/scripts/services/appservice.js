@@ -54,7 +54,8 @@ app.service('appService', function ($http, $cookieStore) {
   var TASK_TYPES = 'taskTypes';
   var APPROVALS = 'approvals';
   var APPROVAL_TASKS = 'tasks';
-  
+  var TASK_APPROVALS = 'taskApprovals';
+
 
 
   //__________________________
@@ -320,11 +321,11 @@ app.service('appService', function ($http, $cookieStore) {
   };
 
   this.getTaskById = function (taskId) {
-    var request={};
-    request.taskId= taskId;
+    var request = {};
+    request.taskId = taskId;
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + APPROVAL_TASKS+'/one',
+      url: BASE_URL + APPROVAL_TASKS + '/one',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -355,7 +356,31 @@ app.service('appService', function ($http, $cookieStore) {
       data: angular.toJson(getPayload(request))
     });
   };
-  
+
+  this.getTaskApprovals = function (taskId) {
+    var request = {};
+    request.taskId = taskId;
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + TASK_APPROVALS,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.createTaskApproval = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + TASK_APPROVALS + '/create',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.createApprovalStep = function (request) {
     return $http({
       method: POST_REQUEST,
@@ -367,7 +392,7 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-   this.removeApprovalStep = function (request) {
+  this.removeApprovalStep = function (request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + APPROVALS + '/remove',

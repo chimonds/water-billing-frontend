@@ -4,7 +4,6 @@ body {
   padding-bottom: 20px;
   color: #737373;
   /*color:#2e2e2e;*/
-  font-family: 'Roboto';
   font-weight: 300;
   font-size: 16px;
   letter-spacing: 2px;
@@ -92,12 +91,10 @@ h3 {
 .md-subheader {
   font-size: 27px;
   line-height: 22px;
-  font-family: 'Roboto';
   letter-spacing: 2px;
   font-weight: 300;
 }
 .md-button {
-  font-family: 'Roboto';
   text-transform: none;
   text-align: left;
   font-weight: 300;
@@ -118,7 +115,6 @@ html h3, body h3 {
 md-input-container {
   font-size: 18px;
   /*line-height: 18px;*/
-  font-family: 'Roboto';
   font-weight: 300;
   display: block;
 }
@@ -139,14 +135,14 @@ md-input-container {
 
 .table > thead > tr > th {
   font-size: 14px;
-  font-family: 'Roboto';
   font-weight: 500;
 }
 .total-records {
-  font-family: 'Roboto';
   color: #2196F3;
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 400;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 4px;
 }
 .nav > li > a {
   font-size: 24px;
@@ -318,7 +314,6 @@ html {
   border-radius: 0px;
   font-size: 18px;
   line-height: 18px;
-  font-family: "Roboto", sans-serif;
   font-weight: 100;
   font-style: normal;
 }
@@ -397,7 +392,6 @@ html {
 .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
   border-top: 1px solid #eeeeee;
   font-size: 16px;
-  font-family: 'Roboto';
   font-weight: 300;
   vertical-align: middle;
 }
@@ -405,7 +399,6 @@ html {
 .table > thead > tr > th {
   border-top: 1px solid #eeeeee;
   font-size: 16px;
-  font-family: 'Roboto';
   font-weight: 500;
   vertical-align: middle;
 }
@@ -432,7 +425,6 @@ html {
 }
 .stats-caption {
   font-size: 16px;
-  font-family: 'Roboto';
   font-weight: 400;
 }
 .bootstrap .tags {
@@ -531,4 +523,9 @@ html {
 }
 .account-status:hover{
   text-decoration: none;
+}
+.stat-container{
+  border-bottom: 1px solid red;
+  padding-right: 4px;
+  padding-left: 4px;
 }
