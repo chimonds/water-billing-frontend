@@ -19,6 +19,7 @@
             <tr>
                <th>Name</th>
                <th>Email</th>
+               <th>Mobile No</th>               
                <th>Created</th>
                <th>Active</th>
                <th>Role</th>
@@ -30,6 +31,7 @@
             <tr dir-paginate="user in users | itemsPerPage: 10" total-items="totalUsers" pagination-id="usersPagination">
                <td>{{ user.firstName }} {{user.lastName }}</td>
                <td>{{user.emailAddress}}</td>
+               <td>{{user.mobileNo}}</td>               
                <td>
                   <span am-time-ago="user.createdOn"> </span>
                </td>

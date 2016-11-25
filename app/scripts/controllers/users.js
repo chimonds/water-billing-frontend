@@ -8,7 +8,7 @@
  * Controller of the majiApp
  */
 
-app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
+app.controller('UsersCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
 
     //get config
     var config = appService.getCofig();
@@ -21,18 +21,18 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
     $scope.searchFilter.text = '';
 
     //listen on user added
-    $scope.$on('onReloadUsers', function(event) {
+    $scope.$on('onReloadUsers', function (event) {
         $scope.getUsers(1);
     });
 
     //handle pagination
-    $scope.pageChangedUsers = function(newPage) {
+    $scope.pageChangedUsers = function (newPage) {
         $scope.getUsers(newPage);
     };
 
 
 
-    $scope.getUsers = function(newPage) {
+    $scope.getUsers = function (newPage) {
         newPage--;
         var request = {};
         request.page = newPage;
@@ -50,16 +50,16 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
         request.filter = $scope.searchFilter.text;
 
         //send request
-        appService.getUsers(request).success(function(response) {
+        appService.getUsers(request).success(function (response) {
             $scope.errorOccured = false;
             $scope.users = response.payload.content;
             $scope.totalUsers = response.payload.totalElements; //to change this
             $state.go('users');
-        }).error(function(data, status) {
-             if(status===401){
+        }).error(function (data, status) {
+            if (status === 401) {
                 $state.go('session');
                 $scope.message = data.message;
-            }else{
+            } else {
                 $scope.errorOccured = true;
                 $scope.errorMsg = data.message;
                 $state.go('users');
@@ -70,32 +70,32 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
     //load users
     $scope.getUsers(1);
 
-    $scope.seachUsers = function() {
+    $scope.seachUsers = function () {
         $scope.getUsers(1);
     };
 
 
-    $scope.editUserDialog = function(index) {
+    $scope.editUserDialog = function (index) {
         $scope.selectedUser = $scope.users[index];
 
         $mdDialog.show({
             controller: EditUserDialogController,
             templateUrl: 'views/template/user_edit.html',
             resolve: {
-                selectedUser: function() {
+                selectedUser: function () {
                     return $scope.selectedUser;
                 }
             }
         });
     };
 
-    $scope.resetUserDialog = function(index) {
+    $scope.resetUserDialog = function (index) {
         $scope.selectedUser = $scope.users[index];
         $mdDialog.show({
             controller: resetPasswordDialogController,
             templateUrl: 'views/template/reset_password.html',
             resolve: {
-                selectedUser: function() {
+                selectedUser: function () {
                     return $scope.selectedUser;
                 }
             }
@@ -108,10 +108,10 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
         $scope.selectedUser = selectedUser;
         $scope.form = selectedUser;
 
-        $scope.cancel = function() {
+        $scope.cancel = function () {
             $mdDialog.cancel();
         };
-        $scope.update = function(form) {
+        $scope.update = function (form) {
             var myForm = $scope.myForm.object;
             if (myForm.$invalid === false) {
                 //good to go
@@ -124,18 +124,18 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
                 request.emailAddress = form.emailAddress;
 
                 //send request
-                appService.resetUserPassword(request).success(function(response) {
+                appService.resetUserPassword(request).success(function (response) {
                     $scope.errorOccured = false;
                     $scope.errorClass = config.cssAlertSucess;
                     $scope.errorMsg = response.message;
                     //notify roles page to reload data
                     $rootScope.$broadcast('onReloadUsers');
 
-                }).error(function(data, status) {
-                     if(status===401){
+                }).error(function (data, status) {
+                    if (status === 401) {
                         $state.go('session');
                         $scope.message = data.message;
-                    }else{
+                    } else {
                         $scope.errorOccured = true;
                         $scope.errorClass = config.cssAlertDanger;
                         $scope.errorMsg = data.message;
@@ -163,14 +163,14 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
         request.filter = '';
 
         //send request
-        appService.getRoles(request).success(function(response) {
+        appService.getRoles(request).success(function (response) {
             $scope.roles = response.payload.content;
-        }).error(function(data) {});
+        }).error(function (data) { });
 
-        $scope.cancel = function() {
+        $scope.cancel = function () {
             $mdDialog.cancel();
         };
-        $scope.update = function(form) {
+        $scope.update = function (form) {
             var myForm = $scope.myForm.object;
             if (myForm.$invalid === false) {
                 //good to go
@@ -188,22 +188,23 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
                 request.active = form.active;
                 request.userRole = $scope.roles[userRole];
                 request.userId = $scope.selectedUser.userId;
+                request.mobileNo = form.mobileNo;
 
                 console.log(request);
 
                 //send request
-                appService.updateUser(request).success(function(response) {
+                appService.updateUser(request).success(function (response) {
                     $scope.errorOccured = false;
                     $scope.errorClass = config.cssAlertSucess;
                     $scope.errorMsg = response.message;
                     //notify roles page to reload data
                     $rootScope.$broadcast('onReloadUsers');
 
-                }).error(function(data, status) {
-                     if(status===401){
+                }).error(function (data, status) {
+                    if (status === 401) {
                         $state.go('session');
                         $scope.message = data.message;
-                    }else{
+                    } else {
                         $scope.errorOccured = true;
                         $scope.errorClass = config.cssAlertDanger;
                         $scope.errorMsg = data.message;
@@ -217,7 +218,7 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
         };
     }
 
-    $scope.addUserDialog = function() {
+    $scope.addUserDialog = function () {
         $mdDialog.show({
             controller: AddUserDialogController,
             templateUrl: 'views/template/user_add.html',
@@ -241,16 +242,16 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
         request.filter = '';
 
         //send request
-        appService.getRoles(request).success(function(response) {
+        appService.getRoles(request).success(function (response) {
             $scope.errorOccured = false;
             $scope.roles = response.payload.content;
-        }).error(function(data) {});
+        }).error(function (data) { });
 
 
-        $scope.cancel = function() {
+        $scope.cancel = function () {
             $mdDialog.cancel();
         };
-        $scope.save = function(form) {
+        $scope.save = function (form) {
             var myForm = $scope.myForm.object;
             if (myForm.$invalid === false) {
                 //good to go
@@ -265,25 +266,27 @@ app.controller('UsersCtrl', function($scope, $http, appService, $cookieStore, $s
                 request.lastName = form.lastName;
                 request.emailAddress = form.emailAddress;
                 request.active = form.isActive;
-                request.userRole = $scope.roles[userRole];
+                request.userRole = {};
+                request.userRole.userRoleId = form.userRole.userRoleId;
+                request.mobileNo = form.mobileNo;
 
                 //send request
-                appService.createUser(request).success(function(response) {
+                appService.createUser(request).success(function (response) {
                     $scope.errorOccured = false;
                     $scope.errorClass = config.cssAlertSucess;
                     $scope.errorMsg = response.message;
                     //notify users page to reload data
                     $rootScope.$broadcast('onReloadUsers');
 
-                }).error(function(data, status) {
-                    if(status===401){
+                }).error(function (data, status) {
+                    if (status === 401) {
                         $state.go('session');
                         $scope.message = data.message;
-                    }else{
+                    } else {
                         $scope.errorOccured = true;
                         $scope.errorClass = config.cssAlertDanger;
                         $scope.errorMsg = data.message;
-                }
+                    }
                 });
             } else {
                 $scope.errorOccured = true;

@@ -1,7 +1,7 @@
 <div layout="column" layout-fill ng-controller="SidebarCtrl" flex>
    <md-toolbar  ng-show="showMainToolbar" scroll-shrink layout="row" class="sticky-nav no-print">
       <div class="md-toolbar-tools">
-         <span flex-gt-md="40" flex-md="40" flex-md flex-sm flex-xs>
+         <span flex-gt-md="40" flex-md="40" flex-sm flex-xs>
             <md-button aria-label="Toggle menu"  ng-click="toggleMenu()" style="min-width:8px;">
               <div class="line-wrap">
                 <div class="line top"></div>
@@ -9,13 +9,12 @@
                 <div class="line bottom"></div>
               </div>
             </md-button>
-            <img class="logo-image" src="images/logo.png"/>
+            <img class="logo-image hidden-xs" src="images/logo.png"/ style="margin-top:10px;">
          </span>
          <span flex-gt-md="60" flex-md="60" hide-sm>
                <md-button ng-href="#logout" class="pull-right" aria-label="Logout">
                   <span aria-hidden="true" class="icon-power"></span>
                </md-button>
-
                 <md-button class="pull-right">
            {{currentUser.name}}
          </md-button>
