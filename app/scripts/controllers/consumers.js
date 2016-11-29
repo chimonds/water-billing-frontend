@@ -9,7 +9,7 @@
  * Controller of the ConsumersCtrl
  */
 
-app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
+app.controller('ConsumersCtrl', function ($scope, $timeout, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
 
   //get config
   var config = appService.getCofig();
@@ -18,7 +18,7 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
   $scope.params.size = 10;
 
   //view consumer list is default
-  $scope.showConsumerList= true;
+  $scope.showConsumerList = true;
 
   //search filter
   $scope.searchFilter = {};
@@ -68,10 +68,10 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
   //load page data
   $scope.getPageData(1);
 
-  $scope.viewConsumerProfile = function(index){
-    $scope.selectedConsumer= $scope.consumers[index];
+  $scope.viewConsumerProfile = function (index) {
+    $scope.selectedConsumer = $scope.consumers[index];
     $scope.selectedConsumerIndex = index;
-    $scope.showConsumerList= false;
+    $scope.showConsumerList = false;
     $scope.showConsumerProfile = true;
 
     var consumerId = $scope.selectedConsumer.consumerId;
@@ -81,10 +81,10 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
     request.size = 50;
 
     //reset accounts object
-    $scope.accounts={};
+    $scope.accounts = {};
 
     //send request
-    appService.getAccountsByConsumer(request,consumerId).success(function (response) {
+    appService.getAccountsByConsumer(request, consumerId).success(function (response) {
       $scope.errorOccured = false;
       $scope.accounts = response.payload;
       $scope.totalAccounts = response.payload.totalElements; //to change this
@@ -92,10 +92,10 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
 
       //get cumulative account balance
       var totalBalance = 0;
-      for(var i = 0; i < $scope.accounts.length; i++){
+      for (var i = 0; i < $scope.accounts.length; i++) {
         totalBalance += $scope.accounts[i].outstandingBalance;
       }
-      $scope.totalBalance =  totalBalance;
+      $scope.totalBalance = totalBalance;
 
     }).error(function (data, status) {
       if (status === 401) {
@@ -109,14 +109,26 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
     });
   };
 
-  $scope.viewConsumers = function(){
-    $scope.showConsumerList= true;
+  $scope.viewConsumers = function () {
+    $scope.showConsumerList = true;
     $scope.showConsumerProfile = false;
-    $scope.errorOccured =false;
+    $scope.errorOccured = false;
   };
 
+  // $scope.seach = function () {
+  //   console.log('sasa');
+  //   $scope.getPageData(1);
+  // };
+
   $scope.seach = function () {
-    $scope.getPageData(1);
+    $scope.startSearchTime = new Date().getTime();
+    $timeout(function () {
+      var searchTime = new Date().getTime();
+      var diff = searchTime - $scope.startSearchTime;
+      if (diff > 499) {
+        $scope.getPageData(1);
+      }
+    }, 500);
   };
 
   $scope.editConsumerDialog = function (index) {
@@ -232,7 +244,7 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
   };
 
   $scope.$on('onReloadAccountsData', function (event) {
-    $scope.viewConsumerProfile($scope.selectedConsumerIndex );
+    $scope.viewConsumerProfile($scope.selectedConsumerIndex);
   });
 
   $scope.editAccountDialog = function (index) {
@@ -292,14 +304,14 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
         $scope.errorClass = config.cssAlertInfo;
         $scope.errorMsg = config.msgSendingData;
 
-        var request ={};
+        var request = {};
         request.accNo = form.accNo;
         request.averageConsumption = form.averageConsumption;
         request.balanceBroughtForward = form.balanceBroughtForward;
         request.location = $scope.locations[form.accLocation];
         request.zone = $scope.zones[form.accZone];
         request.tariff = $scope.tariffs[form.accTariff];
-        request.accountCategory= $scope.categories[form.accCategory];
+        request.accountCategory = $scope.categories[form.accCategory];
 
         var accountId = $scope.selectedAccount.accountId;
 
@@ -381,14 +393,14 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
         $scope.errorClass = config.cssAlertInfo;
         $scope.errorMsg = config.msgSendingData;
 
-        var request ={};
+        var request = {};
         request.accNo = form.accNo;
         request.averageConsumption = form.averageConsumption;
         request.balanceBroughtForward = form.balanceBroughtForward;
         request.location = $scope.locations[form.accLocation];
         request.zone = $scope.zones[form.accZone];
         request.tariff = $scope.tariffs[form.accTariff];
-        request.accountCategory= $scope.categories[form.accCategory];
+        request.accountCategory = $scope.categories[form.accCategory];
 
         var consumerId = $scope.selectedConsumer.consumerId;
 
@@ -481,8 +493,8 @@ app.controller('ConsumersCtrl', function ($scope, $http, appService, $cookieStor
         $scope.errorClass = config.cssAlertInfo;
         $scope.errorMsg = config.msgSendingData;
 
-        var request ={};
-        request.accountId =  $scope.selectedAccount.accountId;
+        var request = {};
+        request.accountId = $scope.selectedAccount.accountId;
         var consumerId = form.consumerId;
 
         //send request

@@ -8,7 +8,7 @@
  * # UsersCtrl
  * Controller of the AccountsCtrl
  */
-app.controller('AccountsCtrl', function($scope, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
+app.controller('AccountsCtrl', function ($scope, $timeout, $http, appService, $cookieStore, $state, $mdDialog, $mdToast, $animate, $rootScope) {
   //get config
   var config = appService.getCofig();
   $scope.params = {};
@@ -20,16 +20,16 @@ app.controller('AccountsCtrl', function($scope, $http, appService, $cookieStore,
   $scope.searchFilter.text = '';
 
   //listen on role added
-  $scope.$on('onReloadPageData', function(event) {
+  $scope.$on('onReloadPageData', function (event) {
     $scope.getPageData(1);
   });
 
   //handle pagination
-  $scope.pageChanged = function(newPage) {
+  $scope.pageChanged = function (newPage) {
     $scope.getPageData(newPage);
   };
 
-  $scope.getPageData = function(newPage) {
+  $scope.getPageData = function (newPage) {
     newPage--;
     var request = {};
     request.page = newPage;
@@ -43,13 +43,13 @@ app.controller('AccountsCtrl', function($scope, $http, appService, $cookieStore,
     request.filter = $scope.searchFilter.text;
 
     //send request
-    appService.getAccounts(request).success(function(response) {
+    appService.getAccounts(request).success(function (response) {
       $scope.errorOccured = false;
       $scope.accounts = response.payload.content;
       $scope.totalAccounts = response.payload.totalElements;
       $state.go('accounts');
 
-    }).error(function(data, status) {
+    }).error(function (data, status) {
       if (status === 401) {
         $state.go('session');
         $scope.message = data.message;
@@ -65,8 +65,15 @@ app.controller('AccountsCtrl', function($scope, $http, appService, $cookieStore,
   //load page data
   $scope.getPageData(1);
 
-  $scope.seach = function() {
-    $scope.getPageData(1);
+  $scope.seach = function () {
+    $scope.startSearchTime = new Date().getTime();
+    $timeout(function () {
+      var searchTime = new Date().getTime();
+      var diff = searchTime - $scope.startSearchTime;
+      if (diff > 499) {
+        $scope.getPageData(1);
+      }
+    }, 500);
   };
 });
 
