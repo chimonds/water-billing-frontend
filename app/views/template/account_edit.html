@@ -1,112 +1,127 @@
 <md-dialog aria-label="Edit connection" flex>
-  <md-content>
-    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to edit account info</md-subheader>
-    <div flex layout="column">
-      <md-content class="md-padding">
-        <form name="myForm.object">
-          <md-input-container>
-            <label>Account Number</label>
-            <input maxlength="9" name="accNo" ng-model="form.accNo" required>
+	<md-content>
+		<md-subheader class="md-sticky-no-effect md-primary">Use this panel to edit account info</md-subheader>
+		<div flex layout="column">
+			<md-content class="md-padding">
+				<form name="myForm.object">
+					<md-input-container>
+						<label>Account Number</label>
+						<input maxlength="20" name="accNo" ng-model="form.accNo" required>
 
-            <div ng-messages="myForm.object.accNo.$error">
-              <div ng-message="required">This is required.</div>
-              <div ng-message="maxlength">The account number has to be less than 9 characters long.</div>
-            </div>
-          </md-input-container>
+						<div ng-messages="myForm.object.accNo.$error">
+							<div ng-message="required">This is required.</div>
+							<div ng-message="maxlength">The account number has to be less than 20 characters long.</div>
+						</div>
+					</md-input-container>
 
-          <md-input-container>
-            <label>Average Consumption</label>
-            <input maxlength="4" name="averageConsumption" ng-model="form.averageConsumption" type="number">
+					<md-input-container>
+						<label>Average Consumption</label>
+						<input maxlength="4" name="averageConsumption" ng-model="form.averageConsumption" type="number">
 
-            <div ng-messages="myForm.object.averageConsumption.$error">
-              <div ng-message="required">This is required.</div>
-              <div ng-message="md-maxlength">The name has to be less than 4 characters long.</div>
-            </div>
-          </md-input-container>
+						<div ng-messages="myForm.object.averageConsumption.$error">
+							<div ng-message="required">This is required.</div>
+							<div ng-message="md-maxlength">The name has to be less than 4 characters long.</div>
+						</div>
+					</md-input-container>
 
-          <!--Balance brought forward-->
-          <md-input-container>
-            <label>Balance Brought Forward (KES)</label>
-            <input maxlength="6" name="balanceBroughtForward" ng-model="form.balanceBroughtForward" type="number">
+					<!--Balance brought forward-->
+					<md-input-container>
+						<label>Balance Brought Forward (KES)</label>
+						<input maxlength="6" name="balanceBroughtForward" ng-model="form.balanceBroughtForward" type="number">
 
-            <div ng-messages="myForm.object.balanceBroughtForward.$error">
-              <div ng-message="required">This is required.</div>
-              <div ng-message="md-maxlength">The name has to be less than 6 characters long.</div>
-            </div>
-          </md-input-container>
+						<div ng-messages="myForm.object.balanceBroughtForward.$error">
+							<div ng-message="required">This is required.</div>
+							<div ng-message="md-maxlength">The name has to be less than 6 characters long.</div>
+						</div>
+					</md-input-container>
 
-          <!-- Metered -->
-          <div ng-show="form.metered">
-            <md-input-container>
-              <label>Metered</label>
-              <input disabled="disabled" name="metered" ng-model="form.meter.meterNo">
+					<!-- Metered -->
+					<div ng-show="form.metered">
+						<md-input-container>
+							<label>Metered</label>
+							<input disabled="disabled" name="metered" ng-model="form.meter.meterNo">
+						</md-input-container>
+					</div>
+
+					<!-- Metered -->
+					<div ng-show="!form.metered">
+						<md-input-container>
+							<label>Metered</label>
+							<input disabled="disabled" name="metered" ng-model="form.metered">
+						</md-input-container>
+					</div>
+
+					<div flex layout="row">
+
+						<md-input-container>
+							<label>Category</label>
+							<!--Connection Location-->
+							<md-select name="location" ng-model="form.accLocation" placeholder="Assign account location" required>
+								<md-option ng-repeat="location in locations" ng-selected="{{location.locationId == selectedAccount.location.locationId}}"
+									value="{{$index}}">
+									{{location.name}}
+								</md-option>
+							</md-select>
+							<div ng-messages="myForm.object.location.$error">
+								<div ng-message="required">This is required.</div>
+							</div>
+						</md-input-container>
+
+						<!--Connection zone-->
+						<md-input-container>
+							<label>Zone</label>
+							<md-select name="zone" ng-model="form.accZone" placeholder="Assign account zone" required>
+								<md-option ng-repeat="zone in zones" ng-selected="{{zone.zoneId == selectedAccount.zone.zoneId}}" value="{{$index}}">
+									{{zone.name}}
+								</md-option>
+							</md-select>
+							<div ng-messages="myForm.object.zone.$error">
+								<div ng-message="required">This is required.</div>
+							</div>
+						</md-input-container>
+
+						<!--Connection tariff-->
+						<md-input-container>
+							<label>Tarrif</label>
+							<md-select name="tariff" ng-model="form.accTariff" required>
+								<md-option ng-repeat="tariff in tariffs" ng-selected="{{tariff.tariffId == selectedAccount.tariff.tariffId}}" value="{{$index}}">
+									{{tariff.name}}
+								</md-option>
+							</md-select>
+							<div ng-messages="myForm.object.tariff.$error">
+								<div ng-message="required">This is required.</div>
+							</div>
+						</md-input-container>
+
+						<md-input-container>
+							<label>Category</label>
+							<md-select name="category" ng-model="form.accCategory" required>
+								<md-option ng-repeat="category in categories" ng-selected="{{category.categoryId == selectedAccount.accountCategory.categoryId}}"
+									value="{{$index}}">
+									{{category.name}}
+								</md-option>
+							</md-select>
+							<div ng-messages="myForm.object.tariff.$error">
+								<div ng-message="required">This is required.</div>
+							</div>
+						</md-input-container>
+
+					</div>
+
+					<br/>
+
+					<md-input-container>
+						<label>Phone Number</label>
+						<input maxlength="10" name="phoneNumber" ng-model="form.phoneNumber" type="text">
+						<div ng-messages="myForm.object.accNo.$error">
+							<div ng-message="maxlength">The account number has to be less than 10 characters long.</div>
+						</div>
+					</md-input-container>
+
+					<md-input-container>
+						<label>Notes</label>
+						<textarea  name="notes" ng-model="form.notes"></textarea rows="4" cols="50">
             </md-input-container>
-          </div>
-
-          <!-- Metered -->
-          <div ng-show="!form.metered">
-            <md-input-container>
-              <label>Metered</label>
-              <input disabled="disabled" name="metered" ng-model="form.metered">
-            </md-input-container>
-          </div>
-
-          <div flex layout="row">
-
-            <md-input-container>
-              <label>Category</label>
-              <!--Connection Location-->
-              <md-select name="location" ng-model="form.accLocation" placeholder="Assign account location" required>
-                <md-option ng-repeat="location in locations" ng-selected="{{location.locationId == selectedAccount.location.locationId}}" value="{{$index}}">
-                  {{location.name}}
-                </md-option>
-              </md-select>
-              <div ng-messages="myForm.object.location.$error">
-                <div ng-message="required">This is required.</div>
-              </div>
-            </md-input-container>
-
-            <!--Connection zone-->
-            <md-input-container>
-              <label>Zone</label>
-              <md-select name="zone" ng-model="form.accZone" placeholder="Assign account zone" required>
-                <md-option ng-repeat="zone in zones" ng-selected="{{zone.zoneId == selectedAccount.zone.zoneId}}" value="{{$index}}">
-                  {{zone.name}}
-                </md-option>
-              </md-select>
-              <div ng-messages="myForm.object.zone.$error">
-                <div ng-message="required">This is required.</div>
-              </div>
-            </md-input-container>
-
-            <!--Connection tariff-->
-            <md-input-container>
-              <label>Tarrif</label>
-              <md-select name="tariff" ng-model="form.accTariff" required>
-                <md-option ng-repeat="tariff in tariffs" ng-selected="{{tariff.tariffId == selectedAccount.tariff.tariffId}}" value="{{$index}}">
-                  {{tariff.name}}
-                </md-option>
-              </md-select>
-              <div ng-messages="myForm.object.tariff.$error">
-                <div ng-message="required">This is required.</div>
-              </div>
-            </md-input-container>
-
-            <md-input-container>
-              <label>Category</label>
-              <md-select name="category" ng-model="form.accCategory" required>
-                <md-option ng-repeat="category in categories" ng-selected="{{category.categoryId == selectedAccount.accountCategory.categoryId}}" value="{{$index}}">
-                  {{category.name}}
-                </md-option>
-              </md-select>
-              <div ng-messages="myForm.object.tariff.$error">
-                <div ng-message="required">This is required.</div>
-              </div>
-            </md-input-container>
-
-          </div>
-
-          <br/>
 
           <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}
 

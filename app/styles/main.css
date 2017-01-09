@@ -622,4 +622,12 @@ html {
 .login-container {
   margin: auto;
   max-width: 550px;
+}md-select {
+  z-index: 90;
+}
+md-dialog, md-panel {
+  z-index: 100;
+}
+md-dialog md-select, md-panel md-select {
+  z-index: 190;
 }

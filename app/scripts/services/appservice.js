@@ -14,8 +14,8 @@ app.service('appService', function ($http, $cookieStore) {
   //TEST -  comment this
   //var BASE_URL = 'http://localhost:9090/api/v1/';
   //var BASE_URL = 'https://kimawasco.opentembo.io/simba/api/v1/';
-  var BASE_URL = 'https://nolturesh.opentembo.io/simba/api/v1/';
-  //var BASE_URL = 'https://wowasco.opentembo.io/simba/api/v1/';
+  //var BASE_URL = 'https://nolturesh.opentembo.io/simba/api/v1/';
+  var BASE_URL = 'https://wowasco.opentembo.io/simba/api/v1/';
 
   var ROLES = 'roles';
   var PERMISSIONS = 'permissions';

@@ -6,7 +6,7 @@
         <form name="myForm.object">
           <md-input-container>
             <label>Meter Number</label>
-            <input md-maxlength="15" required name="meterNo" ng-model="form.meterNo">
+            <input md-maxlength="20" required name="meterNo" ng-model="form.meterNo">
             <div ng-messages="myForm.object.meterNo.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 15 characters long.</div>
