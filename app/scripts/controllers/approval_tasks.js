@@ -18,7 +18,6 @@ app.controller('ApprovalTasksCtrl', function ($scope, $http, appService, $cookie
 
     //search filter
     $scope.searchFilter = {};
-    $scope.searchFilter.text = '';
 
     $scope.$on('onReloadPageData', function (event) {
         $scope.getPageData(1);
@@ -35,13 +34,11 @@ app.controller('ApprovalTasksCtrl', function ($scope, $http, appService, $cookie
         request.page = newPage;
         request.size = 10;
 
-
         if (typeof $scope.searchFilter.text === 'undefined') {
             $scope.searchFilter.text = '';
         }
         //set search filter
         request.filter = $scope.searchFilter.text;
-
         //send request
         appService.getApprovalTasks(request).success(function (response) {
             $scope.errorOccured = false;

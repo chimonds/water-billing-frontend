@@ -9,28 +9,29 @@
 				</div>
 				<md-input-container flex class="md-default-theme">
 					<label for="input_041">Search</label>
-					<input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched"
+					<input ng-init="searchFilter = {}" ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched"
 						tabindex="0" id="input_041" aria-invalid="false">
 				</md-input-container>
-				<!--<table class="table table-hover">-->
-				<!--<thead>-->
-				<!--<tr>-->
-				<!--<th></th>-->
-				<!--<th>Created</th>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Created</th>
 							<th>Requested By</th>
 							<th>Request</th>
 							<th>Account#</th>
 							<th>Name</th>
-							<th>Notes</th>
 							<th>Amount</th>
-							<th>Role</th>
+							<th>Step</th>
+							<th></th>
+							<th>Result</th>
 							<th>Status</th>
-							<th></th>-->
-				<!--</tr>-->
-				<!--</thead>-->
-				<!--<tbody>-->
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
 
-				<div dir-paginate="task in tasks | itemsPerPage: 10" total-items="totalRecords" pagination-id="pagePagination">
+						<!--<div dir-paginate="task in tasks | itemsPerPage: 10" total-items="totalRecords" pagination-id="pagePagination">
 
 
 					<md-card>
@@ -95,38 +96,44 @@
 								<md-button class="md-primary" ui-sref="approval-task({ taskId: task.taskId})">View</md-button>
 							</div>
 						</md-card-content>
-					</md-card>
+					</md-card>-->
 
 
-<!--</td>-->
-<!--
-							<td>{{task.sno}}</td>														
+						<tr dir-paginate="task in tasks | itemsPerPage: 10" total-items="totalRecords" pagination-id="pagePagination">
+
+
+							<td>{{task.sno}}</td>
 							<td>
 								<span am-time-ago="task.createdOn"> </span>
 							</td>
-							<td>{{task.user.firstName}} {{task.user.lastName}}</td>							
+							<td>{{task.user.firstName}}
+								<!--{{task.user.lastName}}-->
+							</td>
 							<td>{{task.taskType.name}}</td>
 							<td>{{task.account.accNo }}</td>
 							<td>{{task.account.accName }}</td>
-							<td>{{task.notes}}</td>
+							<!--<td>{{task.notes}}</td>-->
 							<td>{{task.amount | number}}</td>
-							<td>{{task.approval.userRole.name}}</td>
 							<td>
-								{{task.approval.name}} &nbsp;
+								{{task.approval.name}}
+							</td>
+							<td>
 								<span ng-switch="task.approvalStep">
-                            <span ng-switch-when="1" style="color:#ffffff;background:#FF5722;padding:8px">Start</span>
-								<span ng-switch-when="2" style="color:#ffffff;background:#5cb85c;padding:8px">On Progress</span>
-								<span ng-switch-when="3" style="color:#ffffff;background:#ff0000;padding:8px">End</span>
+									<span ng-switch-when="1" style="color:#ffffff;background:#2196F3;padding:8px">Start</span>
+								<span ng-switch-when="2" style="color:#ffffff;background:#2196F3;padding:8px">On Progress</span>
+								<span ng-switch-when="3" style="color:#ffffff;background:#2196F3;padding:8px">End</span>
+								<span ng-switch-when="4" style="color:#ffffff;background:#ff0000;padding:8px">Rejected</span>
+								<span ng-switch-when="5" style="color:#ffffff;background:#5cb85c;padding:8px">Completed</span>
 								</span>
+							</td>
+							<td>
+								{{task.notesProcessed}}
 							</td>
 							<td align="right">
 								<span ng-show="task.edit" class="alert alert-info">Needs your attention</span>
 								<md-button class="md-primary" ui-sref="approval-task({ taskId: task.taskId})">View</md-button>
-							</td>-->
+							</td>
 
-						</div>
-						<table>
-							<tbody>
 						</tr>
 						<tr>
 							<td colspan="11" align="center">
