@@ -107,6 +107,16 @@ var app = angular
           requireLogin: true
         }
       })
+
+      .state('accounts_to_activate', {
+        url: '/accounts-to-activate',
+        templateUrl: 'views/reports/accounts-to-activate.html',
+        controller: 'ReportAccountsToActivateCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
+
       .state('approval-tasks', {
         url: '/approvals',
         templateUrl: 'views/approval-tasks.html',

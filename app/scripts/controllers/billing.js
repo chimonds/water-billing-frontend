@@ -11,6 +11,9 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
   var config = appService.getCofig();
 
   $scope.accountFound = false;
+  $scope.form = {};
+  $scope.form.billWaterSale = true;
+
   var request = {};
   request.page = 0;
   request.size = 1;
@@ -58,23 +61,23 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
 
   $scope.searchAccount = function () {
     //Reinitialize this values
-    $scope.form.meterReading='';
-    $scope.form.previousReading='';
-    $scope.form.unitsConsumed='';
-    $scope.form.consumptionType='';
-    $scope.totalBilled='';
-    $scope.totalCharges='';
+    $scope.form.meterReading = '';
+    $scope.form.previousReading = '';
+    $scope.form.unitsConsumed = '';
+    $scope.form.consumptionType = '';
+    $scope.totalBilled = '';
+    $scope.totalCharges = '';
 
     $scope.accountFound = false;
-    $scope.searchingResults =false;
+    $scope.searchingResults = false;
     $scope.submittingBill = false;
     $scope.Accountbilled = false;
     //blank last bill info
-    $scope.lastBill={};
+    $scope.lastBill = {};
 
     var accNo = $scope.form.accNo;
-    if(accNo.length<5){
-      $scope.searchingResults =true;
+    if (accNo.length < 5) {
+      $scope.searchingResults = true;
       return;
     }
 
@@ -86,9 +89,11 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
       $scope.account = response.payload;
       $scope.billed = true;
       $scope.accountFound = true;
-      $scope.searchingResults =true;
+      $scope.searchingResults = true;
       $scope.error = false;
       $scope.data = $scope.account;
+      $scope.form.billWaterSale = true;
+      
 
 
       //get bill item types
@@ -101,8 +106,8 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
         $scope.lastBill = response.payload;
         $scope.form.previousReading = $scope.lastBill.currentReading;
         $scope.billed = $scope.lastBill.billed;
-        $scope.Accountbilled= $scope.lastBill.billed;
-        $scope.message ='';
+        $scope.Accountbilled = $scope.lastBill.billed;
+        $scope.message = '';
       });
     }).error(function (data, status) {
       $scope.data = {};
@@ -170,6 +175,7 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
     var accountId = $scope.account.accountId;
     var request = {};
     request.units = units;
+    request.billWaterSale = $scope.form.billWaterSale;
     appService.calculateAmountBilled(request, accountId).success(function (response) {
       console.log(response);
       $scope.totalBilled = response.payload.amount;
@@ -190,6 +196,7 @@ app.controller('BillingCtrl', function ($scope, $http, appService, $cookieStore,
       request.billItemTypes = $scope.charged;
       request.currentReading = $scope.form.meterReading;
       request.previousReading = $scope.form.previousReading;
+      request.billWaterSale = $scope.form.billWaterSale;
 
       //Send payload to server
       $scope.submittingBill = true;

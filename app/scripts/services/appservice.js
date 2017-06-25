@@ -12,10 +12,10 @@
 
 app.service('appService', function ($http, $cookieStore) {
   //TEST -  comment this
-  //var BASE_URL = 'http://localhost:9090/api/v1/';
+  var BASE_URL = 'http://localhost:9090/api/v1/';
   //var BASE_URL = 'https://kimawasco.opentembo.io/simba/api/v1/';
   //var BASE_URL = 'https://nolturesh.opentembo.io/simba/api/v1/';
-  var BASE_URL = 'https://wowasco.opentembo.io/simba/api/v1/';
+  // var BASE_URL = 'https://wowasco.opentembo.io/simba/api/v1/';
 
   var ROLES = 'roles';
   var PERMISSIONS = 'permissions';
@@ -1113,6 +1113,17 @@ app.service('appService', function ($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + REPORTS + '/payments',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getAccountsToActivateReport = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORTS + '/accountsToActivate',
       headers: {
         'Content-Type': 'application/json'
       },
