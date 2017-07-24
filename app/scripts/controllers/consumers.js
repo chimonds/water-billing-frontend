@@ -314,6 +314,7 @@ app.controller('ConsumersCtrl', function ($scope, $timeout, $http, appService, $
         request.accountCategory = $scope.categories[form.accCategory];
         request.phoneNumber = form.phoneNumber;
         request.notes = form.notes;
+        request.billingFrequency = form.billingFrequency;
 
         var accountId = $scope.selectedAccount.accountId;
 
@@ -405,6 +406,7 @@ app.controller('ConsumersCtrl', function ($scope, $timeout, $http, appService, $
         request.zone = $scope.zones[form.accZone];
         request.tariff = $scope.tariffs[form.accTariff];
         request.accountCategory = $scope.categories[form.accCategory];
+        request.billingFrequency = form.billingFrequency;
 
         var consumerId = $scope.selectedConsumer.consumerId;
 

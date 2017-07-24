@@ -189,7 +189,7 @@
 														
 															<md-input-container flex=50>
 																<label>Previous Reading</label>
-																<input maxlength="6" name="meterReading" ng-change="calcUnits()" ng-model="form.previousReading" required type="number">
+																<input maxlength="20" name="meterReading" ng-change="calcUnits()" ng-model="form.previousReading" required type="number">
 
 																<div ng-messages="myForm.object.previousReading.$error">
 																	<div ng-message="required">This is required.</div>
@@ -202,7 +202,7 @@
 														<span ng-show="!billed">
 															<md-input-container flex=50 >
 																<label>Meter Reading</label>
-																<input maxlength="6" name="meterReading" ng-change="calcUnits()" ng-model="form.meterReading" required type="number">
+																<input maxlength="20" name="meterReading" ng-change="calcUnits()" ng-model="form.meterReading" required type="number">
 
 																<div ng-messages="myForm.object.meterReading.$error">
 																	<div ng-message="required">This is required.</div>

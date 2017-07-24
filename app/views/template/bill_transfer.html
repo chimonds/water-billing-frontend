@@ -1,0 +1,68 @@
+<md-dialog aria-label="Transfer Bill" flex>
+	<md-content>
+		<md-subheader class="md-sticky-no-effect md-primary">Use this panel to transfer a bill</md-subheader>
+		<div layout="column" flex>
+			<md-content class="md-padding">
+				<form name="myForm.object">
+					<div class="pull-left">
+						<p>
+							Previous Reading: <strong>{{bill.previousReading | number}}</strong>
+						</p>
+						<p>
+							Current Reading: <strong>{{bill.currentReading | number}}</strong>
+						</p>
+					</div>
+					<div class="pull-right">
+						<p>
+							Units Billed: <strong>{{bill.unitsBilled | number}}</strong>
+
+						</p>
+						<p>
+							Total Billed: <strong>KES {{bill.totalBilled | number}}</strong>
+						</p>
+					</div>
+					<div class="clearfix"></div>
+
+					<md-input-container>
+						<label>Connection Number</label>
+						<input ng-change="searchConnection();" maxlength="18" type="text" required name="initialReading" ng-model="form.accountNo">
+						<div ng-messages="myForm.object.initialReading.$error">
+							<div ng-message="required">This is required.</div>
+							<div ng-message=" maxlength">The connection number has to be less than 9 characters long.</div>
+						</div>
+					</md-input-container>
+
+          <div>
+            <div ng-show="errorOccured" class="alert alert-danger" role="alert">
+              {{errorMsg}}
+            </div>
+
+            <md-card ng-show="accountFound">
+              <md-card-content>
+                <h1>{{account.accName}}</h1>
+                <p>
+                  Account No: <strong>{{account.accNo}}</strong>
+                  Tariff: <strong>{{account.tariff.name}}</strong>
+                </p>
+              </md-card-content>
+            </md-card>
+          </div>
+
+          <div ng-show="showErrorInfo" ng-class="errorClass" role="alert">{{errorMsg}}
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div  layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel();">
+              Close
+            </md-button>
+            <md-button ng-disabled="!accountFound" class="md-primary" ng-click="transfer(form);">
+              Transfer
+            </md-button>
+          </div>
+        </form>
+      </md-content>
+    </div>
+  </md-content>
+</md-dialog>

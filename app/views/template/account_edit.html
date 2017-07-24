@@ -106,6 +106,18 @@
 							</div>
 						</md-input-container>
 
+						<!--Billing frequency-->
+						<md-input-container>
+							<label>Billing Frequency</label>
+							<md-select name="billingFrequency" ng-model="form.billingFrequency" required>
+								<md-option value="0">Bill Monthly</md-option>
+								<md-option value="1">Bill Any Time</md-option>
+							</md-select>
+							<div ng-messages="myForm.object.billingFrequency.$error">
+								<div ng-message="required">This is required.</div>
+							</div>
+						</md-input-container>
+
 					</div>
 
 					<br/>
@@ -120,7 +132,7 @@
 
 					<md-input-container>
 						<label>Notes</label>
-						<textarea  name="notes" ng-model="form.notes"></textarea rows="4" cols="50">
+						<textarea name="notes" ng-model="form.notes"></textarea rows="4" cols="50">
             </md-input-container>
 
           <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}

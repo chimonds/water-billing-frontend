@@ -275,7 +275,7 @@ app.controller('AccountsDetailCtrl', function ($scope, $http, appService, $cooki
     var config = appService.getCofig();
     $scope.myForm = {};
     $scope.account = account;
-    $scope.form ={};
+    $scope.form = {};
 
     $scope.cancel = function () {
       $mdDialog.cancel();
@@ -329,7 +329,7 @@ app.controller('AccountsDetailCtrl', function ($scope, $http, appService, $cooki
     var config = appService.getCofig();
     $scope.myForm = {};
     $scope.account = account;
-    $scope.form ={};
+    $scope.form = {};
 
     $scope.cancel = function () {
       $mdDialog.cancel();
@@ -363,6 +363,85 @@ app.controller('AccountsDetailCtrl', function ($scope, $http, appService, $cooki
           }
         });
       }
+    };
+  };
+
+  $scope.transferBillDialog = function (index) {
+    var bill = $scope.bills[index];
+    $mdDialog.show({
+      controller: TransferBillDialogController,
+      templateUrl: 'views/template/bill_transfer.html',
+      resolve: {
+        account: function () {
+          return $scope.account;
+        },
+        bill: function () {
+          return bill;
+        }
+      }
+    });
+  };
+
+  function TransferBillDialogController($scope, $mdDialog, $rootScope, account, bill, appService) {
+    $scope.bill = bill;
+    console.log(bill);
+
+    var config = appService.getCofig();
+
+    var request = {};
+    request.page = 0;
+    request.size = 20;
+
+    $scope.searchConnection = function () {
+      var request = {};
+      request.accNo = $scope.form.accountNo;
+      appService.getAccount(request).success(function (response) {
+        $scope.account = response.payload;
+        $scope.accountFound = true;
+        $scope.errorOccured = false;
+      }).error(function (data, status) {
+        if (status === 401) {
+          $state.go('session');
+          $scope.message = data.message;
+        } else {
+          $scope.errorOccured = true;
+          $scope.accountFound = false;
+          $scope.errorMsg = data.message;
+        }
+      });
+    };
+
+    $scope.transfer = function (form) {
+      var myForm = $scope.myForm;
+      if (myForm.object.$valid) {
+        console.log(form);
+
+        var account = {};
+        account.accountId = $scope.account.accountId
+
+        var billId = $scope.bill.billId;
+
+        appService.transferBill(account, billId).success(function (response) {
+          $scope.showErrorInfo = true;
+          $scope.errorClass = config.cssAlertSucess;
+          $scope.errorMsg = response.message;
+          //notify roles page to reload data
+          $rootScope.$broadcast('onReloadPageData');
+
+        }).error(function (data, status) {
+          if (status === 401) {
+            $state.go('session');
+            $scope.message = data.message;
+          } else {
+            $scope.showErrorInfo = true;
+            $scope.errorClass = config.cssAlertDanger;
+            $scope.errorMsg = data.message;
+          }
+        });
+      }
+    };
+    $scope.cancel = function () {
+      $mdDialog.cancel();
     };
   };
 

@@ -1,66 +1,66 @@
 <md-card>
-  <md-card-content>
-    <md-content>
-      <h1 style="font-weight: 300;">
-        {{account.accName | uppercase}}
-        <span class="pull-right money-color">KES
+	<md-card-content>
+		<md-content>
+			<h1 style="font-weight: 300;">
+				{{account.accName | uppercase}}
+				<span class="pull-right money-color">KES
           {{account.outstandingBalance | number}}</span>
 
-      </h1>
+			</h1>
 
-      <!-- <p>
+			<!-- <p>
         <md-divider></md-divider>
       </p> -->
-      <ol class="breadcrumb" flex>
-        <li>
-          <a ui-sref="dashboard">Home</a>
-        </li>
-        <li>
-          <a ui-sref="accounts">Accounts</a>
-        </li>
-        <li class="active">{{account.accNo | lowercase}}</li>
-      </ol>
+			<ol class="breadcrumb" flex>
+				<li>
+					<a ui-sref="dashboard">Home</a>
+				</li>
+				<li>
+					<a ui-sref="accounts">Accounts</a>
+				</li>
+				<li class="active">{{account.accNo | lowercase}}</li>
+			</ol>
 
-      <div flex layout="row">
-        <div flex="50">
-          <p>
-            Account#:
-            <strong>{{account.accNo}}</strong>
-          </p>
+			<div flex layout="row">
+				<div flex="50">
+					<p>
+						Account#:
+						<strong>{{account.accNo}}</strong>
+					</p>
 
-          <p>
-            Location:
-            <strong>{{account.location.name}}</strong>
-          </p>
+					<p>
+						Location:
+						<strong>{{account.location.name}}</strong>
+					</p>
 
-          <p>
-            Zone:
-            <strong>{{account.zone.name}}</strong>
-          </p>
+					<p>
+						Zone:
+						<strong>{{account.zone.name}}</strong>
+					</p>
 
-          <p>
-            Tariff:
-            <strong>{{account.tariff.name}}</strong>
-          </p>
+					<p>
+						Tariff:
+						<strong>{{account.tariff.name}}</strong>
+					</p>
 
-          <p>
-            Phone Number:
-            <strong>{{account.phoneNumber}}</strong>
-          </p>
-          <p>
-            Status:
-            <a href="" ng-click="turnOnOffDialog();" class="account-status">
-              <span ng-switch="account.onStatus">
+					<p>
+						Phone Number:
+						<strong>{{account.phoneNumber}}</strong>
+					</p>
+					<p>
+						Status:
+						<a href="" ng-click="turnOnOffDialog();" class="account-status">
+							<span ng-switch="account.onStatus">
                 <span ng-switch-when="0" style="color:#ffffff;background:#FF5722;padding:8px">Pending</span>
-                <span ng-switch-when="1" style="color:#ffffff;background:#5cb85c;padding:8px">Turned On</span>
-                <span ng-switch-when="2" style="color:#ffffff;background:#ff0000;padding:8px">Turned Off</span>
-              </span>
-            </a>
-          </p>
+							<span ng-switch-when="1" style="color:#ffffff;background:#5cb85c;padding:8px">Turned On</span>
+							<span ng-switch-when="2" style="color:#ffffff;background:#ff0000;padding:8px">Turned Off</span>
+							</span>
+						</a>
+					</p>
 
-        </div>
-        <div flex="50">
-          <span class="pull-right">
+				</div>
+				<div flex="50">
+					<span class="pull-right">
 
             <p>
               Balance Brought Forward:
@@ -85,7 +85,7 @@
               <strong>{{account.meter.meterNo}}
               </strong>
             </p>
-            
+
           <p>
             Notes:
             <strong>{{account.notes}}</trong>
@@ -95,178 +95,179 @@
               <a href="" ng-click="changeAccountStatusDialog();" class="account-status">
                 <span ng-switch="account.isCutOff">
                   <span ng-switch-when="true" style="color:#ffffff;background:#ff0000;padding:8px">Yes</span>
-                  <span ng-switch-when="false" style="color:#ffffff;background:#5cb85c;padding:8px">No</span>
-                </span>
-              </a>
-            </p>
-          </span>
+					<span ng-switch-when="false" style="color:#ffffff;background:#5cb85c;padding:8px">No</span>
+					</span>
+					</a>
+					</p>
+					</span>
 
-        </div>
+				</div>
 
-      </div>
-      <md-button class="md-primary" ng-show="$root.account_statement" ui-sref="statement({ accountId: account.accountId})">View Statement</md-button>
-      <!--<md-button class="md-primary pull-right">-->
-      <!--<span class="icon-layers action-button" aria-hidden="true"></span>-->
-      <!--</md-button>-->
+			</div>
+			<md-button class="md-primary" ng-show="$root.account_statement" ui-sref="statement({ accountId: account.accountId})">View Statement</md-button>
+			<!--<md-button class="md-primary pull-right">-->
+			<!--<span class="icon-layers action-button" aria-hidden="true"></span>-->
+			<!--</md-button>-->
 
-      <md-button class="md-primary  pull-right" ng-click="addPaymentDialog();" ng-show="$root.payment_create">
-        <!-- <span class="icon-plus action-button" aria-hidden="true"></span> -->
-        Add Receipt
-      </md-button>
+			<md-button class="md-primary  pull-right" ng-click="addPaymentDialog();" ng-show="$root.payment_create">
+				Add Receipt
+			</md-button>
 
-      <div class="clearfix"></div>
-      <div class="alert alert-danger" ng-show="errorOccured" role="alert">
-        {{errorMsg}}
-      </div>
 
-      <!-- <md-tabs md-border-bottom md-selected="data.selectedIndex"> -->
-      <md-tabs md-border-bottom md-dynamic-height>
-        <md-tab label="Bills">
-          <md-content>
-            <p>
-              <table class="table table-hover">
-                <thead>
-                  <tr>
+			<div class="clearfix"></div>
+			<div class="alert alert-danger" ng-show="errorOccured" role="alert">
+				{{errorMsg}}
+			</div>
 
-                    <th>BILL DATE</th>
-                    <th>CREATED</th>
-                    <th>CONSUMPTION</th>
-                    <th>
-                      <span class="pull-right">CURRENT</span>
-                    </th>
-                    <th>
-                      <span class="pull-right">PREVIOUS</span>
-                    </th>
+			<!-- <md-tabs md-border-bottom md-selected="data.selectedIndex"> -->
+			<md-tabs md-border-bottom md-dynamic-height>
+				<md-tab label="Bills">
+					<md-content>
+						<p>
+							<table class="table table-hover">
+								<thead>
+									<tr>
 
-                    <th>
-                      <span class="pull-right">UNITS</span>
-                    </th>
+										<th>BILL DATE</th>
+										<th>CREATED</th>
+										<th>CONSUMPTION</th>
+										<th>
+											<span class="pull-right">CURRENT</span>
+										</th>
+										<th>
+											<span class="pull-right">PREVIOUS</span>
+										</th>
 
-                    <th>
-                      <span class="pull-right">
+										<th>
+											<span class="pull-right">UNITS</span>
+										</th>
+
+										<th>
+											<span class="pull-right">
                         BILL AMOUNT
                       </span>
-                    </th>
-                    <th>
-                      <span class="pull-right">METER RENT</span>
-                    </th>
-                    <th>
-                      <span class="pull-right">
+										</th>
+										<th>
+											<span class="pull-right">METER RENT</span>
+										</th>
+										<th>
+											<span class="pull-right">
                         CHARGES
                       </span>
-                    </th>
+										</th>
 
-                    <th>
-                      <span class="pull-right">
+										<th>
+											<span class="pull-right">
                         TOTAL
                       </span>
 
-                    </th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr dir-paginate="bill in bills | itemsPerPage: 10" pagination-id="billsPagination" total-items="totalBills">
-                    <td>{{bill.billingMonth.month | date:'MMM, yyyy'}}</td>
-                    <td>{{bill.createdOn | date}}</td>
-                    <td>{{bill.consumptionType}}</td>
-                    <td align="right">{{bill.currentReading | number}}</td>
-                    <td align="right">{{bill.previousReading | number}}</td>
-                    <td align="right">{{bill.unitsBilled | number}}</td>
+										</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr dir-paginate="bill in bills | itemsPerPage: 10" pagination-id="billsPagination" total-items="totalBills">
+										<td>{{bill.billingMonth.month | date:'MMM, yyyy'}}</td>
+										<td>{{bill.createdOn | date}}</td>
+										<td>{{bill.consumptionType}}</td>
+										<td align="right">{{bill.currentReading | number}}</td>
+										<td align="right">{{bill.previousReading | number}}</td>
+										<td align="right">{{bill.unitsBilled | number}}</td>
 
-                    <td align="right">
-                      <span class="money-color">
+										<td align="right">
+											<span class="money-color">
                         {{bill.amount | number}}
                       </span>
-                    </td>
-                    <td align="right">
-                      <span class="money-color">
+										</td>
+										<td align="right">
+											<span class="money-color">
                         {{bill.meterRent | number}}
                       </span>
-                    </td>
-                    <td>
-                      <span ng-repeat="billItem in bill.billItems">
+										</td>
+										<td>
+											<span ng-repeat="billItem in bill.billItems">
                         <span class="pull-right">
                           {{billItem.billItemType.name}}:
                           {{billItem.amount | number}}
                         </span>
-                        <br/>
-                      </span>
-                    </td>
+											<br/>
+											</span>
+										</td>
 
-                    <td align="right">
-                      <span class="money-color">
+										<td align="right">
+											<span class="money-color">
                         {{bill.totalBilled | number}}
                       </span>
-                    </td>
-                    <td align="right">
-                      <md-button class="md-primary" ng-click="deleteBillDialog($index)" ng-show="$root.bill_delete">Delete</md-button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="center" colspan="11">
-                      <dir-pagination-controls on-page-change="getBills(newPageNumber)" pagination-id="billsPagination"></dir-pagination-controls>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </p>
-          </md-content>
-        </md-tab>
+										</td>
+										<td align="right">
+											<md-button class="md-primary" ng-click="transferBillDialog($index)" ng-show="$root.bill_transfer">Transfer</md-button>                      
+											<md-button class="md-primary" ng-click="deleteBillDialog($index)" ng-show="$root.bill_delete">Delete</md-button>
+										</td>
+									</tr>
+									<tr>
+										<td align="center" colspan="11">
+											<dir-pagination-controls on-page-change="getBills(newPageNumber)" pagination-id="billsPagination"></dir-pagination-controls>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</p>
+					</md-content>
+				</md-tab>
 
-        <md-tab label="Receipts">
+				<md-tab label="Receipts">
 
-          <md-content>
-            <p>
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>CREATED</th>
-                    <th>BILL DATE</th>
-                    <th>SOURCE</th>
-                    <th>TYPE</th>
-                    <th>RECEIPT#</th>
-                    <th>COMMENTS</th>
-                    <th>
-                      <span class="pull-right">
+					<md-content>
+						<p>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>CREATED</th>
+										<th>BILL DATE</th>
+										<th>SOURCE</th>
+										<th>TYPE</th>
+										<th>RECEIPT#</th>
+										<th>COMMENTS</th>
+										<th>
+											<span class="pull-right">
                         AMOUNT
                       </span>
 
-                    </th>
-                    <!--<th></th>-->
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr dir-paginate="payment in payments | itemsPerPage: 10" pagination-id="paymentsPagination" total-items="totalPayments">
-                    <td>{{payment.createdOn | date}}</td>
-                    <td>{{payment.billingMonth.month | date}}</td>
-                    <td>{{payment.paymentSource.name | uppercase}}</td>
-                    <td>{{payment.paymentType.name | uppercase}}</td>
-                    <td>{{payment.receiptNo}}</td>
-                    <td>{{payment.notes}}</td>
-                    <td align="right">
-                      <span class="money-color">
+										</th>
+										<!--<th></th>-->
+									</tr>
+								</thead>
+								<tbody>
+									<tr dir-paginate="payment in payments | itemsPerPage: 10" pagination-id="paymentsPagination" total-items="totalPayments">
+										<td>{{payment.createdOn | date}}</td>
+										<td>{{payment.billingMonth.month | date}}</td>
+										<td>{{payment.paymentSource.name | uppercase}}</td>
+										<td>{{payment.paymentType.name | uppercase}}</td>
+										<td>{{payment.receiptNo}}</td>
+										<td>{{payment.notes}}</td>
+										<td align="right">
+											<span class="money-color">
                         {{payment.amount | number}}
                       </span>
-                    </td>
-                    <!--<td align="right">-->
-                    <!--<md-button class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>-->
-                    <!--</td>-->
-                  </tr>
-                  <tr>
-                    <td align="center" colspan="8">
-                      <dir-pagination-controls on-page-change="getPayments(newPageNumber)" pagination-id="paymentsPagination"></dir-pagination-controls>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </p>
-          </md-content>
-        </md-tab>
-      </md-tabs>
+										</td>
+										<!--<td align="right">-->
+										<!--<md-button class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button>-->
+										<!--</td>-->
+									</tr>
+									<tr>
+										<td align="center" colspan="8">
+											<dir-pagination-controls on-page-change="getPayments(newPageNumber)" pagination-id="paymentsPagination"></dir-pagination-controls>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</p>
+					</md-content>
+				</md-tab>
+			</md-tabs>
 
-    </md-content>
+		</md-content>
 
-  </md-card-content>
+	</md-card-content>
 
 </md-card>

@@ -976,6 +976,17 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.transferBill = function (request, billId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + BILLS + '/transfer/' + billId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.voidPayment = function (request) {
     return $http({
       method: POST_REQUEST,
