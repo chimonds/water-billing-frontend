@@ -1,318 +1,328 @@
 <md-card class="no-print">
-  <md-card-content>
-    <p>
-      <md-subheader class="md-primary no-print">Monthly Bills Report</md-subheader>
-    <form name="myForm.object">
-      <md-content layout-sm="column" layout="row" layout-align="space-between center">
-        <!--Zones-->
-        <md-select ng-model="form.accZone" placeholder="Select Zone">
-          <md-optgroup label="Zones">
-            <md-option ng-repeat="zone in zones" value="{{$index}}">
-              {{zone.name}}
-            </md-option>
-          </md-optgroup>
-        </md-select>
+	<md-card-content>
+		<p>
+			<md-subheader class="md-primary no-print">Monthly Bills Report</md-subheader>
+			<form name="myForm.object">
+				<md-content layout-sm="column" layout="row" layout-align="space-between center">
+					<!--Zones-->
+					<md-select ng-model="form.accZone" placeholder="Select Zone">
+						<md-optgroup label="Zones">
+							<md-option ng-repeat="zone in zones" value="{{$index}}">
+								{{zone.name}}
+							</md-option>
+						</md-optgroup>
+					</md-select>
 
-        <!--Billing month-->
-        <md-select ng-model="form.billingMonth" placeholder="Billing Month">
-          <md-optgroup label="Billing Month">
-            <md-option ng-repeat="m in billingMonths" value="{{$index}}">
-              {{m.month | date:'MMM, yyyy'}}
-            </md-option>
-          </md-optgroup>
-        </md-select>
+					<!--Billing month-->
+					<md-select ng-model="form.billingMonth" placeholder="Billing Month">
+						<md-optgroup label="Billing Month">
+							<md-option ng-repeat="m in billingMonths" value="{{$index}}">
+								{{m.month | date:'MMM, yyyy'}}
+							</md-option>
+						</md-optgroup>
+					</md-select>
 
-        <!--Account Number-->
-        <md-input-container>
-          <label>Account#</label>
-          <input type="text" ng-model="form.accNo">
-        </md-input-container>
+					<!--Account Number-->
+					<md-input-container>
+						<label>Account#</label>
+						<input type="text" ng-model="form.accNo">
+					</md-input-container>
 
-        <md-button ng-click="generate(form)">Submit</md-button>
-      </md-content>
-    </form>
-    </p>
+					<md-button ng-click="generate(form)">Submit</md-button>
+				</md-content>
+			</form>
+		</p>
 
-    <p ng-show="progress">
-      Crunching data, please wait...
-      <md-progress-linear md-mode="indeterminate"></md-progress-linear>
-    </p>
-    <p>
-      <div ng-show="error" class="alert alert-danger" role="alert">{{message}}</div>
-    </p>
-  </md-card-content>
+		<p ng-show="progress">
+			Crunching data, please wait...
+			<md-progress-linear md-mode="indeterminate"></md-progress-linear>
+		</p>
+		<p>
+			<div ng-show="error" class="alert alert-danger" role="alert">{{message}}</div>
+		</p>
+	</md-card-content>
 </md-card>
 
 
-<div class="report" ng-show="report"  ng-repeat="bill in data.content">
-  <table width="100%" border="0" style="overflow:hidden;font-weight: 100;">
-    <tr>
-      <td colspan="2" align="center">
-        <h1>
-          {{data.company}}
-        </h1>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <table width="100%">
-          <tr>
-            <td width="20%">
-              <!-- <img src="images/kimawasco.png" class="pull-right" width="50"/> -->
-              <!-- <img src="images/nolturesh.png" class="pull-right" width="50"/> -->
-              <!-- Get this from settings -->
-              <img src="{{data.imageUrl}}"  width="70"/>
-            </td>
-            <td width="80%">
-              <table width="100%">
-                <tr>
-                  <td>
-                    <span class="pull-right">
+<div class="report" ng-show="report" ng-repeat="bill in data.content">
+	<table width="100%" border="0" style="overflow:hidden;font-weight: 100;">
+		<tr>
+			<td colspan="2" align="center">
+				<h1>
+					{{data.company}}
+				</h1>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<table width="100%">
+					<tr>
+						<td width="20%">
+							<!-- <img src="images/kimawasco.png" class="pull-right" width="50"/> -->
+							<!-- <img src="images/nolturesh.png" class="pull-right" width="50"/> -->
+							<!-- Get this from settings -->
+							<img src="{{data.imageUrl}}" width="70" />
+						</td>
+						<td width="80%">
+							<table width="100%">
+								<tr>
+									<td>
+										<span class="pull-right">
                       <p ng-bind-html="data.address"></p>
                     </span>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" align="center">
-              <!-- Report title -->
-              <h3 class="billtitle">
-                {{data.title}}
-              </h3>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <!-- <tr>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<!-- Report title -->
+							<h3 class="billtitle">
+								{{data.title}}
+							</h3>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<!-- <tr>
       <td colspan="2">
         <hr/>
       </td>
     </tr> -->
-    <tr>
-      <td width="50%">
-        <table>
-          <tr>
-            <td>Name</td>
-            <td class="highlight"><strong>{{bill.accName}}</strong></td>
-          </tr>
-          <tr>
-            <td>Account Number</td>
-            <td><strong>{{bill.accNo}}</strong></td>
-          </tr>
-          <tr>
-            <td>Meter Number:</td>
-            <td><strong>{{bill.meterNo}}</strong></td>
-          </tr>
-          <tr>
-            <td>Meter Size:</td>
-            <td><strong>{{bill.meterSize}}</strong></td>
-          </tr>
-          <tr>
-            <td>Location:</td>
-            <td><strong>{{bill.location}}</strong></td>
-          </tr>
-          <tr>
-            <td>Billing Month</td>
-            <td><strong>{{bill.billingMonth | date:'MMMM yyyy'}}</strong></td>
-          </tr>
-        </table>
-      </td>
-      <td width="50%" align="right" valign="top">
-        <table>
-          <!--<tr>-->
-            <!--<td align="right" colspan="2"><strong>Billing Summary</strong></td>-->
-          <!--</tr>-->
-          <tr>
-            <td align="right">Previous Reading</td>
-            <td align="right"><strong>{{bill.previousReading}}</strong></td>
-          </tr>
-          <tr>
-            <td align="right">Current Reading</td>
-            <td align="right"><strong>{{bill.currentReading}}</strong></td>
-          </tr>
-          <tr>
-            <td align="right">Units Consumed(M3)</td>
-            <td align="right"><strong>{{bill.unitsBilled | number}}</strong></td>
-          </tr>
-          <tr>
-            <td align="right">Consumption Type</td>
-            <td align="right"><strong>{{bill.consumptionType}}</strong></td>
-          </tr>
-          <tr>
-            <td align="right">Date of Reading</td>
-            <td align="right"><strong>{{bill.billingMonth | date}}</strong></td>
-          </tr>
+		<tr>
+			<td width="50%">
+				<table>
+					<tr>
+						<td>Name</td>
+						<td class="highlight"><strong>{{bill.accName}}</strong></td>
+					</tr>
+					<tr>
+						<td>Account Number</td>
+						<td><strong>{{bill.accNo}}</strong></td>
+					</tr>
+					<tr>
+						<td>Meter Number:</td>
+						<td><strong>{{bill.meterNo}}</strong></td>
+					</tr>
+					<tr>
+						<td>Meter Size:</td>
+						<td><strong>{{bill.meterSize}}</strong></td>
+					</tr>
+					<tr>
+						<td>Location:</td>
+						<td><strong>{{bill.location}}</strong></td>
+					</tr>
+					<tr>
+						<td>Billing Month</td>
+						<td><strong>{{bill.billingMonth | date:'MMMM yyyy'}}</strong></td>
+					</tr>
+				</table>
+			</td>
+			<td width="50%" align="right" valign="top">
+				<table>
+					<!--<tr>-->
+					<!--<td align="right" colspan="2"><strong>Billing Summary</strong></td>-->
+					<!--</tr>-->
+					<tr>
+						<td align="right">Previous Reading</td>
+						<td align="right"><strong>{{bill.previousReading}}</strong></td>
+					</tr>
+					<tr>
+						<td align="right">Current Reading</td>
+						<td align="right"><strong>{{bill.currentReading}}</strong></td>
+					</tr>
+					<tr>
+						<td align="right">Units Consumed(M3)</td>
+						<td align="right"><strong>{{bill.unitsBilled | number}}</strong></td>
+					</tr>
+					<tr>
+						<td align="right">Consumption Type</td>
+						<td align="right"><strong>{{bill.consumptionType}}</strong></td>
+					</tr>
+					<tr>
+						<td align="right">Date of Reading</td>
+						<td align="right"><strong>{{bill.billingMonth | date}}</strong></td>
+					</tr>
 
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <hr/>
-      </td>
-    </tr>
-    <tr>
-      <td>Balance b/f from last bill</td>
-      <td align="right">
-        <strong>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr/>
+			</td>
+		</tr>
+		<tr>
+			<td>Balance b/f from last bill</td>
+			<td align="right">
+				<strong>
           {{bill.balanceBf | number}}
         </strong>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" class="legroom">&nbsp;</td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <table width="100%">
-          <tr style="border-bottom: 1px solid #2e2e2e;">
-            <td colspan="3"><strong>Payments</strong></td>
-          </tr>
-          <tr>
-            <td><strong>Transaction Date</strong></td>
-            <td><strong>Receipt#</strong></td>
-            <td align="right"><strong>Amount</strong></td>
-          </tr>
-          <tr ng-repeat="payment in bill.payments">
-            <td>{{payment.transactionDate | date}}</td>
-            <td>{{payment.receiptNo}}</td>
-            <td align="right">{{payment.amount | number}}</td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr style="border-bottom: 1px solid #2e2e2e;">
-      <td><strong>Total Payments</strong></td>
-      <td align="right">
-        <strong>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="legroom">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<table width="100%">
+					<tr style="border-bottom: 1px solid #2e2e2e;">
+						<td colspan="3"><strong>Payments</strong></td>
+					</tr>
+					<tr>
+						<td><strong>Transaction Date</strong></td>
+						<td><strong>Receipt#</strong></td>
+						<td align="right"><strong>Amount</strong></td>
+					</tr>
+					<tr ng-repeat="payment in bill.payments">
+						<td>{{payment.transactionDate | date}}</td>
+						<td>{{payment.receiptNo}}</td>
+						<td align="right">{{payment.amount | number}}</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr style="border-bottom: 1px solid #2e2e2e;">
+			<td><strong>Total Payments</strong></td>
+			<td align="right">
+				<strong>
           {{bill.totalPayments | number}}
         </strong>
-      </td>
-    </tr>
-    <tr>
-      <td><strong>Balance after Payments</strong></td>
-      <td align="right">
-        <strong>
+			</td>
+		</tr>
+		<tr>
+			<td><strong>Balance after Payments</strong></td>
+			<td align="right">
+				<strong>
           {{bill.balanceBf-bill.totalPayments | number}}
         </strong>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" class="legroom">&nbsp;</td>
-    </tr>
-    <tr>
-      <td><strong>Usage Summary</strong></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>
-        <table>
-          <tr ng-repeat="c in bill.billSummaryList">
-            <td>
-              {{c}}
-            </td>
-          </tr>
-        </table>
-      </td>
-      <td align="right" valign="top">
-        <table>
-          <tr>
-            <td>Billed Amount</td>
-            <td align="right">{{bill.billedAmount | number}}</td>
-          </tr>
-          <tr ng-repeat="charge in bill.charges">
-            <td>{{charge.name}}</td>
-            <td align="right">{{charge.amount | number}}</td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <hr/>
-      </td>
-    </tr>
-    <tr>
-      <td><strong>Total Amount Due</strong></td>
-      <td align="right"><strong>{{(bill.balanceBf-bill.totalPayments) +bill.totalBilledAmount | number}}</strong></td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <hr/>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <div ng-show="!bill.inArreas">
-          The net account balance as at {{bill.billingMonth | date }} is <strong>KES {{(bill.balanceBf-bill.totalPayments) +bill.totalBilledAmount | number}}</strong> Please pay
-          this amount on or before <strong>{{data.heading4}}</strong> to avoid disconection. A fee of Kshs.
-          500.00 is chargable before reconnection
-        </div>
-        <div ng-show="bill.inArreas">
-          Your account is in arrears and you are due for disconnection without any further warning.
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <!--<p>{{data.heading1}}</p>-->
-        <p ng-bind-html="data.heading1"></p>
-      </td>
-    </tr>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="legroom">&nbsp;</td>
+		</tr>
+		<tr>
+			<td><strong>Usage Summary</strong></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>
+				<table>
+					<tr ng-repeat="c in bill.billSummaryList">
+						<td>
+							{{c}}
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td align="right" valign="top">
+				<table>
+					<tr>
+						<td>Billed Amount</td>
+						<td align="right">{{bill.billedAmount | number}}</td>
+					</tr>
+					<tr ng-repeat="charge in bill.charges">
+						<td>{{charge.name}}</td>
+						<td align="right">{{charge.amount | number}}</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr ng-show="bill.hasOtherBills">
+			<td><strong>Other Billing</strong></td>
+			<td></td>
+		</tr>
+		<tr ng-show="bill.hasOtherBills" ng-repeat="tb in bill.bills">
+			<td>{{tb.transactionDate | date}} - 
+				<span ng-repeat="mt in tb.content">
+        {{mt}} <br>
+        </span>
+			</td>
+			<td align="right">{{tb.amount | number}}</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr/>
+			</td>
+		</tr>
+		<tr>
+			<td><strong>Total Amount Due</strong></td>
+			<td align="right"><strong>{{(bill.balanceBf-bill.totalPayments) + bill.totalBilledAmount + bill.otherBillsTotal | number}}</strong></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<div ng-show="!bill.inArreas">
+					The net account balance as at {{bill.billingMonth | date }} is <strong>KES {{(bill.balanceBf-bill.totalPayments) + bill.totalBilledAmount + bill.otherBillsTotal | number}}</strong>					Please pay this amount on or before <strong>{{data.heading4}}</strong> to avoid disconection. A fee of Kshs. 500.00
+					is chargable before reconnection
+				</div>
+				<div ng-show="bill.inArreas">
+					Your account is in arrears and you are due for disconnection without any further warning.
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<!--<p>{{data.heading1}}</p>-->
+				<p ng-bind-html="data.heading1"></p>
+			</td>
+		</tr>
 
-    <tr>
-      <td colspan="2" align="center">
-        <p ng-bind-html="data.heading2"></p>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <!--<p>{{data.heading3}}</p>-->
-        <p ng-bind-html="data.heading3"></p>
-      </td>
-    </tr>
+		<tr>
+			<td colspan="2" align="center">
+				<p ng-bind-html="data.heading2"></p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<!--<p>{{data.heading3}}</p>-->
+				<p ng-bind-html="data.heading3"></p>
+			</td>
+		</tr>
 
-    <tr>
-      <td colspan="2">
-        <hr/>
-      </td>
-    </tr>
+		<tr>
+			<td colspan="2">
+				<hr/>
+			</td>
+		</tr>
 
 
 
-    <tr>
-      <td colspan="2">
-        <footer>
-          <table width="100%">
-          <tr>
-            <td>Account Number</td>
-            <td align="center">Billing Month</td>
-            <td align="right">Amount Due</td>
-          </tr>
-          <tr>
-            <td>
-              <h2><strong>{{bill.accNo}}</strong></h2>
-            </td>
-            <td align="center">
-              <h2><strong>{{bill.billingMonth | date:'MMMM yyyy'}}</strong></h2>
-            </td>
-            <td align="right">
-              <h2><strong>{{(bill.balanceBf-bill.totalPayments) +bill.totalBilledAmount | number}}</strong></h2>
-            </td>
-          </tr>
-        </table>
-        </footer>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <hr/>
-      </td>
-    </tr>
-  </table>
-  <div class="tosha"></div>
+		<tr>
+			<td colspan="2">
+				<footer>
+					<table width="100%">
+						<tr>
+							<td>Account Number</td>
+							<td align="center">Billing Month</td>
+							<td align="right">Amount Due</td>
+						</tr>
+						<tr>
+							<td>
+								<h2><strong>{{bill.accNo}}</strong></h2>
+							</td>
+							<td align="center">
+								<h2><strong>{{bill.billingMonth | date:'MMMM yyyy'}}</strong></h2>
+							</td>
+							<td align="right">
+								<h2><strong>{{(bill.balanceBf-bill.totalPayments) + bill.totalBilledAmount + bill.otherBillsTotal | number}}</strong></h2>
+							</td>
+						</tr>
+					</table>
+				</footer>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr/>
+			</td>
+		</tr>
+	</table>
+	<div class="tosha"></div>
 </div>
-
