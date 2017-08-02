@@ -3,6 +3,10 @@
     <md-content>
       <md-subheader class="md-primary">Use this panel to manage bill item types</md-subheader>
       <md-content>
+
+        <md-button class="md-primary pull-right" ng-click="addDialog();" ng-show="$root.bill_item_type_create">
+          <span aria-hidden="true" class="icon-plus action-button"></span>
+        </md-button>
         <div class="clearfix"></div>
         <div class="alert alert-danger" ng-show="errorOccured" role="alert">
           {{errorMsg}}
