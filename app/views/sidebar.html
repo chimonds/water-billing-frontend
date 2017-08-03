@@ -163,9 +163,7 @@
 						<!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
 						Receipts
 					</md-button>
-					<!-- <md-button ng-click="toggleMenu()" flex  ui-sref="billing_summary" ng-show="$root.report_billing_summary"   class="md-primary">
-               Billing Summary
-             </md-button> -->
+
 					<md-button ng-click="toggleMenu()" flex ui-sref="potential_cut_off" ng-show="$root.report_potential_cut_off" class="md-primary">
 						<!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
 						Potential Cut Off
@@ -174,10 +172,6 @@
 					<md-button ng-click="toggleMenu()" flex ui-sref="accounts_not_billed" ng-show="$root.report_accounts_not_billed" class="md-primary">
 						Accounts not Billed
 					</md-button>
-
-					<!-- <md-button ng-click="toggleMenu()" flex  ui-sref="customers_without_phones" ng-show="$root.report_consumers_without_phone_numbers"   class="md-primary">
-               Customers Without Phones No
-             </md-button> -->
 
 					<md-button ng-click="toggleMenu()" flex ui-sref="monthly_bills" ng-show="$root.report_monthly_bills" class="md-primary">
 						<!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
@@ -191,6 +185,11 @@
 						<!-- <span aria-hidden="true" class="icon-bar-chart"></span> -->
 						WARIS
 					</md-button>
+
+					<md-button ng-click="toggleMenu()" flex ui-sref="waris-categories" ng-show="$root.report_waris" class="md-primary">
+						WARIS By Categories
+					</md-button>
+					
 				</md-content>
 
 				<!-- Administration -->

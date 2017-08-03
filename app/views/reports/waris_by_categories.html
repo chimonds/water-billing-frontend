@@ -1,0 +1,130 @@
+<md-card class="no-print">
+	<md-card-content>
+		<p>
+			<md-subheader class="md-primary no-print">WARIS By Account Categories Report</md-subheader>
+			<form name="myForm.object">
+				<div layout-align="space-between center" layout-sm="column" layout="row">
+
+					<!--<md-input-container>
+						<label>Scheme</label>
+						<md-select ng-change="getSchemeZones()" ng-model="form.schemeId">
+							<md-option ng-repeat="scheme in schemes" value="{{scheme.schemeId}}">
+								{{scheme.name}}
+							</md-option>
+						</md-select>
+					</md-input-container>-->
+
+					<!--Zones-->
+					<!--<md-input-container>
+						<label>Zone</label>
+						<md-select ng-model="form.zoneId">
+							<md-option ng-repeat="zone in zones" value="{{zone.zoneId}}">
+								{{zone.name}}
+							</md-option>
+						</md-select>
+					</md-input-container>-->
+
+					<!--From date-->
+					<md-input-container>
+						<label>From Date</label>
+						<input ng-model="form.fromDate" type="date">
+					</md-input-container>
+
+					<md-input-container>
+						<label>To Date</label>
+						<input ng-model="form.toDate" type="date">
+					</md-input-container>
+
+					<!--<md-button ng-show="report" filename="receipts.csv" ng-csv="generateCsv()" csv-header="['ACCOUNT#',	'NAME',	'ZONE',	'DATE',	'TYPE',	'RECEIPT#',	'AMOUNT']">Export to CSV</md-button>-->
+					<md-button ng-click="generate(form)">Submit</md-button>
+
+				</div>
+			</form>
+		</p>
+
+		<p ng-show="progress">
+			Crunching data, please wait...
+			<md-progress-linear md-mode="indeterminate"></md-progress-linear>
+		</p>
+		<p>
+			<div class="alert alert-danger" ng-show="error" role="alert">{{message}}</div>
+		</p>
+	</md-card-content>
+</md-card>
+<div class="report" ng-show="report">
+	<h1>{{records.company}}</h1>
+	<h2>
+		{{records.title}}
+		<span class="pull-right">{{accounts.date | date:'medium'}}</span>
+	</h2>
+	<hr/>
+	<table width="100%">
+		<thead>
+			<tr>
+				<th>#</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="record in records.content">
+				<td>
+					<table>
+						<tr>
+							<td colspan="2"><h1>{{record.categoryName}}</h1></td>
+						</tr>
+						<tr>
+							<td>Metered Volume</td>
+							<td>{{record.meteredVolume | number}}</td>
+						</tr>
+						<tr>
+							<td>UnMetered Volume</td>
+							<td>{{record.unMeteredVolume | number}}</td>
+						</tr>
+						<tr>
+							<td>Metered Water Sale</td>
+							<td>{{record.meteredWaterSale | number}}</td>
+						</tr>
+						<tr>
+							<td>UnMetered Water Sale</td>
+							<td>{{record.unMeteredWaterSale | number}}</td>
+						</tr>
+						<tr>
+							<td>Meter Rent</td>
+							<td>{{record.meterRent | number}}</td>
+						</tr>
+
+						<tr>
+							<td colspan="2"><span style="text-decoration: underline;">Other Services</span></td>
+              
+						</tr>
+
+						<tr>
+							<td colspan="2">
+								<table width="100%">
+									<tr ng-repeat="service in record.otherServices">
+										<td>{{service.name}}</td>
+										<td>{{service.amount| number}}</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="2"><span style="text-decoration: underline;">Receipts</span></td>
+						</tr>
+
+						<tr>
+							<td colspan="2">
+								<table width="100%">
+									<tr ng-repeat="receipt in record.receipts">
+										<td>{{receipt.name}}</td>
+										<td>{{receipt.amount| number}}</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

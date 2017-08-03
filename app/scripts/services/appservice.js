@@ -1232,6 +1232,18 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.getWarisByAccountCategoriesReport = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + REPORTS + '/warisByAccountCategories',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
   this.getAccountStatementReport = function (request, accountId) {
     return $http({
       method: POST_REQUEST,

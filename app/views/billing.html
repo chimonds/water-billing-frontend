@@ -169,7 +169,7 @@
 												</tr>
 
 												<tr ng-show="accountFound">
-													<td colspan="2">
+													<td>
 														<span ng-show="!billed">
 														
 									            <md-input-container class="col-md-3 col-sm-12 col-xs-12">
@@ -179,6 +179,12 @@
             </md-input-container>
 
                               </span>
+													</td>
+													<td>
+														<md-input-container  ng-show="!billed">
+															<label>Transaction Date</label>
+															<input name="transactionDate" ng-model="form.transactionDate" type="date">
+														</md-input-container>
 													</td>
 
 												</tr>
