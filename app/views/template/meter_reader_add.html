@@ -1,0 +1,36 @@
+<md-dialog aria-label="brown" flex>
+	<md-content>
+		<md-subheader class="md-sticky-no-effect md-primary">Use this panel to add a meter reader to zone
+			<strong>{{zone.name}}</strong>
+		</md-subheader>
+		<div>
+			<md-content class="md-padding">
+				<form name="myForm.object">
+					<div class="clearfix"></div>
+
+					<md-input-container>
+						<md-select name="user" ng-model="form.user" placeholder="Please select a meter reader" required>
+							<md-option ng-repeat="user in users" value="{{$index}}">
+								{{user.firstName}} {{user.lastName}}
+							</md-option>
+						</md-select>
+						<div ng-messages="myForm.object.user.$error">
+							<div ng-message="required">This is required.</div>
+						</div>
+					</md-input-container>
+
+					<div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}</div>
+					<div layout="row">
+						<span flex></span>
+						<md-button ng-click="cancel();">
+							Close
+						</md-button>
+						<md-button class="md-raised md-primary" ng-click="save(form);">
+							Add
+						</md-button>
+					</div>
+				</form>
+			</md-content>
+		</div>
+	</md-content>
+</md-dialog>

@@ -221,6 +221,14 @@ var app = angular
           requireLogin: true
         }
       })
+      .state('zone', {
+        url: '/zones/{zoneId}',
+        templateUrl: 'views/zones.detail.html',
+        controller: 'ZoneDetailCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
       .state('statement', {
         url: '/statement/{accountId}',
         templateUrl: 'views/reports/statement.html',

@@ -51,6 +51,7 @@ app.service('appService', function ($http, $cookieStore) {
   var APPROVALS = 'approvals';
   var APPROVAL_TASKS = 'tasks';
   var TASK_APPROVALS = 'taskApprovals';
+  var METER_READERS = 'meterReaders';
 
 
 
@@ -305,10 +306,67 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+
+  this.getZoneMeterReaders = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + METER_READERS + '/getZoneMeterReaders',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getMeterReadersNotInZone = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + METER_READERS + '/getMeterReadersNotInZone',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.addMeterReaderToZone = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + METER_READERS + '/addMeterReaderToZone',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.removeMeterReaderFromZone = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + METER_READERS + '/removeMeterReaderFromZone',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
   this.getZones = function (request) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ZONES,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+  this.getZoneById = function (request, zoneId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + ZONES + "/one/" + zoneId,
       headers: {
         'Content-Type': 'application/json'
       },

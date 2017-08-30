@@ -33,7 +33,8 @@
                         <span am-time-ago="zone.createdOn"> </span>
                      </td>
                      <td align="right">
-                        <md-button ng-show="$root.zones_update" class="md-primary" ng-click="editZoneDialog($index)">Edit</md-button>
+                        <md-button ng-show="$root.zones_update" class="md-primary" ng-click="editZoneDialog($index)">Edit</md-button>                         
+                        <md-button ng-show="$root.zones_update"  class="md-primary"  ui-sref="zone({ zoneId: zone.zoneId})">View</md-button>                         
                      </td>
                   </tr>
                   <tr>

@@ -1,0 +1,83 @@
+<md-card>
+	<md-card-content>
+		<md-content>
+			<h1 style="font-weight: 300;">
+				{{zone.name | uppercase}}
+			</h1>
+
+			<!-- <p>
+        <md-divider></md-divider>
+      </p> -->
+			<ol class="breadcrumb" flex>
+				<li>
+					<a ui-sref="dashboard">Home</a>
+				</li>
+				<li>
+					<a ui-sref="zones">Zones</a>
+				</li>
+				<li class="active">{{zone.name | lowercase}}</li>
+			</ol>
+
+			<div flex layout="row">
+				<div flex="50">
+					<p>
+						Name#:
+						<strong>{{zone.name}}</strong>
+					</p>
+
+					<p>
+						Description:
+						<strong>{{zone.description}}</strong>
+					</p>
+
+				</div>
+			</div>
+
+			<!--<md-button class="md-primary  pull-right" ng-click="addPaymentDialog();" ng-show="$root.payment_create">-->
+
+<md-button class="md-primary  pull-right" ng-click="addMeterReaderDialog();">
+				Add Meter Reader
+			</md-button>
+
+
+			<div class="clearfix"></div>
+			<div class="alert alert-danger" ng-show="errorOccured" role="alert">
+				{{errorMsg}}
+			</div>
+
+			<!-- <md-tabs md-border-bottom md-selected="data.selectedIndex"> -->
+			<md-tabs md-border-bottom md-dynamic-height>
+				<md-tab label="Meter Readers">
+					<md-content>
+						<p>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>NAME</th>
+										<th>EMAIL ADDRESS</th>
+										<th>CREATED</th>
+										<!--<th>STATUS</th>-->
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="user in users ">
+										<td>{{user.firstName}} {{user.lastName}}</td>
+										<td>{{user.emailAddress}}</td>
+										<td>{{user.createdOn | date}}</td>
+										<!--<td>{{user.createdOn | date}}</td>										-->
+										<td align="right">
+											<md-button class="md-primary" ng-click="deleteMeterReaderDialog($index)">Remove</md-button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</p>
+					</md-content>
+				</md-tab>
+			</md-tabs>
+		</md-content>
+
+	</md-card-content>
+
+</md-card>
