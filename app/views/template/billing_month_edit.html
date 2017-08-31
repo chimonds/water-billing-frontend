@@ -1,33 +1,39 @@
 <md-dialog aria-label="brown" flex>
-  <md-content>
-    <md-subheader class="md-sticky-no-effect md-primary">Use this panel to open/close a billing date</md-subheader>
-    <div flex layout="column">
-      <md-content class="md-padding">
-        <form name="myForm.object">
+	<md-content>
+		<md-subheader class="md-sticky-no-effect md-primary">Use this panel to open/close a billing date</md-subheader>
+		<div flex layout="column">
+			<md-content class="md-padding">
+				<form name="myForm.object">
 
-          <md-input-container>
-            <label>Billing Date</label>
-            <input disabled="disabled" ng-model="form.billingDate | date">
-          </md-input-container>
+					<md-input-container>
+						<label>Billing Date</label>
+						<input disabled="disabled" ng-model="form.billingDate | date">
+					</md-input-container>
 
-          <md-input-container>
-            <md-checkbox aria-label="Is Open" class="md-primary" ng-model="form.isActive">
-              Open
-            </md-checkbox>
-          </md-input-container>
+					<md-input-container>
+						<md-checkbox aria-label="Is Open" class="md-primary" ng-model="form.meterReading">
+							Meter Reading
+						</md-checkbox>
+					</md-input-container>
 
-          <div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}</div>
-          <div class="md-actions" layout="row">
-            <span flex></span>
-            <md-button ng-click="cancel();">
-              Close
-            </md-button>
-            <md-button class="md-primary" ng-click="update(form);">
-              Update
-            </md-button>
-          </div>
-        </form>
-      </md-content>
-    </div>
-  </md-content>
+					<md-input-container>
+						<md-checkbox aria-label="Is Open" class="md-primary" ng-model="form.isActive">
+							Billing Month
+						</md-checkbox>
+					</md-input-container>
+
+					<div ng-class="errorClass" ng-show="showErrorInfo" role="alert">{{errorMsg}}</div>
+					<div class="md-actions" layout="row">
+						<span flex></span>
+						<md-button ng-click="cancel();">
+							Close
+						</md-button>
+						<md-button class="md-primary" ng-click="update(form);">
+							Update
+						</md-button>
+					</div>
+				</form>
+			</md-content>
+		</div>
+	</md-content>
 </md-dialog>

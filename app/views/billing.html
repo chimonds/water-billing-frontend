@@ -35,10 +35,6 @@
 														<h3>{{data.tariff.name}}</h3>
 													</td>
 												</tr>
-												<!--<tr>-->
-												<!--<td>Previous Reading</td>-->
-												<!--<td><h3>{{lastBill.currentReading | number}}</h3></td>-->
-												<!--</tr>-->
 												<tr>
 													<td>Average</td>
 													<td>
@@ -181,7 +177,7 @@
                               </span>
 													</td>
 													<td>
-														<md-input-container  ng-show="!billed">
+														<md-input-container ng-show="!billed">
 															<label>Transaction Date</label>
 															<input name="transactionDate" ng-model="form.transactionDate" type="date">
 														</md-input-container>
