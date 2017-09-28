@@ -1,51 +1,99 @@
-<md-card>
-<md-card-content>
+<!--<md-card>
+	<md-card-content>
+		<md-content>-->
+<md-subheader class="md-primary">Use this panel to manage meter readings
+	<span class="pull-right">{{totalMeterReadings}} Meter Readings</span>
+</md-subheader>
 <md-content>
-   <md-subheader class="md-primary">Use this panel to manage meter readings</md-subheader>
-   <md-content>
-      <div ng-show="errorOccured" class="alert alert-danger" role="alert">
-         {{errorMsg}}
-      </div>
-      <md-input-container flex class="md-default-theme">
-         <label for="input_041">Search</label>
-         <input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seachUsers()" class="ng-pristine ng-valid md-input ng-touched" tabindex="0" id="input_041" aria-invalid="false">
-      </md-input-container>
-      <table class="table table-hover">
-         <thead>
-            <tr>
-               <th>Created On</th>
-               <th>Added By</th>
-               <th>Account no#</th>
-               <th>Billing Month</th>
-               <th>Reading</th>
-               <th>Latitude</th>
-               <th>Longitude</th>
-               <th>View Location</th>
-               <th></th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr dir-paginate="reading in meterReadings | itemsPerPage: 10" total-items="totalMeterReadings" pagination-id="optionsPagination">
-               <td>{{reading.createdOn | date}}</td>
-                <td>{{reading.addedBy}}</td>
-               <td>{{reading.accNo}}</td>
-               <td>{{reading.billingMonth}}</td>
-               <td>{{reading.reading}}</td>
-               <td>{{reading.latitude}}</td>
-               <td>{{reading.longitude}}</td>
-               <td align="right">
-                 <a target="_blank" href="https://maps.google.com/maps?q={{reading.latitude}},{{reading.longitude}}+(Location)&amp;iwloc=A&amp;hl=en">View Map</a>
-                  <!-- <md-button  class="md-primary" ng-click="editOptionDialog($index)">Edit</md-button> -->
-               </td>
-            </tr>
-            <tr>
-               <td colspan="8" align="center">
-                  <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="optionsPagination"></dir-pagination-controls>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </md-content>
+	<div ng-show="errorOccured" class="alert alert-danger" role="alert">
+		{{errorMsg}}
+	</div>
+	<!--<md-input-container flex class="md-default-theme">
+		<label for="input_041">Search</label>
+		<input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seachUsers()" class="ng-pristine ng-valid md-input ng-touched"
+			tabindex="0" id="input_041" aria-invalid="false">
+	</md-input-container>-->
+
+
+	<md-card dir-paginate="reading in meterReadings | itemsPerPage: 1" total-items="totalMeterReadings" pagination-id="optionsPagination">
+		<md-card-content>
+			<md-content>
+				<table width="100%">
+					<!--<tr>
+						<td colspan="2" align="center">
+							<dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="optionsPagination"></dir-pagination-controls>
+						</td>
+					</tr>-->
+					<tr>
+						<td>
+							<table width="100%">
+								<tr>
+									<td>Created On <strong>{{reading.createdOn | date}}</strong></td>
+									<td align="right">Current Reading <strong>{{reading.currentReading}}</strong></td>
+								</tr>
+								<tr>
+									<td>Read By <strong>{{reading.readBy.emailAddress}}</strong></td>
+									<td align="right">Previous Reading <strong>{{reading.previousReading}}</strong></td>
+								</tr>
+								<tr>
+									<td>Read On <strong>{{reading.readOn | date:'medium'}}</strong></td>
+									<td align="right">Units Consumed <strong>{{reading.unitsConsumed}}</strong></td>
+								</tr>
+								<tr>
+									<td>Name <strong>{{reading.account.accName}}</strong></td>
+									<td align="right">Units Billed <strong>{{reading.unitsBilled}}</strong></td>
+								</tr>
+								<tr>
+									<td>Account# <strong>{{reading.account.accNo}}</strong></td>
+									<td align="right">Consumption <strong>{{reading.consumptionType}}</strong></td>
+								</tr>
+								<tr>
+									<td>Billing Month <strong>{{reading.billingMonth.month | date:'MMM yyyy'}}</strong></td>
+									<td align="right">Expected Bill Amount <strong>{{reading.amountBilled | number}}</strong></td>
+								</tr>
+
+								<tr>
+									<td>
+										<span ng-show="!reading.billed" style="padding:8px;background:#fff000;">Not Billed</span>
+										<span ng-show="reading.billed" style="padding:8px;background:#fff000;">Billed</span>										
+									</td>
+									<td align="right">
+										<md-button class="md-primary">
+											Manually Bill
+										</md-button>
+										<md-button class="md-primary md-raised">
+											Auto Bill
+										</md-button>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<hr/>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">
+							<span>
+								<img ng-show="!showImage" src="../images/loading.gif"/>
+							</span>
+							<span ng-show="showImage"  style="vertical-align: center;text-align: center;display: block; margin: 0 auto;">
+                    <img class="img-rounded" data-ng-src="data:image/png;base64,{{image}}"/>
+					  </span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="optionsPagination"></dir-pagination-controls>
+						</td>
+					</tr>
+				</table>
+			</md-content>
+		</md-card-content>
+	</md-card>
 </md-content>
-</md-card-content>
-</md-card>
+<!--</md-content>
+	</md-card-content>
+</md-card>-->

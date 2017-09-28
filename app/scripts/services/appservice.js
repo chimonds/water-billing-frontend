@@ -12,10 +12,10 @@
 
 app.service('appService', function ($http, $cookieStore) {
   //TEST -  comment this
-  var BASE_URL = 'http://localhost:9090/api/v1/';
+  //var BASE_URL = 'http://localhost:9090/api/v1/';
   //var BASE_URL = 'https://kimawasco.opentembo.io/simba/api/v1/';
-  //var BASE_URL = 'https://nolturesh.opentembo.io/simba/api/v1/';
-  //var BASE_URL = 'https://wowasco.opentembo.io/simba/api/v1/';
+  var BASE_URL = 'https://nolturesh.opentembo.io/simba/api/v1/';
+  // var BASE_URL = 'https://wowasco.opentembo.io/simba/api/v1/';
 
   var ROLES = 'roles';
   var PERMISSIONS = 'permissions';
@@ -132,6 +132,18 @@ app.service('appService', function ($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + METER_READINGS,
+      params: request,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+   this.getRemoteMeterReadingImage = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + METER_READINGS+'/getImage',
       params: request,
       headers: {
         'Content-Type': 'application/json'
@@ -1071,7 +1083,7 @@ app.service('appService', function ($http, $cookieStore) {
   this.createBillItemType = function (request) {
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + BILL_ITEM_TYPES,
+      url: BASE_URL + BILL_ITEM_TYPES+'/create',
       headers: {
         'Content-Type': 'application/json'
       },

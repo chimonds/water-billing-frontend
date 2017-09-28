@@ -141,13 +141,10 @@ app.controller('BillItemTypesCtrl', function ($scope, $http, appService, $cookie
         $scope.errorClass = config.cssAlertInfo;
         $scope.errorMsg = config.msgSendingData;
 
-
-
         var request = form;
 
-
         //send request
-        appService.createLocation(request).success(function (response) {
+        appService.createBillItemType(request).success(function (response) {
           $scope.errorOccured = false;
           $scope.errorClass = config.cssAlertSucess;
           $scope.errorMsg = response.message;
