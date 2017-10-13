@@ -12,9 +12,9 @@
 
 app.service('appService', function ($http, $cookieStore) {
   //TEST -  comment this
-  //var BASE_URL = 'http://localhost:9090/api/v1/';
+  var BASE_URL = 'http://localhost:9090/api/v1/';
   //var BASE_URL = 'https://kimawasco.opentembo.io/simba/api/v1/';
-  var BASE_URL = 'https://nolturesh.opentembo.io/simba/api/v1/';
+  //var BASE_URL = 'https://nolturesh.opentembo.io/simba/api/v1/';
   // var BASE_URL = 'https://wowasco.opentembo.io/simba/api/v1/';
 
   var ROLES = 'roles';
@@ -52,6 +52,7 @@ app.service('appService', function ($http, $cookieStore) {
   var APPROVAL_TASKS = 'tasks';
   var TASK_APPROVALS = 'taskApprovals';
   var METER_READERS = 'meterReaders';
+  var CHARGES = 'charges';
 
 
 
@@ -140,10 +141,10 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
-   this.getRemoteMeterReadingImage = function (request) {
+  this.getRemoteMeterReadingImage = function (request) {
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + METER_READINGS+'/getImage',
+      url: BASE_URL + METER_READINGS + '/getImage',
       params: request,
       headers: {
         'Content-Type': 'application/json'
@@ -530,6 +531,18 @@ app.service('appService', function ($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + ZONES + '/create',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
+  this.getCharges = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + CHARGES,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -929,6 +942,29 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.chargeAccount = function (request, accountId) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + CHARGES + '/create/' + accountId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+
+  this.deleteCharge = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + CHARGES + '/delete',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.deleteBill = function (request, billId) {
     return $http({
       method: POST_REQUEST,
@@ -1083,7 +1119,7 @@ app.service('appService', function ($http, $cookieStore) {
   this.createBillItemType = function (request) {
     return $http({
       method: POST_REQUEST,
-      url: BASE_URL + BILL_ITEM_TYPES+'/create',
+      url: BASE_URL + BILL_ITEM_TYPES + '/create',
       headers: {
         'Content-Type': 'application/json'
       },

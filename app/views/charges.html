@@ -1,0 +1,64 @@
+<md-card>
+	<md-card-content>
+		<md-content>
+			<md-subheader class="md-primary">Use this panel to manage bill charges</md-subheader>
+			<md-content>
+				<md-button ng-show="$root.bill_account" class="md-primary pull-right" ng-click="addCharge();">
+					Add Charge
+				</md-button>
+				<div class="clearfix"></div>
+				<div ng-show="errorOccured" class="alert alert-danger" role="alert">
+					{{errorMsg}}
+				</div>
+				<md-input-container flex class="md-default-theme">
+					<label for="input_041">Search</label>
+					<input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seach()" class="ng-pristine ng-valid md-input ng-touched"
+						tabindex="0" id="input_041" aria-invalid="false">
+				</md-input-container>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Created on</th>
+							<th>Account#</th>
+							<th>Name</th>
+							<th>Charges</th>
+							<th>Billing Month</th>
+							<th>Billed</th>
+							<th><span class="pull-right">{{totalRecords | number}} Charges</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr dir-paginate="charge in charges | itemsPerPage: 10" total-items="totalRecords" pagination-id="pagePagination">
+							<td>{{charge.createdOn | date}}</td>
+							<td>{{charge.account.accNo }}</td>
+							<td>{{charge.account.accName}}</td>
+							<td>
+
+								<span ng-repeat="billItem in charge.chargeItems">
+                        <span>
+                          {{billItem.billItemType.name}}:
+                          {{billItem.amount | number}}
+                        </span>
+								<br/>
+								</span>
+							</td>
+							<td>{{charge.billingMonth.month | date:'MMM yyyy'}}</td>
+							<td>
+								<span ng-show="charge.billed"><span style="color:green;">Yes</span></span>
+								<span ng-show="!charge.billed"><span style="color:orange;">Pending</span></span>
+							</td>
+							<td align="right">
+								<md-button ng-show="!charge.billed" class="md-primary" ng-click="removeDialog($index)">Remove</md-button>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="7" align="center">
+								<dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="pagePagination"></dir-pagination-controls>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</md-content>
+		</md-content>
+	</md-card-content>
+</md-card>

@@ -1,0 +1,230 @@
+<md-content>
+	<md-card>
+		<md-card-content>
+			<form name="myForm.object">
+				<table width="100%">
+					<tr>
+						<td valign="top" width="50%">
+							<div style="padding-right: 30px;">
+								<table width="100%">
+									<tr>
+										<td colspan="2">
+											<md-subheader class="md-primary">
+												Use this panel to charge accounts
+											</md-subheader>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<ol class="breadcrumb" flex>
+												<li>
+													<a ui-sref="dashboard">Home</a>
+												</li>
+												<li>
+													<a ui-sref="charges">Charges</a>
+												</li>
+												<li class="active">new</li>
+											</ol>
+										</td>
+									</tr>
+									<tr ng-show="accountFound">
+										<td colspan="2">
+											<h2>{{data.accName}}</h2>
+										</td>
+									</tr>
+									<tr ng-show="accountFound">
+										<td>
+											<!--Left table-->
+											<table>
+												<tr>
+													<td>Account no</td>
+													<td>
+														<h3>{{data.accNo}}</h3>
+													</td>
+												</tr>
+												<tr>
+													<td>Tariff</td>
+													<td>
+														<h3>{{data.tariff.name}}</h3>
+													</td>
+												</tr>
+												<tr>
+													<td>Average</td>
+													<td>
+														<h3>{{data.averageConsumption}}</h3>
+													</td>
+												</tr>
+												<tr>
+													<td>Status</td>
+													<td>
+														<h3>{{data.accountStatus}}</h3>
+													</td>
+												</tr>
+												<tr>
+													<td>Balance</td>
+													<td>
+														<h3>{{data.outstandingBalance | number}}</h3>
+													</td>
+												</tr>
+												<tr>
+													<td>Notes</td>
+													<td>
+														<h3>{{data.notes}}</h3>
+													</td>
+												</tr>
+											</table>
+										</td>
+										<td align="right">
+											<!--Right table here-->
+											<table cellspacing="4">
+												<tr>
+													<td>Last Bill Month</td>
+													<td align="right">
+														<h3>{{lastBill.billingMonth.month | date:'MMM, yyyy'}}</h3>
+													</td>
+												</tr>
+												<tr>
+													<td>Metered</td>
+													<td align="right">
+														<h3>{{data.metered}}</h3>
+													</td>
+												</tr>
+												<tr>
+													<td>Meter Owner</td>
+													<td align="right">
+														<h3>
+															{{data.meter.meterOwner.name}}
+														</h3>
+													</td>
+												</tr>
+												<tr>
+													<td>Meter Rent</td>
+													<td align="right">
+														<h3>{{data.meter.meterSize.rentAmount | number}}</h3>
+													</td>
+												</tr>
+
+												<tr>
+													<td>Billed this month</td>
+													<td align="right">
+														<h3>{{lastBill.billed}}</h3>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+						<td valign="top" width="50%">
+							<div style="padding-left: 30px; border-left: 1px solid #ccc;">
+								<table width="100%">
+									<tr>
+										<td align="right">
+											<md-subheader class="md-primary">
+												Billing Month: {{activeBillingMonth.month | date:'MMM, yyyy'}}
+											</md-subheader>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<table width=100%>
+												<!--Search box-->
+												<tr>
+													<td colspan="2">
+														<md-input-container class="md-default-theme">
+															<label for="input_041">Search account</label>
+															<input aria-invalid="false" class="ng-pristine ng-valid md-input ng-touched" id="input_041" maxlength="12" ng-change="searchAccount()"
+																ng-model="form.accNo" tabindex="0">
+														</md-input-container>
+													</td>
+												</tr>
+
+												<!--Alert box-->
+												<tr>
+													<td colspan="2">
+														<div ng-show="!searchingResults">
+															<div class="alert alert-danger" ng-show="error" role="alert">
+																{{message}}
+															</div>
+														</div>
+
+														<div ng-show="submittingBill">
+															<div ng-class="alert_css" role="alert">
+																{{message}}
+															</div>
+														</div>
+
+														<div class="alert alert-danger" ng-show="Accountbilled" role="alert">
+															Sorry account has already been billed for the month of
+															<h3>{{activeBillingMonth.month | date:'MMM, yyyy'}}</h3>
+															</button>
+														</div>
+													</td>
+												</tr>
+
+												<!-- Account found -->
+												<tr ng-show="accountFound">
+													<td>
+														<span ng-show="!billed">
+															<h1 class="money-color" style="font-weight: 200;">KES {{totalBilled+totalCharges | number}}</h1>
+                            </span>
+													</td>
+													<td align="right">
+														<span ng-show="!billed">
+															<md-button class="md-primary md-raised" ng-click="submit();">Save Charges</md-button>
+                            </span>
+													</td>
+												</tr>
+
+
+
+											</table>
+
+
+
+
+											<md-content flex style="padding:8px;">
+							</div>
+
+							<md-content ng-show="accountFound">
+								<md-content ng-show="!billed">
+									<div class="clearfix"></div>
+
+
+									<md-subheader class="md-primary">Charged</md-subheader>
+									<md-content>
+										<span class="label label-success pull-left" ng-click="removeCharge($index)" ng-repeat="charge in charged">
+                              {{charge.name | uppercase}}
+                              KES
+                              {{charge.amount | number}}
+                            </span>
+									</md-content>
+									<br/>
+									<md-divider></md-divider>
+
+									<md-subheader class="md-primary">Available Charges</md-subheader>
+									<md-content>
+										<span class="label label-danger pull-left" ng-click="addCharge($index)" ng-repeat="charge in charges">
+                              {{charge.name | uppercase}}
+                              KES
+                              {{charge.amount | number}}
+                            </span>
+
+									</md-content>
+
+								</md-content>
+							</md-content>
+
+							</md-content>
+							</td>
+							</tr>
+							</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</md-card-content>
+	</md-card>
+</md-content>

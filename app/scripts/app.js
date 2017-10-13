@@ -237,6 +237,22 @@ var app = angular
           requireLogin: true
         }
       })
+      .state('charges', {
+        url: '/charges',
+        templateUrl: 'views/charges.html',
+        controller: 'ChargesCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
+      .state('new-charges', {
+        url: '/charges/new',
+        templateUrl: 'views/template/charges_add.html',
+        controller: 'AddChargeCtrl',
+        data: {
+          requireLogin: true
+        }
+      })
       .state('billing', {
         url: '/billing',
         templateUrl: 'views/billing.html',
