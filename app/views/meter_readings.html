@@ -19,11 +19,6 @@
 		<md-card-content>
 			<md-content>
 				<table width="100%">
-					<!--<tr>
-						<td colspan="2" align="center">
-							<dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="optionsPagination"></dir-pagination-controls>
-						</td>
-					</tr>-->
 					<tr>
 						<td>
 							<table width="100%">
@@ -49,13 +44,17 @@
 								</tr>
 								<tr>
 									<td>Billing Month <strong>{{reading.billingMonth.month | date:'MMM yyyy'}}</strong></td>
-									<td align="right">Expected Bill Amount <strong>{{reading.amountBilled | number}}</strong></td>
+									<td align="right">Expected Consumption Amount <strong>{{reading.amountBilled | number}}</strong></td>
+								</tr>
+								<tr>
+									<td>Meter Owner <strong>{{reading.account.meter.meterOwner.name}}</strong></td>
+									<td align="right">Meter No. <strong>{{reading.account.meter.meterNo}}</strong></td>
 								</tr>
 
 								<tr>
 									<td>
 										<span ng-show="!reading.billed" style="padding:8px;background:#fff000;">Not Billed</span>
-										<span ng-show="reading.billed" style="padding:8px;background:#fff000;">Billed</span>										
+										<span ng-show="reading.billed" style="padding:8px;background:#fff000;">Billed</span>
 									</td>
 									<td align="right">
 										<md-button class="md-primary">
@@ -79,7 +78,7 @@
 							<span>
 								<img ng-show="!showImage" src="../images/loading.gif"/>
 							</span>
-							<span ng-show="showImage"  style="vertical-align: center;text-align: center;display: block; margin: 0 auto;">
+							<span ng-show="showImage" style="vertical-align: center;text-align: center;display: block; margin: 0 auto;">
                     <img class="img-rounded" data-ng-src="data:image/png;base64,{{image}}"/>
 					  </span>
 						</td>
