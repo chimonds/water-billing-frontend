@@ -141,6 +141,17 @@ app.service('appService', function ($http, $cookieStore) {
     });
   };
 
+  this.updateMeterReading = function (request, meterReadingId) {
+    return $http({
+      method: PUT_REQUEST,
+      url: BASE_URL + METER_READINGS + '/' + meterReadingId,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
   this.getRemoteMeterReadingImage = function (request) {
     return $http({
       method: POST_REQUEST,
@@ -324,6 +335,17 @@ app.service('appService', function ($http, $cookieStore) {
     return $http({
       method: POST_REQUEST,
       url: BASE_URL + METER_READERS + '/getZoneMeterReaders',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: angular.toJson(getPayload(request))
+    });
+  };
+
+    this.getMeterReaders = function (request) {
+    return $http({
+      method: POST_REQUEST,
+      url: BASE_URL + METER_READERS + '/getMeterReaders',
       headers: {
         'Content-Type': 'application/json'
       },

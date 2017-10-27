@@ -200,7 +200,7 @@
                       </span>
 										</td>
 										<td align="right">
-											<md-button class="md-primary" ng-click="transferBillDialog($index)" ng-show="$root.bill_transfer">Transfer</md-button>                      
+											<md-button class="md-primary" ng-click="transferBillDialog($index)" ng-show="$root.bill_transfer">Transfer</md-button>
 											<md-button class="md-primary" ng-click="deleteBillDialog($index)" ng-show="$root.bill_delete">Delete</md-button>
 										</td>
 									</tr>
@@ -261,6 +261,101 @@
 									</tr>
 								</tbody>
 							</table>
+						</p>
+					</md-content>
+				</md-tab>
+
+
+				<md-tab label="Meter Readings">
+
+					<md-content>
+						<p>
+
+							<div dir-paginate="reading in meterReadings | itemsPerPage: 1" total-items="totalMeterReadings" pagination-id="optionsPagination">
+								<md-card-content>
+									<md-content>
+										{{reading.createdOn}}
+										<table width="100%">
+											<tr>
+												<td>
+													<table width="100%">
+														<tr>
+															<td>Created On <strong>{{reading.createdOn | date}}</strong></td>
+															<td align="right">Current Reading <strong>{{reading.currentReading}}</strong></td>
+														</tr>
+														<tr>
+															<td>Read By <strong>{{reading.readBy.emailAddress}}</strong></td>
+															<td align="right">Previous Reading <strong>{{reading.previousReading}}</strong></td>
+														</tr>
+														<tr>
+															<td>Read On <strong>{{reading.readOn | date:'medium'}}</strong></td>
+															<td align="right">Units Consumed <strong>{{reading.unitsConsumed}}</strong></td>
+														</tr>
+														<tr>
+															<td>
+																<!--Name
+																<md-button ui-sref="account({ accountId: reading.account.accountId})">{{reading.account.accName}}</md-button>
+															-->
+															</td>
+															<td align="right">Units Billed <strong>{{reading.unitsBilled}}</strong></td>
+														</tr>
+														<tr>
+															<td>Account# <strong>{{reading.account.accNo}}</strong></td>
+															<td align="right">Consumption <strong>{{reading.consumptionType}}</strong></td>
+														</tr>
+														<tr>
+															<td>Billing Month <strong>{{reading.billingMonth.month | date:'MMM yyyy'}}</strong></td>
+															<td align="right">Expected Consumption Amount <strong>{{reading.amountBilled | number}}</strong></td>
+														</tr>
+														<tr>
+															<td>Meter Owner <strong>{{reading.account.meter.meterOwner.name}}</strong></td>
+															<td align="right">Meter No. <strong>{{reading.account.meter.meterNo}}</strong></td>
+														</tr>
+														<tr>
+															<td>
+
+																<span ng-show="reading.billed">Billed  <strong>{{reading.billedOn | date:'medium'}}</strong></span>
+															</td>
+															<td align="right">
+																<span ng-show="reading.billed">Billed By <strong>{{reading.billedBy.emailAddress}}</strong></span>
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<span ng-show="!reading.billed" style="padding:8px;background:#fff000;">Not Billed</span>
+																<span ng-show="reading.billed" style="padding:8px;background:#4CC339;color:#fff;">Billed</span>
+															</td>
+															<td align="right">
+																<!--<md-button ng-show="!reading.billed" class="md-primary" ng-click="editDialog($index)">Edit</md-button>-->
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<hr/>
+												</td>
+											</tr>
+											<tr>
+												<td align="center">
+													<span>
+								<img ng-show="!showImage" src="../images/loading.gif"/>
+							</span>
+													<span ng-show="showImage" style="vertical-align: center;text-align: center;display: block; margin: 0 auto;">
+                    <img class="img-rounded" data-ng-src="data:image/png;base64,{{image}}"/>
+					  </span>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" align="center">
+													<dir-pagination-controls on-page-change="pageChanged(newPageNumber)" pagination-id="optionsPagination"></dir-pagination-controls>
+												</td>
+											</tr>
+										</table>
+									</md-content>
+								</md-card-content>
+							</div>
 						</p>
 					</md-content>
 				</md-tab>

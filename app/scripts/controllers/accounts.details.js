@@ -445,4 +445,63 @@ app.controller('AccountsDetailCtrl', function ($scope, $http, appService, $cooki
     };
   };
 
+  $scope.getMeterReadingsPage = function (newPage) {
+    newPage--;
+    var request ={};
+    request.page = newPage;
+    request.size = 1;
+    request.accountId=$scope.accountId;
+
+
+    //set search filter
+
+    $scope.showImage = false;
+
+    //send request
+    appService.getRemoteMeterReadings(request).success(function (response) {
+      $scope.errorOccured = false;
+      $scope.meterReadings = response.payload.content;
+      
+      $scope.totalMeterReadings = response.payload.totalElements; //to change this
+
+      var meterReading = response.payload.content[0];
+      $scope.getImageData(meterReading);
+
+      //$state.go('settings');
+    }).error(function (data, status) {
+      if (status === 401) {
+        $state.go('session');
+        $scope.message = data.message;
+      } else {
+        $scope.errorOccured = true;
+        $scope.errorMsg = data.message;
+        $scope.meterReadings = {};
+        $scope.totalMeterReadings = 0;
+        //$state.go('settings');
+      }
+    });
+  };
+
+
+  $scope.getImageData = function (meterReading) {
+    var request = {};
+    request.meterReadingId = meterReading.meterReadingId;
+    appService.getRemoteMeterReadingImage(request).success(function (response) {
+      $scope.errorOccured = false;
+      $scope.image = response.payload;
+      $scope.showImage = true;
+    }).error(function (data, status) {
+      if (status === 401) {
+        $state.go('session');
+        $scope.message = data.message;
+      } else {
+        $scope.errorOccured = true;
+        $scope.errorMsg = data.message;
+        //$state.go('settings');
+      }
+    });
+  };
+
+  $scope.getMeterReadingsPage(1);
+
 });

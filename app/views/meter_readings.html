@@ -8,6 +8,61 @@
 	<div ng-show="errorOccured" class="alert alert-danger" role="alert">
 		{{errorMsg}}
 	</div>
+
+	<form name="myForm.object">
+		<div layout-align="space-between center" layout-sm="column" layout="row">
+
+			<!--Billing month-->
+			<md-input-container>
+				<label>Billing Month</label>
+				<md-select ng-model="form.billingMonthId">
+					<md-option ng-repeat="m in billingMonths" value="{{m.billingMonthId}}">
+						{{m.month | date:'MMM, yyyy'}}
+					</md-option>
+				</md-select>
+			</md-input-container>
+
+			<!-- Scheme -->
+			<md-input-container>
+				<label>Scheme</label>
+				<md-select ng-change="getSchemeZones()" ng-model="form.schemeId">
+					<md-option ng-repeat="scheme in schemes" value="{{scheme.schemeId}}">
+						{{scheme.name}}
+					</md-option>
+				</md-select>
+			</md-input-container>
+
+			<!--Zones-->
+			<md-input-container>
+				<label>Zone</label>
+				<md-select ng-model="form.zoneId">
+					<md-option ng-repeat="zone in zones" value="{{zone.zoneId}}">
+						{{zone.name}}
+					</md-option>
+				</md-select>
+			</md-input-container>
+
+
+			<!--Billing month-->
+			<md-input-container>
+				<label>Meter Reader</label>
+				<md-select ng-model="form.userId">
+					<md-option ng-repeat="u in users" value="{{u.userId}}">
+						{{u.emailAddress}}
+					</md-option>
+				</md-select>
+			</md-input-container>
+
+			<!--Account Number-->
+			<md-input-container>
+				<label>Search Text</label>
+				<input type="text" ng-model="form.filter">
+			</md-input-container>
+
+			<md-button ng-click="generate(form)">Submit</md-button>
+		</div>
+	</form>
+
 	<!--<md-input-container flex class="md-default-theme">
 		<label for="input_041">Search</label>
 		<input ng-init="contactsGroupFilter = {}" ng-model="searchFilter.text" ng-change="seachUsers()" class="ng-pristine ng-valid md-input ng-touched"
@@ -35,7 +90,9 @@
 									<td align="right">Units Consumed <strong>{{reading.unitsConsumed}}</strong></td>
 								</tr>
 								<tr>
-									<td>Name <strong>{{reading.account.accName}}</strong></td>
+									<td>Name
+										<md-button ui-sref="account({ accountId: reading.account.accountId})">{{reading.account.accName}}</md-button>
+									</td>
 									<td align="right">Units Billed <strong>{{reading.unitsBilled}}</strong></td>
 								</tr>
 								<tr>
@@ -50,19 +107,22 @@
 									<td>Meter Owner <strong>{{reading.account.meter.meterOwner.name}}</strong></td>
 									<td align="right">Meter No. <strong>{{reading.account.meter.meterNo}}</strong></td>
 								</tr>
+								<tr>
+									<td>
 
+										<span ng-show="reading.billed">Billed  <strong>{{reading.billedOn | date:'medium'}}</strong></span>
+									</td>
+									<td align="right">
+										<span ng-show="reading.billed">Billed By <strong>{{reading.billedBy.emailAddress}}</strong></span>
+									</td>
+								</tr>
 								<tr>
 									<td>
 										<span ng-show="!reading.billed" style="padding:8px;background:#fff000;">Not Billed</span>
-										<span ng-show="reading.billed" style="padding:8px;background:#fff000;">Billed</span>
+										<span ng-show="reading.billed" style="padding:8px;background:#4CC339;color:#fff;">Billed</span>
 									</td>
 									<td align="right">
-										<md-button class="md-primary">
-											Manually Bill
-										</md-button>
-										<md-button class="md-primary md-raised">
-											Auto Bill
-										</md-button>
+										<md-button ng-show="!reading.billed" class="md-primary" ng-click="editDialog($index)">Edit</md-button>
 									</td>
 								</tr>
 							</table>

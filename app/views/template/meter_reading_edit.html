@@ -1,0 +1,78 @@
+<md-dialog aria-label="Edit User Role" flex="50">
+	<md-content>
+		<md-subheader class="md-sticky-no-effect md-primary">Use this panel to edit meter reading</md-subheader>
+		<div flex layout="column">
+			<md-content class="md-padding">
+				<table width="100%">
+					<tr>
+						<td>Created On <strong>{{reading.createdOn | date}}</strong></td>
+						<td align="right">Current Reading <strong>{{reading.currentReading}}</strong></td>
+					</tr>
+					<tr>
+						<td>Read By <strong>{{reading.readBy.emailAddress}}</strong></td>
+						<td align="right">Previous Reading <strong>{{reading.previousReading}}</strong></td>
+					</tr>
+					<tr>
+						<td>Read On <strong>{{reading.readOn | date:'medium'}}</strong></td>
+						<td align="right">Units Consumed <strong>{{reading.unitsConsumed}}</strong></td>
+					</tr>
+					<tr>
+						<td>Name
+							<md-button ui-sref="account({ accountId: reading.account.accountId})">{{reading.account.accName}}</md-button>
+						</td>
+						<td align="right">Units Billed <strong>{{reading.unitsBilled}}</strong></td>
+					</tr>
+					<tr>
+						<td>Account# <strong>{{reading.account.accNo}}</strong></td>
+						<td align="right">Consumption <strong>{{reading.consumptionType}}</strong></td>
+					</tr>
+					<tr>
+						<td>Billing Month <strong>{{reading.billingMonth.month | date:'MMM yyyy'}}</strong></td>
+						<td align="right">Expected Consumption Amount <strong>{{reading.amountBilled | number}}</strong></td>
+					</tr>
+					<tr>
+						<td>Meter Owner <strong>{{reading.account.meter.meterOwner.name}}</strong></td>
+						<td align="right">Meter No. <strong>{{reading.account.meter.meterNo}}</strong></td>
+					</tr>
+					<tr>
+						<td>
+
+							<span ng-show="reading.billed">Billed  <strong>{{reading.billedOn | date:'medium'}}</strong></span>
+						</td>
+						<td align="right">
+							<span ng-show="reading.billed">Billed By <strong>{{reading.billedBy.emailAddress}}</strong></span>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<br/>
+
+				<form name="myForm.object">
+					<md-input-container>
+						<label>Current Reading</label>
+						<input md-maxlength="30" name="currentReading" ng-model="form.currentReading" required>
+						<div ng-messages="myForm.object.currentReading.$error">
+							<div ng-message="required">This is required.</div>
+							<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+						</div>
+					</md-input-container>
+					<div ng-show="errorOccured" ng-class="errorClass" role="alert">{{errorMsg}}</div>
+
+					<button aria-label="Close" class="close" data-dismiss="alert" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
+		</div>
+		<div class="md-actions" layout="row">
+			<span flex></span>
+			<md-button ng-click="cancel();">
+				Close
+			</md-button>
+			<md-button class="md-primary" ng-click="update(form);">
+				Update
+			</md-button>
+		</div>
+		</form>
+		</md-content>
+		</div>
+	</md-content>
+</md-dialog>
